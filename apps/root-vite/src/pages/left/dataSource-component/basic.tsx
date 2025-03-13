@@ -3,7 +3,7 @@ import * as Materials from 'component-ui';
 import {
   ButtonSettings,
   FormComponentSettings,
-  InnerFormSettings,
+  // InnerFormSettings,
   TableComponentSettings,
   TabSettings
 } from '@brushes/component-setting';
@@ -28,19 +28,19 @@ const basic : Array<TypeComponent> = [
       },
     }
   },
-  {
-    name: '表单控件',
-    icon: 'icon-text',
-    Component: Materials['InnerFormComponent'],
-    setting: {
-      props: {
-        formConfig: [],
-      },
-      related: {
-        settings: InnerFormSettings,
-      },
-    }
-  },
+  // {
+  //   name: '表单控件',
+  //   icon: 'icon-text',
+  //   Component: Materials['InnerFormComponent'],
+  //   setting: {
+  //     props: {
+  //       formConfig: [],
+  //     },
+  //     related: {
+  //       settings: InnerFormSettings,
+  //     },
+  //   }
+  // },
   {
     name: '表格',
     icon: 'icon-caozuojilu',

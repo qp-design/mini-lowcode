@@ -11,7 +11,6 @@ body {
   display: grid;
   grid-column-gap: 15px;
   grid-template-columns: 300px 1fr 400px;
-  .root-container{ min-height: 500px; border: 1px solid #f0f0f0; border-radius: 4px; }
   .container{ overflow-x: hidden}
   .component-list{
     display: grid;

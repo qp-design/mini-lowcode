@@ -12,25 +12,25 @@ export default defineConfig({
       open: true
     }) as PluginOption,
     react(),
-    importToCDN({
-      modules: [
-        {
-          name: 'antd',
-          var: 'Antd',
-          path: 'https://cdn.staticfile.org/antd/5.9.0/antd.min.js',
-        },
-        {
-          name: 'react',
-          var: 'React',
-          path: 'https://cdn.staticfile.org/react/18.2.0/umd/react.production.min.js',
-        },
-        {
-          name: 'react-dom',
-          var: 'ReactDOM',
-          path: 'https://cdn.staticfile.org/react-dom/18.2.0/umd/react-dom.production.min.js',
-        },
-      ],
-    })
+    // importToCDN({
+    //   modules: [
+    //     {
+    //       name: 'antd',
+    //       var: 'Antd',
+    //       path: 'https://cdn.staticfile.org/antd/5.9.0/antd.min.js',
+    //     },
+    //     {
+    //       name: 'react',
+    //       var: 'React',
+    //       path: 'https://cdn.staticfile.org/react/18.2.0/umd/react.production.min.js',
+    //     },
+    //     {
+    //       name: 'react-dom',
+    //       var: 'ReactDOM',
+    //       path: 'https://cdn.staticfile.org/react-dom/18.2.0/umd/react-dom.production.min.js',
+    //     },
+    //   ],
+    // })
   ],
   optimizeDeps: {
     exclude: lifecycle === 'dev' ? null : ['react', 'react-dom'],

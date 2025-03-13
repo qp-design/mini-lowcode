@@ -4,6 +4,7 @@ import {useMemo} from 'react';
 import { clone, has, omit } from 'lodash-es';
 import { changeCode } from '../tool/changeCode';
 
+
 export const HOCCodeWrapComponent = (Component: any) : UserComponent => {
   return (props:any) => {
     const {
@@ -23,7 +24,7 @@ export const HOCCodeWrapComponent = (Component: any) : UserComponent => {
 
     return (
       <ErrorBoundary fallback={<div>Something went wrong</div>}>
-        <Component {...newProps} ref={(ref: HTMLDivElement) => connect(drag(ref))}/>
+          <Component {...newProps} ref={(ref: HTMLDivElement) => connect(drag(ref))}/>
       </ErrorBoundary>
     )
   }

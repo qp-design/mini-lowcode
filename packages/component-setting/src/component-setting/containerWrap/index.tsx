@@ -3,7 +3,7 @@ import {basicSettings, formConfigType} from '@brushes/component-core';
 
 const containerField: FieldType[] = [
   {
-    label: '1背景色',
+    label: '背景色',
     name: 'background',
     type: 'color',
     extraProps: {
@@ -24,7 +24,7 @@ const containerField: FieldType[] = [
     name: 'height',
     type: 'number',
     extraProps: {
-      suffix: 'px',
+      suffix: 'vh',
     }
   },
   {
@@ -32,7 +32,7 @@ const containerField: FieldType[] = [
     name: 'width',
     type: 'number',
     extraProps: {
-      suffix: '%',
+      suffix: 'vw',
     }
   }
 ]
@@ -43,4 +43,4 @@ const baseFormField: formConfigType[] = [
     formFields: containerField
   }
 ]
-export const ContainerSettings = basicSettings(baseFormField)
+export const ContainerWrapSettings = basicSettings(baseFormField)

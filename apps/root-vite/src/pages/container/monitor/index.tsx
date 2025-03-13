@@ -1,15 +1,16 @@
 import { Frame, Element } from '@craftjs/core';
 import { Topbar } from '../components/Topbar';
-import { Container } from '@brushes/component-core';
-import { ContainerSettings } from '@brushes/component-setting'
+import { ContainerWrap} from '@brushes/component-core';
+import {ContainerWrapSettings} from "@brushes/component-setting";
 
-Container.craft = {
+ContainerWrap.craft = {
   props: {
     width: '100',
+    height: '100',
     background: '#fff'
   },
   related: {
-    settings: ContainerSettings,
+    settings: ContainerWrapSettings,
   },
 }
 export default function App() {
@@ -27,7 +28,7 @@ export default function App() {
           <Element
             className={'root-container'}
             canvas
-            is={Container}
+            is={ContainerWrap}
             padding={5}
             background="rgba(0, 0, 0, 0.02)"
             data-cy="root-container"

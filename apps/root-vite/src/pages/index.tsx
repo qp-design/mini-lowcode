@@ -2,7 +2,7 @@ import Left from './left'
 import Right from './right'
 import ContainerMonitor from './container';
 import * as Materials from 'component-ui';
-import { Container, LayoutComponent, SlotEmpty } from '@brushes/component-core';
+import {Container, ContainerWrap, SlotEmpty} from '@brushes/component-core';
 import {
   Editor,
 } from '@craftjs/core'
@@ -23,7 +23,7 @@ const Wrap = () => {
       resolver={{
         ...Materials,
         SlotEmpty,
-        LayoutComponent,
+        ContainerWrap,
         Container,
       }}>
       <EditorMode/>

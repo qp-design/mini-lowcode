@@ -1,12 +1,35 @@
 import {QjIcon} from '@brushes/share-resource';
 import {Watermark} from 'antd';
+import { createStyles } from 'antd-style';
+
+const useStyle = createStyles(({ token, css }) => {
+    return {
+        defaultWrap: css`
+            border: dashed 1px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            text-align: center;
+            border-radius: ${token.borderRadius}px;
+            height: calc(100% - 30px);
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            color: ${token.colorTextLabel};
+            p {
+                margin-top: 10px;
+                font-size: 12px;
+            }
+        }`
+    };
+});
 
 export const DefaultJsx = ({text = '内容放置区域'}: {text?: string}) => {
+    const { styles } = useStyle();
   return (
-    <div className='default-common'>
+    <div className={styles.defaultWrap}>
       <QjIcon
         style={{
-          fontSize: 30,
+          fontSize: 50,
           fontWeight: 500,
           display: 'block',
           color: '#bbb'

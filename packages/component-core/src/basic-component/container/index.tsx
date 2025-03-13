@@ -1,17 +1,11 @@
 import {HOCCodeWrapComponent} from '../../tool';
-import React, {ReactNode, useEffect} from 'react';
+import React, {ReactNode} from 'react';
 import {DefaultJsx} from '../default';
 import {useEditor} from '@craftjs/core';
-import {Provider, useStore, WrapReactQuery} from 'component-store';
+import {Provider} from 'component-store';
+import {Resizer} from "../resizer";
 
-const Inner = ({children, enabled, api}: { api: string; enabled: boolean; children: ReactNode }) => {
-  const [, setApi] = useStore(state => state['queryApi']);
-  useEffect(() => {
-    setApi({
-      queryApi: api
-    });
-  }, [api])
-  console.log(322, children);
+const Inner = ({children, enabled}: { enabled: boolean; children: ReactNode }) => {
 
   return <>{children ? children : enabled ? <DefaultJsx/> : ''}</>
 }
@@ -19,10 +13,10 @@ const Inner = ({children, enabled, api}: { api: string; enabled: boolean; childr
 const ContainerJsx = React.forwardRef(
   ({
      background,
-     api,
      padding,
      width,
      children,
+     height,
      ...props
    }: any, connect) => {
     const {enabled} = useEditor(
@@ -31,29 +25,59 @@ const ContainerJsx = React.forwardRef(
       }));
 
     return (
-      <WrapReactQuery>
-        <Provider>
-          <div
+        <Resizer>
+        <div
             {...props}
             ref={connect}
             style={{
               padding: `${padding}px`,
+              height: height,
               background, width: `calc(${width}% - ${2 * padding}px)`
             }}
           >
-            <Inner enabled={enabled} api={api}>
+            <Inner enabled={enabled}>
                { children ? React.cloneElement(children, props) : children }
-              {/*{children}*/}
             </Inner>
-            {/*{*/}
-            {/*  enabled && React.createElement('div', {*/}
-            {/*    style: { height: 20, background: '#efefef'}*/}
-            {/*  }, '')*/}
-            {/*}*/}
           </div>
-        </Provider>
-      </WrapReactQuery>
+        </Resizer>
     );
   });
 
+const ContainerWrapJsx = React.forwardRef(
+    ({
+         background,
+         padding,
+         width,
+         children,
+         height,
+         ...props
+     }: any, connect) => {
+
+        const {enabled} = useEditor(
+            (state) => ({
+                enabled: state.options.enabled,
+            }));
+
+        return (
+            <Provider>
+                <div
+                    {...props}
+                    ref={connect}
+                    style={{
+                        padding: `${padding}px`,
+                        height: `calc(${height}vh - ${2 * padding}px - 140px)`,
+                        background,
+                        width: `calc(${width}% - ${2 * padding}px)`
+                    }}
+                >
+                    <Inner enabled={enabled}>
+                        { children ? React.cloneElement(children, props) : children }
+                    </Inner>
+                </div>
+            </Provider>
+        );
+    });
+
 export const Container = HOCCodeWrapComponent(ContainerJsx);
+
+export const ContainerWrap = HOCCodeWrapComponent(ContainerWrapJsx);

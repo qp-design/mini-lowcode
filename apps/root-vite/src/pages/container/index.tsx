@@ -4,7 +4,7 @@ const ContainerMonitor = () => {
 
   return (
     <Card size="small" title="操作区域" style={{ width: "100%" }}>
-      <Monitor/>
+        <Monitor/>
     </Card>
   )
 }
