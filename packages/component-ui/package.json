@@ -1,0 +1,29 @@
+{
+  "name": "component-ui",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc -w",
+    "lint": "eslint .",
+    "generate:component": "turbo gen react-component"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^1.10.12",
+    "@types/node": "^20.5.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint-config-custom": "*",
+    "react": "^18.2.0",
+    "tsconfig": "*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@brushes/component-core": "*",
+    "@brushes/component-setting": "*",
+    "@brushes/form": "^0.1.4",
+    "@tanstack/react-query": "^5.13.4",
+    "antd": "^5.11.2",
+    "component-store": "*"
+  }
+}

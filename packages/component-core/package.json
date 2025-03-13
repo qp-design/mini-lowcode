@@ -1,0 +1,27 @@
+{
+  "name": "@brushes/component-core",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc -w",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint-config-custom": "*",
+    "react": "^18.2.0",
+    "tsconfig": "*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@babel/standalone": "^7.23.7",
+    "@brushes/form": "^0.1.4",
+    "@craftjs/core": "^0.2.2",
+    "antd": "^5.11.2",
+    "lodash-es": "^4.17.21",
+    "react-error-boundary": "^4.0.11"
+  }
+}

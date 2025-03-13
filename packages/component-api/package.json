@@ -1,0 +1,22 @@
+{
+  "name": "component-api",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc -w",
+    "lint": "eslint .",
+    "generate:component": "turbo gen react-component"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^1.10.12",
+    "@types/node": "^20.5.2",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@brushes/optimize": "^1.0.5",
+    "@brushes/utils": "^0.2.8"
+  }
+}

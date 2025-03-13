@@ -1,17 +1,23 @@
 {
   "private": true,
   "scripts": {
+    "stop": "kill-port --port 8181,8123",
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "start": "turbo run dev",
+    "dev": "turbo run dev --filter=root-vite --filter=./packages/*",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint": "^8.48.0",
+    "kill-port": "^2.0.1",
     "prettier": "^3.0.3",
-    "tsconfig": "workspace:*",
+    "tsconfig": "*",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@8.9.0",
-  "name": "low-code-platform"
+  "packageManager": "yarn@1.22.19",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

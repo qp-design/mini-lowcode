@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<filled-circle color="blue"></filled-circle>
+
+
+<script>
+  class FilledCircle extends HTMLElement {
+    constructor() {
+      super();
+    }
+    connectedCallback() {
+      // 创建一个影子根
+      // 自定义元素自身是影子宿主
+      const shadow = this.attachShadow({ mode: "open" });
+
+      // 创建内部实现
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      const circle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle",
+      );
+      circle.setAttribute("cx", "50");
+      circle.setAttribute("cy", "50");
+      circle.setAttribute("r", "50");
+      circle.setAttribute("fill", this.getAttribute("color"));
+      svg.appendChild(circle);
+
+      shadow.appendChild(svg);
+    }
+  }
+
+  customElements.define("filled-circle", FilledCircle);
+
+</script>
+</body>
+</html>

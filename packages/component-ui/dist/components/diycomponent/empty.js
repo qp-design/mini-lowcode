@@ -1,0 +1,19 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+import { Typography } from 'antd';
+export const SlotEmpty = ({ children }) => {
+    console.log('7====>', children);
+    return (_jsx("div", { style: {
+            height: '100%',
+            width: '100%',
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+            borderWidth: 1,
+            borderStyle: 'dashed',
+            fontSize: 12,
+            textAlign: 'center',
+            fontWeight: 'normal',
+            background: 'rgba(255,255,255, 0.2)'
+        }, children: _jsx(Typography.Text, { type: "secondary", children: children }) }));
+};
+SlotEmpty.defaultProps = {
+    children: '当前为插槽容器，拖左边组件进入插槽。'
+};
