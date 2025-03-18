@@ -10,6 +10,11 @@ const dataFormField: FieldType[] = [
         type: 'number',
     },
     {
+        label: '宽度',
+        name: 'width',
+        type: 'number',
+    },
+    {
         label: '高度',
         name: 'height',
         type: 'number',

@@ -23,7 +23,7 @@ export const PictureJsx = ({
     queryImpl,
     onChange
   } = usePicture(name + '', {
-    fileCtype: fileType === 'picture' ? 'png,jpg,jpeg' : 'mp4,ogg'
+    fileCtype: fileType === 'picture' ? 'png,jpg,jpeg,svg' : 'mp4,ogg'
   });
 
   return (

@@ -29,12 +29,12 @@ const ContainerJsx = React.forwardRef(
         const {
             connectors: {connect, drag},
         } = useNode();
-
+        console.log(32, `${marginTop} ${margin} ${marginBottom}`)
         return (
             <div
                 ref={(ref: HTMLDivElement) => connect(drag(ref))}
                 style={{
-                    margin: `${marginTop} ${margin} ${marginBottom}`,
+                    margin: `${marginTop}px ${margin} ${marginBottom}px`,
                     display: "flex",
                     boxSizing: 'border-box',
                     ...props,

@@ -28,7 +28,7 @@ const useStyle = createStyles(({token, css}) => {
     return {
     tipInfo: css`
         width: 100%;
-        height: 180px;
+        height: 190px;
         background: linear-gradient(
                 148deg,
                 rgba(9, 82, 229, 0.1) 1%,
