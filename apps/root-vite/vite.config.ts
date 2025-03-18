@@ -39,6 +39,7 @@ export default defineConfig({
     'process.env.REACT_APP_BASE_URL': `"https://b2bopte59063d8bf45406b8e0b088d3a9b1633.saas.qjclouds.com/"`,
     'process.env.REACT_APP_SESSION_VALUE_KEY': `"saas-token"`,
     'process.env.REACT_APP_SESSION_KEY': `"saas-token"`,
+    'process.env.REACT_IMG_PATH': '"paas/shop/"'
   },
   resolve: {
     alias: {

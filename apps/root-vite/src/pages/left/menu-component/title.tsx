@@ -3,7 +3,7 @@ import { Divider } from 'antd';
 const Title = ({ title}: {title: string} ) => {
   return (
     <>
-      <Divider orientation="left">{title}</Divider>
+      <Divider style={{fontSize:14}} orientation="left">{title}</Divider>
     </>
   )
 }

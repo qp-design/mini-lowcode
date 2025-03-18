@@ -9,6 +9,11 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: '11按钮',
+    name: '1text',
+    type: 'text',
+  },
+  {
     label: '按钮类型',
     name: 'type',
     type: 'select',

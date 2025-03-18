@@ -1,14 +1,10 @@
-import {HOCCodeWrapComponent} from '@brushes/component-core';
 import {Button} from 'antd';
-import React, {ForwardedRef} from 'react';
 
-
-const ButtonJsx =
-  React.forwardRef(({text, ...restProps}: { text: string}, ref: ForwardedRef<HTMLDivElement>) => {
+export const Button2 = ({text, ...restProps}: { text: string}) => {
+  console.log(4, restProps, text);
   return (
-    <Button ref={ref} {...restProps}>{text}</Button>
+    <Button {...restProps}>{text}</Button>
   )
-})
+}
 
-export const ButtonComponent = HOCCodeWrapComponent(ButtonJsx)
 

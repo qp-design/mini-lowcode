@@ -33,5 +33,3 @@ export const AddButton: FC<AddButtonProps> = (
     </Button>
   );
 };
-
-export default AddButton;

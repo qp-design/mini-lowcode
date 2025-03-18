@@ -7,7 +7,7 @@ ContainerWrap.craft = {
   props: {
     width: '100',
     height: '100',
-    background: '#fff'
+    background: 'rgba(0, 0, 0, 0.02)'
   },
   related: {
     settings: ContainerWrapSettings,
@@ -29,8 +29,6 @@ export default function App() {
             className={'root-container'}
             canvas
             is={ContainerWrap}
-            padding={5}
-            background="rgba(0, 0, 0, 0.02)"
             data-cy="root-container"
           >
           </Element>

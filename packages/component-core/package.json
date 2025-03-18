@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@babel/standalone": "^7.23.7",
-    "@brushes/form": "^0.1.4",
+    "@brushes/form": "^1.2.3",
     "@craftjs/core": "^0.2.2",
     "antd": "^5.11.2",
     "lodash-es": "^4.17.21",

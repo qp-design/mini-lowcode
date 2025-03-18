@@ -6,10 +6,10 @@ const useStyle = createStyles(({ token, css }) => {
     return {
         defaultWrap: css`
             border: dashed 1px rgba(0, 0, 0, 0.15);
-            padding: 12px;
+            width: 100%;
             text-align: center;
             border-radius: ${token.borderRadius}px;
-            height: calc(100% - 30px);
+            height: 100%;
             justify-content: center;
             align-items: center;
             display: flex;

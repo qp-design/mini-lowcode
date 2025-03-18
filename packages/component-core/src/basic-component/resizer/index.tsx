@@ -21,8 +21,8 @@ const Indicators = styled.div<{ $bound?: 'row' | 'column' }>`
   pointer-events: none;
   span {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     background: #fff;
     border-radius: 100%;
     display: block;
@@ -60,7 +60,7 @@ const Indicators = styled.div<{ $bound?: 'row' | 'column' }>`
           ? props.$bound === 'row'
             ? `
                 left: 50%;
-                bottom: -5px;
+                bottom: -3px;
                 transform:translateX(-50%);
               `
             : `
@@ -70,11 +70,11 @@ const Indicators = styled.div<{ $bound?: 'row' | 'column' }>`
               `
           : `
               left: -5px;
-              bottom:-5px;
+              bottom:-3px;
             `}
     }
     &:nth-child(4) {
-      bottom: -5px;
+      bottom: -3px;
       right: -5px;
       display: ${(props) => (props.$bound ? 'none' : 'block')};
     }
@@ -194,6 +194,7 @@ export const Resizer = ({ propKey = { width: 'width', height: 'height' }, childr
         acc[key] = active && inNodeContext;
         return acc;
       }, {})}
+      style={{margin: '0 auto'}}
       className={cx([
         {
           'm-auto': isRootNode,

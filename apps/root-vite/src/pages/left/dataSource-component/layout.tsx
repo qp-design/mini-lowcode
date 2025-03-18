@@ -10,9 +10,13 @@ const layout: Array<TypeComponent> = [
     isCanvas: true,
     setting: {
       props: {
-        width: '100%',
+        width: 1200,
+        margin: 'auto',
+        marginBottom: 20,
         height: 'auto',
-        background: '#fff'
+        backgroundImage: '',
+        background: '#fff',
+        flexDirection: 'row'
       },
       related: {
         settings: ContainerSettings,

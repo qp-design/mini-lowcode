@@ -1,24 +1,41 @@
 import Left from './left'
 import Right from './right'
 import ContainerMonitor from './container';
-import * as Materials from 'component-ui';
+import { ThemeProvider } from 'antd-style';
+
+import Materials from 'component-ui';
 import {Container, ContainerWrap, SlotEmpty} from '@brushes/component-core';
 import {
-  Editor,
+    Editor, useEditor,
 } from '@craftjs/core'
 
 const EditorMode = () => {
+    const {enabled} = useEditor(
+        (state) => ({
+            enabled: state.options.enabled,
+        }));
+    if(!enabled) {
+        return <ContainerMonitor/>;
+    }
   return (
     <div className={'wrap'}>
       <div className={'left bg-white dark:bg-black'}><Left/></div>
-      <div className={'container'}><ContainerMonitor/></div>
+       <div className={'container'}><ContainerMonitor/></div>
       <div className={'right'}><Right/></div>
     </div>
   )
 }
-console.log(19, Materials);
 const Wrap = () => {
   return (
+      <ThemeProvider
+          // 可以和 CP 一样直接传入 theme 对象
+          theme={{
+              token: {
+                  // colorPrimary: 'green',
+              },
+          }}
+      >
+
     <Editor
       resolver={{
         ...Materials,
@@ -28,6 +45,7 @@ const Wrap = () => {
       }}>
       <EditorMode/>
     </Editor>
+      </ThemeProvider>
   )
 }
 

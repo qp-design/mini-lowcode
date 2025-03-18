@@ -16,7 +16,7 @@ const List = ({componentList}: {componentList: Array<TypeComponent>}) => {
             className={'content-item'}>
             <QjIcon
               style={{
-                fontSize: '40px',
+                fontSize: '32px',
                 fontWeight: 500,
                 display: 'block',
                 color: '#1890ff'

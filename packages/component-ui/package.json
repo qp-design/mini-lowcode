@@ -17,10 +17,11 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@brushes/component-tool": "*",
     "@brushes/component-core": "*",
     "@brushes/component-setting": "*",
     "@brushes/form": "^0.1.4",
-    "@tanstack/react-query": "^5.13.4",
+    "@tanstack/react-query": "^4.36.1",
     "antd": "^5.11.2",
     "component-store": "*"
   }

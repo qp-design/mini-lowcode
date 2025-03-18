@@ -1,10 +1,9 @@
-import {HOCCodeWrapComponent, SlotEmpty} from '@brushes/component-core';
-import React, {ForwardedRef} from 'react';
+import {SlotEmpty} from '@brushes/component-core';
+import React from 'react';
 import {useEditor} from '@craftjs/core';
 
-const SlotJsx =
-  React.forwardRef(({text, Children, info, ...restProps}:
-                      { text: string; info?: string; Children?: React.FC }, ref: ForwardedRef<HTMLDivElement>) => {
+export const Slot: React.FC<{ text: string; info?: string; Children?: React.FC }> =
+    ({text, Children, info, ...restProps}) => {
     const {isEnabled} = useEditor(state => ({
       isEnabled: state.options.enabled
     }));
@@ -12,10 +11,8 @@ const SlotJsx =
     const emptyRender = isEnabled ? <SlotEmpty/> : null;
 
     return (
-      <div ref={ref}>
+      <>
          {Children ? <Children {...restProps}/> : emptyRender}
-      </div>
+      </>
     )
-  })
-
-export const SlotComponent = HOCCodeWrapComponent(SlotJsx)
+  }

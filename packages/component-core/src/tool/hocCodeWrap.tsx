@@ -5,7 +5,8 @@ import { clone, has, omit } from 'lodash-es';
 import { changeCode } from '../tool/changeCode';
 
 
-export const HOCCodeWrapComponent = (Component: any) : UserComponent => {
+export const HOCCodeWrapComponent = (Component: any, isTrue?: boolean) : UserComponent => {
+  console.log(9, isTrue);
   return (props:any) => {
     const {
       connectors: { connect, drag },
@@ -21,10 +22,11 @@ export const HOCCodeWrapComponent = (Component: any) : UserComponent => {
       }
       return props
     }, [props]);
-
     return (
       <ErrorBoundary fallback={<div>Something went wrong</div>}>
-          <Component {...newProps} ref={(ref: HTMLDivElement) => connect(drag(ref))}/>
+        <div style={ isTrue? {} : {width: '100%'}} ref={(ref: HTMLDivElement) => connect(drag(ref))}>
+          <Component {...newProps} />
+        </div>
       </ErrorBoundary>
     )
   }

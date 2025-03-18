@@ -5,6 +5,20 @@ import {WrapTable} from './data';
 
 const dataFormField: FieldType[] = [
   {
+    label: '高度',
+    name: 'height',
+    type: 'number',
+    extraProps: {
+    }
+  },
+  {
+    label: '宽度',
+    name: 'width',
+    type: 'number',
+    extraProps: {
+    }
+  },
+  {
     label: '选择表头',
     name: 'activeModule',
     type: 'select',

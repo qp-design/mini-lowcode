@@ -4,13 +4,16 @@ import { dynamicFormFields, useImmutableCallback } from '@brushes/form';
 import { useNode } from '@craftjs/core';
 import type {FieldType} from '@brushes/form';
 import {transformCode} from '../tool';
+import {isUndefined} from "lodash-es";
 
 export type formConfigType = {
   title?: string;
   formFields: FieldType[];
 };
 
-export const basicSettings = (formFields: formConfigType[]) => {
+export type LayoutType = 'horizontal' | 'vertical' | 'inline';
+
+export const basicSettings = (formFields: formConfigType[], layout?: LayoutType) => {
   return () => {
     const [form] = Form.useForm();
     const {
@@ -20,13 +23,29 @@ export const basicSettings = (formFields: formConfigType[]) => {
       configProps: node.data.props,
     }));
 
-    const callbackImpl = useImmutableCallback((changedValues: any) => {
-      console.log(23, changedValues);
-      if(changedValues.hasOwnProperty('&_slot')) {
+    const isNeedOmit = (values: any) => {
+      if(Array.isArray(values)) {
+        return values.filter((v) => !isUndefined(v))
+      }
+      return values;
+    }
+
+    const isBreakChangeValue = (params: any) => {
+      let obj = {};
+      Reflect.ownKeys(params).forEach((key) => {
+        Reflect.set(obj, key, isNeedOmit(Reflect.get(params, key)))
+      })
+      return obj;
+    }
+
+    const callbackImpl = useImmutableCallback((_:any, prevAllValues: any) => {
+      const allValues = isBreakChangeValue(prevAllValues);
+
+      if(allValues.hasOwnProperty('&_slot')) {
 
       }
       setProp((props: object) => {
-        Object.entries(changedValues).forEach(([key, value], index) => {
+        Object.entries(allValues).forEach(([key, value], index) => {
           if(/^\$_/.test(key)) {
             value = transformCode(value as string)
           }
@@ -39,7 +58,12 @@ export const basicSettings = (formFields: formConfigType[]) => {
     });
 
     return (
-      <Form form={form} onValuesChange={callbackImpl} initialValues={configProps}>
+      <Form
+          layout={layout}
+          form={form}
+          onValuesChange={callbackImpl}
+          initialValues={configProps}
+      >
         {formFields.map((item: formConfigType, indx: number) => {
           return (
             <Fragment key={indx}>

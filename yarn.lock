@@ -495,6 +495,16 @@
   resolved "https://registry.npmjs.org/@brushes/form/-/form-0.1.4.tgz#d301cf25affae9169b4c9e9aea18ee38cb4dc152"
   integrity sha512-pdnK6jJwsXNIJme3phc2IAijc2+v+IMODMYW4P3zttbQL0U6pFwcJGggA33Q33TpKdydSMlPcQsKep/VsImyFQ==
 
+"@brushes/form@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.npmjs.org/@brushes/form/-/form-1.2.3.tgz#940fb46acb873b5d5287c56f465f9809100ad71c"
+  integrity sha512-G4cqLIIsUzQvl9+ADBKA8jzxeIxMVJVziMalONSEpt1uLmFOefhi2hFONpZla2fNNbB3LLYPJ+p6pzUD+DmTSQ==
+
+"@brushes/operate-webstore@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/@brushes/operate-webstore/-/operate-webstore-0.0.4.tgz#bd44367a4e9ea051b6e0c98e386db04ca048bb79"
+  integrity sha512-WRrr4ErKf2zDivyiqPBaitLXWEd38S1rVZmUUwhEvC2M0iLmtMErOH/Fv6d1Qyx71C17eCGX2uYr5odD64Zu3Q==
+
 "@brushes/optimize@^1.0.5":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@brushes/optimize/-/optimize-1.1.1.tgz#304b4a906b99b5ec122f42a36b7781b1fe1dcf70"
@@ -1337,17 +1347,23 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.5.1.tgz#5f1b518ec5fa54437c0b7c4a821546c64fed6922"
   integrity sha512-6i/8UoL0P5y4leBIGzvkZdS85RDMG9y1ihZzmTZQ5LdHUYmZ7pKFoj8X0236s3lusPs1Fa5HTQUpwI+UfTcmeA==
 
-"@tanstack/query-core@5.13.4", "@tanstack/query-core@^5.13.4":
+"@tanstack/query-core@4.36.1":
+  version "4.36.1"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-4.36.1.tgz#79f8c1a539d47c83104210be2388813a7af2e524"
+  integrity sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==
+
+"@tanstack/query-core@^5.13.4":
   version "5.13.4"
   resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.13.4.tgz#50ecd3f721dfb0859528fbb8863268bee24145f0"
   integrity sha512-8+rJucXvC/xlr4OrxHhEIob/cTlbT4fgmz1VsvB0D12FRStKaXeLORNGcOhSAynRd2NL74SV/Qq0IIb4DedLcA==
 
-"@tanstack/react-query@^5.13.4":
-  version "5.13.4"
-  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.13.4.tgz#1a2b93a7319f3abd13461b5c5c7cf4eac369f567"
-  integrity sha512-3HjvkFFriEQwffUXtKHPiwkfFXUGbs46YATTzzyK1+Pw6Ekd3kwzS50e45qdamWuEXmXxyo5S1zp534LdFG0Rw==
+"@tanstack/react-query@^4.36.1":
+  version "4.36.1"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-4.36.1.tgz#acb589fab4085060e2e78013164868c9c785e5d2"
+  integrity sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==
   dependencies:
-    "@tanstack/query-core" "5.13.4"
+    "@tanstack/query-core" "4.36.1"
+    use-sync-external-store "^1.2.0"
 
 "@tootallnate/quickjs-emscripten@^0.23.0":
   version "0.23.0"
@@ -4935,6 +4951,13 @@ open@^9.1.0:
     is-inside-container "^1.0.0"
     is-wsl "^2.2.0"
 
+operate-common@*:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/operate-common/-/operate-common-0.0.2.tgz#05e47b1051f60fb05dbb71b8d9db6a4770a6de51"
+  integrity sha512-bkRaBdVKy9GuLXaOHobFigMbz+ycGOE5dLr/e3sNTDxA+i/2G70EOGunZI3nWN/xruUWS1uADvdt1QiLXU03Xg==
+  dependencies:
+    lodash-es "^4.17.21"
+
 optionator@^0.9.3:
   version "0.9.3"
   resolved "https://registry.npmjs.org/optionator/-/optionator-0.9.3.tgz#007397d44ed1872fdc6ed31360190f81814e2c64"
@@ -5226,6 +5249,13 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.3.1"
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
+
+qj-b2c-api@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/qj-b2c-api/-/qj-b2c-api-1.2.1.tgz#505238fea6578f1074b20dc327f20942f203bf08"
+  integrity sha512-n3wC0g6hfhM3CyrF51SprElHC1dnJSLlyZESdlwudKrBKzN7oqsU6/IJBbqMmJtpLNTnKHVct7X5AYZAvgLzzQ==
+  dependencies:
+    "@brushes/optimize" "^1.0.5"
 
 qrcode.react@^3.1.0:
   version "3.1.0"
@@ -6721,6 +6751,11 @@ use-merge-value@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/use-merge-value/-/use-merge-value-1.2.0.tgz#45410846c23e490f404c9cbd17d67db9c8c0efcd"
   integrity sha512-DXgG0kkgJN45TcyoXL49vJnn55LehnrmoHc7MbKi+QDBvr8dsesqws8UlyIWGHMR+JXgxc1nvY+jDGMlycsUcw==
+
+use-sync-external-store@^1.2.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.4.0.tgz#adbc795d8eeb47029963016cefdf89dc799fcebc"
+  integrity sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==
 
 util-deprecate@^1.0.1:
   version "1.0.2"

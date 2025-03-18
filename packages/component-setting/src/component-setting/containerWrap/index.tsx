@@ -12,14 +12,6 @@ const containerField: FieldType[] = [
     }
   },
   {
-    label: '内边距',
-    name: 'padding',
-    type: 'number',
-    extraProps: {
-      suffix: 'px',
-    }
-  },
-  {
     label: '高度',
     name: 'height',
     type: 'number',

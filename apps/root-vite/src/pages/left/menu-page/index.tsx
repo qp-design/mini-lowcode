@@ -8,13 +8,13 @@ type MenuItem = Required<MenuProps>['items'][number];
 function getItem(
   label: React.ReactNode,
   key: React.Key,
-  icon?: React.ReactNode,
+  // icon?: React.ReactNode,
   children?: MenuItem[],
   type?: 'group',
 ): MenuItem {
   return {
     key,
-    icon,
+    // icon,
     children,
     label,
     type,
@@ -33,16 +33,16 @@ const ItemJsx = ({label, id}: {label:string; id: string}) => {
 }
 
 const items: MenuItem[] = [
-  getItem('low-code模块', 'sub1', <div>1</div>, [
+  getItem('low-code模块', 'sub1', [
     getItem(<ItemJsx id={'option1'} label={'Option 1'}/>, '1'),
     getItem(<ItemJsx id={'option2'} label={'Option 2'}/>, '2'),
     getItem(<ItemJsx id={'option3'} label={'Option 3'}/>, '3'),
     getItem(<ItemJsx id={'option4'} label={'Option 4'}/>, '4'),
   ]),
-  getItem('原代码模块', 'sub2', <div>1</div>, [
-    getItem(<ItemJsx id={'user'} label={'用户模块'}/>, '111'),
-    getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-  ])
+  // getItem('原代码模块', 'sub2', <div></div>, [
+  //   getItem(<ItemJsx id={'user'} label={'用户模块'}/>, '111'),
+  //   getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+  // ])
 ];
 
 // submenu keys of first level
@@ -64,6 +64,7 @@ const MenuComponent: React.FC = () => {
     <Menu
       mode="inline"
       openKeys={openKeys}
+      inlineIndent={12}
       onOpenChange={onOpenChange}
       style={{ width: '100%' }}
       items={items}
