@@ -10,12 +10,15 @@ export const useStyles = createStyles(({css, token}) => {
             grid-template-columns: repeat(6, 1fr);
             background: #f7f8fc;
             color: #1A1A1A;
-            height: 48px;
-            line-height: 48px;
             .large{
                 grid-column: 1 / 3
             }
         `,
+        wrapContent: css`
+            .memberBname{
+                padding: 15px 15px 0 15px;
+            }
+        `
     }
 })
 

@@ -8,6 +8,7 @@ const useStyles = createStyles(({token, css}) => {
     return {
         container: css`
             overflow: hidden;
+            box-sizing: border-box;
             border: 1px solid rgba(0,0,0,0);
             &:hover{
                 border: 1px solid ${token.colorPrimary};
@@ -17,18 +18,21 @@ const useStyles = createStyles(({token, css}) => {
 })
 
 
-export const CardLR = ({ padding = {}, ...props }: {padding?: object;}) => {
+export const CardLR = ({ padding = {}, height = 150, ...props }: {height?: number; padding?: object;}) => {
     const { styles } = useStyles();
     return (
         <div
             className={styles.container}
             style={{
+                height,
                 ...padding,
                 ...props,
             }}
         >
             <Element canvas id="card-lr" is={Container} flexDirection={'row'}>
-                <ImageComponent height={150} code={'dataPic'}/>
+                <Element canvas is={Container} id={'card-image'}>
+                    <ImageComponent height={height} code={'dataPic'}/>
+                </Element>
                 <Element
                     canvas
                     is={Container}
@@ -59,7 +63,7 @@ export const CardLR = ({ padding = {}, ...props }: {padding?: object;}) => {
                         padding={{
                             paddingBottom: 5,
                     }}>
-                        <Text text='商品规格：'/>
+                        <Text width={60} text='商品规格：'/>
                         <Text num={1} width={120} code={'skuName'}/>
                     </Container>
                     <Container

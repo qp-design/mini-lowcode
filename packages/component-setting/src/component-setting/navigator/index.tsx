@@ -1,9 +1,9 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {useStyle} from "../logoWithSearch/style";
-import {paddingField, SelectPicture} from "../../common";
+import {marginField, paddingField, SelectPicture} from "../../common";
 
-const containerField: FieldType[] = [
+export const containerField: FieldType[] = [
   {
     label: '背景色',
     name: 'background',
@@ -45,6 +45,7 @@ const containerField: FieldType[] = [
       },
     }
   },
+    ...marginField,
     ...paddingField,
   {
     label: '高度',
@@ -54,11 +55,29 @@ const containerField: FieldType[] = [
     }
   },
   {
+    label: '字体大小',
+    name: 'fontSize',
+    type: 'number',
+  },
+  {
+    label: '圆角',
+    name: 'borderRadius',
+    type: 'number',
+  },
+  {
+    label: '边框颜色',
+    name: 'borderColor',
+    type: 'color',
+    extraProps: {
+      allowClear: true,
+      showText: true
+    }
+  },
+  {
     label: '宽度',
     name: 'width',
     type: 'text',
     extraProps: {
-      addonAfter: '%或px',
       placeholder: '请输入具体数值或百分比'
     }
   },
@@ -123,5 +142,27 @@ const baseFormField: formConfigType[] = [
     title: '样式',
     formFields: containerField
   },
+  {
+    title: '数据',
+    formFields: [
+      {
+        label: '栏目',
+        name: 'list',
+        type: 'formList',
+        extraProps: {
+          innerForm: [
+            {
+              label: 'label',
+              name: 'label',
+            },
+            {
+              label: 'code',
+              name: 'code',
+            }
+          ]
+        }
+      },
+    ]
+  }
 ]
-export const OutContainerSettings = basicSettings(baseFormField)
+export const NavigatorComponentSettings = basicSettings(baseFormField)

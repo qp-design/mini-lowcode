@@ -4,8 +4,6 @@ import {fullpath} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
 import {useEditor, useNode} from "@craftjs/core";
 import {ModuleProvider} from "../../store";
-import {useDetail} from "component-store";
-import {Spin} from "antd";
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -98,7 +96,6 @@ export const OutContainerComponent =
          backgroundImage,
          ...props
      }: any) => {
-        const { loading } = useDetail(api || '', params);
         const {enabled} = useEditor(
             (state) => ({
                 enabled: state.options.enabled,
@@ -110,7 +107,6 @@ export const OutContainerComponent =
 
         const { styles } = useStyles();
         return (
-            <Spin spinning={loading} wrapperClassName={styles.width_100}>
                 <div
                     ref={(ref: HTMLDivElement) => connect(drag(ref))}
                     className={enabled? styles.category: ''}
@@ -128,11 +124,10 @@ export const OutContainerComponent =
                         {children}
                     </Inner>
                 </div>
-            </Spin>
         );
     };
 
-export const OutContainer = (props) => {
+export const OutContainer = (props:any) => {
     return (
         <ModuleProvider>
             <OutContainerComponent {...props}/>

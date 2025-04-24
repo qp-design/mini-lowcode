@@ -12,11 +12,6 @@ const containerField: FieldType[] = [
     name: 'storeKey',
     type: 'text',
   },
-  {
-    label: '触发再次查询',
-    name: 'callbackName',
-    type: 'text',
-  },
 ]
 
 const baseFormField: formConfigType[] = [

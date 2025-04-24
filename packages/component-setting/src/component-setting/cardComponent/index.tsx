@@ -14,6 +14,11 @@ const containerField: FieldType[] = [
     }
   },
   {
+    label: '高度',
+    name: 'height',
+    type: 'number',
+  },
+  {
     label: '圆角',
     name: 'borderRadius',
     type: 'number',

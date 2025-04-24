@@ -7,6 +7,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./components": "./src/index.ts",
+    "./service": "./src/service/index.ts",
     "./basic": "./src/basic/index.ts"
   },
   "devDependencies": {

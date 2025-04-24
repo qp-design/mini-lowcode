@@ -11,7 +11,7 @@ import {
   GoodCategoryComponentSettings,
   SwiperThumbComponentSettings,
   SkuListComponentSettings,
-  CardComponentSettings,
+  CartListComponentSettings, CardComponentSettings,
   AddressItemComponentSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
@@ -220,6 +220,35 @@ const service : Array<TypeComponent> = [
       },
       related: {
         settings: SkuListComponentSettings,
+      },
+    }
+  },
+  {
+    name: '购物车',
+    icon: 'icon-caozuojilu',
+    Component: Materials['CartListComponent'],
+    setting: {
+      props: {
+        dataPath: 'list',
+        storeKey: 'defaultValue'
+      },
+      related: {
+        settings: CartListComponentSettings,
+      },
+    }
+  },
+  {
+    name: '购物车底部合计',
+    icon: 'icon-caozuojilu',
+    Component: Materials['NoNeedCartFooter'],
+    setting: {
+      props: {
+        dataPath: 'list',
+        callbackName: 'cartQueryRetry',
+        storeKey: 'defaultValue'
+      },
+      related: {
+        settings: CartListComponentSettings,
       },
     }
   },

@@ -1,4 +1,4 @@
-import {combine, Container, DefaultJsx, OutContainer} from '@brushes/component-core';
+import {combine, Container, OutContainer} from '@brushes/component-core';
 import {TypeComponent} from '../types';
 import {ContainerSettings, OutContainerSettings} from '@brushes/component-setting';
 

@@ -14,9 +14,10 @@ import {
 import {
     Editor,
 } from '@craftjs/core';
+import * as service from "component-ui/service";
 import * as basic from "component-ui/basic";
 import Materials from "component-ui";
-import {Card, App, Popconfirm, Spin, Checkbox} from "antd";
+import {Card, App, Popconfirm, Spin, Checkbox, InputNumber} from "antd";
 import {ReactNode} from "react";
 
 console.log(8, basic, Materials);
@@ -36,9 +37,11 @@ export const WrapContainer = ({children}: { children: ReactNode }) => {
     return (
         <Editor
             resolver={{
+                ...service,
                 ...basic,
                 ...Materials,
                 Card,
+                InputNumber,
                 Checkbox,
                 Popconfirm,
                 Spin,

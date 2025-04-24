@@ -3,7 +3,7 @@ import {fullpath} from "@brushes/component-tool";
 import {useNode} from "@craftjs/core";
 import {useModuleContext} from "@brushes/component-core";
 import {useMemo} from "react";
-export const ImageComponent = ({ image = {}, borderRadius, height, code = '', ...restProps}: { height?: number; borderRadius?: number; code?: string; image?: { imgUrl: string; link?: string }}) => {
+export const ImageComponent = ({ image = {}, borderRadius, width, code = '', ...restProps}: { width?: number; height?: number; borderRadius?: number; code?: string; image?: { imgUrl: string; link?: string }}) => {
     const {
         connectors: {connect, drag},
     } = useNode();
@@ -18,10 +18,10 @@ export const ImageComponent = ({ image = {}, borderRadius, height, code = '', ..
     }, [image, code, skuInfo]);
 
     return (
-        <div style={{width: '100%', borderRadius, overflow: "hidden"}} ref={(ref: HTMLDivElement) => connect(drag(ref))}>
+        <div style={{width, borderRadius, overflow: "hidden"}} ref={(ref: HTMLDivElement) => connect(drag(ref))}>
             <Image2
+                width={width}
                 preview={false}
-                height={height}
                 {...restProps}
                 src={fullpath(value)}
             />

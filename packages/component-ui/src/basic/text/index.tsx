@@ -7,11 +7,15 @@ type TextProps = {
     fontSize?:number;
     width?:number;
     fontWeight?: number;
+    lineHeight?: string;
     minWidth?: number;
     margin?: object;
     padding?: object,
     num?: number;
     contain?:boolean;
+    height?: number;
+    textAlign?:string;
+    className?: string;
     onClick?:()=> void;
     code?: string
     color?: string
@@ -29,6 +33,7 @@ export const Text: React.FC<TextProps> =
          contain,
          width,
          minWidth,
+         className,
          onClick,
          ...restProps
     }) => {
@@ -64,6 +69,7 @@ export const Text: React.FC<TextProps> =
     return (
         <div
             onClick={onClick}
+            className={className}
             ref={(ref: HTMLDivElement) => connect(drag(ref))}
             style={{
                 width,

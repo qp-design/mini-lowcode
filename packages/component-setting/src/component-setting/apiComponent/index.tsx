@@ -11,11 +11,9 @@ const containerField: FieldType[] = [
             name: 'componentType',
             type: 'select',
             extraProps: {
-                dependencies: ['api'],
                 onChange(value: string) {
                     if(value === 'detail') {
                         form.setFieldValue('dataPath', '')
-                        form.setFieldValue('storeKey', 'defaultValue')
                     } else {
                         form.setFieldValue('dataPath', 'list')
                     }
@@ -91,25 +89,12 @@ const baseFormField: formConfigType[] = [
     {
         title: '数据源',
         formFields: [
-            (form) => {
-                return {
-                    label: 'api',
-                    name: 'api',
-                    type: 'slot',
-                    extraProps: {
-                        onChange(value: string) {
-                            //@ts-ignore
-                            const res = apiConfig[value];
-                            if(!isUndefined(value)) {
-                                const params = form.getFieldsValue()
-                                form.setFieldsValue({
-                                    ...params,
-                                    ...res
-                                })
-                            }
-                        },
-                        render: ApiComponent
-                    }
+            {
+                label: 'api',
+                name: 'api',
+                type: 'slot',
+                extraProps: {
+                    render: ApiComponent
                 }
             },
             {
@@ -165,9 +150,6 @@ const baseFormField: formConfigType[] = [
                 label: '子组件Store的key',
                 name: 'storeKey',
                 type: 'text',
-                extraProps: {
-                  dependencies: ['api'],
-                },
                 calIsVisible: (form) => form.getFieldValue('componentType') === 'detail'
             },
         ]

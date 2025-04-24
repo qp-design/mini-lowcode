@@ -1,15 +1,20 @@
 import {combine} from '@brushes/component-core';
 import Materials from 'component-ui/components';
 import * as BasicComponent from 'component-ui/basic';
+import * as ServiceComponent from 'component-ui/service';
 import {
   ButtonSettings,
   TextCompnentSettings,
   ImageCompnentSettings,
   LinkCompnentSettings,
   ApiComponentSettings,
-  BannerComponentSettings, TabComponentSettings,
-  RichTextComponentSettings, CardComponentSettings,
-  DrawerComponentSettings, FormComponentSettings
+  BannerComponentSettings,
+  TabComponentSettings,
+  RichTextComponentSettings,
+  CardComponentSettings,
+  DrawerComponentSettings,
+  FormComponentSettings,
+  NavigatorComponentSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 
@@ -228,6 +233,30 @@ const basic : Array<TypeComponent> = [
       },
       related: {
         settings: FormComponentSettings,
+      },
+    }
+  },
+  {
+    name: '导航',
+    icon: 'icon-text',
+    Component: ServiceComponent['NavigatorComponent'],
+    setting: {
+      props: {
+        minHeight: 20,
+        flexDirection: 'row',
+        background: '#fff',
+        fontSize: 14,
+        padding: {
+          paddingLeft: 5,
+          paddingTop: 5,
+          paddingBottom: 5,
+          paddingRight: 5
+        },
+        margin: {},
+        list: [],
+      },
+      related: {
+        settings: NavigatorComponentSettings,
       },
     }
   },

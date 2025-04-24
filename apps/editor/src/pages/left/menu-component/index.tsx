@@ -1,6 +1,6 @@
 import Title from './title';
 import Layout from './layout';
-import {basic, layout, extend, service} from '../dataSource-component';
+import {basic, layout, extend, service, Cart} from '../dataSource-component';
 import {Collapse} from "antd";
 import type { CollapseProps } from 'antd';
 
@@ -22,6 +22,11 @@ const items: CollapseProps['items'] = [
     },
     {
         key: '4',
+        label: <Title title={'购物车组件'}/>,
+        children: <Layout componentList={Cart}/>,
+    },
+    {
+        key: '5',
         label: <Title title={'扩展组件'}/>,
         children: <Layout componentList={extend}/>,
     },

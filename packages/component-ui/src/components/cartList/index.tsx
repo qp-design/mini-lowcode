@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import {Container, useModuleContext, Element, HOCCodeWrapComponent} from "@brushes/component-core";
-import {get, debounce} from "lodash-es";
+import {debounce} from "lodash-es";
 import {post} from '@brushes/request';
 import {useStyles2, useStyles, useStyles3} from "./style";
 import {RightOutlined, DeleteOutlined, ShoppingCartOutlined} from "@ant-design/icons";
@@ -8,7 +8,7 @@ import {Button, Checkbox, InputNumber, message, Popconfirm, Spin} from "antd";
 import {Fragment, useMemo, useRef, useState} from "react";
 import {fixPrice} from "@brushes/component-tool";
 import {ButtonComponent, Text} from "../../basic";
-import {useCartListData} from "component-store";
+import {useComponentListData} from "component-store";
 
 const config = [
     '商品信息',
@@ -67,51 +67,38 @@ const Promotion = ({disNextMsg, pbName, pbCode, promotionName, promotionCode, sh
     const {styles} = useStyles3();
 
     return (
-        <Element is={Container} id={shoppingCode} canvas>
+        <div id={shoppingCode}>
             <div className={styles.promote}>
                 <div>
                     <span className={'tips'}>{pbName}</span> <span style={{paddingLeft: 5}}>{promotionName}</span>
                 </div>
                 <div>
-                    {/*<PromotionAction promotionCode={promotionCode} pbCode={pbCode} disNextMsg={disNextMsg}/>*/}
+                    <PromotionAction promotionCode={promotionCode} pbCode={pbCode} disNextMsg={disNextMsg}/>
                 </div>
             </div>
-        </Element>
+        </div>
 
     )
 }
 
 const GooodTypeInfo = ({dataState}: {dataState: string | number}) => {
-    switch (dataState) {
-        case '3':
+    console.log(85, dataState);
+    switch (+dataState) {
         case 3:
             return <div className={'state-info'}>商品已失效</div>;
-        case '1':
         case 1:
             return <div className={'state-info'}>商品库存不足</div>;
-        case '2':
         case 2:
             return <div className={'state-info'}>商品已下架</div>;
         default:
             return ''
     }
 }
+
 const ShoppGoodItem = ({item, callbackName}: { item: any; callbackName: string }) => {
     const {styles} = useStyles2();
     const [loading, setLoading] = useState(false);
     const retry = useModuleContext(s => s.moduleStore[callbackName]);
-
-    const updateNum = debounce(async (e: number) => {
-        setLoading(true);
-        const {msg} = await post('web/oc/shopping/updateShoppingGoodsNum.json', {
-            shoppingGoodsId: item.shoppingGoodsId,
-            amount: e,
-            goodWeight: 0,
-        })
-        message.success(msg);
-        retry()
-        setLoading(false);
-    }, 500)
 
     const updateSelect = debounce(async (e: any) => {
         setLoading(true);
@@ -122,6 +109,18 @@ const ShoppGoodItem = ({item, callbackName}: { item: any; callbackName: string }
         })
         message.success(msg);
         retry();
+        setLoading(false);
+    }, 500)
+
+    const updateNum = debounce(async (e: number) => {
+        setLoading(true);
+        const {msg} = await post('web/oc/shopping/updateShoppingGoodsNum.json', {
+            shoppingGoodsId: item.shoppingGoodsId,
+            amount: e,
+            goodWeight: 0,
+        })
+        message.success(msg);
+        retry()
         setLoading(false);
     }, 500)
 
@@ -158,7 +157,6 @@ const ShoppGoodItem = ({item, callbackName}: { item: any; callbackName: string }
                 </div>
                 <div style={{fontFamily: 'JDZHENGHEI'}}>
                     <InputNumber onChange={updateNum} value={item.goodsCamount}/>
-                    {/*<p>最小起订量{item.goodsMinnum}</p>*/}
                 </div>
                 <div style={{fontFamily: 'JDZHENGHEI'}}>
                     <span style={{fontSize: 12}}>￥</span>
@@ -180,6 +178,7 @@ const ShoppGoodItem = ({item, callbackName}: { item: any; callbackName: string }
         </Spin>
     )
 }
+
 const ShoppGood = ({shoppingGoodsList, callbackName}: any) => {
     return (
         <>
@@ -195,42 +194,48 @@ const ShoppGood = ({shoppingGoodsList, callbackName}: any) => {
 }
 
 
-const CartCommon = ({item, callbackName}: any) => {
+const CartCommon = ({callbackName, dataPath, storeKey}: any) => {
+    const list = useComponentListData(dataPath, storeKey);
     return (
-        <div>
-            <Element
-                padding={{paddingTop: 10, paddingLeft: 10, paddingBottom: 0, paddingRight: 15}}
-                canvas
-                fontSize={14}
-                text={item.memberCname}
-                id={item.channelCode}
-                is={Text}
-            />
-            <>
-                {
-                    item.shoppingpackageList.map((c, index: number) => (
-                        <Fragment key={index}>
-                            {c.promotionName && <Promotion
-                                disNextMsg={c.disNextMsg}
-                                pbName={c.pbName}
-                                shoppingCode={c.shoppingCode}
-                                promotionCode={c.promotionCode}
-                                pbCode={c.pbCode}
-                                promotionName={c.promotionName}>
-                            </Promotion>}
-                            <ShoppGood callbackName={callbackName} shoppingGoodsList={c.shoppingGoodsList}/>
-                        </Fragment>
-                    ))
-                }
-            </>
-        </div>
+        <>
+            {
+                list.map((item) => (
+                    <div key={item.channelCode}>
+                        <div className={'memberBname'}>
+                            {item.memberCname}
+                        </div>
+                        <>
+                            {
+                                item.shoppingpackageList.map((c: any, index: number) => (
+                                    <Fragment key={index}>
+                                        {c.promotionName && <Promotion
+                                            disNextMsg={c.disNextMsg}
+                                            pbName={c.pbName}
+                                            shoppingCode={c.shoppingCode}
+                                            promotionCode={c.promotionCode}
+                                            pbCode={c.pbCode}
+                                            promotionName={c.promotionName}>
+                                        </Promotion>}
+                                        <ShoppGood callbackName={callbackName} shoppingGoodsList={c.shoppingGoodsList}/>
+                                    </Fragment>
+                                ))
+                            }
+                        </>
+                    </div>
+                ))
+            }
+        </>
     )
 }
 
 export const NoNeedCartCommon = HOCCodeWrapComponent(CartCommon);
 
-const CartFooter = ({storeKey, dataPath, callbackName}: { storeKey: string; dataPath: string; callbackName: string }) => {
-    const list = useCartListData(dataPath, storeKey);
+const CartFooter = ({storeKey, dataPath, callbackName}: {
+    storeKey: string;
+    dataPath: string;
+    callbackName: string
+}) => {
+    const list = useComponentListData(dataPath, storeKey);
     const orderIds = useRef([]);
     const selectIds = useRef([]);
     const retry = useModuleContext(s => s.moduleStore[callbackName]);
@@ -269,8 +274,6 @@ const CartFooter = ({storeKey, dataPath, callbackName}: { storeKey: string; data
             disMoney
         }
     }, [list]);
-
-    console.log(211117, list, totalInfo);
 
     const updateSelect = debounce(async (e: any) => {
         setLoading(true);
@@ -333,7 +336,6 @@ const CartFooter = ({storeKey, dataPath, callbackName}: { storeKey: string; data
                     <div>
                         <ButtonComponent type={'primary'} size={'large'} danger icon={<ShoppingCartOutlined/>}
                                          text={'立即购买'}/>
-                        {/*<Button type={'primary'} size={'large'} danger icon={<ShoppingCartOutlined/>}>立即购买</Button>*/}
                     </div>
                 </div>
             </Spin>
@@ -342,31 +344,44 @@ const CartFooter = ({storeKey, dataPath, callbackName}: { storeKey: string; data
 
 export const NoNeedCartFooter = HOCCodeWrapComponent(CartFooter);
 
-export const CartList = ({dataPath, callbackName, storeKey}: {
+export const CartList = ({dataPath, storeKey}: {
     dataPath: string;
     storeKey: string;
-    callbackName: string
 }) => {
     const {styles} = useStyles();
-    const list = useCartListData(dataPath, storeKey);
+    const list = useComponentListData(dataPath, storeKey);
     console.log(334, list, storeKey);
     return (
         <div style={{border: 'solid 1px #efefef', borderRadius: 10}}>
-            <ul className={styles.title}>
-                {
-                    config.map((item, index) => (
-                        <li className={classNames({
-                            large: item === '商品信息',
-                        })} key={index}>{item}</li>
-                    ))
-                }
-            </ul>
-            <>
-                {
-                    list.map((item, index) => <NoNeedCartCommon callbackName={callbackName} item={item} key={index}/>)
-                }
-            </>
-            <Element id={'NoNeedCartFooter'} dataPath={dataPath} canvas is={NoNeedCartFooter} callbackName={callbackName} storeKey={storeKey}/>
+                <Element canvas is={Container} id={'cart-list'}>
+                    <ul className={styles.title}>
+                        {
+                            config.map((item, index) => (
+                                <Text
+                                    color={'#1A1A1A'}
+                                    fontSize={14}
+                                    height={48}
+                                    textAlign={'center'}
+                                    lineHeight={'48px'}
+                                    className={
+                                    classNames({
+                                        large: item === '商品信息',
+                                    })}
+                                    key={index}
+                                    text={item}
+                                />
+                            ))
+                        }
+                    </ul>
+                    <div className={styles.wrapContent}>
+                        <NoNeedCartCommon callbackName={'cartQueryRetry'} storeKey={storeKey} dataPath={dataPath} />
+                    </div>
+                    <NoNeedCartFooter
+                        dataPath={dataPath}
+                        callbackName={'cartQueryRetry'}
+                        storeKey={storeKey}
+                    />
+                </Element>
         </div>
     )
 }

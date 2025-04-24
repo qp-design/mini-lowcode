@@ -25,6 +25,7 @@ const CardBasic: React.FC<any> = (props) => {
 const DetailBasic: React.FC<any> = ({result, storeKey}) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
     useEffect(() => {
+        console.log(218, result);
         setModuleStore({
             [storeKey]: result
         })
@@ -80,7 +81,6 @@ const ApiList: React.FC<Partial<CardListType> & {
         }
         return result
     }, [result, dataPath]);
-    console.log(83, dataPath, list);
     if(!list.length) {
         return <div style={{display: "flex", alignItems: "center", justifyContent: 'center', ...margin,
             ...padding, ...restProps}}><Empty /></div>;

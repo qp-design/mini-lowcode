@@ -10,6 +10,11 @@ const containerField: FieldType[] = [
         type: 'number',
     },
     {
+        label: '图片宽度',
+        name: 'width',
+        type: 'number',
+    },
+    {
         label: '图片的圆角',
         name: 'borderRadius',
         type: 'number',
