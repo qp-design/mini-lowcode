@@ -8,6 +8,7 @@ export const Slot: React.FC<{ text: string; info?: string; Children?: React.FC }
       isEnabled: state.options.enabled
     }));
 
+    console.log(11,Children, restProps);
     const emptyRender = isEnabled ? <SlotEmpty/> : null;
 
     return (

@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "main": "src/index.ts",
   "license": "MIT",
-  "scripts": {
-
+  "scripts": {},
+  "exports": {
+    ".": "./src/index.ts",
+    "./components": "./src/index.ts",
+    "./basic": "./src/basic/index.ts"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.12",
@@ -17,12 +20,14 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@brushes/component-tool": "*",
     "@brushes/component-core": "*",
     "@brushes/component-setting": "*",
-    "@brushes/form": "^0.1.4",
+    "@brushes/component-tool": "*",
+    "@brushes/form": "^1.2.4",
     "@tanstack/react-query": "^4.36.1",
-    "antd": "^5.11.2",
-    "component-store": "*"
+    "antd": "^5.24.5",
+    "classnames": "^2.5.1",
+    "component-store": "*",
+    "swiper": "^11.2.6"
   }
 }

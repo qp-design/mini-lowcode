@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+<head>
+    <title>子窗口</title>
+</head>
+<body>
+<h2>子窗口</h2>
+<div id="output">等待消息...</div>
+
+<script>
+    const outputDiv = document.getElementById('output');
+
+    // 监听父窗口消息
+    window.addEventListener('message', function(event) {
+        // 安全建议：验证消息来源
+        // if (event.origin !== "https://parent-domain.com") return;
+
+        const { type, data, formula } = event.data;
+
+        if (type === 'CALCULATE') {
+            outputDiv.textContent = `收到计算请求: ${formula}`;
+
+            try {
+                // 使用Function构造器比eval稍安全
+                const func = new Function('data', `return ${formula}`);
+                const result = func(data);
+
+                // 返回结果给父窗口
+                window.parent.postMessage({
+                    type: 'RESULT',
+                    value: result
+                }, '*');
+            } catch (error) {
+                window.parent.postMessage({
+                    type: 'ERROR',
+                    message: error.toString()
+                }, '*');
+            }
+        }
+    });
+</script>
+</body>
+</html>

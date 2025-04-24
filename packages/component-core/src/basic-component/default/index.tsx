@@ -23,10 +23,12 @@ const useStyle = createStyles(({ token, css }) => {
     };
 });
 
-export const DefaultJsx = ({text = '内容放置区域'}: {text?: string}) => {
+export const DefaultJsx = ({text = '内容放置区域', root}: {text?: string; root?: boolean}) => {
     const { styles } = useStyle();
   return (
-    <div className={styles.defaultWrap}>
+    <div className={styles.defaultWrap} style={{
+        minHeight: root ?  `calc(100vh - 110px)` : 'auto',
+    }}>
       <QjIcon
         style={{
           fontSize: 50,

@@ -1,6 +1,6 @@
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {FieldType} from '@brushes/form';
-import {WrapTable} from './data';
+import {WrapTable} from '../../common';
 import ApiComponent from '../container/api';
 
 

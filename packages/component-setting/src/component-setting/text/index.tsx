@@ -1,5 +1,6 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
+import {marginField, paddingField} from "../../common";
 
 const containerField: FieldType[] = [
   {
@@ -8,9 +9,31 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: 'code',
+    name: 'code',
+    type: 'text',
+  },
+  {
     label: '文本颜色',
     name: 'color',
     type: 'color',
+  },
+    ...marginField,
+    ...paddingField,
+  {
+    label: '最多几行',
+    name: 'num',
+    type: 'number',
+  },
+  {
+    label: '宽度',
+    name: 'width',
+    type: 'number',
+  },
+  {
+    label: '高度',
+    name: 'height',
+    type: 'number',
   },
   {
     label: '对齐方式',

@@ -1,8 +1,13 @@
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {FieldType} from '@brushes/form';
-import {WrapTable} from '../table/data';
+import {ApiComponent} from '../../common';
 
 const containerField: FieldType[] = [
+  {
+    label: '表单名称',
+    name: 'formName',
+    type: 'text',
+  },
   {
     label: '背景颜色',
     name: 'background',
@@ -13,9 +18,48 @@ const containerField: FieldType[] = [
     }
   },
   {
-    label: '一行几个',
-    name: 'grid',
-    type: 'number'
+    label: '触发再次查询',
+    name: 'callbackName',
+    type: 'text'
+  },
+  {
+    label: '抽屉code',
+    name: 'openKey',
+    type: 'text',
+  },
+  {
+    label: '提交按钮',
+    name: 'saveText',
+    type: 'text'
+  },
+  {
+    label: '按钮类型',
+    name: 'type',
+    type: 'select',
+    extraProps: {
+      options: [
+        {
+          value: 'primary',
+          label: '主要'
+        },
+        {
+          value: 'dashed',
+          label: '虚线'
+        },
+        {
+          value: 'link',
+          label: '链接'
+        },
+        {
+          value: 'text',
+          label: '文本'
+        },
+        {
+          value: 'default',
+          label: '默认'
+        }
+      ]
+    }
   },
   {
     label: '布局',
@@ -44,25 +88,25 @@ const containerField: FieldType[] = [
     type: 'number'
   },
 ]
-
-
-interface DataType {
-  type: string;
-  title: string;
-  key: string;
-}
+//
+//
+// interface DataType {
+//   type: string;
+//   title: string;
+//   key: string;
+// }
 
 const dataFormField: FieldType[] = [
   {
-    label: '选择查询列',
+    label: '选择表单配置',
     name: 'activeModule',
     type: 'select',
     extraProps: {
       allowClear: true,
       options: [
         {
-          value: 'good',
-          label: '商品'
+          value: 'address',
+          label: '地址'
         },
         {
           value: 'order',
@@ -71,27 +115,39 @@ const dataFormField: FieldType[] = [
       ]
     }
   },
+  // (form) => {
+  //   return {
+  //     label: '',
+  //     name: 'formConfig',
+  //     type: 'slot',
+  //     extraProps: {
+  //       dependencies: ['activeModule'],
+  //       render: ({form, onChange}) => {
+  //         const initialValue = form.getFieldValue('formConfig');
+  //
+  //         return (
+  //             <WrapTable<DataType>
+  //                 param={'tableConfig'}
+  //                 initialValue={initialValue}
+  //                 id={'name'}
+  //                 form={form}
+  //                 name={'formConfig'}
+  //                 title={'label'}
+  //                 onChange={onChange}
+  //             />
+  //         )
+  //       }
+  //     }
+  //   }
+  // },
   {
-    label: '',
-    name: 'formConfig',
+    label: '保存api',
+    name: 'api',
     type: 'slot',
     extraProps: {
-      render: ({form, onChange}) => {
-        const initialValue = form.getFieldValue('formConfig');
-        const activeModule = form.getFieldValue('activeModule');
-        return (
-          <WrapTable<DataType>
-            param={'formConfig'}
-            initialValue={initialValue}
-            id={'name'}
-            title={'label'}
-            onChange={onChange}
-            activeModule={activeModule}
-          />
-        )
-      }
+      render: ApiComponent
     }
-  }
+  },
 ]
 
 const baseFormField: formConfigType[] = [

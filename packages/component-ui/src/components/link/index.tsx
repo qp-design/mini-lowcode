@@ -14,7 +14,7 @@ const useStyle = createStyles(({token, css}) => {
 export const Link = ({image, text, ...props}: { image: { imgUrl: string; link: string}; text: string; color: string; fontSize: number;}) => {
     const { styles } = useStyle();
     return (
-      <div className={styles.link} style={props} onClick={() => {}}>
+      <div className={styles.link} style={props}>
           <span className="tip">{text}</span>
           <img src={fullpath(image.imgUrl)} width="18" height="18"/>
       </div>

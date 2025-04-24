@@ -1,0 +1,372 @@
+import classNames from "classnames";
+import {Container, useModuleContext, Element, HOCCodeWrapComponent} from "@brushes/component-core";
+import {get, debounce} from "lodash-es";
+import {post} from '@brushes/request';
+import {useStyles2, useStyles, useStyles3} from "./style";
+import {RightOutlined, DeleteOutlined, ShoppingCartOutlined} from "@ant-design/icons";
+import {Button, Checkbox, InputNumber, message, Popconfirm, Spin} from "antd";
+import {Fragment, useMemo, useRef, useState} from "react";
+import {fixPrice} from "@brushes/component-tool";
+import {ButtonComponent, Text} from "../../basic";
+import {useCartListData} from "component-store";
+
+const config = [
+    '商品信息',
+    '单价',
+    '数量',
+    '小计',
+    '操作'
+]
+
+
+const PromotionAction = ({pbCode, disNextMsg, promotionCode}: {
+    pdCode: string;
+    disNextMsg: string;
+    promotionCode: string
+}) => {
+    const setModuleStore = useModuleContext(s => s.setModuleStore);
+
+    const nextBuyImpl = () => {
+        setModuleStore({
+            orderOpen: true,
+            title: '凑单',
+            params: {
+                promotionCode
+            }
+        })
+    }
+    const openImpl = () => {
+        setModuleStore({
+            giftOpen: true,
+            title: '赠品',
+            params: {
+                promotionCode
+            }
+        })
+    }
+    if (disNextMsg) {
+        return <span>
+               {disNextMsg}
+            <Button onClick={nextBuyImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'}>去凑单</Button>
+           </span>
+    }
+
+    if (pbCode === '0001') {
+        return <Button onClick={openImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'}>赠品</Button>
+    }
+}
+
+const Promotion = ({disNextMsg, pbName, pbCode, promotionName, promotionCode, shoppingCode}: {
+    pbCode: string;
+    shoppingCode: string;
+    promotionCode: string;
+    promotionName: string;
+    pbName: string;
+    disNextMsg: string
+}) => {
+    const {styles} = useStyles3();
+
+    return (
+        <Element is={Container} id={shoppingCode} canvas>
+            <div className={styles.promote}>
+                <div>
+                    <span className={'tips'}>{pbName}</span> <span style={{paddingLeft: 5}}>{promotionName}</span>
+                </div>
+                <div>
+                    {/*<PromotionAction promotionCode={promotionCode} pbCode={pbCode} disNextMsg={disNextMsg}/>*/}
+                </div>
+            </div>
+        </Element>
+
+    )
+}
+
+const GooodTypeInfo = ({dataState}: {dataState: string | number}) => {
+    switch (dataState) {
+        case '3':
+        case 3:
+            return <div className={'state-info'}>商品已失效</div>;
+        case '1':
+        case 1:
+            return <div className={'state-info'}>商品库存不足</div>;
+        case '2':
+        case 2:
+            return <div className={'state-info'}>商品已下架</div>;
+        default:
+            return ''
+    }
+}
+const ShoppGoodItem = ({item, callbackName}: { item: any; callbackName: string }) => {
+    const {styles} = useStyles2();
+    const [loading, setLoading] = useState(false);
+    const retry = useModuleContext(s => s.moduleStore[callbackName]);
+
+    const updateNum = debounce(async (e: number) => {
+        setLoading(true);
+        const {msg} = await post('web/oc/shopping/updateShoppingGoodsNum.json', {
+            shoppingGoodsId: item.shoppingGoodsId,
+            amount: e,
+            goodWeight: 0,
+        })
+        message.success(msg);
+        retry()
+        setLoading(false);
+    }, 500)
+
+    const updateSelect = debounce(async (e: any) => {
+        setLoading(true);
+        const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
+            shoppingGoodsIdStr: item.shoppingGoodsId,
+            shoppingCode: item.shoppingCode,
+            checkState: e.target.checked ? 0 : 1
+        })
+        message.success(msg);
+        retry();
+        setLoading(false);
+    }, 500)
+
+    const deleteImpl = debounce(async () => {
+        setLoading(true);
+        const {msg} = await post('web/oc/shopping/deleteShoppingGoods.json', {
+            shoppingGoodsId: item.shoppingGoodsId
+        })
+        message.success(msg);
+        retry();
+        setLoading(false);
+    }, 500)
+
+    return (
+        <Spin spinning={loading}>
+            <div className={styles.wrap}>
+                <div className={'large'}>
+                    <div className={'checkbox-item'}>
+                        <Checkbox checked={!item.shoppingGoodsCheck && item.dataState === 0} onChange={updateSelect}></Checkbox>
+                    </div>
+                    <div className='img-border'>
+                        <img src={item.dataPic} width={80} height={80}/>
+                        <GooodTypeInfo dataState={item.dataState}/>
+                    </div>
+                    <div className='content'>
+                        <div className='title'>{item.goodsName}</div>
+                        <p>条码：{item.skuBarcode}</p>
+                    </div>
+                </div>
+                <div style={{color: '#f00', fontFamily: 'JDZHENGHEI'}}>
+                    <span style={{fontSize: 12}}>￥</span>
+                    <span style={{fontSize: 14, fontWeight: 500}}>{item.pricesetNprice}</span>
+                    <span style={{color: '#666'}}> / {item.partsnameWeightunit}</span>
+                </div>
+                <div style={{fontFamily: 'JDZHENGHEI'}}>
+                    <InputNumber onChange={updateNum} value={item.goodsCamount}/>
+                    {/*<p>最小起订量{item.goodsMinnum}</p>*/}
+                </div>
+                <div style={{fontFamily: 'JDZHENGHEI'}}>
+                    <span style={{fontSize: 12}}>￥</span>
+                    <span style={{
+                        fontSize: 14,
+                        fontWeight: 500
+                    }}>{fixPrice(item.pricesetNprice * item.goodsCamount)}</span>
+                </div>
+                <div>
+                    <Popconfirm
+                        title="删除"
+                        onConfirm={deleteImpl}
+                        description="确定删除所选商品?"
+                    >
+                        <Button size={'large'} danger type={'link'} icon={<DeleteOutlined/>}></Button>
+                    </Popconfirm>
+                </div>
+            </div>
+        </Spin>
+    )
+}
+const ShoppGood = ({shoppingGoodsList, callbackName}: any) => {
+    return (
+        <>
+            {
+                shoppingGoodsList.map((item, index) => {
+                    return (
+                        <ShoppGoodItem callbackName={callbackName} item={item} key={index}/>
+                    )
+                })
+            }
+        </>
+    )
+}
+
+
+const CartCommon = ({item, callbackName}: any) => {
+    return (
+        <div>
+            <Element
+                padding={{paddingTop: 10, paddingLeft: 10, paddingBottom: 0, paddingRight: 15}}
+                canvas
+                fontSize={14}
+                text={item.memberCname}
+                id={item.channelCode}
+                is={Text}
+            />
+            <>
+                {
+                    item.shoppingpackageList.map((c, index: number) => (
+                        <Fragment key={index}>
+                            {c.promotionName && <Promotion
+                                disNextMsg={c.disNextMsg}
+                                pbName={c.pbName}
+                                shoppingCode={c.shoppingCode}
+                                promotionCode={c.promotionCode}
+                                pbCode={c.pbCode}
+                                promotionName={c.promotionName}>
+                            </Promotion>}
+                            <ShoppGood callbackName={callbackName} shoppingGoodsList={c.shoppingGoodsList}/>
+                        </Fragment>
+                    ))
+                }
+            </>
+        </div>
+    )
+}
+
+export const NoNeedCartCommon = HOCCodeWrapComponent(CartCommon);
+
+const CartFooter = ({storeKey, dataPath, callbackName}: { storeKey: string; dataPath: string; callbackName: string }) => {
+    const list = useCartListData(dataPath, storeKey);
+    const orderIds = useRef([]);
+    const selectIds = useRef([]);
+    const retry = useModuleContext(s => s.moduleStore[callbackName]);
+    const {styles} = useStyles2();
+    const isAllChecked = useRef(false);
+    const [loading, setLoading] = useState(false);
+    const totalInfo = useMemo(() => {
+        let money = 0;
+        let num = 0;
+        let disMoney = 0;
+        orderIds.current = [];
+        selectIds.current = [];
+        isAllChecked.current = true;
+        list.forEach(item => {
+            item.shoppingpackageList.forEach(c => {
+                disMoney += c.disMoney || 0;
+                c.shoppingGoodsList.forEach(citem => {
+                    if (+citem.dataState === 0) {
+                        orderIds.current.push(citem.shoppingGoodsId);
+                        if (citem.shoppingGoodsCheck === 0) {
+                            selectIds.current.push(citem.shoppingGoodsId);
+                            money += citem.goodsCamount * citem.pricesetNprice;
+                            num += citem.goodsCamount;
+                        }
+                        if (citem.shoppingGoodsCheck === 1) {
+                            isAllChecked.current = false;
+                        }
+                    }
+                })
+            })
+        })
+
+        return {
+            totalMoney: money,
+            totalNum: num,
+            disMoney
+        }
+    }, [list]);
+
+    console.log(211117, list, totalInfo);
+
+    const updateSelect = debounce(async (e: any) => {
+        setLoading(true);
+        const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
+            shoppingGoodsIdStr: orderIds.current.join(','),
+            checkState: e.target.checked ? 0 : 1
+        })
+        message.success(msg);
+        retry();
+        setLoading(false);
+    }, 500)
+
+    const deleteImpl = debounce(async () => {
+        if (selectIds.current.length === 0) {
+            message.info('选择需要删除的商品');
+            return;
+        }
+        setLoading(true);
+
+        const {msg} = await post('web/oc/shopping/deleteShoppingGoods.json', {
+            shoppingGoodsId: selectIds.current.join(','),
+        })
+        message.success(msg);
+        retry();
+        setLoading(false);
+    }, 500)
+
+    return (
+            <Spin spinning={loading}>
+                <div className={styles.wrap} style={{marginBottom: 0}}>
+                    <div className={'large'}>
+                        <div><Checkbox checked={isAllChecked.current} onChange={updateSelect}></Checkbox></div>
+                        <div>全选</div>
+                        <Popconfirm
+                            title="删除"
+                            onConfirm={deleteImpl}
+                            description="确定删除所选商品?"
+                        >
+                            <div style={{cursor: "pointer"}}>删除选择的商品</div>
+                        </Popconfirm>
+                    </div>
+                    <div style={{color: '#f00', fontFamily: 'JDZHENGHEI'}}>
+                        <span style={{fontSize: 12}}>已选 </span>
+                        <span style={{fontSize: 14, fontWeight: 500}}>{totalInfo.totalNum}</span>
+                        <span style={{fontSize: 12}}> 件商品</span>
+                    </div>
+                    <div style={{fontFamily: 'JDZHENGHEI'}}>
+                        <span style={{fontSize: 12}}>优惠金额 </span>
+                        <span style={{fontSize: 14, fontWeight: 500}}>{fixPrice(totalInfo.disMoney)}</span>
+                    </div>
+                    <div style={{fontFamily: 'JDZHENGHEI'}}>
+                        <span style={{fontSize: 12}}>合计(不含运费)</span>
+                        <span style={{fontSize: 12, color: '#f00'}}>￥</span>
+                        <span style={{
+                            fontSize: 14,
+                            color: '#f00',
+                            fontWeight: 500
+                        }}>{fixPrice(totalInfo.totalMoney)}</span>
+                    </div>
+                    <div>
+                        <ButtonComponent type={'primary'} size={'large'} danger icon={<ShoppingCartOutlined/>}
+                                         text={'立即购买'}/>
+                        {/*<Button type={'primary'} size={'large'} danger icon={<ShoppingCartOutlined/>}>立即购买</Button>*/}
+                    </div>
+                </div>
+            </Spin>
+    )
+}
+
+export const NoNeedCartFooter = HOCCodeWrapComponent(CartFooter);
+
+export const CartList = ({dataPath, callbackName, storeKey}: {
+    dataPath: string;
+    storeKey: string;
+    callbackName: string
+}) => {
+    const {styles} = useStyles();
+    const list = useCartListData(dataPath, storeKey);
+    console.log(334, list, storeKey);
+    return (
+        <div style={{border: 'solid 1px #efefef', borderRadius: 10}}>
+            <ul className={styles.title}>
+                {
+                    config.map((item, index) => (
+                        <li className={classNames({
+                            large: item === '商品信息',
+                        })} key={index}>{item}</li>
+                    ))
+                }
+            </ul>
+            <>
+                {
+                    list.map((item, index) => <NoNeedCartCommon callbackName={callbackName} item={item} key={index}/>)
+                }
+            </>
+            <Element id={'NoNeedCartFooter'} dataPath={dataPath} canvas is={NoNeedCartFooter} callbackName={callbackName} storeKey={storeKey}/>
+        </div>
+    )
+}

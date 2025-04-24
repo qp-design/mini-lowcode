@@ -1,11 +1,16 @@
-import * as basic from './components';
+import * as component from './components';
 import {HOCCodeWrapComponent} from "@brushes/component-core";
+let componentList: any = {};
+Object.entries(component).forEach(([key, value]) => {
 
-let obj: any = {};
-
-Object.entries(basic).forEach(([key, value]) => {
-    const id = key + 'Component';
-    obj[id] = HOCCodeWrapComponent(value, ['Text', 'Link'].includes(key));
+    if(!key.startsWith('NoNeed')) {
+        const id = key + 'Component';
+        componentList[id] = HOCCodeWrapComponent(value, ['CardList', 'Banner', 'PageDetail', 'SwiperThumb'].includes(key));
+    } else {
+        componentList[key] = value
+    }
+    // const id = key.startsWith('NoNeed') ? key : key + 'Component';
+    // componentList[id] = HOCCodeWrapComponent(value, ['CardList', 'Banner', 'PageDetail', 'SwiperThumb'].includes(key));
 })
 
-export default obj;
+export default componentList;

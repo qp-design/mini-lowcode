@@ -3,8 +3,7 @@ import {Fragment} from 'react';
 import { dynamicFormFields, useImmutableCallback } from '@brushes/form';
 import { useNode } from '@craftjs/core';
 import type {FieldType} from '@brushes/form';
-import {transformCode} from '../tool';
-import {isUndefined} from "lodash-es";
+import {isUndefined, debounce} from "lodash-es";
 
 export type formConfigType = {
   title?: string;
@@ -22,7 +21,6 @@ export const basicSettings = (formFields: formConfigType[], layout?: LayoutType)
     } = useNode((node) => ({
       configProps: node.data.props,
     }));
-
     const isNeedOmit = (values: any) => {
       if(Array.isArray(values)) {
         return values.filter((v) => !isUndefined(v))
@@ -38,24 +36,25 @@ export const basicSettings = (formFields: formConfigType[], layout?: LayoutType)
       return obj;
     }
 
-    const callbackImpl = useImmutableCallback((_:any, prevAllValues: any) => {
+    const callbackImpl = debounce(useImmutableCallback((_:any, prevAllValues: any) => {
       const allValues = isBreakChangeValue(prevAllValues);
 
-      if(allValues.hasOwnProperty('&_slot')) {
-
-      }
       setProp((props: object) => {
         Object.entries(allValues).forEach(([key, value], index) => {
-          if(/^\$_/.test(key)) {
-            value = transformCode(value as string)
-          }
-          // @ts-ignore
-          props[key] = value
+          // if(key === '$_actions') {
+          //   // const fun = new Function('', `return ${value}`);
+          //   // @ts-ignore
+          //   props['onClick'] = fun('daa')
+          // } else {
+            // @ts-ignore
+            props[key] = value
+          // }
+
         })
       }, 500);
 
       // setProp((props: object) => {}, 500);
-    });
+    }), 500);
 
     return (
       <Form
@@ -70,9 +69,8 @@ export const basicSettings = (formFields: formConfigType[], layout?: LayoutType)
               {item.title ? (
                 <Card
                   size="small"
-                  style={{marginBottom: 10}}
+                  style={{marginBottom: 10, paddingBottom: 0}}
                   title={item.title}
-                  bodyStyle={{paddingBottom: 0}}
                 >
                   {dynamicFormFields(item.formFields, form)}
                 </Card>

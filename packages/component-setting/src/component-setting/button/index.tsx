@@ -1,6 +1,6 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
-import ActionJsx from '../../common/action';
+import {actionField} from '../../common';
 
 const containerField: FieldType[] = [
   {
@@ -9,8 +9,8 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
-    label: '11按钮',
-    name: '1text',
+    label: '打开抽屉code',
+    name: 'openKey',
     type: 'text',
   },
   {
@@ -45,18 +45,6 @@ const containerField: FieldType[] = [
 ]
 
 
-const actionField: FieldType[] = [
-  {
-    label: '逻辑',
-    name: '$_actions',
-    type: 'slot',
-    extraProps: {
-      render({onChange, value}) {
-        return <ActionJsx onChange={onChange} value={value}/>
-      }
-    }
-  },
-]
 
 const baseFormField: formConfigType[] = [
   {

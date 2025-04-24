@@ -42,7 +42,6 @@ export const WrapTable = <T extends object>({activeModule, onChange, param, titl
     }
   }, [activeModule]);
 
-  console.log('column', column);
   return (
     <>
       <Add<T> setColumn={setColumn}/>

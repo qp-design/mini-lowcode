@@ -50,7 +50,7 @@ export function SelectPicture({
   parentName = [],
   fileType = 'picture'
 }: {
-  onChange: (e: any) => void;
+  onChange?: (e: any) => void;
   fileType?: string;
   name: NamePath;
   parentName?: Array<any>;

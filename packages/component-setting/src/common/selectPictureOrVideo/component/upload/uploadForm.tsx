@@ -42,7 +42,11 @@ const UploadForm = ({ onSubmit }: { onSubmit: () => void }) => {
           if (!limited) {
             throw new Error(`上传失败，大小不可超过${num}MB!`);
           }
-          return await uploadImpl(files);
+          try {
+            return await uploadImpl(files);
+          } catch (err:any) {
+            throw new Error(err);
+          }
         }
       }
     ];

@@ -162,8 +162,8 @@ export const UserInfo = ({text, imgUrl, ...restProps}: { text: string; imgUrl: s
                     <div className="otherInfo">
                         {
                             tabTitle.map((item: any, index: number) => (
-                                <div onClick={() => {
-                                }} className="box navigator" key="item.label">
+                                <div key={index} onClick={() => {
+                                }} className="box navigator">
                                     {index === 0 && <div className="top_num">0</div>}
                                     {index !== 0 && <div className="top_num">{item.value}</div>}
                                     <div className="bottom_name">{item.label}</div>

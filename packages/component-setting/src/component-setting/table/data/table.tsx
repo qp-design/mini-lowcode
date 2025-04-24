@@ -10,7 +10,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React, {useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import {Table, Popconfirm, Button} from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
@@ -59,7 +59,7 @@ const Row = ({ children, ...props }: RowProps) => {
   );
 };
 
-const App = <T extends object>({onChange, column, ...restProps}: {column: Array<T>; onChange: (e:any) => void}) => {
+const App = <T extends object>({onChange, column, setColumn, ...restProps}: {column: Array<T>; setColumn: Dispatch<T>; onChange: (e:any) => void}) => {
   const [dataSource, setDataSource] = useState<Array<T>>(column);
   const { title, id } = restProps;
   useEffect(() => {
@@ -68,6 +68,7 @@ const App = <T extends object>({onChange, column, ...restProps}: {column: Array<
 
   useEffect(() => {
     console.log(70, dataSource);
+    setColumn(dataSource);
     onChange(dataSource);
   }, [dataSource]);
 
@@ -99,7 +100,6 @@ const App = <T extends object>({onChange, column, ...restProps}: {column: Array<
   ];
   const handleDelete = (key: React.Key) => {
     const newData = dataSource.filter((item) => item[id] !== key);
-    console.log(102, newData, dataSource, id, key);
     setDataSource(newData);
   };
 

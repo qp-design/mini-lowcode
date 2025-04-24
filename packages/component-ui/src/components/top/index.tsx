@@ -1,6 +1,6 @@
 import {createStyles} from 'antd-style';
 import { line } from '../../icon'
-import { fullpath } from '@brushes/component-tool';
+import {fullpath, useNavigateImpl} from '@brushes/component-tool';
 
 const useStyle = createStyles(({token, css}) => {
     return {
@@ -60,10 +60,14 @@ const useStyle = createStyles(({token, css}) => {
     };
 });
 
-export const Top: React.FC<{ menu: Array<any>; navigator: () => void; tel: string; loginOut: ()=> void, user: string}> =
-    ({navigator, tel, loginOut, user, menu = [], ...restProps}) => {
-    console.log(61, menu);
+export const Top: React.FC<{ menu: Array<any>; tel: string; user: string}> =
+    ({tel, user, menu = [], ...restProps}) => {
+    const { navigator } = useNavigateImpl();
     const {styles} = useStyle();
+
+    const loginOut = () => {
+        navigator('/login')
+    }
     return (
         <div className={styles.wrap}>
             <div className={styles.container}>
@@ -86,8 +90,6 @@ export const Top: React.FC<{ menu: Array<any>; navigator: () => void; tel: strin
                             ))
                         }
                     </ul>
-                    {/*<div className="tel"><img width="14" height="14" src={tel}/>*/}
-                    {/*    <span>4000608111 转 6</span></div>*/}
                 </div>
             </div>
         </div>

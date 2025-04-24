@@ -1,0 +1,102 @@
+import {useEffect, useMemo, useState} from "react";
+import {post} from "@brushes/request";
+import {useModuleContext} from "@brushes/component-core";
+import {get, groupBy, isEmpty} from "lodash-es";
+import {message} from "antd";
+import {useApiParam} from "@brushes/component-tool";
+
+export const useDetail = (api:string, params: Array<any>) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const setModuleStore = useModuleContext(s => s.setModuleStore);
+    useEffect(() => {
+        (async () => {
+            if(api) {
+                query()
+            }
+        })()
+    }, [api, params]);
+    const apiParams = useApiParam(params);
+
+    const query = async () => {
+        try {
+            setLoading(true);
+            const data = await post(api, apiParams);
+            setModuleStore({defaultValue: data});
+        } catch (err) {
+
+        } finally {
+            setLoading(false);
+        }
+
+    }
+
+    return {
+        loading
+    }
+}
+
+
+
+export const useSku = (dataKey: string) => {
+    const [skuListName, setSkuListName] = useState<Array<string>>([]);
+    const defaultValue = useModuleContext(s => s.moduleStore.defaultValue) || {};
+
+    const setModuleStore = useModuleContext(s => s.setModuleStore);
+    const specList = useMemo(() => {
+        const list = get(defaultValue, "rsSpecValueDomainList", []);
+        const data = groupBy(list, 'specName') || [];
+        return Object.keys(data).map((item: string) => ({
+            specName: item,
+            skuOption: data[item]
+        }));
+    }, [defaultValue]);
+
+    useEffect(() => {
+        const skuList = get(defaultValue, "rsSkuDomainList", []);
+        // @ts-ignore
+        const selectObj = skuList.find((item) => item[dataKey] === defaultValue[dataKey]) || { skuName: ''};
+        const arr = specList.map(item => {
+            const { specValueValue } = item.skuOption.find(c => selectObj.skuName.includes(c.specValueValue));
+            return specValueValue
+        });
+
+        setModuleStore({
+            goodNum: 1,
+            skuInfo: selectObj
+        });
+        setSkuListName(arr);
+    }, [specList]);
+
+    const isTrue = (str:string, list: Array<string>) => {
+        return list.every((item) => {
+            return str.includes(`/${item}/`) || str.endsWith(item) || str.startsWith(item);
+        })
+    }
+
+    const onClick = (value: string, index: number) => {
+        skuListName[index] = value;
+        const skuList = get(defaultValue, "rsSkuDomainList", []);
+        const skuObj = skuList.find(item => {
+           return isTrue(item.skuName, skuListName)
+        }) || {};
+        if(isEmpty(skuObj)) {
+            message.info('该规格已下架');
+        }
+
+        setModuleStore({
+            goodNum: 1,
+            skuInfo: skuObj
+        });
+
+        setSkuListName(prev => {
+            prev[index] = value;
+            return [...prev];
+        });
+    }
+
+    return {
+        skuListName,
+        specList,
+        onClick
+    }
+}

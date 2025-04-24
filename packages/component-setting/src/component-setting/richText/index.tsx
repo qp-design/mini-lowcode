@@ -1,0 +1,19 @@
+import type {FieldType} from '@brushes/form';
+import {basicSettings, formConfigType} from '@brushes/component-core';
+
+const containerField: FieldType[] = [
+  {
+    label: 'code',
+    name: 'code',
+    type: 'text',
+  },
+]
+
+const baseFormField: formConfigType[] = [
+  {
+    title: '样式',
+    formFields: containerField
+  },
+]
+export const RichTextComponentSettings = basicSettings(baseFormField)
+

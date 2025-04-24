@@ -1,0 +1,13 @@
+import {useEffect} from 'react';
+import lz from 'lzutf8';
+import {useEditor} from '@craftjs/core';
+
+
+export const useQueryData = () => {
+  const { actions } = useEditor();
+  useEffect(() => {
+    const str = 'eyJST09UIjp7InR5cGXECHJlc29sdmVkTmFtZSI6IkNvbnRhaW5lciJ9LCJpc0NhbnZhcyI6dHJ1ZSwicHJvcHPENXdpZHRoIjoiMTAwIiwiYmFja2dyb3VuZCI6InJnYmEoMCwgxwMuMDIpIiwiY2xhc3PHY3Jvb3QtY8loLCJwYWRkaW5nIjo1LCJkYXRhLWN51CdhcGkiOiJ3ZWIvcnMv5AC3dXJjZUJhc2UvcXVlcnlSc1NrdVBhZ2VGb3JSZXRHb29kcy5qc29u5ADKZGlzcGxhefEA5SwiY3VzdG9tIjp7fSwiaGlkZGVuIjpmYWxzZSwibm9kZXMiOlsiQUpRYkhxOUNfaSIsIjlSdXQxZzhKZU8iXSwibGlua2VkTsYqe319LCJVWnVPWWFUclNm+wFnRm9ybUNvbXBvbmVudO4Ba8d96QFs7QFeI2bFAewBNTIwLCJncmlkIjozLCJsYXlvdXQiOiJ2ZXJ0aWNhbOQBOGN0aXZlTW9kdWzEeyIsImbFfm5maWciOltd8QEf7gCd7gEjcGFyxBU65gJI+QEz9QEaeGtBN2JOaUlYMP8BGv8BGv8BGukBGvUBGWlubGluZf8BF/8BF/8BF/8BF/ABF+sCXv8BF/8BF/8BF/8BF/YBF2dvb2TwARt7ImxhYmVsIjoi5ZWG5ZOB5ZCN56ewIiwibuYArMQ05gPtLOcAzyJ0ZXjkALbQOue8lueggco6c2t1Tm/cNpOB54mMyjBicmFuZENvZMtqc2VsZWPkAZ9leHRyYVDoARVvcHRpb27kAYR7InZhbHVl5gM5yVmchuinksVsxx7LHeebtMUdXX19/wIW/wIW/wIW7QIW6wRn+gIWVGFibGX/AhfoAQJjb2x1becBAnRpdOUB3u8BwOQFfUluZGV47wHFa2XkBZHKEuQBJ85D6QHJzEPoAc7GP8YOzTuPr+WUruW6k+WtmNR+U3VwcGx5bnVt7gCDyhfMTemUgN1NTtBHxBHNQYeR6aKdKOWFg+QGscxAcHJpY2VzZXROxQnJRs8XzEznsbvlnovPR8V2VOQBye0AiMUSzD3mmK/lkKbkuIrmnrbPQ8QMT3BiaWxsc3RhdMpJ0Bh9XSwicm93S+sBecZJ5gJu9APk8QLZ7wJc/wLa/wLa6gLafQ==';
+    const json = lz.decompress(lz.decodeBase64(str));
+    actions.deserialize(json);
+  }, []);
+}

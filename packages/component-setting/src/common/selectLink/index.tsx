@@ -7,7 +7,7 @@ import { NamePath } from '@brushes/form';
 
 interface LinkType {
   name: NamePath;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
   parentName?: Array<any>;
   type?: string; // 是否独立使用
   form: FormInstance;
@@ -53,7 +53,7 @@ export const SelectLink: React.FC<LinkType> = ({
   const chooseResult = () => {
     chosen.current = result;
     setModalShow(false);
-    onChange(chosen.current);
+    onChange?.(chosen.current);
     console.log('link', computedName);
     form.setFieldValue(computedName, chosen.current);
   };

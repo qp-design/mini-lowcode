@@ -7,7 +7,6 @@ export const Banner: React.FC<{menu: Array<{imgUrl: string; link: string}>}> = (
     const onChange = (currentSlide: number) => {
         console.log(currentSlide);
     };
-    console.log(9, menu);
     return (
         <div>
             <Carousel afterChange={onChange}>

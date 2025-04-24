@@ -1,34 +1,24 @@
-import {Ref, useRef, useState} from "react";
-import Editor from "@monaco-editor/react";
+import {useState} from "react";
 import {Button, Modal} from 'antd';
-function EditorJsx({editorRef, value}: { editorRef: Ref<any>; value: string}) {
-  function handleEditorDidMount(editor:string, monaco: any) {
-    editorRef.current = editor;
-  }
+import {EditorMirror, CodeEditor} from "@brushes/component-core";
 
-  return (
-    <>
-      <Editor
-        height="60vh"
-        defaultLanguage="javascript"
-        defaultValue={value}
-        onMount={handleEditorDidMount}
-      />
-    </>
-  )
-}
-function ActionJsx({onChange, value}: {onChange: (e: any) => void; value: string }) {
+
+export function ActionJsx({onChange, value}: {onChange: (e: any) => void; value: string }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const editorRef = useRef(null);
-
+  // const editorRef = useRef(null);
+  const [code, setCode] = useState<string>();
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
-    onChange(editorRef.current.getValue())
+    onChange(code)
     setIsModalOpen(false);
   };
+
+  const handleOnChange = (codeStr: string) => {
+      setCode(codeStr);
+  }
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -38,10 +28,17 @@ function ActionJsx({onChange, value}: {onChange: (e: any) => void; value: string
     <>
       <Button onClick={showModal} type={'primary'}>逻辑</Button>
       <Modal width={1000} title="逻辑" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <EditorJsx value={value} editorRef={editorRef} />
+          <EditorMirror />
+          <CodeEditor
+              lang="typescript"
+              value={value}
+              height="500px"
+              minHeight="400px"
+              maxHeight="500px"
+              onChange={handleOnChange}
+              // {...props.codeProps}
+           />
       </Modal>
     </>
   );
 }
-
-export default ActionJsx;

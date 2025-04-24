@@ -1,6 +1,6 @@
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {dynamicFormFields, FieldType} from '@brushes/form';
-import {WrapTable} from './data';
+import {WrapTable} from '../../common';
 
 
 const dataFormField: FieldType[] = [

@@ -8,7 +8,7 @@ interface Props {
   name: NamePath;
   handleCancel: () => void;
   form: FormInstance;
-  onChange: (e:any) => void
+  onChange?: (e:any) => void
 }
 
 const TabsPic: React.FC<Props> = ({ handleCancel, onChange, name, form, ...props }) => {
@@ -21,7 +21,7 @@ const TabsPic: React.FC<Props> = ({ handleCancel, onChange, name, form, ...props
 
   const saveImpl = () => {
     form.setFieldValue(name, ref.current);
-    onChange(ref.current);
+    onChange?.(ref.current);
     const values = form.getFieldsValue();
     const { selectImg = [] } = values;
     const noEmpty = selectImg.some((item: any) => isEmpty(item.imgUrl));

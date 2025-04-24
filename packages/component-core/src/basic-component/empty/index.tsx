@@ -3,8 +3,7 @@ import { Typography } from 'antd'
 
 export const SlotEmpty: React.FC<{
   children?: React.ReactNode,
-  borderColor?: string
-}> = ({ children, borderColor }) => {
+}> = ({ children = '当前为插槽容器，可以自定义组件代码。', borderColor = 'rgba(0, 0, 0, 0.1)' }) => {
   return (
     <div style={{
       height: '100%',
@@ -22,9 +21,4 @@ export const SlotEmpty: React.FC<{
       </Typography.Text>
     </div>
   )
-}
-
-SlotEmpty.defaultProps = {
-  borderColor: 'rgba(0, 0, 0, 0.1)',
-  children: '当前为插槽容器，可以自定义组件代码。'
 }

@@ -1,5 +1,5 @@
 import {createStyles} from 'antd-style';
-import {fullpath} from "@brushes/component-tool";
+import {fullpath, useNavigateImpl} from "@brushes/component-tool";
 import Search from "antd/es/input/Search";
 import { SearchOutlined } from '@ant-design/icons';
 
@@ -101,19 +101,18 @@ const useStyle = createStyles(({token, css}) => {
 export const LogoWithSearch: React.FC<{
     logo: {imgUrl: string};
     car: {imgUrl: string};
-    navigator: () => void;
     tel: string;
     loginOut: () => void,
     count: number,
     user: string,
 }> =
-    ({navigator, tel, loginOut, user, logo = {}, car = {}, count = [], ...restProps}) => {
-        console.log(107, logo, restProps);
+    ({tel, loginOut, user, logo = {}, car = {}, count = [], ...restProps}) => {
+        const { navigator } = useNavigateImpl();
         const {styles} = useStyle();
         return (
             <div className={styles.headerScoped}>
                 <div className="logo">
-                    <img onClick={navigator} src={fullpath(logo.imgUrl)} alt="logo" width="219" height="60"/>
+                    <img onClick={() => navigator('/home')} src={fullpath(logo.imgUrl)} alt="logo" width="219" height="60"/>
                 </div>
                 <div className="search">
                     {/*<Space.Compact style={{ width: '100%' }}>*/}
@@ -126,7 +125,7 @@ export const LogoWithSearch: React.FC<{
                         allowClear
                         enterButton="搜索"
                         size="large"
-                        onSearch={() => {}}
+                        onSearch={() => navigator('/goodList')}
                     />
                     {/*<el-input*/}
                     {/*    placeholder="请输入品牌/规格/产地/等关键字"*/}
@@ -143,7 +142,7 @@ export const LogoWithSearch: React.FC<{
                     {/*</div>*/}
                 </div>
 
-                <div className="search-box" onClick={navigator}>
+                <div className="search-box" onClick={()=> navigator('/car')}>
                     <span className="tip">{count}</span>
                     <img src={fullpath(car.imgUrl)} width="18" height="18"/>
                     <span>我的购物车</span>

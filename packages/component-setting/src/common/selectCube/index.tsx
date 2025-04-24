@@ -33,7 +33,6 @@ export const SelectCube = ({
             )}
             <div className={'pickLink'}>
               <SelectLink
-                onChange={onChange}
                 form={form}
                 name={[coe, link]}
                 parentName={parentName}
@@ -44,7 +43,6 @@ export const SelectCube = ({
           {noImg ? null : (
             <div className="rPart">
               <SelectPicture
-                onChange={onChange}
                 form={form}
                 name={[coe, imgUrl]}
                 parentName={parentName}

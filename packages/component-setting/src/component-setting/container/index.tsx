@@ -1,7 +1,8 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {useStyle} from "../logoWithSearch/style";
-import {SelectPicture} from "../../common";
+import {marginField, paddingField, SelectPicture} from "../../common";
+import {positionField} from "../../common/position";
 
 const containerField: FieldType[] = [
   {
@@ -45,22 +46,8 @@ const containerField: FieldType[] = [
       },
     }
   },
-  {
-    label: '上边距',
-    name: 'marginTop',
-    type: 'number',
-    extraProps: {
-      suffix: 'px',
-    }
-  },
-  {
-    label: '下边距',
-    name: 'marginBottom',
-    type: 'number',
-    extraProps: {
-      suffix: 'px',
-    }
-  },
+    ...marginField,
+    ...paddingField,
   {
     label: '高度',
     name: 'height',
@@ -69,28 +56,25 @@ const containerField: FieldType[] = [
     }
   },
   {
+    label: '圆角',
+    name: 'borderRadius',
+    type: 'number',
+  },
+  {
+    label: '边框颜色',
+    name: 'borderColor',
+    type: 'color',
+    extraProps: {
+      allowClear: true,
+      showText: true
+    }
+  },
+  {
     label: '宽度',
     name: 'width',
     type: 'text',
     extraProps: {
       placeholder: '请输入具体数值或百分比'
-    }
-  },
-  {
-    label: '容器水平居中',
-    name: 'margin',
-    type: 'radioGroup',
-    extraProps: {
-      options: [
-        {
-          value: 'auto',
-          label: '是',
-        },
-        {
-          value: 0,
-          label: '否',
-        }
-      ]
     }
   },
   {
@@ -147,6 +131,32 @@ const containerField: FieldType[] = [
       ]
     }
   },
+  {
+    label: '定位方式',
+    name: 'position',
+    type: 'select',
+    extraProps: {
+      options: [
+        {
+          label: '静态',
+          value: 'static'
+        },
+        {
+          label: '相对',
+          value: 'relative'
+        },
+        {
+          label: '绝对',
+          value: 'absolute'
+        },
+        {
+          label: '固定',
+          value: 'fixed'
+        }
+        ]
+    }
+  },
+  ...positionField
 ]
 
 const baseFormField: formConfigType[] = [

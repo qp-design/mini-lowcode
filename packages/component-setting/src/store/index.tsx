@@ -60,9 +60,19 @@ export const store: {
     ],
     tableConfig: [
       {
-        title: '商品名称',
-        dataIndex: 'goodsName',
-        key: 'goodsName',
+        title: '价格',
+        dataIndex: 'pricesetNprice',
+        key: 'pricesetNprice',
+      },
+      {
+        title: '数量',
+        dataIndex: 'amount',
+        key: 'amount',
+      },
+      {
+        title: '库存',
+        dataIndex: 'stock',
+        key: 'stock',
       },
       {
         title: '商品编码',
@@ -70,37 +80,15 @@ export const store: {
         key: 'skuNo',
       },
       {
-        title: '可售库存',
-        dataIndex: 'goodsSupplynum',
-        key: 'goodsSupplynum',
+        title: '商品条码',
+        dataIndex: 'skuBarcode',
+        key: 'skuBarcode',
       },
       {
-        title: '销售库存',
-        dataIndex: 'goodsNum',
-        key: 'goodsNum',
+        title: '起订量',
+        dataIndex: 'goodsMinnum',
+        key: 'goodsMinnum',
       },
-      {
-        title: '金额(元)',
-        dataIndex: 'pricesetNprice',
-        key: 'pricesetNprice',
-      },
-      {
-        title: '类型',
-        dataIndex: 'goodsType',
-        key: 'goodsType',
-      },
-      {
-        title: '是否上架',
-        dataIndex: 'dataOpbillstate',
-        key: 'dataOpbillstate',
-        type: 'slot'
-      },
-      {
-        title: '操作',
-        dataIndex: 'dataActions',
-        key: 'dataActions',
-        type: 'slot'
-      }
     ],
   },
   order: {

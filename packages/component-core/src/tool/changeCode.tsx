@@ -1,36 +1,101 @@
 //@ts-nocheck
 import React from 'react';
 import * as antd from 'antd';
-import { transform } from '@babel/standalone';
+import * as componentTool from '@brushes/component-tool';
+import * as reactRouterDom from 'react-router-dom';
+import * as antdIcons from '@ant-design/icons';
+import * as componentCore from '@brushes/component-core'
+// import {transform} from '@babel/standalone';
+import { transform } from "sucrase";
+
 import {SlotEmpty} from '../basic-component/empty';
-import {isEqual} from 'lodash-es';
 
-export function transformCode(source:string) {
-  return transform(source, {
-    presets: ['react', 'es2015']
-  }).code;
+export function transformCode(source: string) {
+    // const data = transform(source, {
+    //     presets: ['react', 'es2015', 'typescript'],
+    // });
+    // console.log(22, data);
+    // return data.code;
+    return transform(source, {
+        transforms: ["typescript", "imports", "jsx"],
+    }).code;
 }
 
-export function changeCode(transformedSource: string) {
-  try {
-    const exports = {};
-    function require(name: string){
-      console.log(40, name);
-      if(name == 'react') return React
-      if(name == 'antd') return antd
-      else throw `You can't use modules other than "react" in remote component.`
-    }
-    eval(transformedSource)
+export function changeCode(code: string) {
+    try {
+        // 实现module函数，用来套动态执行的函数结果
+        const module = {
+            exports: {
+                __esModule: false,
+                default: null as unknown,
+            },
+        };
 
-    const result = exports.__esModule ? exports.default : exports;
-    if(isEqual(result, {})) {
-     throw new Error('组件有问题，检查下是否正确');
-    } else {
-      return result;
+        // 实现一个require方法，用于模块执行时挂载依赖
+        const require = (packageName: string) => {
+            if (packageName == '@brushes/component-core') return componentCore;
+            if (packageName == 'react-router-dom') return reactRouterDom;
+            if (packageName == 'react') return React;
+            if (packageName == '@brushes/component-tool') return componentTool;
+            if (packageName == 'antd') return antd;
+            if (packageName == '@ant-design/icons') return antdIcons;
+            throw new Error('该包目前无法转化,需要扩展');
+            // if (dependencies[packageName]) {
+            //   return dependencies[packageName];
+            // }
+        };
+        // 动态执行
+        Function("require, exports, module", code)(require, module.exports, module);
+        return module;
+    } catch (err) {
+        return () => <SlotEmpty borderColor='#f00' children='组件有问题，检查下代码是否正确'/>
     }
-    // return exports.__esModule ? exports.default : exports
-  } catch (err) {
-    return () => <SlotEmpty borderColor='#f00' children='组件有问题，检查下代码是否正确'/>
-  }
-
 }
+
+/**
+ *
+ * @param code cjs代码
+ * @param dependencies 模块依赖
+ */
+export const compileModuleResolve = (
+    code: string,
+    dependencies: Record<string, any> = {}
+) => {
+    // 实现module函数，用来套动态执行的函数结果
+    const module: ESMoudleType = {
+        exports: {
+            __esModule: false,
+            default: null as unknown,
+        },
+    };
+
+    // 实现一个require方法，用于模块执行时挂载依赖
+    const require = (packageName: string) => {
+        if (dependencies[packageName]) {
+            return dependencies[packageName];
+        }
+    };
+    // 动态执行
+    Function("require, exports, module", code)(require, module.exports, module);
+    return module;
+};
+
+
+/**
+ * sucrase 编译器
+ * @param code 需要编译的代码,
+ */
+export const sucraseTransformCode = async (code: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        try {
+            // 编译成功的代码，不需要sourceMap
+            const buildProduct = transform(code, {
+                transforms: ["typescript", "imports", "jsx"],
+            }).code;
+            resolve(buildProduct);
+        } catch (error) {
+            // 编译失败
+            reject(error);
+        }
+    });
+};

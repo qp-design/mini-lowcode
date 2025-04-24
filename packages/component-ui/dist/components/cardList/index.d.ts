@@ -1,0 +1,5 @@
+import React from 'react';
+export declare const CardList: React.FC<{
+    gap: number;
+    num: number;
+}>;

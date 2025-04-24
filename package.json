@@ -4,7 +4,7 @@
     "stop": "kill-port --port 8181,8123",
     "build": "turbo run build",
     "start": "turbo run dev",
-    "dev": "turbo run dev --filter=root-vite --filter=./packages/*",
+    "dev": "turbo run dev --filter=editor --filter=./packages/*",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

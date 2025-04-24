@@ -1,0 +1,89 @@
+//@tailwind base;
+//@tailwind components;
+//@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0
+}
+ul， li {
+  list-style: none;
+}
+img {
+  vertical-align: middle;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrap {
+  height: 100vh;
+  display: grid;
+  grid-column-gap: 10px;
+  grid-template-columns: 160px 1fr 400px;
+
+  .container {
+    overflow-x: hidden
+  }
+
+  .component-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .flex-container {
+    display: flex
+  }
+;
+
+  .content-item {
+    text-align: center;
+    background: #fff;
+
+    b {
+      font-size: 12px;
+    }
+  }
+}
+
+.flex {
+  position: relative;
+  user-select: auto;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: unset;
+  flex-shrink: 0;
+  flex-basis: unset;
+  box-sizing: border-box;
+}
+
+
+.layout-setting {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  width: 320px;
+  border: solid 1px #e1e1e1;
+  border-radius: 4px;
+}
+
+.grid-wrap {
+  display: flex;
+  width: 100%;
+  min-height: 50px;
+}
+
+.default-common {
+  border: dashed 1px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  text-align: center;
+  color: #999;
+
+  p {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+}

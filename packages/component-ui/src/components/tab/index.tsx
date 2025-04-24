@@ -1,34 +1,30 @@
-import {ApplicationContext, Container, HOCCodeWrapComponent} from '@brushes/component-core';
+import {Container} from '@brushes/component-core';
 import {Tabs} from 'antd';
-import React, {ForwardedRef, useMemo} from 'react';
-import {Element} from '@craftjs/core';
+import {useMemo} from 'react';
+import {Element} from '@brushes/component-core';
 
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 
-const TabJsx =
-  React.forwardRef(({columns, tabPosition, ...props} : { columns: any; tabPosition: TabPosition}, ref: ForwardedRef<HTMLDivElement>) => {
-    console.log(10, columns);
+export const Tab =
+  ({columns, tabPosition, ...props} : { columns: any; tabPosition: TabPosition}) => {
     const newColumns = useMemo(() => {
-      return columns.map((item: any, ind: number) => ({
-        ...item,
-        children: <ApplicationContext>
-          <Element
-            canvas
-            id={item.key}
-            custom={{
-              key: ind,
-            }}
-            is={Container}
-          >
-          </Element>
-        </ApplicationContext>
-      }))
+      return columns.map(({label, key}: any, ind: number) => {
+          return {
+              key,
+              label: <span style={props}>{label}</span>,
+              children: (
+                  <Element
+                      canvas
+                      id={key}
+                      is={Container}
+                  >
+                  </Element>
+              )
+          }
+      })
     }, [columns])
 
-  return (
-    <div ref={ref} ><Tabs tabPosition={tabPosition} items={newColumns} {...props}/></div>
-  )
-})
-
-export const TabComponent = HOCCodeWrapComponent(TabJsx)
-
+        return (
+            <Tabs tabPosition={tabPosition} items={newColumns}/>
+        )
+    }

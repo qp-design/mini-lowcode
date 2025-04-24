@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "main": "src/index.ts",
   "license": "MIT",
-  "scripts": {
-
-  },
+  "scripts": {},
   "devDependencies": {
     "@turbo/gen": "^1.10.12",
     "@types/node": "^20.5.2",
@@ -15,7 +13,7 @@
   },
   "dependencies": {
     "@brushes/optimize": "^1.0.5",
-    "@brushes/utils": "^0.2.8",
+    "@brushes/utils": "^0.3.1",
     "@tanstack/query-core": "^5.13.4",
     "jotai": "^2.6.0"
   }

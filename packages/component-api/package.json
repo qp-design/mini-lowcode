@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "main": "src/index.ts",
   "license": "MIT",
-  "scripts": {
-
-  },
+  "scripts": {},
   "devDependencies": {
     "@turbo/gen": "^1.10.12",
     "@types/node": "^20.5.2",
@@ -15,6 +13,7 @@
   },
   "dependencies": {
     "@brushes/optimize": "^1.0.5",
+    "@brushes/request": "^1.1.6",
     "@brushes/utils": "^0.2.8"
   }
 }

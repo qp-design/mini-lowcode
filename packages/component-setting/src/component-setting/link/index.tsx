@@ -1,7 +1,7 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {useStyle} from "../logoWithSearch/style";
-import {SelectLink, SelectPicture} from "../../common";
+import {actionField, SelectLink, SelectPicture} from "../../common";
 
 const containerField: FieldType[] = [
   {
@@ -50,6 +50,10 @@ const baseFormField: formConfigType[] = [
   {
     title: '样式',
     formFields: containerField
+  },
+  {
+    title: '逻辑',
+    formFields: actionField
   },
 ]
 export const LinkCompnentSettings = basicSettings(baseFormField)
