@@ -25,6 +25,7 @@ const FilePreview = ({ value }: { value: string }) => {
           height={86}
           src={urlFile}
         />
+
       ) : (
         <div className={'video'}>
           <video
@@ -87,7 +88,7 @@ export function SelectPicture({
         )}
       </div>
       <Modal
-        destroyOnClose={true}
+        destroyOnHidden={true}
         width={860}
         title={fileType === 'picture' ? '选择图片' : '选择视频'}
         open={isModalVisible}

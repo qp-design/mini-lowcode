@@ -2,25 +2,16 @@ import Left from './left'
 import Right from './right'
 import ContainerMonitor from './container';
 import {ThemeProvider} from 'antd-style';
-
 import {
-    Container,
-    ContainerWrap,
-    ModuleProvider,
-    OutContainer,
-    SlotEmpty,
+    ModuleRootProvider,
 } from "@brushes/component-core";
 
-import {
-    Editor,
-} from '@craftjs/core';
-import * as service from "component-ui/service";
-import * as basic from "component-ui/basic";
-import Materials from "component-ui";
-import {Card, App, Popconfirm, Spin, Checkbox, InputNumber} from "antd";
-import {ReactNode} from "react";
-
-console.log(8, basic, Materials);
+import { App} from "antd";
+import {Common, WrapContainer} from '@brushes/editor-component';
+import {Fragment, useEffect, useState} from "react";
+import {get} from "@brushes/request";
+import {Route, Routes} from "react-router-dom";
+import {InnerApp} from "@/pages/container/monitor";
 
 const EditorMode = () => {
     return (
@@ -32,49 +23,67 @@ const EditorMode = () => {
     )
 }
 
-
-export const WrapContainer = ({children}: { children: ReactNode }) => {
-    return (
-        <Editor
-            resolver={{
-                ...service,
-                ...basic,
-                ...Materials,
-                Card,
-                InputNumber,
-                Checkbox,
-                Popconfirm,
-                Spin,
-                OutContainer,
-                SlotEmpty,
-                ContainerWrap,
-                Container,
-            }}>
-            <ModuleProvider>
-                {children}
-            </ModuleProvider>
-        </Editor>
-    )
-}
-
 const Wrap = () => {
     return (
         <App>
-            <WrapContainer>
-                <ThemeProvider
-                    // 可以和 CP 一样直接传入 theme 对象
-                    theme={{
-                        token: {
-                            // colorPrimary: 'green',
-                        },
-                    }}
-                >
+            <ModuleRootProvider>
+                <WrapContainer enabled={true}>
+                    <ThemeProvider
+                        // 可以和 CP 一样直接传入 theme 对象
+                        theme={{
+                            token: {
+                                // colorPrimary: 'green',
+                            },
+                        }}
+                    >
 
-                    <EditorMode/>
-                </ThemeProvider>
-            </WrapContainer>
+                        <EditorMode/>
+                    </ThemeProvider>
+                </WrapContainer>
+            </ModuleRootProvider>
         </App>
     )
 }
+
+const Root = () => {
+    return (
+        <ModuleRootProvider>
+            <WrapContainer enabled={true}>
+
+            {/*<Routes>*/}
+            {/*    <Route path="/" element={<Wrap/>}>*/}
+            {/*        <Route index element={<InnerApp/>}/>*/}
+            {/*        <Route path={'index'} element={<InnerApp/>}/>*/}
+            {/*    </Route>*/}
+            {/*    /!*<Route path="/" element={<Common menuOpcode={'common'}/>}>*!/*/}
+            {/*    /!*    /!* 子路由 *!/*!/*/}
+            {/*    /!*    {*!/*/}
+            {/*    /!*        menu.map(item => (*!/*/}
+            {/*    /!*            <Fragment key={item.menuOpcode}>*!/*/}
+            {/*    /!*                <Route*!/*/}
+            {/*    /!*                    path={item.menuOpcode}*!/*/}
+            {/*    /!*                    element={<Common menuOpcode={item.menuOpcode}/>}*!/*/}
+            {/*    /!*                />*!/*/}
+            {/*    /!*            </Fragment>*!/*/}
+            {/*    /!*        ))*!/*/}
+            {/*    /!*    }*!/*/}
+            {/*    /!*    /!*<Route index element={<Common menuOpcode={'index'}/>} />*!/*!/*/}
+            {/*    /!*    /!*<Route path={'index'} element={<Common menuOpcode={'index'}/>} />*!/*!/*/}
+            {/*    /!*    /!*<Route path="/car" element={<Car/>} />*!/*!/*/}
+            {/*    /!*    /!*<Route path="/goodList" element={<GoodList/>} />*!/*!/*/}
+            {/*    /!*    /!*<Route path="/account" element={<Account/>} />*!/*!/*/}
+            {/*    /!*    /!*<Route path="/result" element={<Result/>} />*!/*!/*/}
+            {/*    /!*    /!*<Route path="/goodDetail" element={<GoodDetail/>} />*!/*!/*/}
+            {/*    /!*    /!*<Route path="/user" element={<User/>}>*!/*!/*/}
+            {/*    /!*    /!*    /!* 更深层次的子路由 *!/*!/*!/*/}
+            {/*    /!*    /!*    <Route path="order" element={<Order />} />*!/*!/*/}
+            {/*    /!*    /!*    <Route path="orderDetail" element={<OrderDetail/>} />*!/*!/*/}
+            {/*    /!*    /!*</Route>*!/*!/*/}
+            {/*    /!*</Route>*!/*/}
+            {/*</Routes>*/}
+            </WrapContainer>
+        </ModuleRootProvider>
+    );
+};
 
 export default Wrap;

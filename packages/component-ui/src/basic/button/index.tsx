@@ -1,10 +1,33 @@
 import {Button} from 'antd';
 import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {ReactNode} from "react";
 
-const Button2 = ({text, openKey, onClick, ...restProps}: { onClick?: () => void; openKey?: string; text: string; }) => {
-  return (
-    <Button onClick={onClick?.bind(null, openKey)} {...restProps} data-id={openKey || text}>{text}</Button>
-  )
+const Button2 = ({text, icon, size, margin = {}, padding = {}, type, onClick, openKey, ...restProps}: {
+    margin?: object;
+    padding?: object;
+    size?: any;
+    onClick?: () => void;
+    type?: any;
+    text?: string;
+    openKey?: string;
+    icon?: ReactNode;
+}) => {
+    return (
+        <Button
+            {...{
+                icon,
+                type,
+                size,
+                onClick
+            }}
+            style={{
+                ...margin,
+                ...padding,
+                ...restProps,
+                border: `${restProps.borderSize || 1}px solid ${restProps.borderColor}`,
+            }}
+            data-id={openKey || text}>{text}</Button>
+    )
 }
 
 export const ButtonComponent = HOCCodeWrapComponent(Button2);

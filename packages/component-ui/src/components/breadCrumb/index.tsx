@@ -13,7 +13,7 @@ export const Breadcrumb: React.FC = (props) => {
 
     const onChange = (item: any, ind: number) => {
         if(ind === 0) {
-            navigator('/home');
+            navigator('/index');
         } else {
             setModuleStore({
                 breadList: breadList.slice(0, ind),

@@ -1,7 +1,6 @@
 import {CodeEditor} from "../editorCode";
 
-
-const defaultCode = `/**
+const defaultCodeInfo = `/**
 * import { useModuleContext } from '@brushes/component-core'; 当前模块上下文
 * const setModuleStore = useModuleContext(s => s.setModuleStore); 当前模块store，访问到store方法
 * const moduleStore = useModuleContext(s=> s.moduleStore); 当前模块状态，这里能访问到store状态
@@ -10,7 +9,7 @@ const defaultCode = `/**
 */`;
 
 
-export const EditorMirror = () => {
+export const EditorMirror = ({defaultCode = defaultCodeInfo}: { defaultCode? : string}) => {
     return (
         <CodeEditor
             editable={false}

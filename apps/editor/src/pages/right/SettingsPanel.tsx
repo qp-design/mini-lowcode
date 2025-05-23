@@ -1,14 +1,15 @@
 import {useEditor} from '@craftjs/core';
 import {Button, Row, Col, Typography, Tag} from 'antd';
 import React from 'react';
+import {getNode, setNode} from "@/module";
 
 export const SettingsPanel = () => {
-  const {actions, selected, isEnabled} = useEditor((state, query) => {
+  const {actions: { add, delete : deleteAction }, selected, isEnabled, query: { createNode, node }} = useEditor((state, query) => {
     const currentNodeId = query.getEvent('selected').last();
     let selected;
-
     if (currentNodeId) {
       selected = {
+        node: state.nodes[currentNodeId].data,
         id: currentNodeId,
         name: state.nodes[currentNodeId].data.name,
         settings:
@@ -24,6 +25,16 @@ export const SettingsPanel = () => {
     };
   });
 
+  const copyImpl = () => {
+      const { data: { type, props}} = node(selected.id).get();
+      setNode(createNode(React.createElement(type, props)));
+  }
+
+  const pasterImpl = () => {
+      const node = getNode();
+      add(node, selected.id)
+  }
+
   return isEnabled && selected ? (
     <Row>
       <Col span={12}>
@@ -37,16 +48,34 @@ export const SettingsPanel = () => {
           {selected.settings && React.createElement(selected.settings)}
         </div>
       </Col>
-      {selected.isDeletable ? (
         <Button
-          type="primary"
-          style={{width: '100%'}}
-          onClick={() => {
-            actions.delete(selected.id);
-          }}
+            type="default"
+            style={{width: '48%', marginTop: 15}}
+            onClick={copyImpl}
         >
-          删除改组件
+            复制组件
         </Button>
+        <Button
+            type="primary"
+            ghost
+            style={{width: '48%', marginLeft: '4%', marginTop: 15}}
+            onClick={pasterImpl}
+        >
+            粘贴组件
+        </Button>
+      {selected.isDeletable ? (
+          <>
+              <Button
+                  type="primary"
+                  style={{width: '100%', marginTop: 15}}
+                  onClick={() => {
+                      deleteAction(selected.id);
+                  }}
+              >
+                  删除组件
+              </Button>
+          </>
+
       ) : null}
     </Row>
   ) : null;

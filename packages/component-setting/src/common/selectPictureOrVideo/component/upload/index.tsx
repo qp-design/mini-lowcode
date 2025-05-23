@@ -41,7 +41,7 @@ const UploadImg = ({ name }: { name: NamePath }) => {
         本地上传
       </Button>
       <Modal
-        destroyOnClose={true}
+        destroyOnHidden={true}
         width={860}
         title="本地上传"
         open={isModalVisible}

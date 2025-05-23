@@ -6,7 +6,7 @@ import {Element} from '@brushes/component-core';
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 
 export const Tab =
-  ({columns, tabPosition, ...props} : { columns: any; tabPosition: TabPosition}) => {
+  ({columns, tabPosition, destroyOnHidden, ...props} : { destroyOnHidden: boolean; columns: any; tabPosition: TabPosition}) => {
     const newColumns = useMemo(() => {
       return columns.map(({label, key}: any, ind: number) => {
           return {
@@ -25,6 +25,6 @@ export const Tab =
     }, [columns])
 
         return (
-            <Tabs tabPosition={tabPosition} items={newColumns}/>
+            <Tabs destroyOnHidden={destroyOnHidden} tabPosition={tabPosition} items={newColumns}/>
         )
     }

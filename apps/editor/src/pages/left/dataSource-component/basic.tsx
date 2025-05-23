@@ -14,7 +14,10 @@ import {
   CardComponentSettings,
   DrawerComponentSettings,
   FormComponentSettings,
-  NavigatorComponentSettings
+  DividerComponentSettings,
+  FormJsxComponentSettings,
+  ButtonWrapSettings,
+  NavigatorComponentSettings, NavigatorComponentSettings2
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 
@@ -42,6 +45,8 @@ const basic : Array<TypeComponent> = [
     Component: BasicComponent['Text'],
     setting: {
       props: {
+        module: 'moduleStore',
+        storeKey: '_skuInfo',
         // minWidth: 40,
         fontWeight: 400,
         fontSize: 12,
@@ -81,14 +86,14 @@ const basic : Array<TypeComponent> = [
         componentType: 'list',
         gap: 10,
         num: 5,
-        pageSize: 10,
+        pageSize: 5,
         defaultValue: '{}',
         dataPath: 'list',
         margin: {
           marginTop: 5,
           marginBottom: 5,
-          marginLeft: 5,
-          marginRight: 5,
+          marginLeft: 0,
+          marginRight: 0,
         }
         // minHeight: 300,
       },
@@ -119,7 +124,7 @@ const basic : Array<TypeComponent> = [
   {
     name: '左右卡片',
     icon: 'icon-text',
-    Component: Materials['CardLRComponent'],
+    Component: ServiceComponent['CardLRComponent'],
     setting: {
       props: {
         borderRadius: 6,
@@ -145,7 +150,7 @@ const basic : Array<TypeComponent> = [
         height: '100%',
         image: {
           imgUrl: "",
-          link: ''
+          path: ''
         }
       },
       related: {
@@ -194,7 +199,8 @@ const basic : Array<TypeComponent> = [
     Component: Materials['DrawerComponent'],
     setting: {
       props: {
-        destroyOnClose: true,
+        width: 378,
+        destroyOnHidden: true,
         code: '',
         placement: 'right'
       },
@@ -218,6 +224,22 @@ const basic : Array<TypeComponent> = [
     }
   },
   {
+    name: '表单外层',
+    icon: 'icon-caozuojilu',
+    Component: BasicComponent['FormComponent'],
+    setting: {
+      props: {
+        padding: {paddingTop: 5, paddingBottom: 5},
+        formName: 'saveOrder',
+        api: 'web/oc/contract/saveContract.json',
+        saveText: '提交订单',
+      },
+      related: {
+        settings: FormComponentSettings,
+      },
+    }
+  },
+  {
     name: '表单',
     icon: 'icon-caozuojilu',
     Component: Materials['FormJsxComponent'],
@@ -232,7 +254,7 @@ const basic : Array<TypeComponent> = [
         callbackName: 'addressQueryRetry',
       },
       related: {
-        settings: FormComponentSettings,
+        settings: FormJsxComponentSettings,
       },
     }
   },
@@ -240,6 +262,21 @@ const basic : Array<TypeComponent> = [
     name: '导航',
     icon: 'icon-text',
     Component: ServiceComponent['NavigatorComponent'],
+    setting: {
+      props: {
+        menu: [{ title: '默认导航'}],
+        isNeedLine: true,
+        className: 'nav',
+      },
+      related: {
+        settings: NavigatorComponentSettings,
+      },
+    }
+  },
+  {
+    name: '导航2',
+    icon: 'icon-text',
+    Component: ServiceComponent['NavigatorComponent2'],
     setting: {
       props: {
         minHeight: 20,
@@ -256,7 +293,55 @@ const basic : Array<TypeComponent> = [
         list: [],
       },
       related: {
-        settings: NavigatorComponentSettings,
+        settings: NavigatorComponentSettings2,
+      },
+    }
+  },
+  {
+    name: '按钮外轮廓',
+    icon: 'icon-text',
+    Component: ServiceComponent['ButtonWrap'],
+    setting: {
+      props: {
+        letterSpacing: 1,
+        fontWeight: 400,
+        startColor: '',
+        color: '#fff',
+        endColor: '',
+        padding: {
+          paddingTop: 2,
+          paddingBottom: 2,
+          paddingLeft: 2,
+          paddingRight: 2,
+        }
+      },
+      related: {
+        settings: ButtonWrapSettings,
+      },
+    }
+  },
+  {
+    name: '线条',
+    icon: 'icon-text',
+    Component: BasicComponent['DividerComponent'],
+    setting: {
+      props: {
+        dashed: false,
+        plain:false,
+        borderWidth: 1,
+        orientationMargin: 0,
+        orientation: 'center',
+        type: 'horizontal',
+        margin: {
+          marginBottom: 0,
+          marginLeft: 0,
+          marginRight: 0,
+          marginTop: 0
+        },
+        borderColor: '#ccc'
+      },
+      related: {
+        settings: DividerComponentSettings,
       },
     }
   },

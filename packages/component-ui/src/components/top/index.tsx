@@ -1,6 +1,9 @@
 import {createStyles} from 'antd-style';
-import { line } from '../../icon'
-import {fullpath, useNavigateImpl} from '@brushes/component-tool';
+import {useNavigateImpl} from '@brushes/component-tool';
+import {Element} from "@craftjs/core";
+import {Container, OutContainer} from "@brushes/component-core";
+import {NavigatorComponent} from "../../service";
+import {ButtonComponent, DividerComponent, Text} from "../../basic";
 
 const useStyle = createStyles(({token, css}) => {
     return {
@@ -22,76 +25,74 @@ const useStyle = createStyles(({token, css}) => {
             margin: 0 auto;
             justify-content: space-between;
         `,
-        left: css`
-            .logon{ cursor: pointer }
-            display: flex;
-            span{ padding: 0 5px;}
-        `,
-        right: css`
-                display: flex;
-                align-items: center;
-
-                ul {
-                    display: flex;
-                    list-style: none;
-                    li {
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        :hover {
-                            color: #0952E5;
-                        }
-                        .icon-prev{ padding-right: 9px;}
-                        span {
-                            padding: 0 20px;
-                        }
-                    }
-                }
-
-                .tel {
-                    padding-left: 20px;
-                    display: flex;
-                    align-items: center;
-                    span {
-                        padding-left: 9px;
-                    }
-                }
-        `
     };
 });
 
-export const Top: React.FC<{ menu: Array<any>; tel: string; user: string}> =
-    ({tel, user, menu = [], ...restProps}) => {
-    const { navigator } = useNavigateImpl();
-    const {styles} = useStyle();
+export const Top: React.FC<{ menu: Array<any>; tel: string; user: string }> =
+    ({tel, user, ...restProps}) => {
+        const {navigator} = useNavigateImpl();
+        const {styles} = useStyle();
 
-    const loginOut = () => {
-        navigator('/login')
-    }
-    return (
-        <div className={styles.wrap}>
-            <div className={styles.container}>
-                <div className={styles.left}>
-                    您好！{user}欢迎来到铁亿 <span>|</span>
-                    <div className="logon" onClick={loginOut}>退出
-                    </div>
-                </div>
-                <div className={styles.right}>
-                    <ul>
-                        {
-                            menu.map((item: any, index:number) => (
-                                <li key={index}>
-                                    <span
-                                        onClick={() => navigator(item)}
-                                    >{item.imgUrl && <img className="icon-prev" height="14" src={fullpath(item.imgUrl)}/>}{item.title}</span>
-                                    { menu.length -1 !== index && <img width="1" height="12" src={line}/> }
-                                </li>
+        const loginOut = () => {
+            navigator('/login')
+        }
+        return (
+            <div className={styles.wrap}>
+                <div className={styles.container}>
+                    <Element
+                        canvas
+                        alignItems={'center'}
+                        flexDirection={'row'}
+                        is={OutContainer}
+                        justifyContent={'space-between'}
+                        id={'menu-top-wrap'}
+                    >
+                        <Element
+                            canvas
+                            alignItems={'center'}
+                            flexDirection={'row'}
+                            id={'menu-top-left'}
+                            is={Container}
+                        >
+                            <Text text={'您好，'}/>
+                            <Text module={'rootStore'} storeKey={'_userInfo'} text='用户名' code={'userName'}></Text>
+                            <Text text={'欢迎来到千匠'}/>
+                            <DividerComponent margin={{marginLeft: 8, marginRight: 8}} type={'vertical'}/>
+                            <ButtonComponent paddingLeft={0} paddingRight={0} fontSize={12} type={'link'} text='退出' onClick={loginOut}></ButtonComponent>
+                        </Element>
 
-                            ))
-                        }
-                    </ul>
+                        <Element
+                            canvas
+                            alignItems={'center'}
+                            flexDirection={'row'}
+                            justifyContent={'flex-end'}
+                            id={'menu-top'} is={Container}>
+                            {/*<Na*/}
+                            <NavigatorComponent
+                                className={'nav'}
+                                padding={{paddingTop: 0, paddingBottom: 0, paddingLeft: 10, paddingRight: 10}}
+                                menu={[
+                                    {title: '购物车', path: '/car', imgUrl: 'https://prodtyds.obs.cn-north-4.myhuaweicloud.com:443/img%2F20250331f7e7c9f325aa4b5cb8ee5c5ca828cdf8.png'},
+                                    {title: '个人中心', path: '/user'},
+                                    {title: '400-990-3366', imgUrl: 'https://prodtyds.obs.cn-north-4.myhuaweicloud.com:443/img%2F202503314f43092f8bbd4c68858fa21ef1b2fe81.png'}
+                                ]}
+                            />
+                        </Element>
+                    </Element>
+                {/*    */}
+                {/*    <div className={styles.right}>*/}
+                {/*        <Element canvas id={'menu-top'} is={Container}>*/}
+                {/*            /!*<Na*!/*/}
+                {/*            <NavigatorComponent*/}
+                {/*                menu={[*/}
+                {/*                    {title: '购物车', path: '/car', imgUrl: 'https://prodtyds.obs.cn-north-4.myhuaweicloud.com:443/img%2F20250331f7e7c9f325aa4b5cb8ee5c5ca828cdf8.png'},*/}
+                {/*                    {title: '个人中心', path: '/user'},*/}
+                {/*                    {title: '400-990-3366', imgUrl: 'https://prodtyds.obs.cn-north-4.myhuaweicloud.com:443/img%2F202503314f43092f8bbd4c68858fa21ef1b2fe81.png'}*/}
+                {/*                ]}*/}
+                {/*            />*/}
+                {/*        </Element>*/}
+                {/*    </div>*/}
                 </div>
             </div>
-        </div>
-    )
-}
+        )
+    }

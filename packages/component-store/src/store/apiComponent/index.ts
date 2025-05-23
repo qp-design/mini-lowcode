@@ -10,6 +10,10 @@ export const useApiComponent = (api:string, rows: number, restParams: {
     params: Array<{ key: string; value: string }> | undefined
 }) => {
     const currentPage = useRef(0);
+    const pageCurrent = useRef({
+        page: 1
+    });
+    const [loading, setLoading] = useState(false);
     const params = useModuleContext(s => s.moduleStore.params);
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     const [result, setResult] = useState( restParams.componentType === 'detail' ? JSON.parse(restParams.defaultValue) : {
@@ -21,24 +25,27 @@ export const useApiComponent = (api:string, rows: number, restParams: {
     useEffect(() => {
         (async () => {
             if(api) {
-                const func = restParams.componentType === 'detail' ? normal : query;
+                // const func = restParams.componentType === 'detail' ? normal : query;
                 if(restParams.callbackName) {
                     setModuleStore({
-                        [restParams.callbackName]: func
+                        [restParams.callbackName]: query
                     })
                 }
-                func({})
+                setModuleStore({
+                    _location: apiParams
+                })
+                query()
             }
         })()
     }, [params, api, rows, apiParams, restParams.callbackName, restParams.componentType]);
-
-    const normal = async () => {
-        const data = await post(api, {
-            ...apiParams,
-            ...params,
-        });
-        finallyImpl(data);
-    }
+    //
+    // const normal = async () => {
+    //     const data = await post(api, {
+    //         ...apiParams,
+    //         ...params,
+    //     });
+    //     finallyImpl(data);
+    // }
 
     const finallyImpl = (data: any) => {
         try {
@@ -48,25 +55,46 @@ export const useApiComponent = (api:string, rows: number, restParams: {
         }
     }
 
-    const query = async ({pageSize = rows, page = 1, ...restProps} : { pageSize?: number; page?:number}) => {
-        const data = await post(api, {
-            rows: pageSize,
-            page,
-            ...apiParams,
-            ...params,
-            ...restProps,
-        });
-        currentPage.current = page;
-        finallyImpl(data);
+    const query = async () => {
+        let _error = {}
+        try {
+            setLoading(true);
+            const data = await post(api, {
+                rows: pageCurrent.current.rows || rows,
+                ...pageCurrent.current,
+                ...apiParams,
+                ...params,
+            });
+            currentPage.current = pageCurrent.current.page;
+            finallyImpl(data);
+        } catch (err) {
+            // 默写场景捕获错误代码
+            _error = {
+                success: false,
+                msg: err
+            }
+        } finally {
+            setModuleStore({
+                _error
+            })
+            setLoading(false);
+        }
+
     }
 
     const onChange = (page: number, pageSize: number) => {
-        query({page, pageSize})
+        pageCurrent.current = {
+            ...pageCurrent.current,
+            page,
+            rows: pageSize,
+        }
+        query()
     }
 
     return {
         result,
         onChange,
-        currentPage
+        currentPage,
+        loading
     }
 }

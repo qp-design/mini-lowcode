@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { useSearchParams } from "react-router-dom";
-
+import {useLocation, useSearchParams} from "react-router-dom";
+import { post } from '@brushes/request';
+import { get } from 'lodash-es';
+import {useSearchParamHook} from "component-store";
+import {useModuleRootContext} from "@brushes/component-core";
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -22,9 +25,13 @@ function getItem(
 }
 
 const ItemJsx = ({label, id}: {label:string; id: string}) => {
-  let [,setSearchParams] = useSearchParams();
+  let [params, setSearchParams] = useSearchParams();
   const navigator = (e: any) => {
-    setSearchParams({target: e.target.dataset.id})
+    setSearchParams({
+      target: e.target.dataset.id,
+      token: params.get('token') as string,
+      phone: params.get('phone') as string
+    })
   }
 
   return (
@@ -32,26 +39,40 @@ const ItemJsx = ({label, id}: {label:string; id: string}) => {
   )
 }
 
-const items: MenuItem[] = [
-  getItem('low-code模块', 'sub1', [
-    getItem(<ItemJsx id={'index'} label={'首页'}/>, '1'),
-    getItem(<ItemJsx id={'goodList'} label={'商品列表'}/>, '2'),
-    getItem(<ItemJsx id={'goodDetail'} label={'商品详情'}/>, '3'),
-    getItem(<ItemJsx id={'cart'} label={'购物车'}/>, '4'),
-    getItem(<ItemJsx id={'account'} label={'确定订单页'}/>, '5'),
-  ]),
-  // getItem('原代码模块', 'sub2', <div></div>, [
-  //   getItem(<ItemJsx id={'user'} label={'用户模块'}/>, '111'),
-  //   getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-  // ])
-];
-
 // submenu keys of first level
 const rootSubmenuKeys = ['sub1', 'sub2'];
 
 const MenuComponent: React.FC = () => {
+  const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
   const [openKeys, setOpenKeys] = useState(['sub1']);
+  const [menu, setMenu] = React.useState<MenuItem[]>([]);
+  const [token, loginName] = useSearchParamHook(['token', 'loginName'])
+  useEffect(() => {
+    (async () => {
+      if(token) {
+        const {dataObj} = await post('web/ml/mlogin/loginByToken.json', {
+          oauthTokenToken: token,
+          loginName,
+          proappCode: '029'
+        });
+        localStorage.setItem('saas-token', JSON.stringify(dataObj.ticketTokenid));
+        setModuleRootStore({
+          _userInfo: dataObj
+        })
 
+        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json', {
+          mmodelModel: 1
+        })
+
+        const data = await post('/web/pfs/pfsmodel/queryPfsModelPage.json', {
+          mmodelCode: get(list || [], '[0].mmodelCode', '')
+        })
+        setMenu([getItem('low-code模块', 'sub1', (data.list || []).map(item => {
+          return getItem(<ItemJsx id={item.modelId} label={item.modelName}/>, item.modelId)
+        }))])
+      }
+    })()
+  }, []);
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
@@ -68,7 +89,7 @@ const MenuComponent: React.FC = () => {
       inlineIndent={12}
       onOpenChange={onOpenChange}
       style={{ width: '100%' }}
-      items={items}
+      items={menu}
     />
   );
 };

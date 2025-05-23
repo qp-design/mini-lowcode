@@ -1,6 +1,5 @@
 import type {FieldType} from "@brushes/form";
-import {ActionJsx} from "../action";
-import {transformCode} from "@brushes/component-core";
+import {transformCode, ActionJsx} from "@brushes/component-core";
 
 export const formField: FieldType[] = [
     {
@@ -8,15 +7,18 @@ export const formField: FieldType[] = [
         name: '$_children',
         type: 'slot',
         extraProps: {
-            render({onChange, value, form}) {
+            render({onChange, form, ...props}) {
                 return <ActionJsx onChange={(e) => {
-                    const date = new Date().valueOf()
-                    const newCode = transformCode(e as string)
-                    form.setFieldValue('$$_children', newCode);
-                    // @ts-ignore
-                    console.log('在线编译耗时=========>', new Date().valueOf() - date);
-                    onChange(e)
-                }} value={value}/>
+                    console.log(12, e);
+                    if(e) {
+                        const date = new Date().valueOf();
+                        const newCode = transformCode(e as string)
+                        form.setFieldValue('$$_children', newCode);
+                        // @ts-ignore
+                        console.log('在线编译耗时=========>', new Date().valueOf() - date);
+                        onChange(e)
+                    }
+                }} {...props}/>
             }
         }
     },

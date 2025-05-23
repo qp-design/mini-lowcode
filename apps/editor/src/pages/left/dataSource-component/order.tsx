@@ -11,8 +11,7 @@ import {
   GoodCategoryComponentSettings,
   SwiperThumbComponentSettings,
   SkuListComponentSettings,
-  CartListComponentSettings, CardComponentSettings,
-  AddressItemComponentSettings
+  CartListComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 
@@ -251,41 +250,7 @@ const service : Array<TypeComponent> = [
         settings: CartListComponentSettings,
       },
     }
-  },
-  {
-    name: '收货地址组件',
-    icon: 'icon-caozuojilu',
-    Component: Materials['AddressCardComponent'],
-    setting: {
-      props: {
-        borderRadius: 6,
-        padding: {
-          paddingLeft: 4,
-          paddingRight: 4,
-          paddingTop: 4,
-          paddingBottom: 4,
-        }
-      },
-      related: {
-        settings: CardComponentSettings,
-      },
-    }
-  },
-  {
-    name: '收货地址组件',
-    icon: 'icon-caozuojilu',
-    Component: Materials['AddressItemComponent'],
-    setting: {
-      props: {
-        callbackName: 'addressQueryRetry',
-        storeKey: 'addressStore',
-        openKey: 'addressOpen',
-      },
-      related: {
-        settings: AddressItemComponentSettings,
-      },
-    }
-  },
+  }
 ]
 
 combine(service)

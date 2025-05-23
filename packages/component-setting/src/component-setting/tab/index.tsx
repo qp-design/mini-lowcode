@@ -1,6 +1,5 @@
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {FieldType} from '@brushes/form';
-import {WrapTable} from '../../common';
 
 
 const dataFormField: FieldType[] = [
@@ -36,37 +35,31 @@ const dataFormField: FieldType[] = [
         type: 'number'
     },
     {
+        label: '关闭时销毁',
+        name: 'destroyOnHidden',
+        type: 'switch'
+    },
+    {
         label: '',
         name: 'columns',
-        type: 'slot',
+        type: 'formList',
         extraProps: {
-            render: ({form, onChange}) => {
-                const initialValue = form.getFieldValue('columns');
-                return (
-                    <WrapTable<DataType>
-                        param={'tableConfig'}
-                        initialValue={initialValue}
-                        id={'name'}
-                        title={'label'}
-                        onChange={onChange}
-                    />
-                )
-            }
+            innerForm: [
+                {
+                    label: '参数',
+                    name: 'label',
+                },
+                {
+                    label: '值',
+                    name: 'key',
+                }
+            ]
         }
     },
 ]
 
-interface DataType {
-    title: string;
-    dataIndex: string;
-    key: string;
-}
 
 const baseFormField: formConfigType[] = [
-    // {
-    //   title: '样式',
-    //   formFields: containerField
-    // },
     {
         title: '数据源',
         formFields: dataFormField

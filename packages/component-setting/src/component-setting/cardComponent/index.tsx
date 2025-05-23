@@ -1,9 +1,10 @@
 import {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
-import {paddingField, actionField} from "../../common";
+import {paddingField, actionField, marginField} from "../../common";
 
 const containerField: FieldType[] = [
     ...paddingField,
+    ...marginField,
   {
     label: '背景色',
     name: 'background',

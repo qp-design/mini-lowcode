@@ -15,19 +15,9 @@ const containerField: FieldType[] = [
     type: 'number',
   },
   {
-    label: '图片链接',
+    label: '跳转链接',
     name: ['image', 'link'],
-    type: 'slot',
-    extraProps: {
-      render: ({onChange, form, name}) => {
-        const { styles } = useStyle();
-        return (
-            <div className={styles.wrap}>
-              <SelectLink form={form} name={name} onChange={onChange}/>
-            </div>
-        )
-      },
-    }
+    type: 'text',
   },
   {
     label: '图片',

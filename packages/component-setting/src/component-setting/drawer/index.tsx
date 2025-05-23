@@ -8,6 +8,16 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: '抽屉title',
+    name: 'title',
+    type: 'text',
+  },
+  {
+    label: '抽屉宽度',
+    name: 'width',
+    type: 'number',
+  },
+  {
     label: '抽屉位置',
     name: 'placement',
     type: 'select',
@@ -34,7 +44,7 @@ const containerField: FieldType[] = [
   },
   {
     label: '关闭时销毁',
-    name: 'destroyOnClose',
+    name: 'destroyOnHidden',
     type: 'switch',
   }
 ]

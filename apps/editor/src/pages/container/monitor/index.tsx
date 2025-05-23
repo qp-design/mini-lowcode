@@ -3,6 +3,8 @@ import { Topbar } from '../components/Topbar';
 import { ContainerWrap } from '@brushes/component-core';
 import {ContainerWrapSettings} from "@brushes/component-setting";
 import {useEffect} from "react";
+import {Outlet} from "react-router-dom";
+import {WrapContainer} from "@brushes/editor-component";
 
 ContainerWrap.craft = {
   props: {
@@ -14,7 +16,8 @@ ContainerWrap.craft = {
     settings: ContainerWrapSettings,
   },
 }
-export default function App() {
+
+export const InnerApp = () => {
   const {isEnabled} = useEditor(state => ({
     isEnabled: state.options.enabled
   }));
@@ -22,6 +25,9 @@ export default function App() {
     const node = document.querySelector('#container-editor');
 
     function eventImpl(e: Event) {
+      if(e.target.closest('div').className.includes('ant-tabs-tab')) {
+        return;
+      }
       const targetNode = e.target!.closest('section');
       if (!targetNode) return;
       if (isEnabled) {
@@ -36,21 +42,29 @@ export default function App() {
   }, [isEnabled]);
 
   return (
+      <>
+        <div id={'container-editor'}>
+          <section>
+            <Frame>
+              <Element
+                  className={'root-container'}
+                  canvas
+                  is={ContainerWrap}
+                  data-cy="root-container"
+              >
+              </Element>
+            </Frame>
+          </section>
+        </div>
+      </>
+  );
+}
+
+export default function App() {
+  return (
     <>
       <Topbar />
-      <div id={'container-editor'}>
-        <section>
-        <Frame>
-          <Element
-            className={'root-container'}
-            canvas
-            is={ContainerWrap}
-            data-cy="root-container"
-          >
-          </Element>
-        </Frame>
-        </section>
-      </div>
+      <InnerApp/>
     </>
   );
 }

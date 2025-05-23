@@ -1,13 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@font-face {
+  font-family: 'QJHEITI';
+  src: url(//brushes.oss-cn-shanghai.aliyuncs.com/font/font_Regular.ttf) format("ttf"),url(//brushes.oss-cn-shanghai.aliyuncs.com/font/font_Regular.eot) format("eot"),url(//brushes.oss-cn-shanghai.aliyuncs.com/font/font_Regular.svg) format("svg"),url(//brushes.oss-cn-shanghai.aliyuncs.com/font/font_Regular.woff) format("woff")
+}
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
-ul, li {
+.container{
+  font-family: 'QJHEITI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+ul， li {
   list-style: none;
 }
 img {

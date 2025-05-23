@@ -1,7 +1,7 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {useStyle} from "../logoWithSearch/style";
-import {SelectLink, SelectPicture} from "../../common";
+import {SelectPicture} from "../../common";
 
 const containerField: FieldType[] = [
     {
@@ -25,19 +25,9 @@ const containerField: FieldType[] = [
         type: 'text',
     },
     {
-        label: '图片链接',
-        name: ['image', 'link'],
-        type: 'slot',
-        extraProps: {
-            render: ({onChange, form, name}) => {
-                const {styles} = useStyle();
-                return (
-                    <div className={styles.wrap}>
-                        <SelectLink form={form} name={name} onChange={onChange}/>
-                    </div>
-                )
-            },
-        }
+        label: '跳转链接',
+        name: ['image', 'path'],
+        type: 'text',
     },
     {
         label: '图片',

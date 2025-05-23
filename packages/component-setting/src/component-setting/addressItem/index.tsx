@@ -8,6 +8,11 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: '默认文本说明',
+    name: 'description',
+    type: 'text',
+  },
+  {
     label: '回调查询函数名',
     name: 'callbackName',
     type: 'text',

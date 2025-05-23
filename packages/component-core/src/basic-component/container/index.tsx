@@ -3,7 +3,8 @@ import {DefaultJsx} from '../default';
 import {fullpath} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
 import {useEditor, useNode} from "@craftjs/core";
-import {ModuleProvider} from "../../store";
+import {ModuleProvider, useModuleContext} from "../../store";
+import {useSearchParams} from 'react-router-dom';
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -17,15 +18,44 @@ const useStyles = createStyles(({token, css}) => {
         `
     }
 })
-export const Inner = ({children, enabled, root}: { root?: boolean; enabled: boolean; children: ReactNode }) => {
+export const Inner = ({children, enabled, root, text}: { text?:string; root?: boolean; enabled: boolean; children: ReactNode }) => {
     return (
-        <>{children ? children : enabled ? <DefaultJsx root={root}/> : ''}</>
+        <>{children ? children : enabled ? <DefaultJsx text={text} root={root}/> : ''}</>
     )
+}
+export const IsShowContainer = ({moduleShowValue, children, routerIsShow, moduleIsShow = '', padding, storeKey = '', margin}: { moduleShowValue?: string; moduleIsShow?: string; routerIsShow?: string; storeKey: string; padding: object; margin: object; children?: ReactNode}) => {
+    const store = useModuleContext(s=>s.moduleStore[storeKey]) || {};
+    const {enabled} = useEditor(
+        (state) => ({
+            enabled: state.options.enabled,
+        }));
+
+    const {
+        connectors: {connect, drag},
+    } = useNode();
+
+    let [searchParams,] = useSearchParams();
+
+    if((routerIsShow && searchParams.has(routerIsShow)) || (moduleShowValue && moduleIsShow && [moduleShowValue].includes(store[moduleIsShow] + '')) || enabled) {
+        return (
+            <div
+                style={{
+                    ...margin,
+                    ...padding
+                }}
+                ref={(ref: HTMLDivElement) => connect(drag(ref))}>
+                <Inner enabled={enabled}>
+                    {children}
+                </Inner>
+            </div>
+        )
+    }
 }
 
 export const Container =
     ({
          width,
+         text,
          children,
          background,
          margin = {},
@@ -36,7 +66,8 @@ export const Container =
          borderColor,
          ...props
      }: any) => {
-        const { styles } = useStyles();
+        // @ts-ignore
+        const {styles} = useStyles();
         const {enabled} = useEditor(
             (state) => ({
                 enabled: state.options.enabled,
@@ -78,12 +109,13 @@ export const Container =
                     width: (width+'').includes('%') ? width : `${width}px`,
                 }}
             >
-                <Inner enabled={enabled}>
+                <Inner text={text} enabled={enabled}>
                     {children}
                 </Inner>
             </div>
         );
     };
+
 
 export const OutContainerComponent =
     ({

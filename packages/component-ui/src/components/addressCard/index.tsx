@@ -1,7 +1,8 @@
 import {createStyles} from "antd-style";
 import {ReactNode} from "react";
-import {Container, Element, useModuleContext} from "@brushes/component-core";
-import {Text, ButtonComponent, ApiComponent} from "../../basic";
+import {Container, Element} from "@brushes/component-core";
+import {Text, ApiComponent} from "../../basic";
+import {ButtonOperate} from "../../service";
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -15,22 +16,14 @@ const useStyles = createStyles(({token, css}) => {
     }
 })
 
-
-export const AddressCard = ({ children, padding = {}, ...props }: {padding?: object; children: ReactNode}) => {
+export const AddressCard = ({ children, padding = {}, margin,  ...props }: {margin?: object; padding?: object; children: ReactNode}) => {
     const { styles } = useStyles();
-    const setModuleStore = useModuleContext(s=> s.setModuleStore);
-    const add = (e:string) => {
-        setModuleStore({
-            formEditorId: '',
-            title: '新增收货地址',
-            [e]: true
-        })
-    }
 
     return (
         <div
             className={styles.container}
             style={{
+                ...margin,
                 ...padding,
                 ...props,
             }}
@@ -55,7 +48,7 @@ export const AddressCard = ({ children, padding = {}, ...props }: {padding?: obj
                     fontWeight={700}
                     text={'确认收货地址'}
                 />
-                <ButtonComponent openKey={'addressOpen'} onClick={add} text={'新增收货地址'} danger type={'link'}/>
+                <ButtonOperate openKey={'addressOpen'} />
             </Element>
 
             <Element

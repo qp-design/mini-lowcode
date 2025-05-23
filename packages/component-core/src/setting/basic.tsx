@@ -1,9 +1,12 @@
-import {Card, Form} from "antd";
+import {Collapse, Form} from "antd";
 import {Fragment} from 'react';
 import { dynamicFormFields, useImmutableCallback } from '@brushes/form';
 import { useNode } from '@craftjs/core';
 import type {FieldType} from '@brushes/form';
 import {isUndefined, debounce} from "lodash-es";
+import {defaultStyle} from "../style";
+import {storeConfig} from "../store/storeDataConfig";
+import Title from "editor/src/pages/left/menu-component/title";
 
 export type formConfigType = {
   title?: string;
@@ -63,23 +66,23 @@ export const basicSettings = (formFields: formConfigType[], layout?: LayoutType)
           onValuesChange={callbackImpl}
           initialValues={configProps}
       >
-        {formFields.map((item: formConfigType, indx: number) => {
-          return (
-            <Fragment key={indx}>
-              {item.title ? (
-                <Card
-                  size="small"
-                  style={{marginBottom: 10, paddingBottom: 0}}
-                  title={item.title}
-                >
-                  {dynamicFormFields(item.formFields, form)}
-                </Card>
-              ) : (
-                dynamicFormFields(item.formFields, form)
-              )}
-            </Fragment>
-          );
-        })}
+        <Collapse bordered size={'small'} ghost expandIconPosition={'end'} items={
+          formFields.concat({
+                title: '样式',
+                formFields: defaultStyle
+              },
+              // {
+              //   title: 'store',
+              //   formFields: storeConfig
+              // }
+              ).map((item: any, indx: number) => ({
+            key: indx,
+            label: <Title title={item.title}/>,
+            children: <Fragment key={indx}>
+              {dynamicFormFields(item.formFields, form)}
+            </Fragment>,
+          }))
+        } defaultActiveKey={['0', '1', '2', '3']} />
       </Form>
     );
   };

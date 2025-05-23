@@ -9,14 +9,59 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: 'store',
+    name: 'module',
+    type: 'select',
+    extraProps: {
+      options: [
+        {
+          label: '全局store',
+          value: 'rootStore'
+        },
+        {
+          label: '非全局store',
+          value: 'moduleStore'
+        }
+      ]
+    }
+  },
+  {
+    label: 'store的数据key',
+    name: 'storeKey',
+    type: 'text',
+  },
+  {
     label: 'code',
     name: 'code',
     type: 'text',
   },
   {
+    label: '字体',
+    name: 'fontFamily',
+    type: 'select',
+    extraProps: {
+      options: [
+        {
+          label: '黑体',
+          value: 'QJHEITI'
+        }
+      ]
+    }
+  },
+  {
     label: '文本颜色',
     name: 'color',
     type: 'color',
+  },
+  {
+    label: '背景色',
+    name: 'background',
+    type: 'color',
+  },
+  {
+    label: '圆角',
+    name: 'borderRadius',
+    type: 'number',
   },
     ...marginField,
     ...paddingField,
@@ -24,6 +69,11 @@ const containerField: FieldType[] = [
     label: '最多几行',
     name: 'num',
     type: 'number',
+  },
+  {
+    label: '类名',
+    name: 'className',
+    type: 'text',
   },
   {
     label: '宽度',

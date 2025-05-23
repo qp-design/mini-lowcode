@@ -42,7 +42,7 @@ const ApiComponent = ({onChange, value}: {onChange: (e: any) => void; value: str
       onChange={onChange}
       style={{ marginBottom: 20 }}
       placeholder="选择数据源"
-      dropdownRender={(menu) => (
+      popupRender={(menu) => (
         <>
           {menu}
           <Divider style={{ margin: '8px 0' }} />

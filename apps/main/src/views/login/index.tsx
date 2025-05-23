@@ -1,36 +1,44 @@
-import {FC, memo, ReactNode, useEffect, useState} from 'react';
-import HeaderJsx from './header';
-import { Login as LoginJsx } from './login';
-import { loginWithAccount, loginWithCode } from './config';
-import Register from './registerAndForget';
-import loginContext from './context';
-import './scss/index.scss';
 
-const LoginWrap: FC<{ children: ReactNode; data: string; callback: (e: object) => void }> = ({ children, data, callback }) => {
-    const [index, setIndex] = useState<number>(0);
-    const [formConfig, setFormConfig] = useState(loginWithAccount);
-    useEffect(() => {
-        const arr = index === 0 ? loginWithAccount : loginWithCode;
-        setFormConfig(arr);
-    }, [index]);
+import { createStyles } from "antd-style";
+import LoginWrap from "@/login";
+
+const useStyle = createStyles(({token, css}) => {
+
+    return {
+        loginContainer: css`
+            background: url("https://brushes.oss-cn-shanghai.aliyuncs.com/static/lowcode-platform/apps_web_src_assets_login.png") no-repeat;
+            background-size: auto 100%;
+            height: 100vh;
+            width: 100vw;
+            display: grid;
+            grid-template-columns: 1fr 40vw;
+            .logo {
+                margin: 40px 0 0 50px;
+            }
+            .login-right {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                height: 100vh;
+                background: #eef2f4;
+            }
+
+        `
+    }
+})
+const Login = () => {
+    const { styles } = useStyle();
+
     return (
-        <div className={'loginComponent'}>
-            <loginContext.OpenProvider>
-                <div className={'loginRoot'}>
-                    <Register children={children} dataType={data} callback={callback}/>
-                    <HeaderJsx index={index} setIndex={setIndex} menu={['密码登录', '验证码登录']} />
-                    <LoginJsx
-                        dataType={data}
-                        callback={callback}
-                        index={index}
-                        children={children}
-                        isNeedRemeber={index === 0}
-                        formConfig={formConfig}
-                    />
-                </div>
-            </loginContext.OpenProvider>
+        <div className={styles.loginContainer}>
+            <div className="logo"><img loading="lazy" height="60" src="https://brushes.oss-cn-shanghai.aliyuncs.com/static/lowcode-platform/c52a2b0171ce4601b4835402c042d8b6.png" /></div>
+            <div className="login-right">
+                <LoginWrap children={undefined} data={""}/>
+            </div>
         </div>
-    );
-};
 
-export default memo(LoginWrap);
+    )
+}
+
+export default Login;

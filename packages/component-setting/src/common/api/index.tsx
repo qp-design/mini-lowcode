@@ -7,43 +7,75 @@ let index = 0;
 
 export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void; }) => {
     const [items, setItems] = useState([
-        {
-            api: 'web/oc/contract/queryOcContractPageForRetailer.json?childFlag=true',
-            name: 'b2b订单查询'
-        },
-        {
-            api: 'web/es/searchengine/find.json',
-            name: 'b2b商品查询'
-        },
-        {
-            api: 'web/rs/resourceGoods/getResourceGoodsInfoBySkuCode.json',
-            name: 'b2b商品详情搜索'
-        },
-        {
-            api: 'web/oc/shopping/queryShoppingPage.json',
-            name: '购物车查询'
-        },
-        {
-            api: 'web/pm/promotionplat/queryPromotionRsSkuPag.json',
-            name: '凑单列表'
-        },
-        {
-            api: 'web/um/address/saveAddress.json',
-            name: '保存地址'
-        },
-        {
-            api: 'web/pm/promotionDiscount/queryPromotionDiscountPage.json',
-            name: '赠品查询'
-        },
-        {
-            api: 'web/um/address/queryAddressBymerberCode.json',
-            name: '地址查询'
-        },
-        {
-            api: 'web/oc/shopping/queryShoppingToContract.json',
-            name: '确定订单页面查询'
-        },
-    ]);
+                    {
+                        value: 'web/oc/contract/queryContractPageC.json',
+                        label: 'b2b订单查询'
+                    },
+                    {
+                        value: 'web/rs/resourceGoods/getResourceGoodsInfoBySkuCode.json',
+                        label: 'b2b商品详情搜索'
+                    },
+                    {
+                        value: 'web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json',
+                        label: '分类搜索'
+                    },
+                    {
+                        value: 'web/pte/ptfpmode/queryPtfpmodesToStr.json',
+                        label: '确定订单页面支付方式'
+                    },
+                    {
+                        value: 'web/oc/contract/syncContractPayState.json',
+                        label: '支付结果页订单状态'
+                    },
+                    {
+                        value: 'web/pte/pay/saveOrderToPay.json',
+                        label: '支付页面支付方式'
+                    },
+                    {
+                        value: 'web/oc/contract/syncContractState.json',
+                        label: '获取支付状态'
+                    },
+                    {
+                        value: 'web/oc/refund/queryRefundPageBuy.json',
+                        label: 'b2b售后列表'
+                    },
+                    {
+                        value: 'web/es/searchengine/find.json',
+                        label: 'b2b商品查询'
+                    },
+                    {
+                        value: 'web/oc/shopping/queryShoppingPage.json',
+                        label: '购物车查询'
+                    },
+                    {
+                        value: 'web/pm/promotionplat/queryPromotionRsSkuPag.json',
+                        label: '凑单列表'
+                    },
+                    {
+                        value: 'web/um/address/saveAddress.json',
+                        label: '保存地址'
+                    },
+                    {
+                        value: 'web/pm/promotionDiscount/queryPromotionDiscountPage.json',
+                        label: '赠品查询'
+                    },
+                    {
+                        value: 'web/um/address/queryAddressBymerberCode.json',
+                        label: '地址查询'
+                    },
+                    {
+                        value: 'web/oc/shopping/queryShoppingToContract.json',
+                        label: '确定订单页面查询'
+                    },
+                    {
+                        value: 'web/oc/contract/saveContract.json',
+                        label: '保存订单'
+                    },
+                    {
+                        value: 'web/oc/contract/getContractByCode.json',
+                        label: '订单明细'
+                    }
+                ]);
     const [name, setName] = useState('');
 
     const inputRef = useRef<InputRef>(null);
@@ -55,15 +87,14 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
     const addItem = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
         e.preventDefault();
         setItems([...items, {
-            name: name || `New item ${index++}`,
-            api: name || `New item ${index++}`
+            label: name || `New item ${index++}`,
+            value: name || `New item ${index++}`
         }]);
         setName('');
         setTimeout(() => {
             inputRef.current?.focus();
         }, 0);
     };
-
     return (
         <Select
             allowClear
@@ -71,7 +102,7 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             onChange={onChange}
             style={{marginBottom: 20}}
             placeholder="选择数据源"
-            dropdownRender={(menu) => (
+            popupRender={(menu) => (
                 <>
                     {menu}
                     <Divider style={{margin: '8px 0'}}/>
@@ -88,8 +119,7 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
                     </Space>
                 </>
             )}
-            options={items.map((item) =>
-                ({label: item.name, value: item.api}))}
+            options={items}
         />
     );
 };

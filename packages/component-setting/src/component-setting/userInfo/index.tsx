@@ -19,6 +19,23 @@ const containerField: FieldType[] = [
       },
     }
   },
+  {
+    label: '配置',
+    name: 'config',
+    type: 'formList',
+    extraProps: {
+      innerForm: [
+        {
+          label: '名称',
+          name: 'label',
+        },
+        {
+          label: 'code',
+          name: 'code',
+        }
+      ]
+    }
+  }
 ]
 
 const baseFormField: formConfigType[] = [

@@ -1,9 +1,9 @@
 import {useNode} from "@craftjs/core";
 import {useMemo} from "react";
-import {useModuleContext} from "@brushes/component-core";
+import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
 
 type TextProps = {
-    text?: string;
+    text?: string | number;
     fontSize?:number;
     width?:number;
     fontWeight?: number;
@@ -17,12 +17,30 @@ type TextProps = {
     textAlign?:string;
     className?: string;
     onClick?:()=> void;
-    code?: string
+    code?: string;
+    storeKey?:string;
+    module?:string;
     color?: string
 }
-export const Text: React.FC<TextProps> =
+export const Text: React.FC<TextProps> = ({module, ...resetProps}) => {
+    if(module === 'moduleStore') {
+        return <WrapText {...resetProps}/>;
+    }
+    return <WrapRootText {...resetProps} />;
+}
+
+const WrapRootText : React.FC<TextProps> = ({storeKey = '', ...resetProps}) => {
+    const _skuInfo = useModuleRootContext(s => s.rootStore[storeKey]) || {};
+    return <TextInner dataInfo={_skuInfo} {...resetProps}/>;
+}
+
+const WrapText : React.FC<TextProps> = ({storeKey = '', ...resetProps}) => {
+    const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]) || {};
+    return <TextInner dataInfo={_skuInfo} {...resetProps}/>;
+}
+
+const TextInner: React.FC<TextProps & { dataInfo: object }> =
     ({
-         fontWeight,
          text,
          color,
          fontSize,
@@ -32,6 +50,7 @@ export const Text: React.FC<TextProps> =
          margin = {},
          contain,
          width,
+         dataInfo,
          minWidth,
          className,
          onClick,
@@ -41,8 +60,6 @@ export const Text: React.FC<TextProps> =
     const {
         connectors: {connect, drag},
     } = useNode();
-
-    const skuInfo = useModuleContext(s => s.moduleStore.skuInfo) || {};
 
     const styleParams = useMemo(() => {
         if(num === 1) {
@@ -61,10 +78,10 @@ export const Text: React.FC<TextProps> =
     const value = useMemo(() => {
         if (code) {
             // @ts-ignore
-            return skuInfo[code] || text
+            return dataInfo[code] || text
         }
         return text;
-    }, [text, code, skuInfo]);
+    }, [text, code, dataInfo]);
 
     return (
         <div
@@ -77,7 +94,6 @@ export const Text: React.FC<TextProps> =
                 overflow: "hidden",
                 fontSize,
                 color,
-                fontWeight,
                 lineHeight: 1.5,
                 textOverflow: "ellipsis",
                 ...styleParams,

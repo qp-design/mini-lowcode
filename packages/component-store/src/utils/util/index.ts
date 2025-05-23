@@ -1,5 +1,6 @@
-export const useSearchParamHook = (params: {key: string; value: string}[]) => {
-    // @ts-ignore
-    let searchParams = new URL(document.location).searchParams;
-    return params.map((item: {key: string; value: string}) => searchParams.get(item.key) || item.value)
+import {useSearchParams} from 'react-router-dom';
+
+export const useSearchParamHook = (keys: string[]) => {
+    let [searchParams,] = useSearchParams();
+    return keys.map((item: string) => searchParams.get(item))
 }

@@ -1,6 +1,5 @@
 import { FieldType } from '@brushes/form';
-import { post } from '@brushes/request';
-import {get} from "lodash-es";
+import {addressBasicConfig} from "@brushes/component-setting";
 
 export const transformSubmitDataConfig = [{
     from: 'addressDefault',
@@ -20,117 +19,9 @@ export const addressFormField: FieldType[] = [
         label: '手机号码',
         name: 'addressPhone',
         type: 'text',
-        rules: [{required: true}]
+        rules: [{ required: true, pattern: /^1[3-9]\d{9}$/, message: '请输入正确手机号码'}],
     },
-    (form) => {
-        return {
-            label: '省',
-            name: 'provinceCode',
-            type: 'select',
-            rules: [{required: true}],
-            extraProps: {
-                onChange(_: string, {label}: {label: string}) {
-                    form.setFieldValue('cityCode', '');
-                    form.setFieldValue('provinceName', label);
-                    form.setFieldValue('areaCode', '')
-                },
-                optionsKey: 'provinceCode',
-                optionsName: 'provincName',
-                options: async () => {
-                    const data = await post('web/bs/province/queryProvincePage.json');
-                    return get(data, 'list', []);
-                }
-            }
-        }
-    },
-    {
-        label: '省',
-        name: 'provinceName',
-        type: 'text',
-        style: {
-            display: 'none',
-        }
-    },
-    (form) => {
-      return {
-          label: '市',
-          name: 'cityCode',
-          type: 'select',
-          rules: [{required: true}],
-          extraProps: {
-              dependencies: ['provinceCode'],
-              onChange: (_:string, {label}: {label: string}) => {
-                  form.setFieldValue('cityName', label);
-                  form.setFieldValue('areaCode', '')
-              },
-              optionsKey: 'areaCode',
-              optionsName: 'areaName',
-              options: async () => {
-                  const provinceCode = form.getFieldValue('provinceCode');
-                  if(provinceCode) {
-                      const data = await post('web/bs/area/queryAreaPage.json', {
-                          provinceCode
-                      });
-                      return get(data, 'list', []);
-                  }
-                  return []
-              }
-          }
-      }
-    },
-    {
-        label: '市',
-        name: 'cityName',
-        type: 'text',
-        style: {
-            display: 'none',
-        }
-    },
-    (form) => {
-        return {
-            label: '区',
-            name: 'areaCode',
-            type: 'select',
-            rules: [{required: true}],
-            extraProps: {
-                dependencies: ['cityCode'],
-                onChange(value:any, {label}: {label: string}) {
-                    form.setFieldValue('areaName', label);
-                },
-                optionsKey: 'areaCode',
-                optionsName: 'areaName',
-                options: async () => {
-                    const areaParentCode = form.getFieldValue('cityCode');
-                    if(areaParentCode) {
-                        const data = await post('web/bs/area/queryAreaPage.json', {
-                            areaParentCode
-                        });
-                        return get(data, 'list', []);
-                    }
-                    return []
-                }
-            }
-        }
-    },
-    {
-        label: '区',
-        name: 'areaName',
-        type: 'text',
-        style: {
-            display: 'none',
-        }
-    },
-    {
-        label: '详细地址',
-        name: 'addressDetail',
-        type: 'textarea',
-        rules: [{required: true}],
-        extraProps: {
-            style: {
-                height: 100,
-            },
-        }
-    },
+    ...addressBasicConfig,
     {
         label: '设为默认',
         name: 'addressDefault',

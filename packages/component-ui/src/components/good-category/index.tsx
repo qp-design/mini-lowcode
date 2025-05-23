@@ -7,10 +7,10 @@ const useStyle = createStyles(({css, token}) => {
                 margin-bottom: 2px;
                 line-height: 40px;
                 width: 100%;
-                ul{
-                    //width: 100%;
+                list-style: none;
+                background: #fff;
+                li{
                     list-style: none;
-                    background: #fff;
                 }
         `
     }
@@ -18,10 +18,9 @@ const useStyle = createStyles(({css, token}) => {
 export const GoodCategory = (props = {}) => {
     const { styles } = useStyle();
     const { cateList, implCate } = useGoodCategory();
-    console.log(21, cateList);
     return (
         <>
-            <div className={styles.container}>
+            <ul className={styles.container}>
                     {
                         cateList.map((item, index) => (
                             <li style={{
@@ -32,7 +31,7 @@ export const GoodCategory = (props = {}) => {
                             }} onClick={() => implCate(item)} key={index}>{item.goodsClassName}</li>
                         ))
                     }
-            </div>
+            </ul>
             {/*<div className={styles.container}>*/}
             {/*    <div className="title">排序</div>*/}
             {/*    <ul>*/}

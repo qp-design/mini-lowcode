@@ -54,7 +54,8 @@ export const useSku = (dataKey: string) => {
     useEffect(() => {
         const skuList = get(defaultValue, "rsSkuDomainList", []);
         // @ts-ignore
-        const selectObj = skuList.find((item) => item[dataKey] === defaultValue[dataKey]) || { skuName: ''};
+        const selectObj = skuList.find((item) => item[dataKey] === defaultValue[dataKey]) || {};
+
         const arr = specList.map(item => {
             const { specValueValue } = item.skuOption.find(c => selectObj.skuName.includes(c.specValueValue));
             return specValueValue
@@ -62,7 +63,7 @@ export const useSku = (dataKey: string) => {
 
         setModuleStore({
             goodNum: 1,
-            skuInfo: selectObj
+            _skuInfo: selectObj
         });
         setSkuListName(arr);
     }, [specList]);
@@ -85,7 +86,7 @@ export const useSku = (dataKey: string) => {
 
         setModuleStore({
             goodNum: 1,
-            skuInfo: skuObj
+            _skuInfo: skuObj
         });
 
         setSkuListName(prev => {

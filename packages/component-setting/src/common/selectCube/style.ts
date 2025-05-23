@@ -13,6 +13,7 @@ export const useStyle = createStyles(({ token, css }) => {
             padding: 0px 10px;
               margin-bottom: 10px;
             display: grid;
+              column-gap: 20px;
             grid-template-columns: 1fr 86px;
 
             .lPart {
@@ -33,6 +34,7 @@ export const useStyle = createStyles(({ token, css }) => {
               }
 
               .pickLink {
+                  margin-top: 25px;
                   button{
                       padding: 0;
                       margin-top: 20px;

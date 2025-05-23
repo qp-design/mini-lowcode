@@ -1,7 +1,7 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {useStyle} from "../logoWithSearch/style";
-import {SelectPicture} from "../../common";
+import {marginField, SelectPicture} from "../../common";
 
 const containerField: FieldType[] = [
   {
@@ -9,6 +9,7 @@ const containerField: FieldType[] = [
     name: 'text',
     type: 'text',
   },
+  ...marginField,
   {
     label: '按钮大小',
     name: 'size',
@@ -16,49 +17,43 @@ const containerField: FieldType[] = [
     extraProps: {
       options: [
         {
-          label: '大',
-          value: 'large'
+          label: '小',
+          value: 'small'
         },
         {
           label: '中',
           value: 'middle'
         },
         {
-          label: '小',
-          value: 'small'
+          label: '大',
+          value: 'large'
         }
       ]
     }
   },
   {
-    label: '按钮形状',
-    name: 'shape',
-    type: 'select',
-    extraProps: {
-      options: [
-        {
-          label: '默认',
-          value: 'default'
-        },
-        {
-          label: '圆形',
-          value: 'circle'
-        },
-        {
-          label: '圆角',
-          value: 'round'
-        }
-      ]
-    }
+    label: '打开抽屉code',
+    name: 'openKey',
+    type: 'text',
   },
   {
-    label: '图片高度',
+    label: '宽度',
+    name: 'width',
+    type: 'number',
+  },
+  {
+    label: '高度',
     name: 'height',
     type: 'number',
   },
   {
+    label: '图片高度',
+    name: 'imgHeight',
+    type: 'number',
+  },
+  {
     label: '图片宽度',
-    name: 'width',
+    name: 'imgWidth',
     type: 'number',
   },
   {
@@ -74,35 +69,6 @@ const containerField: FieldType[] = [
             </div>
         )
       },
-    }
-  },
-  {
-    label: '按钮类型',
-    name: 'type',
-    type: 'select',
-    extraProps: {
-      options: [
-        {
-          value: 'primary',
-          label: '主要'
-        },
-        {
-          value: 'dashed',
-          label: '虚线'
-        },
-        {
-          value: 'link',
-          label: '链接'
-        },
-        {
-          value: 'text',
-          label: '文本'
-        },
-        {
-          value: 'default',
-          label: '默认'
-        }
-      ]
     }
   },
 ]

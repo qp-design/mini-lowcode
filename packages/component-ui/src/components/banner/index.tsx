@@ -8,20 +8,17 @@ export const Banner: React.FC<{menu: Array<{imgUrl: string; link: string}>}> = (
         console.log(currentSlide);
     };
     return (
-        <div>
-            <Carousel afterChange={onChange}>
-                {
-                    menu.map((item, index) => (
-                        <h3 key={index}>
-                            <Image preview={false}
-                                   style={{...restProps, overflow: 'hidden'}}
-                                   src={fullpath(item.imgUrl)}/>
-                        </h3>
-                    ))
-                }
-            </Carousel>
-        </div>
-
+        <Carousel afterChange={onChange}>
+            {
+                menu.map((item, index) => (
+                    <h3 key={index}>
+                        <Image preview={false}
+                               style={{...restProps, overflow: 'hidden'}}
+                               src={fullpath(item.imgUrl)}/>
+                    </h3>
+                ))
+            }
+        </Carousel>
     );
 };
 

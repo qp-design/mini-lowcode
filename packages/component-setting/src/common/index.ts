@@ -4,8 +4,9 @@ export * from './selectPictureOrVideo';
 export * from './selectLink'
 export * from './api'
 export * from './padding'
-export * from './action'
 export * from './margin'
 export * from './diyComponent'
 export * from './diyAction';
-export * from './column'
+export * from './column';
+export * from './border-width-height-radius';
+export * from './address'

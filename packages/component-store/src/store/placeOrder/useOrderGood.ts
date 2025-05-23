@@ -1,0 +1,79 @@
+import { useEffect } from 'react';
+import { isEmpty } from 'lodash-es';
+import {useModuleContext, goodListIntialValue, initialValueOrder} from "@brushes/component-core";
+
+
+export const useOrderGood = (storeKey: string) => {
+  const contactData = useModuleContext(s=>s.moduleStore[storeKey]);
+  const setModuleStore = useModuleContext(s=>s.setModuleStore);
+
+  useEffect(() => {
+    computedValue(contactData);
+  }, [contactData]);
+
+
+  const computedValue = (res: Array<any>) => {
+    if (isEmpty(res)) {
+      return;
+    }
+    let contractGoodsList = [] as Array<typeof goodListIntialValue>; // packageList => contractGoodsList
+    let orderDomainStr = [] as Array<typeof initialValueOrder>; //
+    let ocContractSettlList = [] as Array<any>; // 优惠信息
+
+    res.forEach((v) => {
+
+      const payStateConfig = Object.assign({}, initialValueOrder);
+      payStateConfig.shoppingType = v.goodsType;
+      let itemList = [] as Array<typeof initialValueOrder>;
+      // 查看商品是否促销
+      v.shoppingpackageList.forEach((vk: any) => {
+        payStateConfig.comDisMoney += vk.disMoney;
+        payStateConfig.copyComDisMoney += vk.disMoney;
+
+        vk.shoppingGoodsList.forEach((item: any) => {
+          payStateConfig.goodsCamount +=item.goodsCamount;
+          payStateConfig.shoppingCountPrice += item.pricesetNprice * item.goodsCamount;
+          item.contractGoodsGtype = 0;
+          payStateConfig.promotionCode = vk.promotionCode;
+          // 普通商品获取自动取消订单时间
+          if (item.goodsType == '00') {
+            // getFalgSettingForPaydate().then((res) => {
+            //   if (res) {
+            //     // 暂时放这里不处理
+            //     // $storage.set('payTime', Number(res.flagSettingInfo));
+            //   }
+            // });
+          }
+        });
+        // 优惠
+        if (vk.disMoney > 0) {
+          ocContractSettlList.push({
+            contractSettlBlance: vk.promotionInType == 0 ? 'PM' : 'COP',
+            contractPmode: '0',
+            contractSettlGmoney: Number(vk.disMoney.toFixed(2)),
+            contractSettlPmoney: Number(vk.disMoney.toFixed(2)),
+            contractSettlOpno: vk.promotionCode,
+            contractSettlOpemo: vk.promotionName
+          });
+        }
+        if (vk.giftList) {
+          vk.shoppingGoodsList = vk.shoppingGoodsList.map((eItem: any) => {
+            // 满赠  0001
+            eItem.ginfoCode = eItem.pmPromotionList.find((gift: any) => gift.pbCode == '0001').promotionCode;
+            return eItem;
+          });
+        }
+        itemList.push(...vk.shoppingGoodsList, ...(vk.giftList || []));
+      });
+      contractGoodsList.push(itemList);
+      orderDomainStr.push(payStateConfig);
+    });
+    // setPayState(payState);
+    setModuleStore({
+      _contractGoodsList: contractGoodsList,
+      _orderDomainStr: orderDomainStr,
+      _ocContractSettlList: ocContractSettlList
+    })
+
+  };
+};

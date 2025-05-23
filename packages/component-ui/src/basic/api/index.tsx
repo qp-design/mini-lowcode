@@ -1,15 +1,16 @@
 import React, {Fragment, useEffect, useMemo} from 'react';
 import {Container, Element, HOCCodeWrapComponent, ModuleProvider, useModuleContext} from '@brushes/component-core';
-import {Empty, Pagination} from "antd";
+import {Empty, Pagination, Spin} from "antd";
 import {useApiComponent} from "component-store";
 import {get} from "lodash-es";
 
 
-const CardBasic: React.FC<any> = (props) => {
+const CardBasic: React.FC<any> = ({callbackName, retry, ...props}) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
     useEffect(() => {
         setModuleStore({
-            skuInfo: props
+            _skuInfo: props,
+            [callbackName]: retry
         })
     }, [props]);
 
@@ -22,12 +23,15 @@ const CardBasic: React.FC<any> = (props) => {
     )
 };
 
-const DetailBasic: React.FC<any> = ({result, storeKey}) => {
+const DetailBasic: React.FC<any> = ({result, storeKey, dataPath}) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
     useEffect(() => {
-        console.log(218, result);
+        let obj = result;
+        if (dataPath) {
+            obj = get(result, dataPath);
+        }
         setModuleStore({
-            [storeKey]: result
+            [storeKey]: obj
         })
     }, [result, storeKey]);
 
@@ -60,9 +64,12 @@ type CardListType = {
 const ApiList: React.FC<Partial<CardListType> & {
     onChange: (page: number, pageSize: number) => void;
     result: { [value: string]: any };
-    currentPage: { current: number }
+    currentPage: { current: number };
+    callbackName?:string;
+    pagination: boolean;
 }> = (
     {
+        callbackName,
         currentPage,
         result,
         pagination,
@@ -77,10 +84,11 @@ const ApiList: React.FC<Partial<CardListType> & {
 ) => {
     const list = useMemo(() => {
         if(dataPath) {
-            return get(result, dataPath, []);
+            return get(result, dataPath, []) || [];
         }
         return result
     }, [result, dataPath]);
+    const retry = useModuleContext(s=>s.moduleStore[callbackName || '']);
     if(!list.length) {
         return <div style={{display: "flex", alignItems: "center", justifyContent: 'center', ...margin,
             ...padding, ...restProps}}><Empty /></div>;
@@ -98,7 +106,7 @@ const ApiList: React.FC<Partial<CardListType> & {
                 {
                     list.map((item, index) => (
                         <Fragment key={index}>
-                            <ModuleProvider><CardBasic {...item}/></ModuleProvider>
+                            <ModuleProvider><CardBasic retry={retry} callbackName={callbackName} {...item}/></ModuleProvider>
                         </Fragment>
                     ))
                 }
@@ -106,6 +114,7 @@ const ApiList: React.FC<Partial<CardListType> & {
             </div>
             { pagination && <div style={{marginTop: 20}}><Pagination
                 align="end"
+                pageSizeOptions={[5,10,20,50,100]}
                 showSizeChanger
                 onChange={onChange}
                 current={currentPage.current}
@@ -126,35 +135,51 @@ const Api: React.FC<CardListType>
            storeKey,
            dataPath,
            margin={},
-            padding = {},
+           padding = {},
+           pagination,
            ...restProps}) => {
-    const {result, onChange, currentPage} = useApiComponent(api, rows, {
+    const {result, onChange, currentPage, loading} = useApiComponent(api, rows, {
         defaultValue,
         params,
         callbackName,
         componentType
     });
+
     if(componentType === 'detail') {
         return (
-            <div style={{
-                ...margin,
-                ...padding,
-                ...restProps
-            }}>
-                <DetailBasic storeKey={storeKey} result={result}/>
-            </div>
+            <Spin spinning={loading}>
+                <div style={{
+                    ...margin,
+                    ...padding,
+                    ...restProps
+                }}>
+                    <DetailBasic dataPath={dataPath} storeKey={storeKey} result={result}/>
+                    { (pagination && result.total) ? <div style={{marginTop: 20}}><Pagination
+                        align="end"
+                        pageSizeOptions={[5,10,20,50,100]}
+                        showSizeChanger
+                        onChange={onChange}
+                        current={currentPage.current}
+                        total={result.total}
+                    /></div> : null }
+                </div>
+            </Spin>
         )
     } else {
       return (
-          <ApiList
-              margin={margin}
-              padding={padding}
-              result={result}
-              dataPath={dataPath}
-              onChange={onChange}
-              currentPage={currentPage}
-              {...restProps}
-          />
+          <Spin spinning={loading}>
+              <ApiList
+                  pagination={pagination}
+                  callbackName={callbackName}
+                  margin={margin}
+                  padding={padding}
+                  result={result}
+                  dataPath={dataPath}
+                  onChange={onChange}
+                  currentPage={currentPage}
+                  {...restProps}
+              />
+          </Spin>
       )
     }
 }

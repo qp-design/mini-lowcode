@@ -7,12 +7,14 @@ import lz from 'lzutf8';
 import React, { useState, useEffect } from 'react';
 import {useSearchParams} from "react-router-dom";
 import {Switch, Button, message, Modal, Space, Flex} from 'antd';
-import {index, good, detail, cart, account} from '../../dta/index.json';
+import {post} from "@brushes/request";
 const baseStyle: React.CSSProperties = {
   background: 'rgba(0,0,0, .05)',
   padding: 10,
   borderRadius: 4,
-  marginBottom: 10
+  marginBottom: 10,
+    position: 'relative',
+  zIndex: 10000
 };
 
 export const Topbar = () => {
@@ -34,30 +36,19 @@ export const Topbar = () => {
   const queryParams = searchParams.get('target');
 
   useEffect(() => {
-    let str = index;
-    switch (queryParams) {
-      case 'goodList':
-        str = good;
-        break;
-      case 'cart':
-        str = cart;
-        break;
-      case 'index':
-        str = index;
-        break;
-      case 'goodDetail':
-        str = detail;
-        break;
-      case 'account':
-        str = account;
-        break;
-    }
-    try {
-      const json = lz.decompress(lz.decodeBase64(str));
-      actions.deserialize(json);
-    } catch (err) {
-      console.log(54, err, queryParams);
-    }
+    (async () => {
+      try {
+        if(queryParams) {
+          const { modelConfig } = await post('/web/pfs/pfsmodel/getPfsModel.json', {
+            modelId: queryParams
+          });
+          const json = lz.decompress(lz.decodeBase64(modelConfig));
+          actions.deserialize(json);
+        }
+      } catch (err) {
+        console.log(54, err, queryParams);
+      }
+    })()
   }, [queryParams]);
 
   return (
@@ -109,9 +100,23 @@ export const Topbar = () => {
           >
             加载
           </Button>
+          <Button
+              color="danger" variant="solid"
+              onClick={async () => {
+                const json = query.serialize();
+
+                const { msg } = await post('/web/pfs/pfsmodel/updatePfsModel.json', {
+                  modelId: queryParams,
+                  modelConfig: lz.encodeBase64(lz.compress(json))
+                })
+                messageApi.success(msg);
+              }}
+          >
+            保存
+          </Button>
           <Modal
             width={800}
-            destroyOnClose
+            destroyOnHidden
             okText={'确定'}
             cancelText={'取消'}
             title="加载数据"

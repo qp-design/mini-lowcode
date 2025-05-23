@@ -1,15 +1,10 @@
-// export * from './form'
-// export * from './innerForm'
 export * from './button'
-export * from './table2'
 export * from './logoWithSearch'
 export * from './link'
-// export * from './operate'
 export * from './slot'
 export * from './tab'
 export * from './top'
 export * from './listCommon'
-export * from './cartList'
 export * from './drawer'
 export * from './category'
 export * from './banner'
@@ -20,14 +15,18 @@ export * from './good-category'
 export * from './breadCrumb'
 export * from './swiper-thumb'
 export * from './rich-text'
-export * from './table'
+
 export * from './buy'
 export * from './sku-list'
 export * from './card'
-export * from './cardLR'
 export * from './addressCard'
 export * from './form'
 export * from './address-item'
+
+
+
+// export * from './table'
+// export * from './table2'
 
 
 

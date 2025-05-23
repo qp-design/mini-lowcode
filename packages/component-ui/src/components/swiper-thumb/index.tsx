@@ -12,6 +12,7 @@ import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import {useModuleContext} from "@brushes/component-core";
 import {get, isEmpty} from "lodash-es";
+import {fullpath} from "@brushes/component-tool";
 
 const useStyles = createStyles(({css, token}) => {
     return {
@@ -67,15 +68,15 @@ const useStyles = createStyles(({css, token}) => {
 })
 export function SwiperThumb({height}: {height: number}) {
     const defaultValue = useModuleContext(s => s.moduleStore.defaultValue);
-    const skuInfo = useModuleContext(s => s.moduleStore.skuInfo);
+    const _skuInfo = useModuleContext(s => s.moduleStore._skuInfo);
 
     const banner = useMemo(() => {
         // 优先取sku模块的数据 > 页面模块的数据
-        if(!isEmpty(skuInfo)) {
-            return get(skuInfo, 'rsGoodsFileDomainList', []);
+        if(!isEmpty(_skuInfo)) {
+            return get(_skuInfo, 'rsGoodsFileDomainList', []);
         }
         return get(defaultValue, 'rsGoodsFileDomainList', []);
-    }, [defaultValue, skuInfo])
+    }, [defaultValue, _skuInfo])
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -95,7 +96,7 @@ export function SwiperThumb({height}: {height: number}) {
                 {
                     banner.map((item, index) => (
                         <SwiperSlide key={index}>
-                            <img src={item.goodsFileUrl} />
+                            <img src={fullpath(item.goodsFileUrl)} />
                         </SwiperSlide>
                     ))
                 }
@@ -113,7 +114,7 @@ export function SwiperThumb({height}: {height: number}) {
                     {
                         banner.map((item, index) => (
                             <SwiperSlide key={index}>
-                                <img src={item.goodsFileUrl} />
+                                <img src={fullpath(item.goodsFileUrl)} />
                             </SwiperSlide>
                         ))
                     }

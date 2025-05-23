@@ -1,6 +1,7 @@
-import {combine, Container, OutContainer} from '@brushes/component-core';
+import {combine, Container, IsShowContainer, OutContainer} from '@brushes/component-core';
 import {TypeComponent} from '../types';
-import {ContainerSettings, OutContainerSettings} from '@brushes/component-setting';
+import {ContainerSettings, IsShowContainerSettings, OutContainerSettings} from '@brushes/component-setting';
+import {ChildRoute} from "component-ui/basic";
 
 const layout: Array<TypeComponent> = [
   {
@@ -42,7 +43,35 @@ const layout: Array<TypeComponent> = [
         settings: ContainerSettings,
       },
     }
-  }
+  },
+  {
+    name: '子路由模块',
+    icon: 'icon-text',
+    Component: ChildRoute,
+    isCanvas: true,
+    setting: {
+      props: {
+      },
+      related: {
+        settings: {},
+      },
+    }
+  },
+  {
+    name: '条件容器',
+    icon: 'icon-text',
+    Component: IsShowContainer,
+    isCanvas: true,
+    setting: {
+      props: {
+        margin: {},
+        padding: { paddingTop: 5, paddingBottom: 5 },
+      },
+      related: {
+        settings: IsShowContainerSettings,
+      },
+    }
+  },
 ]
 
 combine(layout)

@@ -1,37 +1,48 @@
 import { useNode, UserComponent } from "@craftjs/core";
 import { ErrorBoundary } from "react-error-boundary";
 import {useMemo} from 'react';
-import {has, noop, omit} from 'lodash-es';
+import {has, isUndefined, noop, omit} from 'lodash-es';
 import {changeCode} from '../tool/changeCode';
 
-const ChangeComponent = ({useFunc = noop, Component, ...restProps} : { Component: any; useFunc?: any}) => {
+const ChangeComponent = ({useFunc = noop, diyUseStyle = noop, Component, ...restProps} : { Component: any; diyUseStyle?:any; useFunc?: any}) => {
   const callback = useFunc();
+  const { styles } = diyUseStyle() || { styles: ''};
   return (
-      <div
-          style={{...(callback ? {cursor: "pointer"} : {})}}
-          { ...(callback ? { onClick: callback } : {}) }
-      >
-        <Component {...restProps }/>
-      </div>
+      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+        <div
+            className={styles.diyClassName}
+            style={{...(callback ? {cursor: "pointer"} : {})}}
+            {...(callback ? {onClick: callback} : {})}
+        >
+          <Component {...restProps}/>
+        </div>
+      </ErrorBoundary>
   )
 }
 
-export const HOCCodeWrapComponent = (Component: any, isTrue?: boolean) : UserComponent => {
-  return (props:any) => {
+export const HOCCodeWrapComponent = (Component: any, isTrue?: boolean): UserComponent => {
+  return (props: any) => {
     const {
-      connectors: { connect, drag },
+      connectors: {connect, drag},
     } = useNode();
 
     const newProps = useMemo(() => {
-      if (has(props, '$$_actions')) {
+      if (!isUndefined(props.$$_style)) {
+        const date = new Date().valueOf();
+        const v = changeCode(props['$$_style']);
+        console.log('style在线编译耗时=========>', new Date().valueOf() - date);
+        const func = v.exports.default;
+        return { ...(func ? {diyUseStyle: func} : {}), ...omit(props, ['$$_style', '$_style']) }
+      }
+      if (!isUndefined(props.$$_actions)) {
         const date = new Date().valueOf();
         const v = changeCode(props['$$_actions']);
-        console.log('在线编译耗时=========>', new Date().valueOf() - date);
+        console.log('action在线编译耗时=========>', new Date().valueOf() - date);
         const func = v.exports.default;
         return { ...(func ? {useFunc: func} : {}), ...omit(props, ['$$_actions', '$_actions']) }
       }
 
-      if (has(props, '$$_children')) {
+      if (!isUndefined(props.$$_children)) {
         const date = new Date().valueOf();
         const v = changeCode(props['$$_children']);
         console.log('在线编译耗时=========>', new Date().valueOf() - date);
@@ -40,7 +51,7 @@ export const HOCCodeWrapComponent = (Component: any, isTrue?: boolean) : UserCom
 
       return props
     }, [props]);
-    // console.log(24, newProps);
+
     return (
       <ErrorBoundary fallback={<div>Something went wrong</div>}>
           <div ref={(ref: HTMLDivElement) => connect(drag(ref))} style={isTrue ? {width: '100%'} : {}}>

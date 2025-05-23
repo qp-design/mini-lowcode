@@ -1,8 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { getKey } from '@brushes/utils';
-
-console.log(6, process.env, getKey())
+// import { name } from '../package.json';
 import Root from './views';
 import "./index.scss";
 

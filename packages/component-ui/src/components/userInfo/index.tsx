@@ -1,28 +1,11 @@
 import {createStyles} from "antd-style";
 import {fullpath} from "@brushes/component-tool";
-
-const tabTitle = [
-    {
-        path: 'car',
-        label: "购物车",
-        value: "0",
-    },
-    {
-        label: "待发货",
-        value: "0",
-        status: 1,
-    },
-    {
-        label: "待收货",
-        value: "0",
-        status: 2,
-    },
-    {
-        label: "交易完成",
-        value: "0",
-        status: 4,
-    },
-]
+import {useEffect, useMemo, useState} from "react";
+import {queryOcContractToCensus} from "component-api";
+import {LogoutComponent} from "../../operate";
+import {DividerComponent, Text} from "../../basic";
+import {Element} from "@craftjs/core";
+import {Container} from "@brushes/component-core";
 
 const useStyle = createStyles(({token, css}) => {
     return {
@@ -135,8 +118,17 @@ const useStyle = createStyles(({token, css}) => {
         `
     }
 })
-export const UserInfo = ({text, imgUrl, ...restProps}: { text: string; imgUrl: string }) => {
+export const UserInfo = ({text, imgUrl, config, ...restProps}: { config: Array<{label: string; code: string}>; text: string; imgUrl: string }) => {
     const {styles} = useStyle();
+    const [values, setValues] = useState({});
+    useEffect(() => {
+        (async () => {
+           const data = await queryOcContractToCensus();
+           setValues(data);
+        })()
+    }, []);
+
+
     return (
 
         <div>
@@ -148,24 +140,24 @@ export const UserInfo = ({text, imgUrl, ...restProps}: { text: string; imgUrl: s
                         </div>
                         <div className="userInfo_Detail">
                             <div className="top">
-                                <span className="name">昵称</span>
+                                <Text module={'rootStore'} storeKey={'_userInfo'} text='用户名' code={'userName'}></Text>
                             </div>
                             <div className="bottom">
-                        <span className="hover" onClick={() => {
-                        }}>切换账号</span>
-                                <span style={{padding: '0 5px'}}>|</span>
-                                <span className="hover" onClick={() => {
-                                }}>退出</span>
+                                <Element padding={{paddingTop: 8}} height={20} alignItems={'center'} flexDirection={'row'} is={Container} id={'info-bottom'}>
+                                    <Text module={'rootStore'} storeKey={'_userInfo'} text='昵称' code={'userNickname'}></Text>
+                                    <DividerComponent type="vertical" margin={{marginLeft: 5, marginRight: 5}}/>
+                                    <LogoutComponent text={'退出'} fontSize={12} type={'link'}
+                                                     padding={{paddingLeft: 0, paddingRight: 0}}/>
+                                </Element>
                             </div>
                         </div>
                     </div>
                     <div className="otherInfo">
                         {
-                            tabTitle.map((item: any, index: number) => (
+                            config.map((item: any, index: number) => (
                                 <div key={index} onClick={() => {
                                 }} className="box navigator">
-                                    {index === 0 && <div className="top_num">0</div>}
-                                    {index !== 0 && <div className="top_num">{item.value}</div>}
+                                    <div className="top_num">{values[item.code]}</div>
                                     <div className="bottom_name">{item.label}</div>
                                 </div>
                             ))

@@ -101,7 +101,7 @@ const Add = <T extends object>({setColumn, name}: {setColumn: Dispatch<T>; name:
     <>
       <Button onClick={showModal}>新增</Button>
       <Modal
-        destroyOnClose={true}
+        destroyOnHidden={true}
         title="新增标签页卡片"
         open={isModalOpen}
         onCancel={handleCancel}

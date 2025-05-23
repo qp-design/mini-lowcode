@@ -1,8 +1,6 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
-import {ApiComponent, paddingField} from "../../common";
-import {apiConfig} from "../../common/api/apiConfig";
-import {isUndefined} from "lodash-es";
+import {ApiComponent, marginField, paddingField} from "../../common";
 
 const containerField: FieldType[] = [
     (form) => {
@@ -20,11 +18,11 @@ const containerField: FieldType[] = [
                 },
                 options: [
                     {
-                        label: '列表',
+                        label: '每个独立模块',
                         value: 'list'
                     },
                     {
-                        label: '非列表',
+                        label: '常规',
                         value: 'detail'
                     }
                 ]
@@ -70,15 +68,16 @@ const containerField: FieldType[] = [
         label: '分页',
         name: 'pagination',
         type: 'switch',
-        calIsVisible: (form) => form.getFieldValue('componentType') === 'list'
+        // calIsVisible: (form) => form.getFieldValue('componentType') === 'list'
     },
     {
-        label: 'pageSize',
+        label: '一页多少条',
         name: 'rows',
         type: 'number',
-        calIsVisible: (form) => !form.getFieldValue('pagination') && form.getFieldValue('componentType') === 'list'
+        // calIsVisible: (form) => !form.getFieldValue('pagination') && form.getFieldValue('componentType') === 'list'
     },
     ...paddingField,
+    ...marginField,
 ]
 
 const baseFormField: formConfigType[] = [
@@ -144,7 +143,11 @@ const baseFormField: formConfigType[] = [
                 label: '组件数据路径',
                 name: 'dataPath',
                 type: 'text',
-                calIsVisible: (form) => form.getFieldValue('componentType') !== 'detail'
+                // calIsVisible: (form) => form.getFieldValue('componentType') === 'list',
+                extraProps: {
+                    placeholder: '一般为空',
+                    dependencies: ['componentType']
+                }
             },
             {
                 label: '子组件Store的key',

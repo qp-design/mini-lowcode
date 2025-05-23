@@ -6,7 +6,7 @@ export const fullpath = (str: string = '') => {
     if(str.startsWith('http')) {
         return str
     }
-    if(!str.startsWith(path)) {
+    if(!(str.startsWith(path) || str.startsWith(path.slice(1)))) {
         computedPath = path + str;
     }
     return baseUrl + computedPath

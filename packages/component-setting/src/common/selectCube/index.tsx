@@ -1,5 +1,4 @@
 import { SelectPicture } from '../selectPictureOrVideo';
-import { SelectLink } from '../selectLink';
 import SelectInfo from '../selectInfo';
 import { useStyle } from './style';
 
@@ -32,11 +31,7 @@ export const SelectCube = ({
               </div>
             )}
             <div className={'pickLink'}>
-              <SelectLink
-                form={form}
-                name={[coe, link]}
-                parentName={parentName}
-              />
+              <SelectInfo place={'跳转路由'} name={[coe, link]} />
             </div>
             {needInput ? <SelectInfo name={[coe, title]} /> : null}
           </div>

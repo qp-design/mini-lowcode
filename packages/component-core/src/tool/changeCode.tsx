@@ -5,6 +5,9 @@ import * as componentTool from '@brushes/component-tool';
 import * as reactRouterDom from 'react-router-dom';
 import * as antdIcons from '@ant-design/icons';
 import * as componentCore from '@brushes/component-core'
+import * as lodash2 from 'lodash-es'
+import * as request from '@brushes/request'
+import * as antdStyle from 'antd-style'
 // import {transform} from '@babel/standalone';
 import { transform } from "sucrase";
 
@@ -37,8 +40,12 @@ export function changeCode(code: string) {
             if (packageName == 'react-router-dom') return reactRouterDom;
             if (packageName == 'react') return React;
             if (packageName == '@brushes/component-tool') return componentTool;
+            if (packageName == 'lodash-es') return lodash2;
+            if (packageName == '@brushes/request') return request;
             if (packageName == 'antd') return antd;
             if (packageName == '@ant-design/icons') return antdIcons;
+            if (packageName == 'antd-style') return antdStyle;
+
             throw new Error('该包目前无法转化,需要扩展');
             // if (dependencies[packageName]) {
             //   return dependencies[packageName];

@@ -1,0 +1,11 @@
+{
+  "name": "@brushes/editor-component",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {
+    "component-ui": "*",
+    "@brushes/component-core": "*"
+  }
+}
