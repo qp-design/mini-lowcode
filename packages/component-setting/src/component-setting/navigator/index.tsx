@@ -1,4 +1,4 @@
-import {basicSettings, formConfigType} from '@brushes/component-core';
+import {basicSettings, formConfigType} from '@brushes/component-tool';
 import {FieldType} from '@brushes/form';
 import {AddButton, paddingField, SelectCube} from '../../common';
 

@@ -1,4 +1,4 @@
-import {basicSettings, formConfigType} from '@brushes/component-core';
+import {basicSettings, formConfigType} from '@brushes/component-tool';
 import {dynamicFormFields, FieldType} from '@brushes/form';
 import {WrapTable} from '../../common';
 

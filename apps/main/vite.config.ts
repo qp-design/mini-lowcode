@@ -16,7 +16,7 @@ export default defineConfig(({command}) => {
       react(),
     ],
     optimizeDeps: {
-      // exclude: lifecycle === 'dev' ? null : ['react', 'react-dom'],
+      exclude: ['react', 'react-dom', '@ant-design/icons', 'antd']
     },
     define: {
       'process.env.REACT_APP_BASE_URL': command === 'serve' ? config.API_ROOT : prodConfig.API_ROOT,

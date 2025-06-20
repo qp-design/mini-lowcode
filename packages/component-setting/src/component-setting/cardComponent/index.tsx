@@ -1,5 +1,5 @@
 import {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/component-core';
+import {basicSettings, formConfigType} from '@brushes/component-tool';
 import {paddingField, actionField, marginField} from "../../common";
 
 const containerField: FieldType[] = [

@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import * as antd from 'antd';
 import * as componentTool from '@brushes/component-tool';
 import * as reactRouterDom from 'react-router-dom';
-import * as antdIcons from '@ant-design/icons';
 import * as componentCore from '@brushes/component-core'
 import * as componentStore from 'component-store'
 import * as lodash2 from 'lodash-es'
@@ -47,7 +46,6 @@ export function changeCode(code: string) {
             if (packageName == '@brushes/request') return request;
             if (packageName == 'antd') return antd;
             if (packageName == 'dayjs') return dayjs;
-            if (packageName == '@ant-design/icons') return antdIcons;
             if (packageName == 'antd-style') return antdStyle;
 
             throw new Error('该包目前无法转化,需要扩展');
