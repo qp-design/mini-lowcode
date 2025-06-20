@@ -1,11 +1,12 @@
 import {createStyles} from "antd-style";
-import {useMemo, useState} from "react";
-import {Empty, Form, message, Popconfirm, Radio, Spin} from 'antd';
+import {useEffect, useMemo, useState} from "react";
+import {Empty, Form, FormInstance, message, Popconfirm, Radio, Spin} from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import {Container, useModuleContext} from "@brushes/component-core";
 import {Text} from "../../basic";
 import {get, post} from "@brushes/request";
 import { dynamicFormFields } from "@brushes/form";
+import {useLocation, useSearchParams} from "react-router-dom";
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -43,20 +44,26 @@ const ItemJsx = (item) => {
 }
 
 
-const ItemSelect = ({onChange, description, callbackName, storeKey, openKey}: {description?: string; openKey: string; onChange: (e:any) => void; callbackName: string; storeKey: string}) => {
+const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKey, freight, ...restProps}: {description?: string; freight: boolean; form: FormInstance; openKey: string; onChange: (e:any) => void; callbackName: string; storeKey: string}) => {
     const [loading, setLoading] = useState<boolean>(false);
     const retry = useModuleContext(s=>s.moduleStore[callbackName]);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
-    const location = useModuleContext(s=> s.moduleStore._location) || {};
+    // const {search} = useLocation();
+    let [searchParams,] = useSearchParams();
     const addressList = useModuleContext(s => s.moduleStore[storeKey]) || [];
     const { styles } = useStyles();
-    const selectAddressId = useMemo(() => {
+    useEffect(() => {
         const { addressId = ''} = addressList.find(item => {
             return item.addressDefault === '1'
         }) || {};
         if(addressId) {
+            form.setFieldsValue({addressId});
+
+            // 在确认订单页面需要查询运费
+            if(searchParams.get('shoppingGoodsIdStr') || searchParams.get('skuId')) {
+                fetchFreight(addressId);
+            }
         }
-        return addressId;
     }, [addressList]);
 
     const deleteImpl = async (id: string) => {
@@ -90,18 +97,30 @@ const ItemSelect = ({onChange, description, callbackName, storeKey, openKey}: {d
     const fetchFreight = async (id:string) => {
         setLoading(true);
         const item = addressList.find((item:any) => item.addressId === id) || {};
-        const { areaCode, goodsReceiptMem, goodsReceiptPhone, provinceName , cityName, areaName, addressDetail } = item;
+        const { areaCode, addressMember, addressPhone, provinceName , cityName, areaName, addressDetail } = item;
         try {
-            const data = await post('web/oc/contract/calculateFreightFare.json', {
+            let appendParam = {}
+            if(searchParams.get('shoppingGoodsIdStr')) {
+                appendParam.shoppingGoodsIdStr = searchParams.get('shoppingGoodsIdStr')
+            }
+            if(searchParams.get('skuId')) {
+                appendParam.skuIdStr = JSON.stringify([
+                    {
+                        skuId: searchParams.get('skuId'),
+                        goodsNum: searchParams.get('goodsNum'),
+                    }
+                ])
+            }
+            const data = await post(`web/oc/contract/calculateFreightFare.json`, {
                 areaCode: areaCode,
-                ...location
+                ...appendParam
             });
 
             setModuleStore({
                 _orderAddressInfo: {
                     freight: data.dataObj,
-                    goodsReceiptMem: goodsReceiptMem,
-                    goodsReceiptPhone: goodsReceiptPhone,
+                    goodsReceiptMem: addressMember,
+                    goodsReceiptPhone: addressPhone,
                     goodsReceiptArrdess: provinceName + cityName + areaName + addressDetail,
                     areaCode: areaCode
                 }
@@ -118,21 +137,14 @@ const ItemSelect = ({onChange, description, callbackName, storeKey, openKey}: {d
         await fetchFreight(e.target.value)
     }
 
-    if(addressList.length === 0){
-        return <Empty description={description}/>
-    }
-    return (
-        <Spin spinning={loading}>
-            <Radio.Group
-                style={{width: '100%'}}
-                defaultValue={selectAddressId}
-                onChange={(e) => changeImpl(e, onChange)}
-            >
+    const children = useMemo(() => {
+        return (
+            <>
                 {
                     addressList.map((item) => {
                         return (
                             <div className={styles.container} key={item.addressId}>
-                                <Radio value={item.addressId}><ItemJsx {...item}/></Radio>
+                                { freight ? <Radio value={item.addressId}><ItemJsx {...item}/></Radio> : <ItemJsx {...item}/> }
                                 <div className={'operate'}>
                                     <Container
                                         is={Container}
@@ -145,20 +157,6 @@ const ItemSelect = ({onChange, description, callbackName, storeKey, openKey}: {d
                                         justifyContent={'space-between'}
                                         alignItems={'center'}
                                         flexDirection={'row'}>
-                                        {/*<Element*/}
-                                        {/*    canvas*/}
-                                        {/*    id={item.addressId}*/}
-                                        {/*    is={Container}*/}
-                                        {/*    padding={{*/}
-                                        {/*        paddingLeft: 5,*/}
-                                        {/*        paddingRight: 5,*/}
-                                        {/*        paddingTop: 5,*/}
-                                        {/*        paddingBottom: 5,*/}
-                                        {/*    }}*/}
-                                        {/*    justifyContent={'space-between'}*/}
-                                        {/*    alignItems={'center'}*/}
-                                        {/*    flexDirection={'row'}*/}
-                                        {/*>*/}
                                         <Text
                                             onClick={()=>setDefaultAddress(item.addressCode)}
                                             color={'#f00'}
@@ -194,16 +192,34 @@ const ItemSelect = ({onChange, description, callbackName, storeKey, openKey}: {d
                         )
                     })
                 }
-            </Radio.Group>
+            </>
+        )
+    }, [addressList, freight]);
+
+    if(addressList.length === 0){
+        return <Empty description={description}/>
+    }
+    return (
+        <Spin spinning={loading}>
+            {
+                freight ? <Radio.Group
+                    style={{width: '100%'}}
+                    {...restProps}
+                    onChange={(e) => changeImpl(e, onChange)}
+                >
+                    {children}
+                </Radio.Group> : children
+            }
         </Spin>
     )
 }
-export const AddressItem = ({padding = {}, description, storeKey, openKey, callbackName, ...props}: {
+export const AddressItem = ({padding = {}, freight = true, description, storeKey, openKey, callbackName, ...props}: {
     padding?: object;
     callbackName: string;
     description?: string;
     storeKey: string;
     openKey: string;
+    freight: boolean;
 }) => {
     const form = Form.useFormInstance();
 
@@ -219,11 +235,11 @@ export const AddressItem = ({padding = {}, description, storeKey, openKey, callb
                     {
                         type: 'slot',
                         name: 'addressId',
-                        rules: [{required: true}],
+                        rules: [{required: true, message: '收货地址不能为空'}],
                         value: '',
                         extraProps: {
-                            render: ({onChange}: {onChange: (e:any)=>void}) =>
-                                <ItemSelect description={description} onChange={onChange} storeKey={storeKey} openKey={openKey} callbackName={callbackName}/>
+                            render: ({onChange, form, ...restProps}: { form: FormInstance; onChange: (e:any)=>void}) =>
+                                <ItemSelect freight={freight} form={form} description={description} onChange={onChange} storeKey={storeKey} openKey={openKey} callbackName={callbackName} {...restProps}/>
                         }
                     },
                 ], form)

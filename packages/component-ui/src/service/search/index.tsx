@@ -1,9 +1,17 @@
 import {SearchOutlined} from "@ant-design/icons";
 import Search from "antd/es/input/Search";
-import {HOCCodeWrapComponent, Element, Container} from "@brushes/component-core";
+import {
+    HOCCodeWrapComponent,
+    Element,
+    Container,
+    useModuleRootContext
+} from "@brushes/component-core";
 import { Text } from '../../basic';
 import {useNavigateImpl} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
+import {useLocation, useSearchParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {noop} from "lodash-es";
 
 const useStyle = createStyles(({token, css}, props:
     any
@@ -37,18 +45,42 @@ const useStyle = createStyles(({token, css}, props:
 })
 const SearchJsx = ({path, size, placeholder, ...props }: { size: any; placeholder: string; path: string}) => {
     const { navigator } = useNavigateImpl();
+    const { pathname } = useLocation();
+    const [searchParams] = useSearchParams();
     const { styles } = useStyle(props);
+    const [value, setValue] = useState('');
+    const searchQuery = useModuleRootContext(s=>s.rootStore.searchQuery) || noop;
+
+    useEffect(() => {
+        const value = searchParams.get('searchParam') || '';
+        setValue(value);
+    }, [searchParams.get('searchParam')]);
+
+    const onSearch = (value:string) => {
+        navigator(`${path}?searchParam=${value}`);
+        if(pathname === path) {
+            searchQuery({
+                searchParam: value
+            })
+        }
+
+    }
+
     return (
         <Search
+            value={value}
             className={styles.search}
             prefix={<SearchOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
             allowClear
             size={size}
             placeholder={placeholder}
+            onChange={(e) => {
+                setValue(e.target.value);
+            }}
             enterButton={<Element canvas is={Container} id={'enterButton'}>
                 <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>
             </Element>}
-            onSearch={() => navigator(path)}
+            onSearch={onSearch}
         />
     )
 }

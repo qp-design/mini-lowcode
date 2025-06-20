@@ -1,6 +1,7 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
-import {actionField, marginField, paddingField} from '../../common';
+import {actionField, marginField, paddingField, SelectPicture} from '../../common';
+import {useStyle} from "../logoWithSearch/style";
 
 const containerField: FieldType[] = [
   {
@@ -36,11 +37,16 @@ const containerField: FieldType[] = [
       ]
     }
   },
-  {
-    label: '打开抽屉code',
-    name: 'openKey',
-    type: 'text',
-  },
+  // {
+  //   label: '打开抽屉code',
+  //   name: 'openKey',
+  //   type: 'text',
+  // },
+  // {
+  //   label: '打开父级抽屉code',
+  //   name: 'parentOpenKey',
+  //   type: 'text',
+  // },
   {
     label: '宽度',
     name: 'width',
@@ -50,6 +56,31 @@ const containerField: FieldType[] = [
     label: '高度',
     name: 'height',
     type: 'number',
+  },
+  {
+    label: '图片高度',
+    name: 'imgHeight',
+    type: 'number',
+  },
+  {
+    label: '图片宽度',
+    name: 'imgWidth',
+    type: 'number',
+  },
+  {
+    label: '购物车图片',
+    name: ['car', 'imgUrl'],
+    type: 'slot',
+    extraProps: {
+      render: ({onChange, form, name}) => {
+        const { styles } = useStyle();
+        return (
+            <div className={styles.wrap}>
+              <SelectPicture form={form} name={name} onChange={onChange}/>
+            </div>
+        )
+      },
+    }
   },
   {
     label: '按钮类型',

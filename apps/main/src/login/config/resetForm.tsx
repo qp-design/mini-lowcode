@@ -92,7 +92,6 @@ export const userPhone : Array<FieldType> = [
                 async validator(_:any, value: string) {
                     if (/^1[3-9]\d{9}$/.test(value)) {
                         try {
-                            console.log(89, 1212312323);
                             // await checkUserPhoneThere({ userPhone: value });
                             setFieldValue('isDisabled', '');
                             return Promise.resolve();

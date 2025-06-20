@@ -1,8 +1,9 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {useStyle} from "../logoWithSearch/style";
-import {marginField, paddingField, SelectPicture} from "../../common";
+import {actionField, marginField, paddingField, SelectPicture} from "../../common";
 import {positionField} from "../../common/position";
+import {Button} from "antd";
 
 const containerField: FieldType[] = [
   {
@@ -10,7 +11,7 @@ const containerField: FieldType[] = [
     name: 'background',
     type: 'color',
     extraProps: {
-      allowClear: true,
+      // allowClear: true,
       showText: true
     }
   },

@@ -44,6 +44,7 @@ export const useStyles2 = createStyles(({css, token}) => {
                 display: grid;
                 text-align: left;
                 gap: 12px;
+                align-items: center;
                 grid-template-columns: 20px 80px 230px;
                 .checkbox-item{ margin-top: 30px;}
                 .img-border{ 

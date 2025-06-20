@@ -10,6 +10,7 @@ export const goodListIntialValue = {
 
 export const initialValueOrder = {
   contractSettlOpno: 0,
+  rebMoney: 0,
   goodsCamount: 0,
   shoppingCountPrice: 0,
   totalDiscountPrice: 0,
@@ -33,8 +34,10 @@ export type addressInfo = {
 
 export type moduleType = {
   [v: string]: any;
-  _location: {[v: string]: any};
   _orderAddressInfo: addressInfo;
+  _couponList: [], // 订单优惠券列表
+  _selectCoupon: {}, // 选中的优惠券
+  _shoppingList: [], // 订单商品信息
   _contractGoodsList: Array<typeof goodListIntialValue>; // 确认订单支付模块
   _orderDomainStr: Array<typeof initialValueOrder>; // 确认订单支付模块
   _ocContractSettlList: Array<any>; // 确认订单支付模块
@@ -74,7 +77,6 @@ export const createModuleStore = (initProps?: Partial<moduleStore>) => {
         goodsReceiptArrdess: '',
         areaCode:'',
       },
-      _location: {},
       defaultValue: void 0,
       _skuInfo: {},
       params: {},

@@ -3,12 +3,12 @@ import {Container, Element, HOCCodeWrapComponent} from "@brushes/component-core"
 import {ImageComponent, Text} from "../../basic";
 
 
-const useStyles = createStyles(({token, css}) => {
+const useStyles = createStyles(({token, css}, {borderColor}: {borderColor: string}) => {
     return {
         container: css`
             overflow: hidden;
             box-sizing: border-box;
-            border: 1px solid rgba(0,0,0,0);
+            border: 1px solid ${borderColor};
             &:hover{
                 border: 1px solid ${token.colorPrimary};
             }
@@ -17,8 +17,8 @@ const useStyles = createStyles(({token, css}) => {
 })
 
 
-const CardLR = ({ padding = {}, ...props }: {padding?: object;}) => {
-    const { styles } = useStyles();
+const CardLR = ({ padding = {}, borderColor = 'rgba(0,0,0,0)', ...props }: {borderColor: string; padding?: object;}) => {
+    const { styles } = useStyles({borderColor});
     return (
         <div
             className={styles.container}
@@ -51,12 +51,14 @@ const CardLR = ({ padding = {}, ...props }: {padding?: object;}) => {
                         code={'goodsName'}
                     />
                     <Container
+                        canvas
                         flexDirection={'row'}
                     >
                         <Text text='SKU编码：'/>
                         <Text code={'goodsShowno'}/>
                     </Container>
                     <Container
+                        canvas
                         flexDirection={'row'}
                         padding={{
                             paddingBottom: 5,
@@ -65,6 +67,7 @@ const CardLR = ({ padding = {}, ...props }: {padding?: object;}) => {
                         <Text num={1} width={120} code={'skuName'}/>
                     </Container>
                     <Container
+                        canvas
                         flexDirection={'row'}
                         color={'#f00'}
                         alignItems={'center'}

@@ -66,16 +66,16 @@ const useStyles = createStyles(({css, token}) => {
         `
     }
 })
-export function SwiperThumb({height}: {height: number}) {
+export function SwiperThumb({height, imgKey = 'goodsFileUrl', dataPath = 'rsGoodsFileDomainList', storeKey = '_skuInfo'}: {imgKey?: string; dataPath?: string; storeKey: string; height: number}) {
     const defaultValue = useModuleContext(s => s.moduleStore.defaultValue);
-    const _skuInfo = useModuleContext(s => s.moduleStore._skuInfo);
+    const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]);
 
     const banner = useMemo(() => {
         // 优先取sku模块的数据 > 页面模块的数据
         if(!isEmpty(_skuInfo)) {
-            return get(_skuInfo, 'rsGoodsFileDomainList', []);
+            return get(_skuInfo, dataPath, []);
         }
-        return get(defaultValue, 'rsGoodsFileDomainList', []);
+        return get(defaultValue, dataPath, []);
     }, [defaultValue, _skuInfo])
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -96,7 +96,7 @@ export function SwiperThumb({height}: {height: number}) {
                 {
                     banner.map((item, index) => (
                         <SwiperSlide key={index}>
-                            <img src={fullpath(item.goodsFileUrl)} />
+                            <img src={fullpath(item[imgKey])} />
                         </SwiperSlide>
                     ))
                 }
@@ -114,7 +114,7 @@ export function SwiperThumb({height}: {height: number}) {
                     {
                         banner.map((item, index) => (
                             <SwiperSlide key={index}>
-                                <img src={fullpath(item.goodsFileUrl)} />
+                                <img src={fullpath(item[imgKey])} />
                             </SwiperSlide>
                         ))
                     }

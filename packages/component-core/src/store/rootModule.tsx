@@ -2,7 +2,6 @@ import { ModuleRootStore, createRootModuleStore, ModuleRootState, moduleRootStor
 import { useRef, useContext, createContext } from 'react'
 import { useStore } from 'zustand'
 
-
 const ModuleContext = createContext<ModuleRootStore | null>(null);
 
 type ModuleProviderProps = React.PropsWithChildren<Partial<moduleRootStore>>

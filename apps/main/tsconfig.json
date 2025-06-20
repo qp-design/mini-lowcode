@@ -13,8 +13,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "react": ["./node_modules/@types/react"],
+      "react-dom": ["./node_modules/@types/react-dom"]
     },
+    "baseUrl": ".",
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

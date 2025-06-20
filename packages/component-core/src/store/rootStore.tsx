@@ -1,7 +1,9 @@
 import { createStore } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
 export type moduleType = {
   [v: string]: any;
+  _orderCount: {[v: string]: string | number}; // 订单角标
   _userInfo: {[v: string]: any}; // 用户信息
   _cart: number; // 购物车数据
 };
@@ -26,15 +28,21 @@ export const createRootModuleStore = (initProps?: Partial<moduleRootStore>) => {
     rootStore: {
       _userInfo: {
       },
+      _orderCount: {},
       _cart: 0,
+      _menuChildren: []
     },
   }
-  return createStore<ModuleRootState>()((set) => ({
+  return createStore<ModuleRootState>()(persist((set) => ({
     ...DEFAULT_PROPS,
     ...initProps,
     setModuleRootStore: (store) =>
         set((state) => {
           return ({ rootStore: Object.assign(state.rootStore, store) })
         }),
+  }),
+      {
+        name: 'root-storage', // 存储的 key 名
+        storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
   }))
 }

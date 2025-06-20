@@ -10,6 +10,16 @@ const dataFormField: FieldType[] = [
         type: 'number',
     },
     {
+        label: '启用拖拽',
+        name: 'draggable',
+        type: 'switch',
+    },
+    {
+        label: '切换的时间',
+        name: 'speed',
+        type: 'number',
+    },
+    {
         label: '宽度',
         name: 'width',
         type: 'number',

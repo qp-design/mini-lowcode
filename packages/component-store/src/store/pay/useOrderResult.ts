@@ -1,21 +1,31 @@
-import { useRef, useState } from 'react';
+import {useRef, useState} from 'react';
 import { paymentCommit } from 'component-api';
-import { setStorage, taroMessage } from '@brushes/utils';
 import {useModuleContext} from "@brushes/component-core";
 import {message} from "antd";
-import {useNavigateImpl} from "@brushes/component-tool";
+import { useNavigate } from 'react-router-dom';
+import {useSearchParamHook} from "component-store";
+import { get } from 'lodash-es';
 
-
-export function useOrderResult() {
+export function useOrderResult(storeKey = 'payInfo') {
   const [loading, setLoading] = useState(false);
-  const _skuInfo = useModuleContext(s=>s.moduleStore._skuInfo) || {};
-  const { navigator } = useNavigateImpl();
+  const title = useRef('');
+  const [open, setOpen] = useState(false);
+  const _skuInfo = useModuleContext(s=>s.moduleStore[storeKey]) || {};
+  const [contractBillcode] = useSearchParamHook(['contractBillcode']);
+  const [url, setUrl] = useState('');
+  const navigator = useNavigate();
+
   const paymentImpl = (code: string, paywd?: string) => {
     switch (code) {
-      case 'wechatwap':
-        wechatwap(code);
+      // case 'wechatwap':
+      //   wechatwap();
+      //   break;
+      case 'wechatpc':
+        title.current = '微信支付';
+        wechatpc(code);
         break;
       case 'alipaywap':
+        title.current = '支付宝支付';
         alipaywap(code);
         break;
       default:
@@ -66,7 +76,7 @@ export function useOrderResult() {
       const { msg } = await nonBasicAccoutPrepay(code, paywd);
       message.success(msg);
       setTimeout(() => {
-        navigator(`/payResult?contractBillcode=${_skuInfo.contractBillcode}`)
+        navigator(`/result?contractBillcode=${contractBillcode}`, {replace:true})
       }, 500)
       setLoading(false);
     } catch (err) {
@@ -88,12 +98,26 @@ export function useOrderResult() {
   };
 
   // h5 微信
-  const wechatwap = async (code:string) => {
+  // const wechatwap = async (code:string) => {
+  //   try {
+  //     const res = await nonBasicAccoutPrepay(code);
+  //     let v_html = document.getElementById('v_html');
+  //     v_html.innerHTML = '<div>' + res.dataObj.htmlStr + '</div>';
+  //     console.log(99, v_html);
+  //     document.getElementById('paaspaysubmit').submit();
+  //     setLoading(false);
+  //   } catch (err) {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // h5 微信
+  const wechatpc = async (code:string) => {
     try {
       const res = await nonBasicAccoutPrepay(code);
-      let v_html = document.getElementById('v_html');
-      v_html.innerHTML = '<div>' + res.dataObj.htmlStr + '</div>';
-      document.getElementById('paaspaysubmit').submit();
+      const url = get(res, 'dataObj.requestData.code_url', '');
+      setUrl(url);
+      setOpen(true);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -104,11 +128,14 @@ export function useOrderResult() {
     cb();
     const { fchannelCode, paywd } = value;
     paymentImpl(fchannelCode, paywd)
-    console.log(123, value);
   }
 
   return {
     loading,
-    onSubmit
+    url,
+    title,
+    open,
+    onSubmit,
+    setOpen
   };
 }

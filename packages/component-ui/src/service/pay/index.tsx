@@ -5,17 +5,18 @@ import { Statistic } from 'antd';
 
 const { Timer } = Statistic;
 
-export const TimerComponent = () => {
-    const contractPaydate = useModuleContext(s=>s.moduleStore.contractPaydate);
+export const TimerJsx = ({storeKey, code}: {storeKey: string; code: string}) => {
+    const store = useModuleContext(s=>s.moduleStore[storeKey]) || {};
     return (
         <Timer
             type="countdown"
             format="D 天 H 时 m 分 s 秒"
-            value={contractPaydate}
+            value={store[code]}
         />
     )
 }
 
+export const TimerComponent = HOCCodeWrapComponent(TimerJsx);
 const PayService = () => {
     return (
         <>
@@ -87,7 +88,7 @@ const PayService = () => {
                             fontSize={12}
                             num={1}
                             fontWeight={400}
-                            code={'dataBmoney'}
+                            code={'contMoney'}
                         />
                         <DividerComponent type={'vertical'} margin={{marginLeft: 15, marginRight: 15 }} />
                         <Text
@@ -111,7 +112,7 @@ const PayService = () => {
                     id='pay-info'
                     is={Container}
                     alignItems={'center'}>
-                    <TimerComponent />
+                    <Element canvas is={TimerComponent} id={'Timer'} storeKey={""} code={""}/>
                 </Element>
             </Element>
             <FormComponent/>

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { FormInstance, Image, Modal } from 'antd';
+import {Button, FormInstance, Image, Modal} from 'antd';
 import { Wrapper } from '../wrapper';
 import { QjIcon } from '@brushes/share-resource';
 import { NamePath } from '@brushes/form';
@@ -74,18 +74,24 @@ export function SelectPicture({
 
   return (
     <ContextProvider initialValue={fileType}>
-      <div className={'choose-container'} onClick={showModal}>
-        {value ? (
-          <FilePreview value={value} />
-        ) : (
-          <div className={'choose'}>
-            <QjIcon
-              style={{ fontSize: '24px', color: '#888', display: 'block' }}
-              name={'icon-shurukuang-shangchuantupian'}
-            ></QjIcon>
-            <p>上传</p>
-          </div>
-        )}
+      <div className={'choose-container'}>
+        <div onClick={showModal}>
+          {value ? (
+            <FilePreview value={value} />
+          ) : (
+            <div className={'choose'}>
+              <QjIcon
+                style={{ fontSize: '24px', color: '#888', display: 'block' }}
+                name={'icon-shurukuang-shangchuantupian'}
+              ></QjIcon>
+              <p>上传</p>
+            </div>
+          )}
+        </div>
+        <Button onClick={() => {
+          form.setFieldValue(name, '');
+          onChange?.('');
+        }}>清除</Button>
       </div>
       <Modal
         destroyOnHidden={true}

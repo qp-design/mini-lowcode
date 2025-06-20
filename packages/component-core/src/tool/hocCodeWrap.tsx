@@ -1,11 +1,12 @@
 import { useNode, UserComponent } from "@craftjs/core";
 import { ErrorBoundary } from "react-error-boundary";
 import {useMemo} from 'react';
-import {has, isUndefined, noop, omit} from 'lodash-es';
+import {isUndefined, noop, omit} from 'lodash-es';
 import {changeCode} from '../tool/changeCode';
 
-const ChangeComponent = ({useFunc = noop, diyUseStyle = noop, Component, ...restProps} : { Component: any; diyUseStyle?:any; useFunc?: any}) => {
+const ChangeComponent = ({useFunc = noop, useFormConfig = noop, diyUseStyle = noop, Component, ...restProps} : { Component: any; diyUseStyle?:any; useFunc?: any; useFormConfig?:any}) => {
   const callback = useFunc();
+  const formConfig = useFormConfig();
   const { styles } = diyUseStyle() || { styles: ''};
   return (
       <ErrorBoundary fallback={<div>Something went wrong</div>}>
@@ -14,7 +15,7 @@ const ChangeComponent = ({useFunc = noop, diyUseStyle = noop, Component, ...rest
             style={{...(callback ? {cursor: "pointer"} : {})}}
             {...(callback ? {onClick: callback} : {})}
         >
-          <Component {...restProps}/>
+          <Component {...restProps} {...(formConfig? {formConfig} : {})}/>
         </div>
       </ErrorBoundary>
   )
@@ -25,31 +26,46 @@ export const HOCCodeWrapComponent = (Component: any, isTrue?: boolean): UserComp
     const {
       connectors: {connect, drag},
     } = useNode();
-
     const newProps = useMemo(() => {
-      if (!isUndefined(props.$$_style)) {
-        const date = new Date().valueOf();
-        const v = changeCode(props['$$_style']);
-        console.log('style在线编译耗时=========>', new Date().valueOf() - date);
+      const date = new Date().valueOf();
+      let stashProps = props;
+      let diyUseStyle = {};
+      let useFunc = {};
+      let useFormConfig = {};
+      let transformDataConfig = {};
+      let Children = {};
+      if (!isUndefined(stashProps.$$_style)) {
+        const v = changeCode(stashProps['$$_style']);
         const func = v.exports.default;
-        return { ...(func ? {diyUseStyle: func} : {}), ...omit(props, ['$$_style', '$_style']) }
+        diyUseStyle = func ? {diyUseStyle: func} : {};
       }
       if (!isUndefined(props.$$_actions)) {
-        const date = new Date().valueOf();
         const v = changeCode(props['$$_actions']);
-        console.log('action在线编译耗时=========>', new Date().valueOf() - date);
         const func = v.exports.default;
-        return { ...(func ? {useFunc: func} : {}), ...omit(props, ['$$_actions', '$_actions']) }
+        useFunc = func ? {useFunc: func} : {};
+      }
+
+      if (!isUndefined(props.$$_formConfig1)) {
+        const v = changeCode(props['$$_formConfig1']);
+        const func = v.exports.default;
+        useFormConfig = func ? {useFormConfig: func} : {};
+      }
+
+      if (!isUndefined(props.$$_transform)) {
+        const v = changeCode(props['$$_transform']);
+        const data = v.exports.default;
+        transformDataConfig = data ? {transformDataConfig: data} : {};
       }
 
       if (!isUndefined(props.$$_children)) {
-        const date = new Date().valueOf();
         const v = changeCode(props['$$_children']);
-        console.log('在线编译耗时=========>', new Date().valueOf() - date);
-        return { Children: v.exports.default }
+        const children = v.exports.default;
+        Children = children ? {Children: children} : {};
       }
 
-      return props
+      console.log('在线编译耗时=========>', new Date().valueOf() - date);
+
+      return { ...Children, ...useFormConfig, ...transformDataConfig, ...useFunc, ...diyUseStyle, ...omit(props, ['$$_style', '$_style', '$$_formConfig1', '$_formConfig1',  '$$_actions','$_actions', '$$_transform', '$_transform'])}
     }, [props]);
 
     return (

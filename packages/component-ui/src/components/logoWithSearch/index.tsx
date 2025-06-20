@@ -7,7 +7,7 @@ import {ImageComponent} from "../../basic";
 const useStyle = createStyles(({token, css}, {logoWidth = 220, buttonWidth = 130 } : { logoWidth: number; buttonWidth: number}) => {
     return {
         headerScoped: css`
-            width: 1200px;
+            width: 100%;
             margin: 40px auto 0;
             display: grid;
             grid-column-gap: 32px;

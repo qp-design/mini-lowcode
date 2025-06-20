@@ -10,3 +10,5 @@ export * from './diyAction';
 export * from './column';
 export * from './border-width-height-radius';
 export * from './address'
+export * from './diyFormConfig'
+export * from './diyFormTransform'

@@ -25,7 +25,7 @@ const dataFormField: FieldType[] = [
     extraProps: {
       innerForm: [
         {
-          label: '',
+          label: '分类导航配置',
           name: ['imgUrl', 'path', 'title'],
           type: 'slot',
           extraProps: {
@@ -36,7 +36,7 @@ const dataFormField: FieldType[] = [
         }
       ],
       AddJsx: ({add}: any) => {
-        return <AddButton add={add}/>;
+        return <AddButton title={'添加'} add={add}/>;
       }
     }
   },

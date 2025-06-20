@@ -4,54 +4,87 @@ import {
 } from "react-router-dom";
 import {get} from '@brushes/request';
 import Login from '@/views/login';
-import {ModuleRootProvider} from "@brushes/component-core";
+import {useModuleRootContext} from "@brushes/component-core";
 import {Fragment, useEffect, useState} from "react";
-import {Common, Layout} from "@brushes/editor-component";
+import {Common} from "@brushes/editor-component";
+import { AliveScope, KeepAlive } from "react-activation";
 
 const Root = () => {
     const [menu, setMenu] = useState([]);
+    const [menuChild, setMenuChild] = useState([]);
+    const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
 
     useEffect(() => {
         (async ()=> {
             const {list} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json');
-            // console.log(25, data);
-            const menu = list.filter(item => item.isColumn === 1);
-            console.log(27, menu);
+            const menu = list.filter(item => item.isColumn === 1); // 一级栏目
+
+            // 非一级栏目
+            const children = (list || []).filter(item => [0, 2].includes(item.isColumn)).map(item => ({
+                ...item,
+                modelPcode: item.tginfoMenuPcode,
+                modelName: item.tginfoMenuName,
+                modelShow: ["afterSalesDetail", "orderDetail"].includes(item.menuOpcode) ? 1 : 0,
+            }));
+
+            setModuleRootStore({
+                _menuChildren: children
+            })
+            setMenuChild(children);
             setMenu(menu)
         })()
     }, []);
-
+    console.log(37, menu);
     return (
-        <ModuleRootProvider>
+        <AliveScope>
             <Routes>
                 <Route path="/login" element={<Login/>} />
+
                 <Route path="/" element={<Common menuOpcode={'common'}/>}>
-                    {/* 子路由 */}
+                    {/* 默认首页 */}
+                        <Route
+                            index
+                            element={<KeepAlive name={'index'} id={'index'}><Common menuOpcode={'index'}/></KeepAlive>}
+                        />
+                        <Route
+                            path="/index"
+                            element={<KeepAlive name={'index'} id={'index'}><Common menuOpcode={'index'}/></KeepAlive>}
+                        />
+                    {/* 其他路由 */}
                     {
                         menu.map(item => (
                             <Fragment key={item.menuOpcode}>
-                                <Route
+                                { item.menuOpcode !== 'userCenter' ? <Route
                                     path={item.menuOpcode}
                                     element={<Common menuOpcode={item.menuOpcode}/>}
-                                />
+                                /> :
+                                    <Route
+                                        path={item.menuOpcode}
+                                        element={<Common menuOpcode={item.menuOpcode}/>}
+                                    >
+                                        {/* 用户中心默认子路由 */}
+                                        <Route
+                                            index
+                                            element={<Common menuOpcode={'orderList'}/>}
+                                        />
+                                        {/* 用户中心其他子路由 */}
+                                        {
+                                            menuChild.map(citem => {
+                                                return <Route
+                                                    key={citem.menuOpcode}
+                                                    path={citem.menuOpcode}
+                                                    element={<Common menuOpcode={citem.menuOpcode} />}/>
+                                            })
+                                        }
+                                    </Route>
+                                }
                             </Fragment>
                         ))
                     }
-                    {/*<Route index element={<Common menuOpcode={'index'}/>} />*/}
-                    {/*<Route path={'index'} element={<Common menuOpcode={'index'}/>} />*/}
-                    {/*<Route path="/car" element={<Car/>} />*/}
-                    {/*<Route path="/goodList" element={<GoodList/>} />*/}
-                    {/*<Route path="/account" element={<Account/>} />*/}
-                    {/*<Route path="/result" element={<Result/>} />*/}
-                    {/*<Route path="/goodDetail" element={<GoodDetail/>} />*/}
-                    {/*<Route path="/user" element={<User/>}>*/}
-                    {/*    /!* 更深层次的子路由 *!/*/}
-                    {/*    <Route path="order" element={<Order />} />*/}
-                    {/*    <Route path="orderDetail" element={<OrderDetail/>} />*/}
-                    {/*</Route>*/}
                </Route>
+
             </Routes>
-        </ModuleRootProvider>
+        </AliveScope>
     );
 };
 

@@ -1,26 +1,27 @@
-import {DefaultJsx, Inner, useModuleContext} from "@brushes/component-core";
-import {Fragment, useMemo} from "react";
+import {DefaultJsx, useModuleContext} from "@brushes/component-core";
+import {useMemo} from "react";
 import {useEditor} from "@craftjs/core";
 
-export const RichText = ({code}: { code: string; }) => {
-  const defaultValue = useModuleContext(s => s.moduleStore.defaultValue);
-  const {enabled} = useEditor(
-      (state) => ({
-        enabled: state.options.enabled,
-      }));
+export const RichText = ({code, storeKey = 'defaultValue'}: { storeKey?: string; code: string; }) => {
+    const defaultValue = useModuleContext(s => s.moduleStore[storeKey]) || {};
 
-  const html = useMemo(() => {
-    // @ts-ignore
-    return defaultValue[code];
-  }, [defaultValue, code]);
+    const {enabled} = useEditor(
+        (state) => ({
+            enabled: state.options.enabled,
+        }));
 
-  return (
-      <>
-          {
-              html ? <div dangerouslySetInnerHTML={{__html: html}}></div> : enabled ? <DefaultJsx /> : ''
-          }
-      </>
-  )
+    const html = useMemo(() => {
+        // @ts-ignore
+        return defaultValue[code];
+    }, [defaultValue, code]);
+
+    return (
+        <>
+            {
+                html ? <div dangerouslySetInnerHTML={{__html: html}}></div> : enabled ? <DefaultJsx/> : ''
+            }
+        </>
+    )
 }
 
 

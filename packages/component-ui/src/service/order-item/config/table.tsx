@@ -28,8 +28,6 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
             result = list.filter((c: any)=>!c.contractGoodsSendnum)
         } else if(refundType === 'B02' && dataState === 3) {
             result = list.filter((c:any)=>c.contractGoodsSendnum>0)
-        } else if(refundType === 'B01' && dataState === 2) {
-            result = []
         }
         setSelectedRowsKeys([]);
         setDataSource(result);
@@ -42,17 +40,9 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
             width: 300,
             render: (text: string, record) => {
                 return (
-                    <Element
-                        width={300}
-                        alignItems={'center'}
-                        padding={{paddingLeft: 5, paddingRight: 5, paddingBottom: 5, paddingTop: 5}}
-                        canvas
-                        id={record.skuNo}
-                        is={Container}>
-                        <ModuleProvider moduleStore={{_skuInfo: record}}>
-                            <CardLRComponent height={100}/>
-                        </ModuleProvider>
-                    </Element>
+                    <ModuleProvider moduleStore={{_skuInfo: record}}>
+                        <CardLRComponent height={100}/>
+                    </ModuleProvider>
                 )
             },
         },

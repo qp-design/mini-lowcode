@@ -12,6 +12,14 @@ const containerField: FieldType[] = [
     }
   },
   {
+    label: '路由显示条件值',
+    name: 'routerIsShowValue',
+    type: 'text',
+    extraProps: {
+      placeholder: '一般使用场景是增删查，其他场景用不到'
+    }
+  },
+  {
     label: 'store显示条件Key',
     name: 'moduleIsShow',
     type: 'text',

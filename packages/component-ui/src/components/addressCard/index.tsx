@@ -72,6 +72,7 @@ export const AddressCard = ({ children, padding = {}, margin,  ...props }: {marg
                     text={'配送至：'}
                 />
                 <ApiComponent
+                    padding={{paddingTop: 5, paddingBottom: 5}}
                     storeKey={'addressStore'}
                     defaultValue={'[]'}
                     width={1100}

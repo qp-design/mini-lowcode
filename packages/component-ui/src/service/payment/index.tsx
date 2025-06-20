@@ -1,32 +1,13 @@
-import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/component-core";
 import {dynamicFormFields} from "@brushes/form";
 import {Form, FormInstance} from "antd";
 import {useComponentListData} from "component-store";
-import {useEffect} from "react";
 
 
 const PaymentService = ({padding, margin, formItemCode, dataPath = '', optionsName, optionsKey, storeKey, ...restProps} :
                             { dataPath?: string; formItemCode: string; optionsName: string; optionsKey: string; storeKey: string; padding: object; margin: object}) => {
     const form = Form.useFormInstance();
     const options = useComponentListData(dataPath, storeKey);
-    const setModuleStore = useModuleContext(s=>s.setModuleStore);
-    const _skuInfo = useModuleContext(s=>s.moduleStore._skuInfo);
-    const store = useModuleContext(s=>s.moduleStore[storeKey]) || {};
-    console.log(15, store, storeKey);
-    useEffect(() => {
-        if(store.contractPaydate) {
-            setModuleStore({
-                contractPaydate: store.contractPaydate,
-                _skuInfo: {
-                    ..._skuInfo,
-                    payChannelList: options,
-                    ptradeSeqno: store.ptradeSeqno,
-                    contractBlance: store.contractBlance,
-                    orderMoney: store.orderMoney
-                },
-            })
-        }
-    }, [store.contractPaydate]);
 
     return (
         <div style={{ ...padding, ...margin, ...restProps}}>

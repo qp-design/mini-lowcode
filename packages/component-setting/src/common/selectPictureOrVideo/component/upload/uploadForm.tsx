@@ -2,6 +2,7 @@ import { DynamicForm, TransformType, FieldType } from '@brushes/form';
 import { uploadImpl } from '@brushes/operate-webstore';
 import { useMemo } from 'react';
 import { useFileContext } from '../../store';
+import {message} from "antd";
 
 const UploadForm = ({ onSubmit }: { onSubmit: () => void }) => {
   const fileType = useFileContext();
@@ -31,7 +32,7 @@ const UploadForm = ({ onSubmit }: { onSubmit: () => void }) => {
   );
 
   const transformDataConfig: Array<TransformType> = useMemo(() => {
-    const num = fileType === 'picture' ? 1 : 20;
+    const num = fileType === 'picture' ? 2 : 20;
     return [
       {
         from: 'basicImg',
@@ -40,6 +41,7 @@ const UploadForm = ({ onSubmit }: { onSubmit: () => void }) => {
           const { size } = files[0];
           const limited = size / 1024 / 1024 < num;
           if (!limited) {
+            message.info(`上传失败，大小不可超过${num}MB!`);
             throw new Error(`上传失败，大小不可超过${num}MB!`);
           }
           try {

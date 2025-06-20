@@ -3,7 +3,8 @@ import {useForm} from "antd/es/form/Form";
 import {Element} from "@craftjs/core";
 import {Container, HOCCodeWrapComponent} from "@brushes/component-core";
 import { createStyles } from 'antd-style';
-import {AccountBuyComponent} from "../../service";
+import {AccountBuyComponent} from "../../operate";
+import {useSearchParamHook} from "component-store";
 
 const useStyle = createStyles(({ prefixCls, css }) => ({
     linearGradientButton: css`
@@ -31,16 +32,16 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
 
 const FormWrap = (
     {
-        name = 'basic',
+        formName = 'basic',
         padding,
         margin,
+        disabled,
         layout = 'horizontal',
-        children
     }: any
 ) => {
     const { styles } = useStyle();
     const [form] = useForm();
-
+    const [mode] = useSearchParamHook(['mode']);
     return (
         <div style={{
             ...padding,
@@ -50,14 +51,15 @@ const FormWrap = (
                 {...{
                     layout,
                     form,
-                    name,
+                    disabled: mode === disabled,
+                    name: formName,
                 }}
             >
                 <Element canvas text={'表单内容放置区域'} is={Container} id={'form-container-address'}>
 
                 </Element>
 
-                <Form.Item label=" " colon={false}>
+                <Form.Item label={layout !=='vertical' ? ' ' : ''} colon={false}>
                     <ConfigProvider
                         button={{
                             className: styles.linearGradientButton,

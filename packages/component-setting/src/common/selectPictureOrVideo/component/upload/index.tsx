@@ -19,6 +19,7 @@ const UploadImg = ({ name }: { name: NamePath }) => {
   };
 
   const onSubmit = (...args: Array<any>) => {
+      console.log(22, args);
     const [_, suc] = args;
     suc();
     setIsModalVisible(false);

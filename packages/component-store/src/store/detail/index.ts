@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {post} from "@brushes/request";
-import {useModuleContext} from "@brushes/component-core";
-import {get, groupBy, isEmpty} from "lodash-es";
+import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
+import {get, groupBy, isEmpty, noop} from "lodash-es";
 import {message} from "antd";
 import {useApiParam} from "@brushes/component-tool";
 
@@ -37,10 +37,11 @@ export const useDetail = (api:string, params: Array<any>) => {
 
 
 
-export const useSku = (dataKey: string) => {
+export const useSku = (dataKey: string, promotionKey: string, couponKey: string) => {
     const [skuListName, setSkuListName] = useState<Array<string>>([]);
     const defaultValue = useModuleContext(s => s.moduleStore.defaultValue) || {};
-
+    const couponQuery = useModuleContext(s => s.moduleStore[couponKey]) || noop;
+    const promotionQuery = useModuleContext(s => s.moduleStore[promotionKey]) || noop;
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     const specList = useMemo(() => {
         const list = get(defaultValue, "rsSpecValueDomainList", []);
@@ -60,9 +61,8 @@ export const useSku = (dataKey: string) => {
             const { specValueValue } = item.skuOption.find(c => selectObj.skuName.includes(c.specValueValue));
             return specValueValue
         });
-
         setModuleStore({
-            goodNum: 1,
+            goodNum: selectObj.goodsMinnum || 1,
             _skuInfo: selectObj
         });
         setSkuListName(arr);
@@ -82,6 +82,15 @@ export const useSku = (dataKey: string) => {
         }) || {};
         if(isEmpty(skuObj)) {
             message.info('该规格已下架');
+        } else {
+            couponQuery({
+                skuCode: skuObj.skuCode,
+                skuNo: skuObj.skuNo,
+            });
+            promotionQuery({
+                skuCode: skuObj.skuCode,
+                skuNo: skuObj.skuNo,
+            })
         }
 
         setModuleStore({

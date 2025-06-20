@@ -19,16 +19,13 @@ const useStyle = createStyles(({token, css}) => {
 
 const ModelComponent = ({setIsModalOpen, isModalOpen}) => {
     const [value, setValue] = useState('');
-
     const [list, setList] = useState([]);
     useEffect(() => {
         query()
     }, []);
 
     const query = async () => {
-        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json', {
-            mmodelModel: 1
-        })
+        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
         setList(list);
     }
     const onChange = (e) => {
@@ -39,7 +36,6 @@ const ModelComponent = ({setIsModalOpen, isModalOpen}) => {
         try {
             const {msg} = await post('/web/pfs/pfsmmodel/publishMmodel.json', {
                 mmodelId: value,
-                proappCode: '029'
             })
             message.success(msg);
             query();

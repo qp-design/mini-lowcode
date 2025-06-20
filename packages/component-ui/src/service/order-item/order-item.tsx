@@ -1,13 +1,13 @@
 import {Fragment, useState} from "react";
 import {fixPrice} from "@brushes/component-tool";
 import {Text} from '../../basic';
-import {useComponentListData} from "component-store";
+import {useComponentListData, useGetCarNum} from "component-store";
 import {Container, HOCCodeWrapComponent, ModuleProvider, Element, useModuleContext} from "@brushes/component-core";
 import {CardLRComponent} from '../cardLR'
-import {Button, Checkbox, InputNumber, message, Popconfirm, Spin} from "antd";
-import {debounce, get} from "lodash-es";
+import {Button, Checkbox, Empty, InputNumber, message, Popconfirm, Spin} from "antd";
+import {debounce} from "lodash-es";
 import {post} from "@brushes/request";
-import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
+import {DeleteOutlined} from "@ant-design/icons";
 import {useNode} from "@craftjs/core";
 
 const InputJsx = () => {
@@ -36,6 +36,7 @@ const InputJsx = () => {
 export const InputNumberComponent = HOCCodeWrapComponent(InputJsx);
 
 export const DeleteHandlerComponent = () => {
+    const { getGoodsList } = useGetCarNum();
     const [loading, setLoading] = useState(false);
     const retry = useModuleContext(s=> s.moduleStore.retry);
     const { shoppingGoodsId } = useModuleContext(s => s.moduleStore._skuInfo) || { shoppingGoodsId: ''};
@@ -52,6 +53,7 @@ export const DeleteHandlerComponent = () => {
         message.success(msg);
         retry();
         setLoading(false);
+        await getGoodsList();
     }, 500)
 
     return (
@@ -71,10 +73,20 @@ export const DeleteHandlerComponent = () => {
     )
 }
 
+const MergePrice = ({price = 'pricesetNprice', amount = 'goodsCamount'}: {price: string; amount: string}) => {
+    const item = useModuleContext(s=>s.moduleStore._skuInfo) || {};
+    return (
+        <span style={{
+            fontSize: 14,
+            fontWeight: 500
+        }}>{fixPrice(item[price] * item[amount])}</span>
+    )
+}
+
+export const MultiplyPrice = HOCCodeWrapComponent(MergePrice)
 // export const DeleteHandlerComponent = HOCCodeWrapComponent(DeleteHandler);
 
-const ShoppGoodItem = ({item}: { item: any; }) => {
-
+export const ShoppGoodItem = ({item}: { item: any; }) => {
     return (
         <Element
             alignItems={'center'}
@@ -127,17 +139,14 @@ const ShoppGoodItem = ({item}: { item: any; }) => {
             <Element
                 canvas
                 width={220}
-                id={'pricesetNprice'}
+                id={item.goodsCode}
                 alignItems={'center'}
                 justifyContent={'center'}
                 flexDirection={'row'}
                 is={Container}
             >
                 <Text text={'￥'} fontSize={12} color={'#f00'}/>
-                <span style={{
-                    fontSize: 14,
-                    fontWeight: 500
-                }}>{fixPrice(item.pricesetNprice * item.goodsCamount)}</span>
+                <MultiplyPrice/>
             </Element>
             <Element
                 canvas
@@ -178,7 +187,6 @@ const OperateJsx = () => {
 }
 
 
-
 export const OperateComponent = HOCCodeWrapComponent(OperateJsx);
 
 const ShoppGood = ({shoppingGoodsList, callbackName}: any) => {
@@ -201,10 +209,15 @@ const ShoppGood = ({shoppingGoodsList, callbackName}: any) => {
 }
 
 
-const OrderItem = ({dataPath, storeKey, callbackName, hidden}: any) => {
+const OrderItem = ({dataPath, storeKey, callbackName, hidden, description}: any) => {
     const list = useComponentListData(dataPath, storeKey);
     const setModuleStore = useModuleContext(s => s.setModuleStore);
-
+    if(list.length === 0) {
+        return (
+            <div style={{padding: '5px 0 5px 0'}}><Empty
+                description={description}/></div>
+        )
+    }
     return (
         <div style={{padding: 5}}>
             {

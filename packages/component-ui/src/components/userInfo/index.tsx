@@ -1,25 +1,25 @@
 import {createStyles} from "antd-style";
-import {fullpath} from "@brushes/component-tool";
-import {useEffect, useMemo, useState} from "react";
+import {fullpath, useNavigateImpl} from "@brushes/component-tool";
+import {useEffect, useState} from "react";
 import {queryOcContractToCensus} from "component-api";
 import {LogoutComponent} from "../../operate";
 import {DividerComponent, Text} from "../../basic";
 import {Element} from "@craftjs/core";
-import {Container} from "@brushes/component-core";
-
+import {Container, useModuleRootContext} from "@brushes/component-core";
+import {useOrderNum} from "component-store";
 const useStyle = createStyles(({token, css}) => {
     return {
     tipInfo: css`
         width: 100%;
-        height: 190px;
-        background: linear-gradient(
-                148deg,
-                rgba(9, 82, 229, 0.1) 1%,
-                rgba(9, 82, 229, 0.03) 103%
-        );
+        //height: 190px;
+        //background: linear-gradient(
+        //        148deg,
+        //        rgba(9, 82, 229, 0.1) 1%,
+        //        rgba(9, 82, 229, 0.03) 103%
+        //);
         box-sizing: border-box;
         border-radius: 10px;
-        padding: 10px 10px 12px 10px;
+        padding: 10px 10px 0px 10px;
         .er_img {
             margin-top: 30px;
             display: flex;
@@ -65,7 +65,7 @@ const useStyle = createStyles(({token, css}) => {
                         justify-content: space-between;
                         .top {
                             font-family: PingFang SC;
-                            font-size: 18px;
+                            font-size: 16px;
                             font-weight: 500;
                             line-height: 22px;
                             letter-spacing: 0em;
@@ -120,12 +120,11 @@ const useStyle = createStyles(({token, css}) => {
 })
 export const UserInfo = ({text, imgUrl, config, ...restProps}: { config: Array<{label: string; code: string}>; text: string; imgUrl: string }) => {
     const {styles} = useStyle();
-    const [values, setValues] = useState({});
+    const { navigator } = useNavigateImpl();
+    const { getOrderBadge } = useOrderNum();
+    const _orderCount = useModuleRootContext(s => s.rootStore._orderCount)
     useEffect(() => {
-        (async () => {
-           const data = await queryOcContractToCensus();
-           setValues(data);
-        })()
+        getOrderBadge()
     }, []);
 
 
@@ -156,8 +155,9 @@ export const UserInfo = ({text, imgUrl, config, ...restProps}: { config: Array<{
                         {
                             config.map((item: any, index: number) => (
                                 <div key={index} onClick={() => {
+                                    navigator(`/userCenter/orderList?label=${item.label}`)
                                 }} className="box navigator">
-                                    <div className="top_num">{values[item.code]}</div>
+                                    <div className="top_num">{_orderCount[item.code]}</div>
                                     <div className="bottom_name">{item.label}</div>
                                 </div>
                             ))

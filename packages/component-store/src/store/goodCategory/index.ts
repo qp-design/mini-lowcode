@@ -1,16 +1,15 @@
-import {useEffect, useMemo} from "react";
+import {useEffect} from "react";
 import { post } from '@brushes/request'
 import {useModuleContext} from "@brushes/component-core";
-import { get } from 'lodash-es';
 
-export const useGoodCategory = () => {
+export const useGoodCategory = (label: string) => {
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     const cateList = useModuleContext(s => s.moduleStore.cateList) || [];
     const breadList = useModuleContext(s => s.moduleStore.breadList) || [];
 
     useEffect(() => {
         classTreeCodeImpl();
-    }, []);
+    }, [label]);
 
     const implCate = (item:any) => {
         if (item.childList && item.childList.length > 0) {
@@ -50,10 +49,10 @@ export const useGoodCategory = () => {
             const initArr = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json');
             setModuleStore({
                 breadList: [{
-                    label: '全部商品',
+                    label,
                     cateList: initArr
                 }],
-                params: {},
+                // params: {},
                 cateList: initArr
             })
         } catch (err) {

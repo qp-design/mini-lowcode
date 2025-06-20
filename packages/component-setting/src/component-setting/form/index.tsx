@@ -16,6 +16,11 @@ const containerField: FieldType[] = [
     type: 'text'
   },
   {
+    label: '表单只读状态',
+    name: 'disabled',
+    type: 'text'
+  },
+  {
     label: '布局',
     name: 'layout',
     type: 'select',
@@ -42,7 +47,7 @@ const baseFormField: formConfigType[] = [
   {
     title: '样式',
     formFields: containerField
-  },
+  }
 ]
 
 export const FormComponentSettings = basicSettings(baseFormField)

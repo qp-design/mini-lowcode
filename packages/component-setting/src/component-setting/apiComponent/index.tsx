@@ -39,6 +39,11 @@ const containerField: FieldType[] = [
         }
     },
     {
+        label: '宽度',
+        name: 'width',
+        type: 'number',
+    },
+    {
         label: '边框颜色',
         name: 'borderColor',
         type: 'color',
@@ -114,9 +119,34 @@ const baseFormField: formConfigType[] = [
                 }
             },
             {
+              label: '是否缓存',
+              name: 'cacheParams',
+              type: 'switch',
+            },
+            {
+                label: '缓存时间',
+                name: 'cacheParamsTime',
+                calIsVisible: (form) => form.getFieldValue('cacheParams'),
+                extraProps: {
+                  dependencies: ['cacheParams'],
+                  suffix: '分钟'
+                },
+                type: 'number',
+            },
+            {
                 label: '回调查询函数名',
                 name: 'callbackName',
                 type: 'text',
+            },
+            {
+                label: '空数据描述',
+                name: 'description',
+                type: 'text',
+            },
+            {
+                label: '搜索组件结果页',
+                name: 'isSearch',
+                type: 'switch',
             },
             {
                 label: '接口默认数据',

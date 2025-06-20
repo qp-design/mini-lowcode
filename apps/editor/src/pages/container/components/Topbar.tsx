@@ -42,7 +42,7 @@ export const Topbar = () => {
           const { modelConfig } = await post('/web/pfs/pfsmodel/getPfsModel.json', {
             modelId: queryParams
           });
-          const json = lz.decompress(lz.decodeBase64(modelConfig));
+          const json = lz.decompress(lz.decodeBase64(modelConfig || 'eyJST09UIjp7InR5cGXECHJlc29sdmVkTmFtZSI6IkNvbnRhaW5lcldyYXAifSwiaXNDYW52YXMiOnRydWUsInByb3BzxDl3aWR0aCI6IjEwMCIsImhlaWdodCI6MCwiYmFja2dyb3VuZCI6IiMwxwEiLCJjbGFzc8docm9vdC1jyG0iLCJkYXRhLWN50ht9LCJkaXNwbGF59QCjLCJjdXN0b20iOnt9LCJoaWRkZW4iOmZhbHNlLCJub2RlcyI6WyI5MGc4M2h3SDM2Il0sImxpbmtlZE7GHXt9fSwiU0VKZnlTZzJ1cP8BHOkAlP8BGDoyMDAsIm1hcmdpbsRkLCJwYWRkaW5nxw1vc2l0aW9uVmFsdcRr5AC75wFCImF1dG8i7AFHSW1hZ+QAgM0V5AEpZ2JhKDI1NSzIBDApIiwiZmxleERpcmVjxGDEJm93IiwiYWxpZ25JdGVtcyI6ImNlbnT9AVrvAVZwYXJlbuQAm2hlVzRfYkQ5eV/kAfP2AWz1AWDrAYD6AWBPdXT/AWPnAWNwYXJh5ADJxGzpAoc07QKI/wFG/wFG8gFGY29sdW1u8gEz7QC09wE25QNz/wEw7QEwfQ=='));
           actions.deserialize(json);
         }
       } catch (err) {

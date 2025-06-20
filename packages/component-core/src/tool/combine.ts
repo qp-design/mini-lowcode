@@ -1,6 +1,10 @@
 export function combine(array: Array<any>) {
   array.forEach(item => {
-    const {Component, setting} = item;
-    Component.craft = setting
+    try {
+      const {Component, setting} = item;
+      Component.craft = setting
+    } catch (e) {
+      console.error(e, item);
+    }
   })
 }

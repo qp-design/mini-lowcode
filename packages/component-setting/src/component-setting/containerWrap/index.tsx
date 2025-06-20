@@ -1,5 +1,7 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
+import {useStyle} from "../logoWithSearch/style";
+import {SelectPicture} from "../../common";
 
 const containerField: FieldType[] = [
   {
@@ -9,6 +11,21 @@ const containerField: FieldType[] = [
     extraProps: {
       allowClear: true,
       showText: true
+    }
+  },
+  {
+    label: '背景图',
+    name: 'backgroundImage',
+    type: 'slot',
+    extraProps: {
+      render: ({onChange, form, name}) => {
+        const { styles } = useStyle();
+        return (
+            <div className={styles.wrap}>
+              <SelectPicture form={form} name={name} onChange={onChange}/>
+            </div>
+        )
+      },
     }
   },
   {

@@ -10,9 +10,8 @@ export const useQueryInitData = (menuOpcode: string) => {
       try {
         const { modelTagvalueJson } = await post('/web/pfs/pfsmodeltagvalue/getPfsModelTagValueByTginfo.json', cacheParams({
           menuOpcode,
-          proappCode: '029',
           isNew: 1
-        }));
+        }, 30));
         const json = lz.decompress(lz.decodeBase64(modelTagvalueJson));
         actions.deserialize(json);
       } catch (err) {

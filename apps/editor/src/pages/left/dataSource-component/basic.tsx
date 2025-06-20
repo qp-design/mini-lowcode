@@ -2,6 +2,7 @@ import {combine} from '@brushes/component-core';
 import Materials from 'component-ui/components';
 import * as BasicComponent from 'component-ui/basic';
 import * as ServiceComponent from 'component-ui/service';
+import * as Operate from 'component-ui/operate';
 import {
   ButtonSettings,
   TextCompnentSettings,
@@ -17,10 +18,10 @@ import {
   DividerComponentSettings,
   FormJsxComponentSettings,
   ButtonWrapSettings,
-  NavigatorComponentSettings, NavigatorComponentSettings2
+  NavigatorComponentSettings,
+  DynamicComponentSettings, CommonListComponentSettings, CommonItemSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
-
 
 const basic : Array<TypeComponent> = [
   {
@@ -30,12 +31,61 @@ const basic : Array<TypeComponent> = [
     setting: {
       props: {
         borderRadius: 0,
+        autoplay: {dotDuration: true},
         menu: [{
           imgUrl: 'https://testtyds.obs.cn-north-4.myhuaweicloud.com:443/202410310fb5b6f8baec48b786460879a6c37606.png',
         }]
       },
       related: {
         settings: BannerComponentSettings,
+      },
+    }
+  },
+  {
+    name: '详情页面列表',
+    icon: 'icon-text',
+    Component: ServiceComponent['CommonListComponent'],
+    setting: {
+      props: {
+        callbackName: 'queryRetry',
+        dataPath: 'list',
+        padding: { paddingTop: 5, paddingBottom: 5, paddingLeft: 0, paddingRight: 0},
+        storeKey: 'defaultValue',
+        description: '暂无数据',
+        key: '',
+      },
+      related: {
+        settings: CommonListComponentSettings,
+      },
+    }
+  },
+  {
+    name: '一行组件',
+    icon: 'icon-text',
+    Component: ServiceComponent['CommmonItem'],
+    setting: {
+      props: {
+        draggable: true,
+        list: [{width: 200}],
+        speed: 500,
+        margin: {},
+        padding: { paddingTop: 5, paddingBottom: 5, paddingLeft: 0, paddingRight: 0},
+      },
+      related: {
+        settings: CommonItemSettings,
+      },
+    }
+  },
+  {
+    name: '表单控件',
+    icon: 'icon-text',
+    Component: Operate['DynamicFormComponent'],
+    setting: {
+      props: {
+        fieldConfig: []
+      },
+      related: {
+        settings: DynamicComponentSettings,
       },
     }
   },
@@ -86,9 +136,12 @@ const basic : Array<TypeComponent> = [
         componentType: 'list',
         gap: 10,
         num: 5,
+        cacheParams: false,
+        isSearch: false,
         pageSize: 5,
         defaultValue: '{}',
         dataPath: 'list',
+        description: '暂无数据',
         margin: {
           marginTop: 5,
           marginBottom: 5,
@@ -109,6 +162,7 @@ const basic : Array<TypeComponent> = [
     setting: {
       props: {
         borderRadius: 6,
+        borderColor: 'rgba(0,0,0,0)',
         padding: {
           paddingLeft: 4,
           paddingRight: 4,
@@ -128,6 +182,7 @@ const basic : Array<TypeComponent> = [
     setting: {
       props: {
         borderRadius: 6,
+        borderColor: 'rgba(0,0,0,0)',
         padding: {
           paddingLeft: 4,
           paddingRight: 4,
@@ -233,6 +288,7 @@ const basic : Array<TypeComponent> = [
         formName: 'saveOrder',
         api: 'web/oc/contract/saveContract.json',
         saveText: '提交订单',
+        disabled: 'preview'
       },
       related: {
         settings: FormComponentSettings,
@@ -270,30 +326,6 @@ const basic : Array<TypeComponent> = [
       },
       related: {
         settings: NavigatorComponentSettings,
-      },
-    }
-  },
-  {
-    name: '导航2',
-    icon: 'icon-text',
-    Component: ServiceComponent['NavigatorComponent2'],
-    setting: {
-      props: {
-        minHeight: 20,
-        flexDirection: 'row',
-        background: '#fff',
-        fontSize: 14,
-        padding: {
-          paddingLeft: 5,
-          paddingTop: 5,
-          paddingBottom: 5,
-          paddingRight: 5
-        },
-        margin: {},
-        list: [],
-      },
-      related: {
-        settings: NavigatorComponentSettings2,
       },
     }
   },

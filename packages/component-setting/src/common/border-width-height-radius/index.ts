@@ -15,6 +15,7 @@ export const borderWidthHeight : FieldType[] = [
         name: 'borderColor',
         type: 'color',
         extraProps: {
+            showText: true,
             allowClear: true,
         }
     },

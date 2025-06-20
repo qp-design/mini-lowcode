@@ -16,3 +16,20 @@ export const useGetCarNum = () => {
         getGoodsList
     }
 }
+
+
+export const useOrderNum = () => {
+    const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore)
+    const getOrderBadge = async () => {
+        try {
+            const data = await post('web/oc/contract/queryOcContractToCensus.json');
+            setModuleRootStore({
+                _orderCount: data
+            });
+        } catch (err: any) {
+        }
+    }
+    return {
+        getOrderBadge
+    }
+}

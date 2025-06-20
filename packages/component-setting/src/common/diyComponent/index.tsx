@@ -1,5 +1,6 @@
 import type {FieldType} from "@brushes/form";
 import {transformCode, ActionJsx} from "@brushes/component-core";
+import {isUndefined} from "lodash-es";
 
 export const formField: FieldType[] = [
     {
@@ -9,8 +10,7 @@ export const formField: FieldType[] = [
         extraProps: {
             render({onChange, form, ...props}) {
                 return <ActionJsx onChange={(e) => {
-                    console.log(12, e);
-                    if(e) {
+                    if(!isUndefined(e)) {
                         const date = new Date().valueOf();
                         const newCode = transformCode(e as string)
                         form.setFieldValue('$$_children', newCode);

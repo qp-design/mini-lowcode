@@ -18,6 +18,11 @@ const containerField: FieldType[] = [
     name: 'height',
     type: 'number'
   },
+  {
+    label: 'Store的key',
+    name: 'storeKey',
+    type: 'text'
+  },
 ]
 
 const dataFormField: FieldType[] = [

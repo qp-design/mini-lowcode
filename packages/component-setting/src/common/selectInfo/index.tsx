@@ -5,7 +5,7 @@ const SelectInfo = ({ place = '请选择标题', name }: any) => {
   return (
     <div className={'selectInfo'}>
       <FormItem name={name}>
-        <Input placeholder={place} maxLength={20} />
+        <Input placeholder={place} maxLength={50} />
       </FormItem>
     </div>
   );

@@ -7,6 +7,16 @@ const containerField: FieldType[] = [
     name: 'height',
     type: 'number',
   },
+  {
+    label: '图片key',
+    name: 'imgKey',
+    type: 'text',
+  },
+  {
+    label: '数据路径',
+    name: 'dataPath',
+    type: 'text',
+  },
 ]
 
 const baseFormField: formConfigType[] = [

@@ -5,6 +5,7 @@ import { createStyles } from "antd-style";
 import {useEditor, useNode} from "@craftjs/core";
 import {ModuleProvider, useModuleContext} from "../../store";
 import {useSearchParams} from 'react-router-dom';
+import {isEmpty, isUndefined, omit} from "lodash-es";
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -23,7 +24,7 @@ export const Inner = ({children, enabled, root, text}: { text?:string; root?: bo
         <>{children ? children : enabled ? <DefaultJsx text={text} root={root}/> : ''}</>
     )
 }
-export const IsShowContainer = ({moduleShowValue, children, routerIsShow, moduleIsShow = '', padding, storeKey = '', margin}: { moduleShowValue?: string; moduleIsShow?: string; routerIsShow?: string; storeKey: string; padding: object; margin: object; children?: ReactNode}) => {
+export const IsShowContainer = ({moduleShowValue, children, routerIsShowValue, routerIsShow, moduleIsShow = '', padding, storeKey = '', margin}: { routerIsShowValue?: string; moduleShowValue?: string; moduleIsShow?: string; routerIsShow?: string; storeKey: string; padding: object; margin: object; children?: ReactNode}) => {
     const store = useModuleContext(s=>s.moduleStore[storeKey]) || {};
     const {enabled} = useEditor(
         (state) => ({
@@ -36,7 +37,25 @@ export const IsShowContainer = ({moduleShowValue, children, routerIsShow, module
 
     let [searchParams,] = useSearchParams();
 
-    if((routerIsShow && searchParams.has(routerIsShow)) || (moduleShowValue && moduleIsShow && [moduleShowValue].includes(store[moduleIsShow] + '')) || enabled) {
+    const nValue = useMemo(() => {
+        if(typeof store[moduleIsShow] === 'number') {
+            return store[moduleIsShow] + '';
+        }
+        return store[moduleIsShow];
+    }, [store, moduleIsShow]);
+
+    /**
+     *  1: 路由是否包含
+     *  2: 路由是否包含 值是否匹配
+     *  3: store显示条件Key和value都为空， store是否为空
+     *  4: store显示条件Key不为空 store显示条件value为空， store里面的key的值是否空
+     *  5: store显示条件Key和store显示条件value都不为空， store里面的key的值和 显示条件value是否匹配
+     */
+    if((routerIsShow && searchParams.has(routerIsShow) && !routerIsShowValue)
+        || (routerIsShow && searchParams.has(routerIsShow) && routerIsShowValue && routerIsShowValue.includes(searchParams.get(routerIsShow) || ''))
+        || (moduleShowValue && moduleIsShow && [moduleShowValue].includes(nValue + '')) ||
+        (store && !moduleShowValue && !moduleIsShow && !isUndefined(store) && !isEmpty(store)) ||
+        (moduleIsShow && !moduleShowValue && !isUndefined(nValue) && !isEmpty(nValue)) || enabled) {
         return (
             <div
                 style={{
@@ -63,6 +82,8 @@ export const Container =
          padding = {},
          backgroundImage,
          position,
+         $$_actions,
+         $_actions,
          borderColor,
          ...props
      }: any) => {
@@ -170,6 +191,7 @@ export const ContainerWrap = ({
          width,
          background,
          children,
+         backgroundImage,
          height,
          ...props
      }: any) => {
@@ -188,7 +210,8 @@ export const ContainerWrap = ({
                     ref={(ref: HTMLDivElement) => connect(drag(ref))}
                     style={{
                         width,
-                        background,
+                        paddingBottom: 5,
+                        background: backgroundImage ? `url(${fullpath(backgroundImage)}) repeat-x center 0` : background,
                         minHeight: `calc(${height}vh - 110px)`,
                     }}
                 >

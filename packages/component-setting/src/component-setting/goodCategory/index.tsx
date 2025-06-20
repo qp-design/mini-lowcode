@@ -13,6 +13,11 @@ const containerField: FieldType[] = [
     type: 'number',
   },
   {
+    label: '面包屑标题',
+    name: 'label',
+    type: 'text',
+  },
+  {
     label: '文本大小',
     name: 'fontSize',
     type: 'number',

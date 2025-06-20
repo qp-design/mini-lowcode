@@ -1,5 +1,6 @@
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {FieldType} from '@brushes/form';
+import {actionField, paddingField} from "../../common";
 
 
 const dataFormField: FieldType[] = [
@@ -35,10 +36,16 @@ const dataFormField: FieldType[] = [
         type: 'number'
     },
     {
+        label: '是否显示角标',
+        name: 'badge',
+        type: 'switch'
+    },
+    {
         label: '关闭时销毁',
         name: 'destroyOnHidden',
         type: 'switch'
     },
+    ...paddingField,
     {
         label: '',
         name: 'columns',
@@ -52,6 +59,10 @@ const dataFormField: FieldType[] = [
                 {
                     label: '值',
                     name: 'key',
+                },
+                {
+                    label: 'code',
+                    name: 'code',
                 }
             ]
         }
@@ -63,7 +74,11 @@ const baseFormField: formConfigType[] = [
     {
         title: '数据源',
         formFields: dataFormField
-    }
+    },
+    {
+        title: '逻辑',
+        formFields: actionField
+    },
 ]
 
 export const TabComponentSettings = basicSettings(baseFormField)

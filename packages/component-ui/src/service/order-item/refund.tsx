@@ -4,6 +4,7 @@ import { orderItemConfig, transformSubmitDataConfig } from './config'
 import {post} from "@brushes/request";
 import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
 import {message} from "antd";
+import {useOrderNum} from "component-store";
 
 const RefundJsx = ({openKey, callbackName}: {openKey: string; callbackName: string}) => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -11,9 +12,8 @@ const RefundJsx = ({openKey, callbackName}: {openKey: string; callbackName: stri
     const contractBillcode = useModuleContext(s => s.moduleStore.contractBillcode);
     const dataState = useModuleContext(s=>s.moduleStore.dataState);
     const setModuleStore = useModuleContext(s => s.setModuleStore);
-    const closeDrawerKey = useModuleContext(s=>s.moduleStore[openKey]);
     const retry = useModuleContext(s=>s.moduleStore[callbackName]);
-
+    const { getOrderBadge } = useOrderNum()
     useEffect(() => {
         if(contractBillcode) {
             init(contractBillcode);
@@ -38,12 +38,14 @@ const RefundJsx = ({openKey, callbackName}: {openKey: string; callbackName: stri
     const onSubmit : submitFunType = async (value, suc, error) => {
         try {
             let goodsNum = 0;
-            value.ocRefundGoodsBeanList.forEach((item:any) => {
+            value.ocRefundGoodsBeanList = value.ocRefundGoodsBeanList.map((item:any) => {
                 goodsNum+=item.goodsCamount;
+                return item;
             })
             const { msg } = await post('web/oc/refund/saveRefundForPlat.json', {
                 params: JSON.stringify({
                     goodsNum,
+                    contractBillcode,
                     ...value
                 })
             });
@@ -51,10 +53,11 @@ const RefundJsx = ({openKey, callbackName}: {openKey: string; callbackName: stri
             suc();
             setTimeout(() => {
                 setModuleStore({
-                    [closeDrawerKey]: false,
+                    [openKey]: false,
                 })
                 retry();
-            }, 500)
+                getOrderBadge();
+            }, 200)
         } catch (err) {
             error(err);
         }

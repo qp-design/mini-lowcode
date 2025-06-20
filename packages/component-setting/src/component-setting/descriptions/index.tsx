@@ -81,44 +81,6 @@ const baseFormField: formConfigType[] = [
                     ]
                 }
             },
-            {
-                label: '回调查询函数名',
-                name: 'callbackName',
-                type: 'text',
-            },
-            {
-                label: '接口默认数据',
-                name: 'defaultValue',
-                type: 'select',
-                extraProps: {
-                    options: [
-                        {
-                            label: '数组',
-                            value: '[]'
-                        },
-                        {
-                            label: '对象',
-                            value: '{}'
-                        },
-                        {
-                            label: '字符串',
-                            value: ''
-                        },
-                    ]
-                },
-            },
-            {
-                label: '组件数据路径',
-                name: 'dataPath',
-                type: 'text',
-                calIsVisible: (form) => form.getFieldValue('componentType') !== 'detail'
-            },
-            {
-                label: '子组件Store的key',
-                name: 'storeKey',
-                type: 'text',
-                calIsVisible: (form) => form.getFieldValue('componentType') === 'detail'
-            },
         ]
     },
 ]

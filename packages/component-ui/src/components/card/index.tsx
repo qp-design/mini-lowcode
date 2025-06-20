@@ -1,14 +1,14 @@
 import {createStyles} from "antd-style";
-import {ReactNode} from "react";
-import {Container, Element, useNode} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core";
 import {ImageComponent, Text} from "../../basic";
 
 
-const useStyles = createStyles(({token, css}) => {
+const useStyles = createStyles(({token, css}, {borderColor}: {borderColor: string}) => {
     return {
         container: css`
             overflow: hidden;
-            border: 1px solid rgba(0,0,0,0);
+            box-sizing: border-box;
+            border: 1px solid ${borderColor};
             &:hover{
                 border: 1px solid ${token.colorPrimary};
             }
@@ -17,8 +17,8 @@ const useStyles = createStyles(({token, css}) => {
 })
 
 
-export const Card = ({ children, padding = {}, ...props }: {padding?: object; children: ReactNode}) => {
-    const { styles } = useStyles();
+export const Card = ({ padding = {}, borderColor = 'rgba(0,0,0,0)', ...props }: {borderColor: string; padding?: object; }) => {
+    const { styles } = useStyles({borderColor: borderColor});
     return (
         <div
             className={styles.container}

@@ -3,6 +3,7 @@ import {fullpath, useNavigateImpl} from "@brushes/component-tool";
 import {Divider} from "antd";
 import { createStyles } from "antd-style";
 import {Fragment} from "react";
+import {useLocation} from "react-router-dom";
 
 const useStyles = createStyles(({ token, css }, {className, padding = {}} : {padding?: object; className: string}) => {
     if(className) {
@@ -36,6 +37,7 @@ const useStyles = createStyles(({ token, css }, {className, padding = {}} : {pad
 const NavigatorJsx: React.FC<{ menu: Array<any>; className?: string; padding?: object; tel: string; user: string, isNeedLine?: boolean }> =
     ({menu = [{title: '默认导航'}], className, isNeedLine, padding}) => {
         const { styles } = useStyles({className: className || '', padding});
+        const { pathname } = useLocation();
         const {navigator} = useNavigateImpl();
         return (
             <ul className={className ? styles[className] : ''}>
@@ -45,7 +47,7 @@ const NavigatorJsx: React.FC<{ menu: Array<any>; className?: string; padding?: o
                             <li key={index}>
                                 <div
                                     style={{cursor: item.path ? "pointer" : ''}}
-                                    className="title"
+                                    className={pathname === item.path ? "actived title" : "title"}
                                     onClick={() => navigator(item.path)}
                                 >{item.imgUrl && <img src={fullpath(item.imgUrl)}/>}{item.title}</div>
                             </li>

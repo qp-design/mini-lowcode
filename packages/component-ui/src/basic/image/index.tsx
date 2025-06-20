@@ -1,12 +1,9 @@
 import { Image as Image2 } from 'antd';
 import {fullpath, useNavigateImpl} from "@brushes/component-tool";
-import {useNode} from "@craftjs/core";
-import {useModuleContext} from "@brushes/component-core";
+import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
 import {useMemo} from "react";
-export const ImageComponent = ({ image = {}, borderRadius, width, code = '', ...restProps}: { width?: number; height?: number; borderRadius?: number; code?: string; image?: { imgUrl: string; path?: string }}) => {
-    const {
-        connectors: {connect, drag},
-    } = useNode();
+
+const ImageJsx = ({ image = {}, borderRadius, width, code = '', ...restProps}: { width?: number; height?: number; borderRadius?: number; code?: string; image?: { imgUrl: string; path?: string }}) => {
     const _skuInfo = useModuleContext((s) => s.moduleStore._skuInfo);
     const { navigator } = useNavigateImpl();
     const value = useMemo(() => {
@@ -18,7 +15,7 @@ export const ImageComponent = ({ image = {}, borderRadius, width, code = '', ...
     }, [image, code, _skuInfo]);
 
     return (
-        <div style={{width, borderRadius, overflow: "hidden"}} ref={(ref: HTMLDivElement) => connect(drag(ref))}>
+        <div style={{width, borderRadius, overflow: "hidden"}}>
             <Image2
                 {
                     ...(image.path ? { onClick: () => navigator(image.path) } : {})
@@ -32,3 +29,6 @@ export const ImageComponent = ({ image = {}, borderRadius, width, code = '', ...
         </div>
     )
 }
+
+
+export const ImageComponent = HOCCodeWrapComponent(ImageJsx)

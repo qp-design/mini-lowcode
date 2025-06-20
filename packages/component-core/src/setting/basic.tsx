@@ -5,8 +5,7 @@ import { useNode } from '@craftjs/core';
 import type {FieldType} from '@brushes/form';
 import {isUndefined, debounce} from "lodash-es";
 import {defaultStyle} from "../style";
-import {storeConfig} from "../store/storeDataConfig";
-import Title from "editor/src/pages/left/menu-component/title";
+import Title from "./title";
 
 export type formConfigType = {
   title?: string;

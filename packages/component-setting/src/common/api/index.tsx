@@ -7,75 +7,175 @@ let index = 0;
 
 export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void; }) => {
     const [items, setItems] = useState([
-                    {
-                        value: 'web/oc/contract/queryContractPageC.json',
-                        label: 'b2b订单查询'
-                    },
-                    {
-                        value: 'web/rs/resourceGoods/getResourceGoodsInfoBySkuCode.json',
-                        label: 'b2b商品详情搜索'
-                    },
-                    {
-                        value: 'web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json',
-                        label: '分类搜索'
-                    },
-                    {
-                        value: 'web/pte/ptfpmode/queryPtfpmodesToStr.json',
-                        label: '确定订单页面支付方式'
-                    },
-                    {
-                        value: 'web/oc/contract/syncContractPayState.json',
-                        label: '支付结果页订单状态'
-                    },
-                    {
-                        value: 'web/pte/pay/saveOrderToPay.json',
-                        label: '支付页面支付方式'
-                    },
-                    {
-                        value: 'web/oc/contract/syncContractState.json',
-                        label: '获取支付状态'
-                    },
-                    {
-                        value: 'web/oc/refund/queryRefundPageBuy.json',
-                        label: 'b2b售后列表'
-                    },
-                    {
-                        value: 'web/es/searchengine/find.json',
-                        label: 'b2b商品查询'
-                    },
-                    {
-                        value: 'web/oc/shopping/queryShoppingPage.json',
-                        label: '购物车查询'
-                    },
-                    {
-                        value: 'web/pm/promotionplat/queryPromotionRsSkuPag.json',
-                        label: '凑单列表'
-                    },
-                    {
-                        value: 'web/um/address/saveAddress.json',
-                        label: '保存地址'
-                    },
-                    {
-                        value: 'web/pm/promotionDiscount/queryPromotionDiscountPage.json',
-                        label: '赠品查询'
-                    },
-                    {
-                        value: 'web/um/address/queryAddressBymerberCode.json',
-                        label: '地址查询'
-                    },
-                    {
-                        value: 'web/oc/shopping/queryShoppingToContract.json',
-                        label: '确定订单页面查询'
-                    },
-                    {
-                        value: 'web/oc/contract/saveContract.json',
-                        label: '保存订单'
-                    },
-                    {
-                        value: 'web/oc/contract/getContractByCode.json',
-                        label: '订单明细'
-                    }
-                ]);
+        {
+            value: 'web/oc/contract/queryContractPageC.json',
+            label: 'b2b订单查询'
+        },
+        {
+          value: 'web/cms/doclist/queryDoclistForMenuPageAt.json',
+          label: '新闻资讯'
+        },
+        {
+          value: 'web/cms/doclist/getDoclistForAt.json',
+          label: '新闻资讯明细'
+        },
+        {
+          value: 'web/pm/usercoupon/queryUsercouponPageForC.json',
+          label: '我的优惠券'
+        },
+        {
+            value: 'web/gd/rsinfo/queryRsinfoPageByForPcAt.json',
+            label: '供求大厅查询'
+        },
+        {
+          value: 'web/cs/Consult/queryConsultPageByOpCode.json',
+          label: '咨询列表'
+        },
+        {
+          value: 'web/pm/promotion/queryCouponListBySkuCode.json',
+          label: '商品详情优惠券'
+        },
+        {
+            value: 'web/cs/Consult/saveConsult.json',
+            label: '保存咨询'
+        },
+        {
+            value: 'web/gd/rsinfo/getRsinfo.json',
+            label: '求购信息详情'
+        },
+        {
+            value: 'web/gd/rsinfo/updateRsinfoStateToReSubmit.json',
+            label: '更新供求信息'
+        },
+        {
+            value: 'web/gd/rsinfo/queryRsinfoPageByMem.json',
+            label: '查询供求信息'
+        },
+        {
+            value: 'web/gd/rsinfo/saveRsinfoByJson.json',
+            label: '新增供求信息'
+        },
+        {
+            value: 'web/gd/rsinfo/deleteRsinfo.json',
+            label: '删除供求信息'
+        },
+        {
+            value: 'web/oc/shopping/updateShoppingGoodsPmInfo.json',
+            label: '更新营销'
+        },
+        {
+            value: 'web/crp/CrpUrechargelist/queryCrpUrechargelistPage.json',
+            label: '授信账户'
+        },
+        {
+            value: 'web/reb/upoints/queryUpointsListPage.json',
+            label: '返利账户'
+        },
+        {
+            value: 'web/vd/vdfaccountouter/queryAccountOuterDtForUser.json',
+            label: '预存款列表'
+        },
+        {
+            value: 'web/vd/vdfaccountouter/queryUserAccount.json',
+            label: '我的账户'
+        },
+        {
+            value: 'web/pm/promotion/getPromotionByCode.json',
+            label: '单个活动明细'
+        },
+        {
+            value: 'web/pm/promotion/queryPromotionListByGoodsCode.json',
+            label: '营销活动列表'
+        },
+        {
+            value: '/web/um/userservice/updateUserPaywd.json',
+            label: '修改支付密码'
+        },
+        {
+            value: 'web/es/searchengine/findGoodsForLowCode.json',
+            label: '单个促销活动商品列表'
+        },
+        {
+            value: 'web/oc/refund/res.json',
+            label: '撤销申请'
+        },
+        {
+            value: 'web/um/userservice/updateUserPhoneByUserPhone.json',
+            label: '修改手机号'
+        },
+        {
+            value: 'web/um/userservice/updateUserpsw.json',
+            label: '修改密码'
+        },
+        {
+            value: 'web/rs/resourceGoods/getResourceGoodsInfoBySkuCode.json',
+            label: 'b2b商品详情搜索'
+        },
+        {
+            value: 'web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json',
+            label: '分类搜索'
+        },
+        {
+            value: 'web/pte/ptfpmode/queryPtfpmodesToStr.json',
+            label: '确定订单页面支付方式'
+        },
+        {
+            value: 'web/oc/contract/syncContractPayState.json',
+            label: '支付结果页订单状态'
+        },
+        {
+            value: 'web/pte/pay/saveOrderToPay.json',
+            label: '支付页面支付方式'
+        },
+        {
+            value: 'web/oc/contract/syncContractState.json',
+            label: '获取支付状态'
+        },
+        {
+            value: 'web/oc/refund/queryRefundPageBuy.json',
+            label: 'b2b售后列表'
+        },
+        {
+            value: 'web/es/searchengine/find.json',
+            label: 'b2b商品查询'
+        },
+        {
+            value: 'web/oc/shopping/queryShoppingPage.json',
+            label: '购物车查询'
+        },
+        {
+            value: 'web/um/address/saveAddress.json',
+            label: '保存地址'
+        },
+        {
+            value: 'web/pm/promotionDiscount/queryPromotionDiscountPage.json',
+            label: '赠品查询'
+        },
+        {
+            value: 'web/um/address/queryAddressBymerberCode.json',
+            label: '地址查询'
+        },
+        {
+            value: 'web/oc/shopping/queryShoppingToContract.json',
+            label: '购物车到确定订单查询'
+        },
+        {
+            value: 'web/oc/shopping/queryToContract.json',
+            label: '立即购买到确定订单查询'
+        },
+        {
+            value: 'web/oc/contract/saveContract.json',
+            label: '保存订单'
+        },
+        {
+            value: 'web/oc/refund/getRefund.json',
+            label: '售后明细'
+        },
+        {
+            value: 'web/oc/contract/getContractByCode.json',
+            label: '订单明细'
+        }
+    ]);
     const [name, setName] = useState('');
 
     const inputRef = useRef<InputRef>(null);
@@ -98,6 +198,8 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
     return (
         <Select
             allowClear
+            showSearch
+            optionFilterProp="label"
             {...props}
             onChange={onChange}
             style={{marginBottom: 20}}

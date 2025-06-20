@@ -1,10 +1,12 @@
 //@ts-nocheck
 import React from 'react';
+import dayjs from 'dayjs';
 import * as antd from 'antd';
 import * as componentTool from '@brushes/component-tool';
 import * as reactRouterDom from 'react-router-dom';
 import * as antdIcons from '@ant-design/icons';
 import * as componentCore from '@brushes/component-core'
+import * as componentStore from 'component-store'
 import * as lodash2 from 'lodash-es'
 import * as request from '@brushes/request'
 import * as antdStyle from 'antd-style'
@@ -39,10 +41,12 @@ export function changeCode(code: string) {
             if (packageName == '@brushes/component-core') return componentCore;
             if (packageName == 'react-router-dom') return reactRouterDom;
             if (packageName == 'react') return React;
+            if(packageName == 'component-store') return componentStore;
             if (packageName == '@brushes/component-tool') return componentTool;
             if (packageName == 'lodash-es') return lodash2;
             if (packageName == '@brushes/request') return request;
             if (packageName == 'antd') return antd;
+            if (packageName == 'dayjs') return dayjs;
             if (packageName == '@ant-design/icons') return antdIcons;
             if (packageName == 'antd-style') return antdStyle;
 

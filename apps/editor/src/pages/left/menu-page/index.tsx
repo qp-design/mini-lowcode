@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import {useLocation, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import { post } from '@brushes/request';
 import { get } from 'lodash-es';
 import {useSearchParamHook} from "component-store";
@@ -46,30 +46,35 @@ const MenuComponent: React.FC = () => {
   const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
   const [openKeys, setOpenKeys] = useState(['sub1']);
   const [menu, setMenu] = React.useState<MenuItem[]>([]);
-  const [token, loginName] = useSearchParamHook(['token', 'loginName'])
+  const [token, loginName] = useSearchParamHook(['token', 'phone'])
   useEffect(() => {
     (async () => {
       if(token) {
         const {dataObj} = await post('web/ml/mlogin/loginByToken.json', {
           oauthTokenToken: token,
           loginName,
-          proappCode: '029'
         });
-        localStorage.setItem('saas-token', JSON.stringify(dataObj.ticketTokenid));
+        sessionStorage.setItem('saas-token', JSON.stringify(dataObj.ticketTokenid));
         setModuleRootStore({
           _userInfo: dataObj
         })
 
-        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json', {
-          mmodelModel: 1
-        })
+        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
 
-        const data = await post('/web/pfs/pfsmodel/queryPfsModelPage.json', {
+        const { list: listMenu } = await post('/web/pfs/pfsmodel/queryPfsModelPage.json', {
           mmodelCode: get(list || [], '[0].mmodelCode', '')
         })
-        setMenu([getItem('low-code模块', 'sub1', (data.list || []).map(item => {
+
+        const menu = listMenu.filter(item => [0, 1, -1].includes(item.isColumn));
+        const children = (listMenu || []).filter(item => [0, 2].includes(item.isColumn));
+        setModuleRootStore({
+          _menuChildren: children
+        })
+
+        setMenu([getItem('low-code模块', 'sub1', (menu || []).map(item => {
           return getItem(<ItemJsx id={item.modelId} label={item.modelName}/>, item.modelId)
         }))])
+
       }
     })()
   }, []);

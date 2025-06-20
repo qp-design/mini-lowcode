@@ -29,6 +29,12 @@ export const transformSubmitDataConfig: TransformType[] = [
         to: 'ocRefundGoodsBeanList',
         format: async (preValue: any) => {
             return preValue.filter((item:any)=>item.checked).map((item:any) => {
+                console.log(32, item);
+                if(item.goodsCamount - item.contractGoodsArefnum=== item.refundGoodsNum) {
+                    item.refundGoodsAmt = item.contractGoodsMoney - item.contractGoodsAremoney || 0;
+                } else {
+                    item.refundGoodsAmt = item.contractGoodsPrice * item.refundGoodsNum;
+                }
                 return pick(item, ['skuNo', 'goodsNo', 'skuShowno', 'goodsShowno', 'contractGoodsCode', 'goodsCamount', 'refundGoodsAmt', 'refundGoodsNum']);
             })
         }
@@ -137,10 +143,10 @@ export const orderItemConfig = (dataState: number) => [
             }
             return {required: true}
             },
-            () => ({
+            ({getFieldValue}: FormInstance) => ({
                 validator(_, value) {
                     const list = value.filter((item:any)=>item.checked && item.refundGoodsNum > 0);
-                    if (value && list.length > 0) {
+                    if (value && list.length > 0 || getFieldValue('refundType') === 'B01' && dataState === 3) {
                         return Promise.resolve();
                     }
                     return Promise.reject(new Error('售后商品及售后数量不能为空'));
@@ -166,7 +172,7 @@ export const orderItemConfig = (dataState: number) => [
                 let total = 0;
                 (ocRefundGoodsBeanList || []).filter((item:any) => item.checked).forEach(item => {
                     if(item.goodsCamount - item.contractGoodsArefnum=== item.refundGoodsNum) {
-                        total += item.contractGoodsMoney - item.contractGoodsAremoney;
+                        total += item.contractGoodsMoney - item.contractGoodsAremoney || 0;
                     } else {
                         total += item.contractGoodsPrice * item.refundGoodsNum;
                     }

@@ -30,6 +30,7 @@ const ComponentJsx = React.forwardRef((
     form: node.data.custom.form
   }));
 
+  console.log(33, form);
   const { options } = useSelectOption(form, api, linkKey);
 
   const newFormConfig = useMemo(() => {

@@ -3,6 +3,7 @@ import {RightOutlined} from "@ant-design/icons";
 import {createStyles} from "antd-style";
 import {ButtonComponent, Text} from '../../basic';
 import {Element} from "@craftjs/core";
+import {useSearchParams} from "react-router-dom";
 
 export const useStyles3 = createStyles(({css, token}) => {
     return {
@@ -23,6 +24,7 @@ export const useStyles3 = createStyles(({css, token}) => {
 })
 
 const PromotionAction = () => {
+    let [, setSearchParams] = useSearchParams();
     const retry = useModuleContext(s => s.moduleStore.retry);
     const {
         promotionName,
@@ -32,34 +34,35 @@ const PromotionAction = () => {
     } = useModuleContext(s => s.moduleStore._skuInfo) || {};
 
     const nextBuyImpl = () => {
+        setSearchParams({
+            promotionCode
+        })
         retry({
             orderOpen: true,
             title: '凑单',
-            params: {
-                promotionCode
-            }
         })
     }
     const openImpl = () => {
+        setSearchParams({
+            promotionCode
+        })
         retry({
             giftOpen: true,
             title: '赠品',
-            params: {
-                promotionCode
-            }
         })
-    }
-    if (disNextMsg) {
-    return <span>
-            {promotionName}
-               {disNextMsg}
-                <ButtonComponent onClick={nextBuyImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'}
-                                 text={'去凑单'}/>
-           </span>
     }
 
     if (pdCode === '0001') {
-        return <ButtonComponent onClick={openImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'} text={'赠品'} />
+        return <ButtonComponent fontSize={12} onClick={openImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'} text={'赠品'} />
+    }
+
+    if (disNextMsg) {
+        return <div style={{ width: 500, fontSize: 12, justifyContent: 'right', display: "flex", textAlign: "right", alignItems: 'center'}}>
+            {promotionName}
+            {disNextMsg}
+            <ButtonComponent fontSize={12} onClick={nextBuyImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'}
+                             text={'去凑单'}/>
+        </div>
     }
 }
 
@@ -87,11 +90,12 @@ const Promotion = ({padding, margin}: any) => {
             >
                 <Element flexDirection={'row'} alignItems={'center'} canvas is={Container} id={'pdName'}>
                     <div className={styles.promote}>
-                        <Text color={'#fff'} className={'tips'} code={'pbName'}/>
+                        <Text fontSize={12} module={'moduleStore'} color={'#fff'} className={'tips'} code={'pbName'}/>
                     </div>
-                    <Text code={'promotionName'} padding={{paddingLeft: 5}}></Text>
+                    <Text fontSize={12} module={'moduleStore'} code={'promotionName'} padding={{paddingLeft: 5}}></Text>
                 </Element>
-                <PromotionActionComponent/>
+                <Element canvas is={PromotionActionComponent} id={'pd-promotion'}></Element>
+                {/*<PromotionActionComponent/>*/}
             </Element>
         </div>
 

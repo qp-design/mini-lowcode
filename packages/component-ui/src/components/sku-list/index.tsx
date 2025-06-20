@@ -19,6 +19,7 @@ const useStyle = createStyles(({ token, css }) => {
                 align-items: center;
                 flex-flow:row wrap;
                 .skuItem {
+                    cursor: pointer;
                     font-size: 12px;
                     color: ${token.colorPrimary};
                     border: 1px solid ${token.colorBorder};
@@ -36,9 +37,9 @@ const useStyle = createStyles(({ token, css }) => {
     }
 );
 
-export const SkuList = ({dataKey}: {dataKey:string}) => {
+export const SkuList = ({dataKey, promotionKey, couponKey}: {dataKey:string; promotionKey: string, couponKey: string}) => {
     const { styles } = useStyle();
-    const { specList, onClick, skuListName } = useSku(dataKey);
+    const { specList, onClick, skuListName } = useSku(dataKey, promotionKey, couponKey);
     return (
         <div>
             {

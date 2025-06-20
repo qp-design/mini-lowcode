@@ -1,7 +1,7 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/component-core';
 import {useStyle} from "../logoWithSearch/style";
-import {marginField, SelectPicture} from "../../common";
+import {marginField, paddingField, SelectPicture} from "../../common";
 
 const containerField: FieldType[] = [
   {
@@ -9,7 +9,13 @@ const containerField: FieldType[] = [
     name: 'text',
     type: 'text',
   },
+  {
+    label: '字体大小',
+    name: 'fontSize',
+    type: 'number',
+  },
   ...marginField,
+  ...paddingField,
   {
     label: '按钮大小',
     name: 'size',
@@ -31,11 +37,11 @@ const containerField: FieldType[] = [
       ]
     }
   },
-  {
-    label: '打开抽屉code',
-    name: 'openKey',
-    type: 'text',
-  },
+  // {
+  //   label: '打开抽屉code',
+  //   name: 'openKey',
+  //   type: 'text',
+  // },
   {
     label: '宽度',
     name: 'width',

@@ -1,5 +1,5 @@
-import {useComponentListData} from "component-store";
-import {Fragment, useRef} from "react";
+import {useComponentListData, useOrderNum} from "component-store";
+import {Fragment, useEffect, useRef} from "react";
 import {Container, Element, HOCCodeWrapComponent, ModuleProvider, useModuleContext} from "@brushes/component-core";
 import {Text} from "../../basic";
 import {CardLRComponent} from "../../service";
@@ -56,7 +56,7 @@ const useStyles = createStyles(({token, css}) => {
                 font-size: 12px;
                 align-items: center;
                 grid-template-columns: repeat(4, 1fr);
-                width: 560px;
+                width: 760px;
                 text-align: center;
 
                 .padding-5 {
@@ -80,14 +80,16 @@ const useStyles = createStyles(({token, css}) => {
 export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { refundKey: string; expressKey: string;record: any; callbackName: string }) => {
     const {navigator} = useNavigateImpl();
     const moduleRef = useRef(null);
-    const retry = useModuleContext(s => s.moduleStore[callbackName])
+    const retry = useModuleContext(s => s.moduleStore[callbackName]);
+    const { getOrderBadge } = useOrderNum();
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     const cancelImpl = async (contractId: string) => {
         const {msg} = await cancelContractC({contractId});
         message.success(msg);
         setTimeout(() => {
             retry();
-        }, 500)
+            getOrderBadge();
+        }, 200)
     }
 
     const confirmReceiveImpl = async (contractBillcode: string) => {
@@ -95,7 +97,8 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
         message.success(msg);
         setTimeout(() => {
             retry();
-        }, 500)
+            getOrderBadge();
+        }, 200)
     }
 
     const expressImpl = (contractBillcode: string) => {
@@ -116,11 +119,14 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
     
     const onClick = (code: string, record: {contractBillcode: string; contractId: string; dataState: number}) => {
         switch (code) {
+            case 'pay':
+                navigator(`/pay?contractBillcode=${record.contractBillcode}`)
+                break
             case 'refund':
                 refundImpl(record.contractBillcode, record.dataState);
                 break;
             case 'see':
-                navigator(`/orderDetail?target=orderDetail&contractBillcode=${record.contractBillcode}`)
+                navigator(`/userCenter/orderDetail?contractBillcode=${record.contractBillcode}`)
                 break;
             case 'express':
                 expressImpl(record.contractBillcode);
@@ -143,7 +149,7 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
                     <div>付款类型：{contractPmodeFn(record.contractPmode)}</div>
                 </div>
                 <div>
-                    付款类型: {dataStateFn(record.dataState)}
+                    {dataStateFn(record.dataState)}
                 </div>
                 <div>
                     <TableAction onClick={onClick} direction={'vertical'} record={record} buttonList={
@@ -153,13 +159,14 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
                                 code: 'see',
                             },
                             {
-                                dataState: ['0', '30'],
+                                dataState: ['0', '30', '1', '19'],
                                 name: '取消',
                                 code: 'cancel',
                                 render: StatusOperate
                             },
                             {
                                 name: '立即支付',
+                                code: 'pay',
                                 dataState: '1',
                             },
                             {
@@ -192,7 +199,7 @@ export const ShopItemGoodInnerJsx = ({dataPath, item}: any) => {
     return (
         <>
             {
-                list.map((item, index) => {
+                (list || []).map((item, index) => {
                     return (
                         <Fragment key={index}>
                             <ModuleProvider moduleStore={{_skuInfo: item}}>
@@ -206,46 +213,59 @@ export const ShopItemGoodInnerJsx = ({dataPath, item}: any) => {
     )
 }
 
-const ShoppItemGood = ({callbackName, description, dataPath, storeKey, expressKey, refundKey, padding, margin, borderRadius}: any) => {
+export const OrderTitle = ({item}:any) => {
+    return (
+        <ModuleProvider moduleStore={{_skuInfo: item}}>
+            <Element flexDirection={'row'} is={Container} canvas id={'item-contractBillcode'}>
+                <Text fontSize={12} text={'订单号：'}></Text>
+                <Text module={'moduleStore'} code={'contractBillcode'}></Text>
+            </Element>
+            <Element justifyContent='flex-end' flexDirection={'row'} is={Container} canvas
+                     id={'shop-item-good-code'}>
+                <Text fontSize={12} text={'下单时间：'}></Text>
+                <Text transformData={'time'} format={'YYYY-MM-DD hh:mm:ss'}  module={'moduleStore'} code={'contractPaydate'}></Text>
+            </Element>
+        </ModuleProvider>
+    )
+}
+
+const ShoppItemGood = ({
+                           callbackName,
+                           description,
+                           dataPath,
+                           storeKey,
+                           expressKey,
+                           refundKey,
+                           padding,
+                           margin,
+                           borderRadius
+                       }: any) => {
     const list = useComponentListData(dataPath, storeKey);
     const {styles} = useStyles();
-
-    if(!list.length) {
+    if (!list.length) {
         return <div style={{
             display: "flex",
             alignItems: "center",
             justifyContent: 'center',
             padding: 30,
             ...margin
-        }}><Empty description={description} /></div>;
+        }}><Empty description={description}/></div>;
     }
     return (
         <div className={styles.wrap}>
             {
                 list.map((item, index) => {
                     return (
-                        <Fragment key={index}>
-                            <Element
-                                canvas
-                                id={'shop-item-good'}
-                                is={Container}
-                                flexDirection={'row'}
-                                justifyContent={'space-between'}
-                                padding={{paddingLeft: 10, paddingRight: 10, paddingBottom: 5, paddingTop: 5}}
-                                alignItems={'center'}
-                            >
-                                <ModuleProvider moduleStore={{_skuInfo: item}}>
-                                    <Element flexDirection={'row'} is={Container} canvas id={'shop-item-good-code'}>
-                                        <Text text={'订单号：'}></Text>
-                                        <Text code={'contractBillcode'}></Text>
-                                    </Element>
-                                    <Element justifyContent='flex-end' flexDirection={'row'} is={Container} canvas
-                                             id={'shop-item-good-code'}>
-                                        <Text text={'下单时间：'}></Text>
-                                        <Text code={'contractPaydate'}></Text>
-                                    </Element>
-                                </ModuleProvider>
-                            </Element>
+                        <Fragment key={item.contractBillcode}>
+                            <div
+                                style={{
+                                    padding:'5px 10px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems:'center'
+                            }}>
+                                <OrderTitle item={item}/>
+                            </div>
                             <div className={'item-wrap'} style={{
                                 display: 'flex',
                                 flexDirection: 'row',

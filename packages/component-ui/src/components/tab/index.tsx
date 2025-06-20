@@ -1,17 +1,27 @@
-import {Container} from '@brushes/component-core';
-import {Tabs} from 'antd';
-import {useMemo} from 'react';
+import {Container, useModuleRootContext} from '@brushes/component-core';
+import {Badge, Tabs} from 'antd';
+import {useMemo, useRef} from 'react';
 import {Element} from '@brushes/component-core';
+import {useSearchParamHook} from "component-store";
 
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 
 export const Tab =
-  ({columns, tabPosition, destroyOnHidden, ...props} : { destroyOnHidden: boolean; columns: any; tabPosition: TabPosition}) => {
+  ({columns, tabPosition, destroyOnHidden, badge, padding = {}, ...props} : { badge?: boolean; padding: object; destroyOnHidden: boolean; columns: any; tabPosition: TabPosition}) => {
+    const [title] = useSearchParamHook(['label']);
+    const defaultActiveKey = useRef();
+
+    const _orderCount = useModuleRootContext(s=> s.rootStore._orderCount) || {};
     const newColumns = useMemo(() => {
-      return columns.map(({label, key}: any, ind: number) => {
+      return columns.map(({label, key, code}: any, ind: number) => {
+          if(title === label) {
+              defaultActiveKey.current = key
+          }
           return {
               key,
-              label: <span style={props}>{label}</span>,
+              label: badge ? <Badge size="small" count={_orderCount[code] || 0}>
+                  <div style={{...padding, ...props}}>{label}</div>
+              </Badge> : <div style={{...padding, ...props}}>{label}</div>,
               children: (
                   <Element
                       canvas
@@ -22,9 +32,9 @@ export const Tab =
               )
           }
       })
-    }, [columns])
+    }, [columns, _orderCount, badge])
 
-        return (
-            <Tabs destroyOnHidden={destroyOnHidden} tabPosition={tabPosition} items={newColumns}/>
+      return (
+          <Tabs defaultActiveKey={defaultActiveKey.current} destroyOnHidden={destroyOnHidden} tabPosition={tabPosition} items={newColumns}/>
         )
     }

@@ -1,10 +1,15 @@
-import {useNode} from "@craftjs/core";
 import {useMemo} from "react";
-import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
+import { get } from "lodash-es";
+import {HOCCodeWrapComponent, useModuleContext, useModuleRootContext} from "@brushes/component-core";
+import dayjs from 'dayjs';
+import {fixPrice} from "@brushes/component-tool";
 
 type TextProps = {
     text?: string | number;
     fontSize?:number;
+    transformData?: string;
+    format?:string;
+    localScheme?: Array<{label: string; value: string}>;
     width?:number;
     fontWeight?: number;
     lineHeight?: string;
@@ -16,13 +21,12 @@ type TextProps = {
     height?: number;
     textAlign?:string;
     className?: string;
-    onClick?:()=> void;
     code?: string;
     storeKey?:string;
     module?:string;
     color?: string
 }
-export const Text: React.FC<TextProps> = ({module, ...resetProps}) => {
+export const TextJsx: React.FC<TextProps> = ({module = 'moduleStore', ...resetProps}) => {
     if(module === 'moduleStore') {
         return <WrapText {...resetProps}/>;
     }
@@ -34,7 +38,7 @@ const WrapRootText : React.FC<TextProps> = ({storeKey = '', ...resetProps}) => {
     return <TextInner dataInfo={_skuInfo} {...resetProps}/>;
 }
 
-const WrapText : React.FC<TextProps> = ({storeKey = '', ...resetProps}) => {
+const WrapText : React.FC<TextProps> = ({storeKey = '_skuInfo', ...resetProps}) => {
     const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]) || {};
     return <TextInner dataInfo={_skuInfo} {...resetProps}/>;
 }
@@ -42,6 +46,9 @@ const WrapText : React.FC<TextProps> = ({storeKey = '', ...resetProps}) => {
 const TextInner: React.FC<TextProps & { dataInfo: object }> =
     ({
          text,
+         transformData,
+         format,
+         localScheme,
          color,
          fontSize,
          code,
@@ -53,13 +60,8 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
          dataInfo,
          minWidth,
          className,
-         onClick,
          ...restProps
     }) => {
-
-    const {
-        connectors: {connect, drag},
-    } = useNode();
 
     const styleParams = useMemo(() => {
         if(num === 1) {
@@ -77,17 +79,26 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
 
     const value = useMemo(() => {
         if (code) {
-            // @ts-ignore
-            return dataInfo[code] || text
+            if(transformData === 'time') {
+               return dayjs(dataInfo[code]).format(format || 'YYYY-MM-DD HH:mm:ss');
+            }
+            if(transformData === 'format') {
+                return fixPrice(+dataInfo[code])
+            }
+            if(transformData === 'dataType') {
+               const v = (localScheme || []).find(item => [item.value].includes(dataInfo[code] + '')) || {};
+                return v.label;
+            }
+            const value = get(dataInfo, code);
+            return (value || value === 0) ? value : text;
+            // return dataInfo[code] || dataInfo[code] === 0 ? dataInfo[code] : text
         }
         return text;
-    }, [text, code, dataInfo]);
+    }, [text, code, dataInfo, transformData, localScheme, format]);
 
     return (
         <div
-            onClick={onClick}
             className={className}
-            ref={(ref: HTMLDivElement) => connect(drag(ref))}
             style={{
                 width,
                 // ...(width ? {width} : {minWidth}),
@@ -106,3 +117,4 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
 }
 
 
+export const Text = HOCCodeWrapComponent(TextJsx);

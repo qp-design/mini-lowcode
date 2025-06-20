@@ -11,6 +11,11 @@ const containerField: FieldType[] = [
         type: 'text',
     },
     {
+        name: 'hidden',
+        label: '隐藏促销',
+        type: 'switch',
+    },
+    {
         name: 'borderRadius',
         label: '圆角',
         type: 'number',
@@ -44,7 +49,7 @@ const containerField: FieldType[] = [
 
 const baseFormField: formConfigType[] = [
   {
-    title: '逻辑',
+    title: '样式',
     formFields: containerField
   },
 ]

@@ -7,6 +7,16 @@ const containerField: FieldType[] = [
     name: 'dataKey',
     type: 'text',
   },
+  {
+    label: '优惠券查询key',
+    name: 'couponKey',
+    type: 'text',
+  },
+  {
+    label: '促销查询key',
+    name: 'promotionKey',
+    type: 'text',
+  },
 ]
 
 const baseFormField: formConfigType[] = [

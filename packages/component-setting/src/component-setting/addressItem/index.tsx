@@ -8,6 +8,11 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: '是否计算运费',
+    name: 'freight',
+    type: 'switch',
+  },
+  {
     label: '默认文本说明',
     name: 'description',
     type: 'text',

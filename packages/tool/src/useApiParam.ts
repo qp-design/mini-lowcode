@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import {useMemo } from "react";
+import { useSearchParams } from 'react-router-dom';
 
 export const useApiParam = (params: {key: string; value: string}[] | undefined) => {
+    const [searchParams, ] = useSearchParams();
+
     return useMemo(() => {
-        // @ts-ignore
-        let searchParams = new URL(document.location).searchParams;
         let newParams = {};
         (params || []).forEach((item: {key: string; value: string}) => {
             let v = searchParams.get(item.key);

@@ -12,7 +12,7 @@ const B2B = {
   confirmReceive: '/web/oc/contract/confirmReceive.json',
   uploadGoodsFile: 'web/rs/goodsFile/uploadGoodsFileForPaas.json',
   PAYMENT_COMMIT: 'web/pte/pay/paymentCommit.json',
-  queryOcContractToCensus: 'web/oc/contract/queryOcContractToCensus.json'
+  queryOcContractToCensus: 'web/oc/contract/queryOcContractToCensus.json',
 };
 export const queryOcContractToCensus = (params = {}) => get(B2B.queryOcContractToCensus, params);
 

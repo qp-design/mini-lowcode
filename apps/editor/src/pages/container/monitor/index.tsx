@@ -3,14 +3,12 @@ import { Topbar } from '../components/Topbar';
 import { ContainerWrap } from '@brushes/component-core';
 import {ContainerWrapSettings} from "@brushes/component-setting";
 import {useEffect} from "react";
-import {Outlet} from "react-router-dom";
-import {WrapContainer} from "@brushes/editor-component";
 
 ContainerWrap.craft = {
   props: {
     width: '100',
     height: '100',
-    background: 'rgba(0, 0, 0, 0.02)'
+    background: 'rgba(0, 0, 0, 0.0)'
   },
   related: {
     settings: ContainerWrapSettings,

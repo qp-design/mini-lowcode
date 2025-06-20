@@ -1,21 +1,33 @@
 import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
 import {ButtonComponent} from "../../basic";
+import {Image} from "antd";
+import {fullpath} from "@brushes/component-tool";
 
 
-const ButtonWrap = ({openKey, ...restProps}: {openKey:string}) => {
+const ButtonWrap = ({openKey, car = {}, imgHeight, imgWidth, parentOpenKey, ...restProps}: {car: { imgUrl: string }; imgHeight?: number; imgWidth?: number;parentOpenKey?: string; openKey?:string}) => {
     const setModuleStore = useModuleContext(s=> s.setModuleStore);
+    const setParentModuleStore = useModuleContext(s=> s.moduleStore.setParentModuleStore);
     const add = () => {
-        if(openKey) {
-            setModuleStore({
-                formEditorId: '',
-                title: '新增收货地址',
-                [openKey]: true
+        if(parentOpenKey) {
+            setParentModuleStore({
+                [parentOpenKey]: true
             })
+        } else {
+            if(openKey) {
+                setModuleStore({
+                    formEditorId: '',
+                    [openKey]: true
+                })
+            }
         }
     }
 
     return (
-        <ButtonComponent openKey={'addressOpen'} onClick={add} text={'新增收货地址'} danger type={'link'} {...restProps}/>
+        <ButtonComponent
+            icon={
+                car.imgUrl && <Image preview={false} src={fullpath(car.imgUrl)} width={imgWidth} height={imgHeight}/>
+            }
+            openKey={'addressOpen'} onClick={add} text={'新增收货地址'} danger type={'link'} {...restProps}/>
     )
 }
 export const ButtonOperate = HOCCodeWrapComponent(ButtonWrap);

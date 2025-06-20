@@ -3,7 +3,6 @@ import Materials from 'component-ui/components';
 import {
   ButtonSettings,
   LogoWithSearchSettings,
-  TableComponentSettings,
   TopComponentSettings,
   GoodNumberComponentSettings,
   UserInfoComponentSettings,
@@ -11,12 +10,24 @@ import {
   GoodCategoryComponentSettings,
   SwiperThumbComponentSettings,
   SkuListComponentSettings,
-  SearchComponentSettings, CategoryComponentSettings
+  SearchComponentSettings, CategoryComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
 
 const service : Array<TypeComponent> = [
+  {
+    name: '修改手机号',
+    icon: 'icon-text',
+    Component: ServiceComponent['GetCodeComponent'],
+    setting: {
+      props: {
+      },
+      related: {
+        settings: TopComponentSettings,
+      },
+    }
+  },
   {
     name: '头部',
     icon: 'icon-text',
@@ -144,23 +155,6 @@ const service : Array<TypeComponent> = [
     }
   },
   {
-    name: '立即购买',
-    icon: 'icon-caozuojilu',
-    Component: Materials['BuyComponent'],
-    setting: {
-      props: {
-        type: 'default',
-        text: '立即购买',
-        imgHeight: 16,
-        imgWidth: 16,
-        car: {}
-      },
-      related: {
-        settings: AddCartComponentSettings,
-      },
-    }
-  },
-  {
     name: '商品数量',
     icon: 'icon-caozuojilu',
     Component: Materials['GoodNumberComponent'],
@@ -177,6 +171,22 @@ const service : Array<TypeComponent> = [
     name: '商品分类',
     icon: 'icon-caozuojilu',
     Component: Materials['GoodCategoryComponent'],
+    setting: {
+      props: {
+        label: '全部商品',
+        color: '#444',
+        fontSize: 14,
+        fontWeight: 400
+      },
+      related: {
+        settings: GoodCategoryComponentSettings,
+      },
+    }
+  },
+  {
+    name: '商品排序',
+    icon: 'icon-caozuojilu',
+    Component: Materials['SortComponent'],
     setting: {
       props: {
         color: '#444',
@@ -209,7 +219,7 @@ const service : Array<TypeComponent> = [
     Component: Materials['SwiperThumbComponent'],
     setting: {
       props: {
-        height: 500
+        height: 500,
       },
       related: {
         settings: SwiperThumbComponentSettings,
@@ -222,7 +232,9 @@ const service : Array<TypeComponent> = [
     Component: Materials['SkuListComponent'],
     setting: {
       props: {
-        dataKey: 'skuCode'
+        dataKey: 'skuCode',
+        promotionKey: 'promotionQuery',
+        couponKey: 'couponQuery',
       },
       related: {
         settings: SkuListComponentSettings,

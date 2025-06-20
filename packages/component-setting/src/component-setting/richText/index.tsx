@@ -7,6 +7,11 @@ const containerField: FieldType[] = [
     name: 'code',
     type: 'text',
   },
+  {
+    label: '组件storeKey',
+    name: 'storeKey',
+    type: 'text',
+  },
 ]
 
 const baseFormField: formConfigType[] = [

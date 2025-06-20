@@ -2,9 +2,10 @@ import {Button} from 'antd';
 import {HOCCodeWrapComponent} from "@brushes/component-core";
 import {ReactNode} from "react";
 
-const Button2 = ({text, icon, size, margin = {}, padding = {}, type, onClick, openKey, ...restProps}: {
+const Button2 = ({text, icon, size, margin = {}, padding = {}, type, onClick, loading, openKey, ...restProps}: {
     margin?: object;
     padding?: object;
+    loading?: boolean;
     size?: any;
     onClick?: () => void;
     type?: any;
@@ -18,7 +19,8 @@ const Button2 = ({text, icon, size, margin = {}, padding = {}, type, onClick, op
                 icon,
                 type,
                 size,
-                onClick
+                onClick,
+                loading
             }}
             style={{
                 ...margin,
