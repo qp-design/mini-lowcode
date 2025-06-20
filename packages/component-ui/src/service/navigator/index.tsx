@@ -1,4 +1,4 @@
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {fullpath, useNavigateImpl} from "@brushes/component-tool";
 import {Divider} from "antd";
 import { createStyles } from "antd-style";

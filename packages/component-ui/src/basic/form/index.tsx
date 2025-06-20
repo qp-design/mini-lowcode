@@ -1,7 +1,8 @@
 import {ConfigProvider, Form} from 'antd';
 import {useForm} from "antd/es/form/Form";
 import {Element} from "@craftjs/core";
-import {Container, HOCCodeWrapComponent} from "@brushes/component-core";
+import {Container} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import { createStyles } from 'antd-style';
 import {AccountBuyComponent} from "../../operate";
 import {useSearchParamHook} from "component-store";

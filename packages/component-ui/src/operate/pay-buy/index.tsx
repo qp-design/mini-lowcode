@@ -1,4 +1,4 @@
-import { HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {formatList, useOrderResult} from "component-store";
 import { ButtonComponent } from "../../basic";
 import {useMemo} from "react";

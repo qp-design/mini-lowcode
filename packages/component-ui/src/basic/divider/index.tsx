@@ -1,5 +1,5 @@
 import {Divider} from "antd";
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 
 type DividerType = {
     text?: string;

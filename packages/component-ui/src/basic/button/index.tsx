@@ -1,5 +1,5 @@
 import {Button} from 'antd';
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {ReactNode} from "react";
 
 const Button2 = ({text, icon, size, margin = {}, padding = {}, type, onClick, loading, openKey, ...restProps}: {

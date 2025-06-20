@@ -1,4 +1,4 @@
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {Linear} from "../../common";
 
 

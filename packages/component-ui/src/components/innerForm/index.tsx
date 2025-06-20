@@ -1,7 +1,7 @@
 import {dynamicFormFields, FieldType} from '@brushes/form';
-import {Container, HOCCodeWrapComponent} from '@brushes/component-core';
+import {HOCCodeWrapComponent} from '@brushes/core-transform';
 import React, {ForwardedRef, useMemo} from 'react';
-import {Element, useNode} from '@craftjs/core';
+import {useNode} from '@craftjs/core';
 import {FormInstance} from 'antd';
 import {useSelectOption} from 'component-store';
 

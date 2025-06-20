@@ -1,6 +1,6 @@
 import {Image} from 'antd';
 import {fullpath} from "@brushes/component-tool";
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {ButtonComponent} from "../../basic";
 import {useBuy} from "component-store/src/store/buy";
 

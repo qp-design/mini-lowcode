@@ -1,4 +1,4 @@
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {dynamicFormFields, FieldType} from "@brushes/form";
 import {Form, FormInstance} from "antd";
 import {useMemo} from "react";

@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 
 const Layout = () => {
     return (

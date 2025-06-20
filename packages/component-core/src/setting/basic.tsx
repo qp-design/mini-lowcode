@@ -4,7 +4,7 @@ import { dynamicFormFields, useImmutableCallback } from '@brushes/form';
 import { useNode } from '@craftjs/core';
 import type {FieldType} from '@brushes/form';
 import {isUndefined, debounce} from "lodash-es";
-import {defaultStyle} from "@brushes/component-tool";
+import {defaultStyle} from "@brushes/core-transform";
 import Title from "./title";
 
 export type formConfigType = {

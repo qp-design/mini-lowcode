@@ -1,7 +1,7 @@
 import {dynamicFormFields, FieldType} from "@brushes/form";
 import { GetVercode, CodeJsx } from "./common";
 import {Form, FormInstance} from "antd";
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 
 const imgCode : Array<FieldType> = [
     {

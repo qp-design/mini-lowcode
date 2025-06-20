@@ -1,5 +1,5 @@
 import type {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/component-tool';
+import {basicSettings, formConfigType} from '@brushes/core-transform';
 import {ApiComponent, paddingField} from '../../common';
 
 const layoutField: FieldType[] = [

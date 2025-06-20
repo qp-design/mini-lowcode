@@ -1,4 +1,4 @@
-import {basicSettings, formConfigType} from '@brushes/component-tool';
+import {basicSettings, formConfigType} from '@brushes/core-transform';
 import {diyFormConfig} from "../../common";
 
 const baseFormField: formConfigType[] = [

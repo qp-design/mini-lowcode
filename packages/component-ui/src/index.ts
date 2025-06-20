@@ -1,5 +1,5 @@
 import * as component from './components';
-import {HOCCodeWrapComponent} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 let componentList: any = {};
 Object.entries(component).forEach(([key, value]) => {
 
