@@ -1,8 +1,7 @@
-import {removeStorage, setLocalStorage, removeLocalStorage} from '@brushes/utils-react';
 import { useState } from 'react';
 import { loginInByCode, loginOut } from 'qj-b2c-api';
 import { loginIn } from 'component-api';
-import _, {get} from 'lodash-es';
+import _ from 'lodash';
 import {useNavigate} from "react-router-dom";
 import {useModuleRootContext} from "@brushes/component-core";
 
@@ -28,9 +27,9 @@ export function useLoginHooks() {
     const userPhone = values.userPhone;
     const params = _.omit(values, ['remember', 'verCode', 'userPhone']);
     if (values.remember) {
-      setLocalStorage(values.loginName, btoa(values.passwd));
+      localStorage.setItem(values.loginName, btoa(values.passwd));
     } else {
-      removeLocalStorage(values.loginName);
+      localStorage.removeItem(values.loginName);
     }
     setLoading(true);
     try {
@@ -44,7 +43,7 @@ export function useLoginHooks() {
   }
 
   const callbackImpl = (data:DataType) => {
-    const _userInfo = JSON.parse(get(data, 'dataObj.userInfo', '{}'));
+    const _userInfo = JSON.parse(_.get(data, 'dataObj.userInfo', '{}'));
     const { ticketTokenid } = _userInfo;
     localStorage.setItem('saas-token', ticketTokenid);
     setModuleRootStore({
@@ -69,7 +68,8 @@ export function useLoginHooks() {
     setLoading(true);
     try {
       await loginOut(params);
-      removeStorage(key);
+      sessionStorage.removeItem(key);
+      localStorage.removeItem(key);
     } catch (err) {
     } finally {
       setLoading(false);

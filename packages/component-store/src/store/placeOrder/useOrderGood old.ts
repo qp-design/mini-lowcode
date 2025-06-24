@@ -4,7 +4,7 @@ import {
   queryShoppingToContract
   // getFalgSettingForPaydate
 } from './payment';
-import { isEmpty } from 'lodash-es';
+import { isEmpty } from 'lodash';
 // import { useSyncOrderStore, orderStore } from '../store';
 import {useModuleContext} from "@brushes/component-core";
 

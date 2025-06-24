@@ -2,7 +2,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { queryGoodsClassTree } from 'qj-b2c-api';
 import { Tree, Spin } from 'antd';
-import { isEmpty } from 'lodash-es';
+import { isEmpty } from 'lodash';
 import { classifyLink, goodsListLink } from '../config/routerPath';
 
 // const { isEmpty } = _;

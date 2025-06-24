@@ -2,7 +2,7 @@ import { Button, FormInstance, Space, message } from 'antd';
 import { PictureJsx } from './picture';
 import React, { useRef } from 'react';
 import { NamePath } from '@brushes/form';
-import { isEmpty } from 'lodash-es';
+import { isEmpty } from 'lodash';
 
 interface Props {
   name: NamePath;

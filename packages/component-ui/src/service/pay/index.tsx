@@ -1,5 +1,6 @@
 import {Element} from "@craftjs/core";
-import {Container, HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
+import {Container, useModuleContext} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {DividerComponent, FormComponent, Text} from "../../basic";
 import { Statistic } from 'antd';
 

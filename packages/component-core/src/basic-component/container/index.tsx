@@ -5,7 +5,7 @@ import { createStyles } from "antd-style";
 import {useEditor, useNode} from "@craftjs/core";
 import {ModuleProvider, useModuleContext} from "../../store";
 import {useSearchParams} from 'react-router-dom';
-import {isEmpty, isUndefined, omit} from "lodash-es";
+import {isEmpty, isUndefined, omit} from "lodash";
 
 const useStyles = createStyles(({token, css}) => {
     return {

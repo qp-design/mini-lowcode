@@ -1,5 +1,5 @@
 import { DynamicForm, TransformType, FieldType } from '@brushes/form';
-import { uploadImpl } from '@brushes/operate-webstore';
+import { uploadImpl } from '@brushes/component-tool';
 import { useMemo } from 'react';
 import { useFileContext } from '../../store';
 import {message} from "antd";

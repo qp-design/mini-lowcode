@@ -1,6 +1,7 @@
 import { Image as Image2 } from 'antd';
 import {fullpath, useNavigateImpl} from "@brushes/component-tool";
-import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
+import {useModuleContext} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from '@brushes/core-transform'
 import {useMemo} from "react";
 
 const ImageJsx = ({ image = {}, borderRadius, width, code = '', ...restProps}: { width?: number; height?: number; borderRadius?: number; code?: string; image?: { imgUrl: string; path?: string }}) => {

@@ -1,6 +1,7 @@
 import classNames from "classnames";
-import {Container, useModuleContext, Element, HOCCodeWrapComponent} from "@brushes/component-core";
-import {debounce} from "lodash-es";
+import {Container, useModuleContext, Element} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
+import {debounce} from "lodash";
 import {post} from '@brushes/request';
 import {useStyles2, useStyles} from "./style";
 import {DeleteOutlined, ShoppingCartOutlined} from "@ant-design/icons";

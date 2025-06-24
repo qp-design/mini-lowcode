@@ -1,4 +1,5 @@
-import {Container, HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
+import {Container, useModuleContext} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {RightOutlined} from "@ant-design/icons";
 import {createStyles} from "antd-style";
 import {ButtonComponent, Text} from '../../basic';

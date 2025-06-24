@@ -2,10 +2,10 @@
 // import React, {useMemo} from 'react';
 // import {Table} from 'antd';
 // import type {ColumnsType} from 'antd/es/table';
-// import {get, isEmpty} from 'lodash-es';
+// import {get, isEmpty} from 'lodash';
 // import {useStore} from 'component-store';
 // import {Element, useEditor} from '@craftjs/core';
-// import {has} from 'lodash-es';
+// import {has} from 'lodash';
 //
 // export const Table2: React.FC<{
 //     rowKey: string;

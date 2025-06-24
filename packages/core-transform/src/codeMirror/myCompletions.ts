@@ -17,7 +17,7 @@ export function myCompletions(context: CompletionContext) {
 /* 导入对应的模块*/
 import { useModuleContext } from "@brushes/component-core";
 import { useState } from "react";
-import {debounce} from "lodash-es";
+import {debounce} from "lodash";
 import {post} from "@brushes/request";
 import {message} from "antd";
 
@@ -125,7 +125,7 @@ export default useDiyHook;
                 detail: "form配置项",
                 apply: `
 import {FieldType, FormInstance} from '@brushes/form';
-import {last} from "lodash-es"
+import {last} from "lodash"
 import { Form } from "antd"
 
 import { post } from "@brushes/request"

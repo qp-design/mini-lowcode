@@ -1,6 +1,6 @@
 import { Button, Space } from 'antd';
 import React, { Fragment } from 'react';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 export type ButtonTypePlus = {
     dataState?: Array<number | string> | string;

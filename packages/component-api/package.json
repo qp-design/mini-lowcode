@@ -12,8 +12,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@brushes/optimize": "^1.0.5",
-    "@brushes/request": "^1.1.6",
+    "@brushes/optimize": "^1.1.6",
+    "@brushes/request": "^1.2.0",
     "@brushes/utils": "^0.2.8"
   }
 }

@@ -2,7 +2,7 @@ import {FieldType, TransformType} from "@brushes/form";
 import {post} from "@brushes/request";
 import TableComponent from "./table";
 import {FormInstance} from "antd";
-import {get, pick} from "lodash-es";
+import {get, pick} from "lodash";
 import {uploadGoodsFile} from "component-api";
 
 export const transformSubmitDataConfig: TransformType[] = [

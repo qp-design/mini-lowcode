@@ -1,7 +1,7 @@
 import { useNode, UserComponent } from "@craftjs/core";
 import { ErrorBoundary } from "react-error-boundary";
 import {useMemo} from 'react';
-import {isUndefined, noop, omit} from 'lodash-es';
+import {isUndefined, noop, omit} from 'lodash';
 import {changeCode} from '../tool/changeCode';
 
 const ChangeComponent = ({useFunc = noop, useFormConfig = noop, diyUseStyle = noop, Component, ...restProps} : { Component: any; diyUseStyle?:any; useFunc?: any; useFormConfig?:any}) => {
@@ -47,6 +47,8 @@ export const HOCCodeWrapComponent = (Component: any, isTrue?: boolean): UserComp
 
       if (!isUndefined(props.$$_formConfig1)) {
         const v = changeCode(props['$$_formConfig1']);
+        console.log(50, v);
+        console.log(51, v.exports.default);
         const func = v.exports.default;
         useFormConfig = func ? {useFormConfig: func} : {};
       }

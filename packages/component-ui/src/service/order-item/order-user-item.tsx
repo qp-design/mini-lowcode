@@ -1,6 +1,7 @@
 import {useComponentListData, useOrderNum} from "component-store";
-import {Fragment, useEffect, useRef} from "react";
-import {Container, Element, HOCCodeWrapComponent, ModuleProvider, useModuleContext} from "@brushes/component-core";
+import {Fragment, useRef} from "react";
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
+import {Container, Element, ModuleProvider, useModuleContext} from "@brushes/component-core";
 import {Text} from "../../basic";
 import {CardLRComponent} from "../../service";
 import {TableAction, StatusOperate, ModalJsx} from "./component";
@@ -8,7 +9,7 @@ import {createStyles} from "antd-style";
 import {fixPrice, contractTypeFn, contractPmodeFn, dataStateFn, useNavigateImpl} from "@brushes/component-tool";
 import {cancelContractC, confirmReceive} from "component-api";
 import {Empty, message} from "antd";
-import {get} from "lodash-es";
+import {get} from "lodash";
 
 const ShoppGoodItem2 = () => {
     return (

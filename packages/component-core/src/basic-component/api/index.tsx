@@ -1,8 +1,9 @@
 import React, {Fragment, useEffect, useMemo} from 'react';
-import {Container, Element, HOCCodeWrapComponent, ModuleProvider, useModuleContext} from '@brushes/component-core';
+import {Container, Element, ModuleProvider, useModuleContext} from '@brushes/component-core';
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {Empty, Pagination, Spin} from "antd";
 import {useApiComponent} from "component-store";
-import {get} from "lodash-es";
+import {get} from "lodash";
 
 
 const CardBasic: React.FC<any> = ({callbackName, setParentModuleStore, retry, ...props}) => {

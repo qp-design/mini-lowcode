@@ -6,12 +6,12 @@ import * as componentTool from '@brushes/component-tool';
 import * as reactRouterDom from 'react-router-dom';
 import * as componentCore from '@brushes/component-core'
 import * as componentStore from 'component-store'
-import * as lodash2 from 'lodash-es'
+import * as lodash2 from 'lodash'
 import * as request from '@brushes/request'
 import * as antdStyle from 'antd-style'
 import { transform } from "sucrase";
 
-import {SlotEmpty} from '../basic-component/empty';
+import {SlotEmpty} from '@brushes/component-core';
 
 export function transformCode(source: string) {
     // const data = transform(source, {
@@ -41,7 +41,7 @@ export function changeCode(code: string) {
             if (packageName == 'react') return React;
             if(packageName == 'component-store') return componentStore;
             if (packageName == '@brushes/component-tool') return componentTool;
-            if (packageName == 'lodash-es') return lodash2;
+            if (packageName == 'lodash') return lodash2;
             if (packageName == '@brushes/request') return request;
             if (packageName == 'antd') return antd;
             if (packageName == 'dayjs') return dayjs;

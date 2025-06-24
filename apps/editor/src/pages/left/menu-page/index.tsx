@@ -3,7 +3,7 @@ import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import {useSearchParams} from "react-router-dom";
 import { post } from '@brushes/request';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import {useSearchParamHook} from "component-store";
 import {useModuleRootContext} from "@brushes/component-core";
 type MenuItem = Required<MenuProps>['items'][number];

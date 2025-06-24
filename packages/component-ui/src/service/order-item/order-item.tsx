@@ -2,10 +2,11 @@ import {Fragment, useState} from "react";
 import {fixPrice} from "@brushes/component-tool";
 import {Text} from '../../basic';
 import {useComponentListData, useGetCarNum} from "component-store";
-import {Container, HOCCodeWrapComponent, ModuleProvider, Element, useModuleContext} from "@brushes/component-core";
+import {Container, ModuleProvider, Element, useModuleContext} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {CardLRComponent} from '../cardLR'
 import {Button, Checkbox, Empty, InputNumber, message, Popconfirm, Spin} from "antd";
-import {debounce} from "lodash-es";
+import {debounce} from "lodash";
 import {post} from "@brushes/request";
 import {DeleteOutlined} from "@ant-design/icons";
 import {useNode} from "@craftjs/core";

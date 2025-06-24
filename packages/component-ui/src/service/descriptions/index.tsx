@@ -1,5 +1,6 @@
 import {Descriptions} from "antd";
-import {Container, HOCCodeWrapComponent, Element} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {useMemo} from "react";
 import { Text } from '../../basic'
 

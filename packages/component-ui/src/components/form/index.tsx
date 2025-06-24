@@ -4,7 +4,7 @@ import {Form, Button, message} from 'antd';
 import {post, get} from "@brushes/request";
 import {useModuleContext} from "@brushes/component-core";
 import {addressFormField, transformSubmitDataConfig} from "./address";
-import {isEmpty} from "lodash-es";
+import {isEmpty} from "lodash";
 
 type FormType = {
     background: string;

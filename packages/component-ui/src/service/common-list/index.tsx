@@ -1,4 +1,5 @@
-import {Container, Element, HOCCodeWrapComponent, ModuleProvider, useModuleContext} from "@brushes/component-core";
+import {Container, Element, ModuleProvider, useModuleContext} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {useComponentListData} from "component-store";
 import {Empty} from "antd";
 

@@ -1,9 +1,10 @@
-import {HOCCodeWrapComponent, useModuleRootContext} from "@brushes/component-core";
+import { useModuleRootContext} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {dynamicFormFields} from "@brushes/form";
 import {Form} from "antd";
 import {useEffect, useState} from "react";
 import {post} from "@brushes/request";
-import {get} from "lodash-es";
+import {get} from "lodash";
 import {useEditor} from "@craftjs/core";
 
 

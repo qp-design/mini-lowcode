@@ -1,7 +1,8 @@
-import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
+import {useModuleContext} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {useEffect, useMemo, useState} from "react";
 import {post} from "@brushes/request";
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import {Empty, Tabs, Timeline} from 'antd';
 
 const Express = () => {

@@ -1,9 +1,10 @@
-import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
+import {useModuleContext} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {useSaveOperate} from "component-store";
 import { ButtonComponent } from "../../basic";
 import {TransformType, useFormImpl} from "@brushes/form";
 import {Form} from "antd";
-import {noop} from "lodash-es";
+import {noop} from "lodash";
 import {useApiParam} from "@brushes/component-tool";
 
 

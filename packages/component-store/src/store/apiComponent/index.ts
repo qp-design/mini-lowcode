@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {cacheParams, post} from "@brushes/optimize";
 import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
 import {useApiParam} from "@brushes/component-tool";
-import {isEmpty} from "lodash-es";
+import {isEmpty} from "lodash";
 
 
 export const useApiComponent = (api:string, rows: number, restParams: {

@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import { AppstoreOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { groupBy } from 'lodash-es';
+import { groupBy } from 'lodash';
 import { useLocation } from 'react-router-dom';
-import {HOCCodeWrapComponent, useModuleRootContext} from "@brushes/component-core";
+import {useModuleRootContext} from "@brushes/component-core";
 import {useNavigateImpl} from "@brushes/component-tool";
-
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
 type MenuItem = Required<MenuProps>['items'][number];
 
 // const items: MenuItem[] = [

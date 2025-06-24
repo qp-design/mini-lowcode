@@ -1,5 +1,6 @@
 import {createStyles} from "antd-style";
-import {Container, Element, HOCCodeWrapComponent} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {ImageComponent, Text} from "../../basic";
 
 

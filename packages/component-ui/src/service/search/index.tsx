@@ -1,17 +1,17 @@
 import {SearchOutlined} from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import {
-    HOCCodeWrapComponent,
     Element,
     Container,
     useModuleRootContext
 } from "@brushes/component-core";
 import { Text } from '../../basic';
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {useNavigateImpl} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
 import {useLocation, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {noop} from "lodash-es";
+import {noop} from "lodash";
 
 const useStyle = createStyles(({token, css}, props:
     any

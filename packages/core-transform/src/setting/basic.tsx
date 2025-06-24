@@ -3,7 +3,7 @@ import {Fragment} from 'react';
 import { dynamicFormFields, useImmutableCallback } from '@brushes/form';
 import { useNode } from '@craftjs/core';
 import type {FieldType} from '@brushes/form';
-import {isUndefined, debounce} from "lodash-es";
+import {isUndefined, debounce} from "lodash";
 import {defaultStyle} from "../style";
 import Title from "./title";
 

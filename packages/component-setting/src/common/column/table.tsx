@@ -13,7 +13,7 @@ import { CSS } from '@dnd-kit/utilities';
 import React, {Dispatch} from 'react';
 import {Table, Popconfirm, Button, FormInstance} from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import {isFunction} from "lodash-es";
+import {isFunction} from "lodash";
 import { NamePath} from "@brushes/form";
 
 interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {

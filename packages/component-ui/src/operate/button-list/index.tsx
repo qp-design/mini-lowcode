@@ -1,6 +1,7 @@
 import {message, Popconfirm, Space} from 'antd';
 import React, { Fragment } from 'react';
-import {HOCCodeWrapComponent, useModuleContext} from "@brushes/component-core";
+import {useModuleContext} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {post} from "@brushes/request";
 import {ButtonOperate} from "../../service";
 import {Element} from "@craftjs/core";

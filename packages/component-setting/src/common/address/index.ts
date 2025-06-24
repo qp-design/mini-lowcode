@@ -1,6 +1,6 @@
 import {FieldType} from "@brushes/form";
 import {post} from "@brushes/request";
-import {get} from "lodash-es";
+import {get} from "lodash";
 
 export const addressBasicConfig:  FieldType[]  = [
     (form) => {

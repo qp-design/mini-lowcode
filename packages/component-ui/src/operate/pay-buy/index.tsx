@@ -2,7 +2,7 @@ import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {formatList, useOrderResult} from "component-store";
 import { ButtonComponent } from "../../basic";
 import {useMemo} from "react";
-import {get} from "lodash-es";
+import {get} from "lodash";
 import {useFormImpl} from "@brushes/form";
 import {Form, Modal, QRCode} from "antd";
 

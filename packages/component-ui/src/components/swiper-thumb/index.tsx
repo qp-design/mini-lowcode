@@ -11,7 +11,7 @@ import 'swiper/css/thumbs';
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import {useModuleContext} from "@brushes/component-core";
-import {get, isEmpty} from "lodash-es";
+import {get, isEmpty} from "lodash";
 import {fullpath} from "@brushes/component-tool";
 
 const useStyles = createStyles(({css, token}) => {

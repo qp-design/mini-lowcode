@@ -1,4 +1,5 @@
-import {HOCCodeWrapComponent, useModuleRootContext} from "@brushes/component-core";
+import {useModuleRootContext} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {Badge, Image} from "antd";
 import {fullpath} from "@brushes/component-tool";
 import {ButtonComponent} from "../../basic";

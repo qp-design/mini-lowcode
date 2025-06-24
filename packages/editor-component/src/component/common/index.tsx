@@ -1,7 +1,6 @@
-import {ContainerWrap, Frame} from '@brushes/component-core';
+import {ContainerWrap, Frame, Element} from '@brushes/component-core';
 import {WrapContainer} from "../../editor";
 import {useQueryInitData} from "component-store";
-import {Element} from "@brushes/component-core";
 
 const I = ({menuOpcode}:{menuOpcode: string}) => {
     useQueryInitData(menuOpcode)

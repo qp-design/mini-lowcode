@@ -4,7 +4,7 @@ import {useModuleContext} from "@brushes/component-core";
 import {message} from "antd";
 import { useNavigate } from 'react-router-dom';
 import {useSearchParamHook} from "component-store";
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 
 export function useOrderResult(storeKey = 'payInfo') {
   const [loading, setLoading] = useState(false);

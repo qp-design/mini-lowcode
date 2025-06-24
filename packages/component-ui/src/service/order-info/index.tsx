@@ -1,4 +1,5 @@
-import {Container, HOCCodeWrapComponent, Element, useModuleContext} from "@brushes/component-core";
+import {Container, Element, useModuleContext} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {Text} from '../../basic'
 import {useOrderGood, useOrderInfo} from "component-store";
 import {fixPrice} from "@brushes/component-tool";

@@ -1,7 +1,8 @@
-import {Container, HOCCodeWrapComponent, useModuleContext, Element, useEditor, createStyles} from "@brushes/component-core";
+import {Container, useModuleContext, Element, useEditor, createStyles} from "@brushes/component-core";
+import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {useEffect, useState} from "react";
 import {post} from "@brushes/request";
-import {isEmpty} from "lodash-es";
+import {isEmpty} from "lodash";
 
 export const useStyles = createStyles(({ token, css }) => {
     return {

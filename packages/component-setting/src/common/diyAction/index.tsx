@@ -1,7 +1,7 @@
 import type {FieldType} from "@brushes/form";
-import {transformCode} from "@brushes/component-core";
-import { ActionJsx } from "@brushes/component-tool";
-import {isUndefined} from "lodash-es";
+import { transformCode } from "@brushes/core-transform";
+import { ActionJsx } from "@brushes/core-transform";
+import {isUndefined} from "lodash";
 
 export const actionField: FieldType[] = [
     {

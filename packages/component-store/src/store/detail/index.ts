@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {post} from "@brushes/request";
 import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
-import {get, groupBy, isEmpty, noop} from "lodash-es";
+import {get, groupBy, isEmpty, noop} from "lodash";
 import {message} from "antd";
 import {useApiParam} from "@brushes/component-tool";
 

@@ -1,8 +1,8 @@
 import {ActionJsx} from "../action";
-import {transformCode} from "@brushes/component-core";
+import {transformCode} from "../tool";
 import type {FieldType} from "@brushes/form";
 import {langs} from "@uiw/codemirror-extensions-langs";
-import {isUndefined} from "lodash-es";
+import {isUndefined} from "lodash";
 
 const defaultCodeInfo = `/**
 import { createStyles } from "@brushes/component-core";

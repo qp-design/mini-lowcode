@@ -12,7 +12,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@brushes/optimize": "^1.0.5",
+    "@brushes/optimize": "^1.1.6",
     "@brushes/utils": "^0.3.1",
     "@tanstack/query-core": "^5.13.4",
     "jotai": "^2.6.0"

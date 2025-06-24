@@ -4,6 +4,9 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { name } from './package.json';
 import {config} from "./config/dev";
 import {config as prodConfig} from "./config/prod";
+import cdn from "vite-plugin-cdn-import";
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
+import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
 export default defineConfig(({command}) => {
@@ -14,10 +17,48 @@ export default defineConfig(({command}) => {
         open: true
       }) as PluginOption,
       react(),
+      cdn({
+        modules: [
+          {
+            name: "lodash",
+            var: "_",
+            path: "https://brushes.oss-cn-shanghai.aliyuncs.com/js/lodash.min.js",
+          },
+          {
+            name: "react",
+            var: "React",
+            path: "https://brushes.oss-cn-shanghai.aliyuncs.com/js/react.production.min.js",
+          },
+          {
+            name: "react-dom",
+            var: "ReactDOM",
+            alias: ["react-dom/client"],
+            path: "https://brushes.oss-cn-shanghai.aliyuncs.com/js/react-dom.production.min.js",
+          },
+          {
+            name: "dayjs",
+            var: "dayjs",
+            path: "https://brushes.oss-cn-shanghai.aliyuncs.com/js/dayjs.min.js",
+          },
+          {
+            name: "antd",
+            var: "antd",
+            path: "https://brushes.oss-cn-shanghai.aliyuncs.com/js/antd.min.js",
+          },
+        ]
+      }),
+      chunkSplitPlugin({
+        strategy: 'default',
+        customSplitting: {
+          'codemirror': ['@codemirror/state', '@codemirror/view', '@codemirror/language'],
+          'codemirror-lang': [/@codemirror\/lang-.*/],
+        }
+      }),
+      viteCompression({
+        algorithm: 'gzip',
+        threshold: 10240 // 对大于 10KB 的文件进行压缩
+      })
     ],
-    optimizeDeps: {
-      exclude: ['react', 'react-dom', '@ant-design/icons', 'antd']
-    },
     define: {
       'process.env.REACT_APP_BASE_URL': command === 'serve' ? config.API_ROOT : prodConfig.API_ROOT,
       'process.env.REACT_APP_SESSION_VALUE_KEY': `"saas-token"`,
@@ -33,6 +74,9 @@ export default defineConfig(({command}) => {
     build: {
       outDir: name,
       minify: true,
+      rollupOptions: {
+        external: ['antd', 'react', 'react-dom', 'dayjs', 'lodash'],
+      }
     },
   }
 })

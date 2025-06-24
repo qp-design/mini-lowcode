@@ -1,7 +1,7 @@
 import {Text} from '../../basic';
-import {Container, HOCCodeWrapComponent, Element} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core";
 import {fullpath} from "@brushes/component-tool";
-
+import { HOCCodeWrapComponent } from "@brushes/core-transform";
 const NavigatorJsx = (
     {
         width,

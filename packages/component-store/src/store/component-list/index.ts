@@ -1,6 +1,6 @@
 import {useModuleContext} from "@brushes/component-core";
 import {useMemo} from "react";
-import {get} from "lodash-es";
+import {get} from "lodash";
 
 export const useComponentListData = (dataPath: string, storeKey: string) => {
     const value = useModuleContext(s => s.moduleStore[storeKey]);

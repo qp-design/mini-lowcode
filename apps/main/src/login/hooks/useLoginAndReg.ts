@@ -3,7 +3,7 @@ import { updateUmuserPw } from 'qj-b2c-api';
 import {saveUserPhoneForPla, uploadGoodsFile} from 'component-api'
 import loginContext from '../context';
 import {useLoginHooks} from "./useLoginHooks";
-import {get} from "lodash-es";
+import {get} from "lodash";
 import { message } from 'antd';
 type ActionKey = 'login' | 'loginWithCode' | 'register' | 'update';
 
