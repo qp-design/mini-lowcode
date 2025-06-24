@@ -10,6 +10,27 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: '是否需要禁用',
+    name: 'disabled',
+    type: 'select',
+    extraProps: {
+      options: [
+        {
+          label: '空',
+          value: ''
+        },
+        {
+          label: '禁用',
+          value: true
+        },
+        {
+          label: '不禁用',
+          value: false
+        }
+      ]
+    }
+  },
+  {
     label: '字体大小',
     name: 'fontSize',
     type: 'number',

@@ -22,7 +22,6 @@ const ButtonWrap = ({openKey, car = {}, imgHeight, imgWidth, parentOpenKey, ...r
             }
         }
     }
-
     return (
         <ButtonComponent
             icon={

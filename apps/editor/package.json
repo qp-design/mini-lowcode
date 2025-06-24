@@ -22,8 +22,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-frame-component": "^5.2.7",
-    "react-router-dom": "^6.21.1",
-    "styled-components": "^6.1.15"
+    "react-router-dom": "^6.21.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
