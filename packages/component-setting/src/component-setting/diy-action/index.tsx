@@ -32,6 +32,11 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    name: 'callbackNameParent',
+    label: '父级回调函数的名',
+    type: 'text',
+  },
+  {
     name: 'value',
     label: '取store数据key',
     type: 'text',

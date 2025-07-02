@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import {Button, FormInstance, Image, Modal} from 'antd';
+import {Button, Form, FormInstance, Image, Modal} from 'antd';
 import { Wrapper } from '../wrapper';
 import { QjIcon } from '@brushes/share-resource';
 import { NamePath } from '@brushes/form';
@@ -44,6 +44,13 @@ const FilePreview = ({ value }: { value: string }) => {
   );
 };
 
+const OperateButton = (props:any) => {
+  return (
+      <Button onClick={() => {
+        props?.onChange?.('');
+      }}>清除</Button>
+  )
+}
 export function SelectPicture({
   form,
   onChange,
@@ -88,10 +95,9 @@ export function SelectPicture({
             </div>
           )}
         </div>
-        <Button onClick={() => {
-          form.setFieldValue(name, '');
-          onChange?.('');
-        }}>清除</Button>
+        <Form.Item name={name}>
+          <OperateButton/>
+        </Form.Item>
       </div>
       <Modal
         destroyOnHidden={true}
@@ -102,12 +108,13 @@ export function SelectPicture({
         onCancel={handleCancel}
       >
         <Wrapper>
-          <TabsPic
-            onChange={onChange}
-            name={computedName}
-            handleCancel={handleCancel}
-            form={form}
-          />
+          <Form.Item name={name}>
+            <TabsPic
+                name={computedName}
+                handleCancel={handleCancel}
+                form={form}
+            />
+          </Form.Item>
         </Wrapper>
       </Modal>
     </ContextProvider>

@@ -102,10 +102,10 @@ export function useOrderPay() {
             if (value.contractPmode + '' === '1' || value.creditType == '100' || _payMoney === 0) {
                 navigator(`/result?contractBillcode=${contractBillcode}`, {replace: true})
             } else {
-                const {dataObj} = await post('web/oc/contract/syncContractState.json', {
-                    contractBillcode,
+                const {dataObj} = await post('web/oc/contract/syncContractBatchState.json', {
+                    contractBbillcode: contractBillcode,
                 })
-                navigator(`/pay?contractBillcode=${dataObj.contractBillcode}`)
+                navigator(`/pay?contractBbillcode=${dataObj}`)
             }
         } catch (err: any) {
             message.error(err.msg || '获取订单失败');

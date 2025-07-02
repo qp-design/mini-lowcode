@@ -63,6 +63,9 @@ const dataFormField: FieldType[] = [
                 {
                     label: 'code',
                     name: 'code',
+                    extraProps: {
+                        placeholder: '显示角标需要'
+                    }
                 }
             ]
         }

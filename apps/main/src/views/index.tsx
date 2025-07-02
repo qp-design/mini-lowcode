@@ -1,6 +1,6 @@
 import {
     Routes,
-    Route,
+    Route, useNavigate,
 } from "react-router-dom";
 import {get} from '@brushes/request';
 import Login from '@/views/login';
@@ -8,12 +8,24 @@ import {useModuleRootContext} from "@brushes/component-core";
 import {Fragment, useEffect, useState} from "react";
 import {Common} from "@brushes/editor-component";
 import { AliveScope, KeepAlive } from "react-activation";
+import { Button, Result } from 'antd';
 
+const ResultJsx = () => {
+    const navigate = useNavigate();
+
+    return (
+        <Result
+            status="404"
+            title="404"
+            subTitle="对不起. 页面不存在"
+            extra={<Button type="primary" onClick={() => navigate('/')}>返回首页</Button>}
+        />
+    )
+}
 const Root = () => {
     const [menu, setMenu] = useState([]);
     const [menuChild, setMenuChild] = useState([]);
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
-
     useEffect(() => {
         (async ()=> {
             const {list} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json');
@@ -39,7 +51,7 @@ const Root = () => {
         <AliveScope>
             <Routes>
                 <Route path="/login" element={<Login/>} />
-
+                <Route path="/merchantStore" element={<Common menuOpcode={'merchantStore'}/>}/>
                 <Route path="/" element={<Common menuOpcode={'common'}/>}>
                     {/* 默认首页 */}
                         <Route
@@ -81,8 +93,8 @@ const Root = () => {
                             </Fragment>
                         ))
                     }
+                    <Route path="*" element={<ResultJsx/>}/>
                </Route>
-
             </Routes>
         </AliveScope>
     );

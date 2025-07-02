@@ -189,12 +189,16 @@ const CartFooter = ({storeKey, dataPath, callbackName}: {
         let money = 0;
         let num = 0;
         let disMoney = 0;
+        let attrs: any[] = [];
         orderIds.current = [];
         selectIds.current = [];
         isAllChecked.current = true;
         list.forEach(item => {
             item.shoppingpackageList.forEach(c => {
-                disMoney += c.disMoney || 0;
+                if (!attrs.includes(c.promotionCode)) {
+                    disMoney += c.disMoney || 0;
+                    attrs.push(c.promotionCode);
+                }
                 c.shoppingGoodsList.forEach(citem => {
                     if (+citem.dataState === 0) {
                         orderIds.current.push(citem.shoppingGoodsId);
@@ -291,7 +295,7 @@ const CartFooter = ({storeKey, dataPath, callbackName}: {
                         color: '#f00',
                         fontFamily: 'QJHEITI',
                         fontWeight: 500
-                    }}>{fixPrice(totalInfo.totalMoney - totalInfo.disMoney)}</span>
+                    }}>{fixPrice(totalInfo.totalMoney - totalInfo.disMoney > 0 ? totalInfo.totalMoney - totalInfo.disMoney : 0)}</span>
                 </div>
                 <div>
                     <ButtonComponent onClick={add} type={'primary'} size={'large'} danger icon={<ShoppingCartOutlined/>}

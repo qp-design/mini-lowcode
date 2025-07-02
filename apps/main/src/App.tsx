@@ -15,7 +15,19 @@ dayjs.locale('zh-cn');
 const domNode = document.getElementById("app")!;
 ReactDOM.createRoot(domNode).render(<BrowserRouter basename={`/paas/${name}`}>
     <ModuleRootProvider>
-        <ConfigProvider locale={zhCN}>
+        <ConfigProvider
+            theme={{
+                components: {
+                    Descriptions: {
+                        titleMarginBottom: 10
+                        /* 这里是你的组件 token */
+                    },
+                },
+                token: {
+                    // colorPrimary: 'green',
+                },
+            }}
+            locale={zhCN}>
             <FormWithValidate>
                 <Root/>
             </FormWithValidate>

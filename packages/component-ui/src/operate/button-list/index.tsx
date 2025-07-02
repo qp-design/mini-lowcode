@@ -1,5 +1,5 @@
-import {message, Popconfirm, Space} from 'antd';
-import React, { Fragment } from 'react';
+import {message, Popconfirm, Space, Spin} from 'antd';
+import React, {Fragment, useState} from 'react';
 import {useModuleContext} from "@brushes/component-core";
 import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {post} from "@brushes/request";
@@ -16,25 +16,34 @@ export type ButtonTypePlus = {
     [key: string]: any;
 };
 
-const DiyAction = ({title, api, callbackName, fontSize, paramKey, value, padding = {}}:any) => {
+const DiyAction = ({title, api, callbackName, callbackNameParent, fontSize, paramKey, value, padding = {}}:any) => {
     const record = useModuleContext(s=>s.moduleStore._skuInfo);
+    const [loading, setLoading] = useState(false);
     const retry = useModuleContext(s=>s.moduleStore[callbackName]);
+    const retryParent = useModuleContext(s=>s.moduleStore[callbackNameParent]);
     const onClick = async () => {
+        setLoading(true);
         const { msg } = await post(api, {
            [paramKey]: record[value],
         })
         message.success(msg);
-        retry()
+        retry();
+        if(callbackNameParent) {
+            retryParent();
+        }
+        setLoading(false);
     }
 
     return (
-        <Popconfirm
-            title={title}
-            description={`你确定要${title}?`}
-            onConfirm={onClick}
-        >
-            <a style={{fontSize, ...padding}}>{title}</a>
-        </Popconfirm>
+        <Spin spinning={loading}>
+            <Popconfirm
+                title={title}
+                description={`你确定要${title}?`}
+                onConfirm={onClick}
+            >
+                <a style={{fontSize, ...padding}}>{title}</a>
+            </Popconfirm>
+        </Spin>
     )
 }
 
@@ -47,7 +56,7 @@ const TableAction: React.FC<{
     direction: "vertical" | "horizontal"
     margin?:object
 }> = ({ buttonList, align, direction, padding = {}, margin = {} }) => {
-    const record = useModuleContext(s=>s.moduleStore._skuInfo);
+    const record = useModuleContext(s=>s.moduleStore._skuInfo) || {};
     return (
         <div style={{...padding, ...margin}}>
             <Space direction={direction} align={align} size={'small'}>

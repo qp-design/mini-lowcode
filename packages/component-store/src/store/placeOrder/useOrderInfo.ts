@@ -2,6 +2,7 @@ import { initialValueOrder } from './useOrderGood';
 import {useMemo} from 'react';
 import {useModuleContext} from "@brushes/component-core";
 import {Form} from "antd";
+import {PromotionInType} from "@brushes/component-tool";
 
 export function useOrderInfo() {
   const form = Form.useFormInstance();
@@ -32,14 +33,14 @@ export function useOrderInfo() {
     // 加入优惠券信息
     if(_selectCoupon.pbCode) {
 
-      if(_selectCoupon.pbCode === '0005') {
+      if(['0005', 'B0005'].includes(_selectCoupon.pbCode)) {
         obj.couponMoney = Number(obj.totalMoney * (1 - _selectCoupon.couponAmount / 100).toFixed(2))
-      } else if(['0004', '0003'].includes(_selectCoupon.pbCode)) {
+      } else if(['0004', '0003', 'B0004', 'B0003'].includes(_selectCoupon.pbCode)) {
         obj.couponMoney = _selectCoupon.discAmount
       }
 
       _ocContractSettlList.push({
-          contractSettlBlance: 'COP',
+          contractSettlBlance: PromotionInType[_selectCoupon.promotionInType],
           contractSettlGmoney: obj.couponMoney,
           contractSettlPmoney: obj.couponMoney,
           contractSettlOpno: _selectCoupon.usercouponCode,

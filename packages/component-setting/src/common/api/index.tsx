@@ -12,6 +12,42 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: 'b2b订单查询'
         },
         {
+            value: 'web/oc/shopping/querySkuToContract.json',
+            label: '报价单转订单'
+        },
+        {
+            value: '/web/eq/auction/updateEqAuctionEnroll.json?dataOpbillstate=5',
+            label: '接受报价单'
+        },
+        {
+            value: '/web/eq/auction/updateEqAuctionEnroll.json?dataOpbillstate=2',
+            label: '拒绝报价单'
+        },
+        {
+            value: 'web/eq/auction/queryEqAuctionList.json',
+            label: '报价单查询'
+        },
+        {
+            value: 'web/eq/eqAuctionEnroll/readEqAuctionEnroll.json',
+            label: '报价单详情'
+        },
+        {
+          value: 'web/um/collect/checkCollectExit.json',
+          label: '检查是否收藏'
+        },
+        {
+            value: 'web/um/collect/saveCollect.json',
+            label: '收藏'
+        },
+        {
+            value: '/web/um/userserviceinfo/queryUserinfoDetail.json',
+            label: '店铺查看资质'
+        },
+        {
+            value: 'web/sc/shopde/queryShopdeByMerchant.json',
+            label: '店铺查询'
+        },
+        {
           value: 'web/cms/doclist/queryDoclistForMenuPageAt.json',
           label: '新闻资讯'
         },
@@ -121,11 +157,19 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
         },
         {
             value: 'web/oc/contract/syncContractPayState.json',
-            label: '支付结果页订单状态'
+            label: '单个支付结果页订单状态'
+        },
+        {
+            value: 'web/oc/contract/syncContractBatchPayState.json',
+            label: '批量支付结果页订单状态'
+        },
+        {
+            value: 'web/pte/pay/saveOrderToBatchPay.json',
+            label: '支付批次支付方式'
         },
         {
             value: 'web/pte/pay/saveOrderToPay.json',
-            label: '支付页面支付方式'
+            label: '支付单个支付方式'
         },
         {
             value: 'web/oc/contract/syncContractState.json',

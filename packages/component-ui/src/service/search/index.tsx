@@ -12,12 +12,16 @@ import { createStyles } from "antd-style";
 import {useLocation, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {noop} from "lodash";
+import {Button} from "antd";
 
 const useStyle = createStyles(({token, css}, props:
     any
 ) => {
     return {
         search: css`
+            &:hover{
+                .ant-input-search-button{ background: none}
+            }
             .ant-input-affix-wrapper{
                 height: ${props.height}px;
                 line-height: ${props.height}px;
@@ -43,7 +47,7 @@ const useStyle = createStyles(({token, css}, props:
         `
     }
 })
-const SearchJsx = ({path, size, placeholder, ...props }: { size: any; placeholder: string; path: string}) => {
+const SearchJsx = ({path, isShopSearch, size, placeholder, ...props }: { isShopSearch?: boolean; size: any; placeholder: string; path: string}) => {
     const { navigator } = useNavigateImpl();
     const { pathname } = useLocation();
     const [searchParams] = useSearchParams();
@@ -66,22 +70,34 @@ const SearchJsx = ({path, size, placeholder, ...props }: { size: any; placeholde
 
     }
 
+    const searchShop = () => {
+        searchQuery({
+            searchParam: value
+        })
+    }
+
     return (
-        <Search
-            value={value}
-            className={styles.search}
-            prefix={<SearchOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
-            allowClear
-            size={size}
-            placeholder={placeholder}
-            onChange={(e) => {
-                setValue(e.target.value);
-            }}
-            enterButton={<Element canvas is={Container} id={'enterButton'}>
-                <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>
-            </Element>}
-            onSearch={onSearch}
-        />
+        <>
+            <Search
+                value={value}
+                className={styles.search}
+                prefix={<SearchOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                allowClear
+                size={size}
+                placeholder={placeholder}
+                onChange={(e) => {
+                    setValue(e.target.value);
+                }}
+                suffix={
+                    isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} type={'primary'} danger>搜本店</Button> : null
+                }
+                enterButton={<Element canvas is={Container} id={'enterButton'}>
+                    <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>
+                </Element>}
+                onSearch={onSearch}
+            />
+        </>
+
     )
 }
 

@@ -11,7 +11,7 @@ export function useOrderResult(storeKey = 'payInfo') {
   const title = useRef('');
   const [open, setOpen] = useState(false);
   const _skuInfo = useModuleContext(s=>s.moduleStore[storeKey]) || {};
-  const [contractBillcode] = useSearchParamHook(['contractBillcode']);
+  const [contractBillcode, contractBbillcode] = useSearchParamHook(['contractBillcode', 'contractBbillcode']);
   const [url, setUrl] = useState('');
   const navigator = useNavigate();
 
@@ -76,7 +76,11 @@ export function useOrderResult(storeKey = 'payInfo') {
       const { msg } = await nonBasicAccoutPrepay(code, paywd);
       message.success(msg);
       setTimeout(() => {
-        navigator(`/result?contractBillcode=${contractBillcode}`, {replace:true})
+        if(contractBillcode) {
+          navigator(`/result?contractBillcode=${contractBillcode}`, {replace:true})
+        } else {
+          navigator(`/result?contractBbillcode=${contractBbillcode}`, {replace:true})
+        }
       }, 500)
       setLoading(false);
     } catch (err) {

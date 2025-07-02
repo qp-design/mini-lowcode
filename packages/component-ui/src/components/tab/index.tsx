@@ -6,6 +6,15 @@ import {useSearchParamHook} from "component-store";
 
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 
+export const BadgeJsx = ({padding, code, label, ...props}:any) => {
+    const _orderCount = useModuleRootContext(s=> s.rootStore._orderCount) || {};
+    return (
+        <Badge size="small" count={_orderCount[code] || 0}>
+            <div style={{...padding, ...props}}>{label}</div>
+        </Badge>
+    )
+}
+
 export const Tab =
   ({columns, tabPosition, destroyOnHidden, badge, padding = {}, ...props} : { badge?: boolean; padding: object; destroyOnHidden: boolean; columns: any; tabPosition: TabPosition}) => {
     const [title] = useSearchParamHook(['label']);
@@ -19,9 +28,9 @@ export const Tab =
           }
           return {
               key,
-              label: badge ? <Badge size="small" count={_orderCount[code] || 0}>
-                  <div style={{...padding, ...props}}>{label}</div>
-              </Badge> : <div style={{...padding, ...props}}>{label}</div>,
+              label: badge ?
+                  <BadgeJsx code={code} label={label} padding={padding} props={props}/> :
+                  <div style={{...padding, ...props}}>{label}</div>,
               children: (
                   <Element
                       canvas

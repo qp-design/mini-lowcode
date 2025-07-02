@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import type { MenuProps } from 'antd';
+import {MenuProps, message} from 'antd';
 import { Menu } from 'antd';
 import {useSearchParams} from "react-router-dom";
 import { post } from '@brushes/request';
@@ -50,30 +50,38 @@ const MenuComponent: React.FC = () => {
   useEffect(() => {
     (async () => {
       if(token) {
-        const {dataObj} = await post('web/ml/mlogin/loginByToken.json', {
-          oauthTokenToken: token,
-          loginName,
-        });
-        sessionStorage.setItem('saas-token', JSON.stringify(dataObj.ticketTokenid));
-        setModuleRootStore({
-          _userInfo: dataObj
-        })
+        try {
+          const {dataObj} = await post('web/ml/mlogin/loginByToken.json', {
+            oauthTokenToken: token,
+            loginName,
+          });
+          console.log(57, dataObj);
+          sessionStorage.setItem('saas-token', JSON.stringify(dataObj.ticketTokenid));
+          setModuleRootStore({
+            _userInfo: dataObj
+          })
 
-        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
+          const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
 
-        const { list: listMenu } = await post('/web/pfs/pfsmodel/queryPfsModelPage.json', {
-          mmodelCode: get(list || [], '[0].mmodelCode', '')
-        })
+          const { list: listMenu } = await post('/web/pfs/pfsmodel/queryPfsModelPage.json', {
+            mmodelCode: get(list || [], '[0].mmodelCode', '')
+          })
 
-        const menu = listMenu.filter(item => [0, 1, -1].includes(item.isColumn));
-        const children = (listMenu || []).filter(item => [0, 2].includes(item.isColumn));
-        setModuleRootStore({
-          _menuChildren: children
-        })
+          // 栏目为2的装修不需要装修
+          const menu = listMenu.filter(item => item.isColumn !== 2);
 
-        setMenu([getItem('low-code模块', 'sub1', (menu || []).map(item => {
-          return getItem(<ItemJsx id={item.modelId} label={item.modelName}/>, item.modelId)
-        }))])
+          // 栏目0是子页面 2是为了组装栏目树
+          const children = (listMenu || []).filter(item => [0, 2].includes(item.isColumn));
+          setModuleRootStore({
+            _menuChildren: children
+          })
+
+          setMenu([getItem('low-code模块', 'sub1', (menu || []).map(item => {
+            return getItem(<ItemJsx id={item.modelId} label={item.modelName}/>, item.modelId)
+          }))])
+        } catch (err) {
+          message.error(err || '');
+        }
 
       }
     })()

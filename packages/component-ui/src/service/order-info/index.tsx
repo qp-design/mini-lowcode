@@ -23,6 +23,8 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
 
     useEffect(() => {
         const sum = shoppingCountPrice - creditMoney - couponMoney + freight;
+
+        console.log(1111, shoppingCountPrice, creditMoney, couponMoney, freight);
         const result = sum > 0 ? sum : 0;
         setPayMoney(result);
         setModuleStore({

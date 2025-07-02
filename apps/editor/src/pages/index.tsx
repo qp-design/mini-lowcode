@@ -29,6 +29,12 @@ const Wrap = () => {
                         <ThemeProvider
                             // 可以和 CP 一样直接传入 theme 对象
                             theme={{
+                                components: {
+                                    Descriptions: {
+                                        titleMarginBottom: 10
+                                        /* 这里是你的组件 token */
+                                    },
+                                },
                                 token: {
                                     // colorPrimary: 'green',
                                 },

@@ -30,6 +30,27 @@ const containerField: FieldType[] = [
         }
     },
     {
+        label: '大小',
+        name: 'size',
+        type: 'select',
+        extraProps: {
+            options: [
+                {
+                    value: 'default',
+                    label: '默认'
+                },
+                {
+                    value: 'middle',
+                    label: '中'
+                },
+                {
+                    value: 'small',
+                    label: '小'
+                }
+            ]
+        }
+    },
+    {
         label: '标题',
         name: 'title',
         type: 'text',
@@ -57,21 +78,13 @@ const baseFormField: formConfigType[] = [
         title: '数据源',
         formFields: [
             {
-                label: 'api',
-                name: 'api',
-                type: 'slot',
-                extraProps: {
-                    render: ApiComponent
-                }
-            },
-            {
                 label: '',
                 name: 'listConfig',
                 type: 'formList',
                 extraProps: {
                     innerForm: [
                         {
-                            label: '参数',
+                            label: '名称',
                             name: 'key',
                         },
                         {

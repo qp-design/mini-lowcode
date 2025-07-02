@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { isEmpty } from 'lodash';
+import {isEmpty} from 'lodash';
 import {useModuleContext, goodListIntialValue, initialValueOrder} from "@brushes/component-core";
 import {Form} from "antd";
-
+import { PromotionInType } from "@brushes/component-tool";
 
 export const useOrderGood = (storeKey: string) => {
   const contactData = useModuleContext(s=>s.moduleStore[storeKey]);
@@ -22,6 +22,7 @@ export const useOrderGood = (storeKey: string) => {
     }
     let contractGoodsList = [] as Array<typeof goodListIntialValue>; // packageList => contractGoodsList
     let orderDomainStr = [] as Array<typeof initialValueOrder>; //
+    let attrs : Set<any> = new Set([]);
     let ocContractSettlList = [] as Array<any>; // 优惠信息
     let shoppingList = [] as Array<any>; // 优惠券信息
     res.forEach((v) => {
@@ -32,8 +33,11 @@ export const useOrderGood = (storeKey: string) => {
       let itemList = [] as Array<typeof initialValueOrder>;
       // 查看商品是否促销
       v.shoppingpackageList.forEach((vk: any, idx) => {
-        payStateConfig.comDisMoney += vk.disMoney;
-        payStateConfig.copyComDisMoney += vk.disMoney;
+        if (!attrs.has(vk.promotionCode)) {
+          payStateConfig.comDisMoney += vk.disMoney;
+          payStateConfig.copyComDisMoney += vk.disMoney;
+        }
+
         let channelInfo = {
           channelCode: '',
           channelName: ''
@@ -58,11 +62,11 @@ export const useOrderGood = (storeKey: string) => {
         });
 
         // 优惠信息ocContractSettlList 数据指插入第一个
-        if(idx === 0) {
+        if(idx === 0 && !attrs.has(vk.promotionCode)) {
           // 优惠
           if (vk.disMoney > 0) {
             ocContractSettlList.push({
-              contractSettlBlance: vk.promotionInType == 0 ? 'PM' : 'COP',
+              contractSettlBlance: PromotionInType[vk.promotionInType],
               contractSettlGmoney: Number(vk.disMoney.toFixed(2)),
               contractSettlPmoney: Number(vk.disMoney.toFixed(2)),
               contractSettlOpno: vk.promotionCode,
@@ -100,7 +104,7 @@ export const useOrderGood = (storeKey: string) => {
           }
         }
 
-
+        attrs.add(vk.promotionCode);
         if (vk.giftList) {
           vk.shoppingGoodsList = vk.shoppingGoodsList.map((eItem: any) => {
             // 满赠  0001

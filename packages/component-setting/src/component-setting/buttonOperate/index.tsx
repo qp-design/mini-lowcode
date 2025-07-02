@@ -58,16 +58,16 @@ const containerField: FieldType[] = [
       ]
     }
   },
-  // {
-  //   label: '打开抽屉code',
-  //   name: 'openKey',
-  //   type: 'text',
-  // },
-  // {
-  //   label: '打开父级抽屉code',
-  //   name: 'parentOpenKey',
-  //   type: 'text',
-  // },
+  {
+    label: '打开抽屉code',
+    name: 'openKey',
+    type: 'text',
+  },
+  {
+    label: '打开父级抽屉code',
+    name: 'parentOpenKey',
+    type: 'text',
+  },
   {
     label: '宽度',
     name: 'width',

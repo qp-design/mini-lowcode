@@ -9,6 +9,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "eslint": "^8.48.0",
     "kill-port": "^2.0.1",
     "prettier": "^3.0.3",

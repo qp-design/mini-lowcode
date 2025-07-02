@@ -107,11 +107,13 @@ const useStyle = createStyles(({token, css}) => {
                         cursor: pointer;
                     }
                     .top_num {
+                        line-height: 1.2;
                         font-size: 20px;
                         font-weight: 500;
                         margin-bottom: 5px;
                     }
                     .bottom_name {
+                        line-height: 1.2;
                         font-size: 12px;
                     }
                 }

@@ -10,7 +10,7 @@ import {
   GoodCategoryComponentSettings,
   SwiperThumbComponentSettings,
   SkuListComponentSettings,
-  SearchComponentSettings, CategoryComponentSettings,
+  SearchComponentSettings, CategoryComponentSettings, AmountComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
@@ -25,6 +25,26 @@ const service : Array<TypeComponent> = [
       },
       related: {
         settings: TopComponentSettings,
+      },
+    }
+  },
+  {
+    name: '合计',
+    icon: 'icon-text',
+    Component: ServiceComponent['AmountComponent'],
+    setting: {
+      props: {
+        storeKey: '_skuInfo',
+        fontWeight: 400,
+        fontSize: 12,
+        color: '#444',
+        text: '默认文本',
+        textAlign: 'left',
+        padding: {},
+        margin: {}
+      },
+      related: {
+        settings: AmountComponentSettings,
       },
     }
   },

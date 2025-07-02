@@ -13,21 +13,14 @@ interface Props {
 
 const TabsPic: React.FC<Props> = ({ handleCancel, onChange, name, form, ...props }) => {
   const defaultValue = form.getFieldValue(name);
-  const ref = useRef<Array<string | number>>([]);
-
+  const ref = useRef<string>('');
   const onValueChange = (selectedRowKeys: any) => {
     ref.current = selectedRowKeys.target.value;
   };
 
   const saveImpl = () => {
-    form.setFieldValue(name, ref.current);
-    onChange?.(ref.current);
-    const values = form.getFieldsValue();
-    const { selectImg = [] } = values;
-    const noEmpty = selectImg.some((item: any) => isEmpty(item.imgUrl));
-    if (noEmpty) {
-      message.error('有的图片未上传');
-      return;
+    if(ref.current) {
+      onChange?.(ref.current);
     }
     handleCancel();
   };

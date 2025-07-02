@@ -3,7 +3,7 @@ import {Carousel, Image} from 'antd';
 import {fullpath, useNavigateImpl} from "@brushes/component-tool";
 
 export const Banner: React.FC<{menu: Array<{imgUrl: string; link: string; borderRadius: number;  width: number; height:number}>}> = ({menu, borderRadius, width, height, ...restProps}) => {
-    const { navigator } = useNavigateImpl()
+    const { navigator } = useNavigateImpl();
     return (
         <Carousel autoplay={true} {...restProps}>
             {

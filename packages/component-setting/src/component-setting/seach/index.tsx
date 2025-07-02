@@ -9,6 +9,11 @@ const containerField: FieldType[] = [
     type: 'text'
   },
   {
+    label: '搜索本店按钮',
+    name: 'isShopSearch',
+    type: 'switch'
+  },
+  {
     label: '路径',
     name: 'path',
     type: 'text'

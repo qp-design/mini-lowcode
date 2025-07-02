@@ -223,13 +223,13 @@ const OrderItem = ({dataPath, storeKey, callbackName, hidden, description}: any)
         <div style={{padding: 5}}>
             {
                 list.map((item) => (
-                    <Fragment key={item.channelCode}>
+                    <Fragment key={item.memberCcode}>
                         <ModuleProvider moduleStore={{_skuInfo: item}}>
                             <Element canvas is={Container} id={'member-cname'}>
                                 <Text fontSize={14} code={'memberCname'} padding={{paddingLeft: 10, paddingRight: 10, paddingTop: 10, paddingBottom: 10}}></Text>
                             </Element>
                         </ModuleProvider>
-                        <Fragment key={item.channelCode}>
+                        <Fragment key={item.memberCcode}>
                             {
                                 item.shoppingpackageList.map((c: any, index: number) => (
                                     <Fragment key={c.shoppingpackgeCode}>
