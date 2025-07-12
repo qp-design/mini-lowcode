@@ -26,7 +26,7 @@
     "@brushes/component-setting": "*",
     "@brushes/component-tool": "*",
     "@brushes/form": "^1.3.2",
-    "@brushes/table": "^0.3.7",
+    "@brushes/table": "^0.3.8",
     "@tanstack/react-query": "^4.36.1",
     "antd": "^5.24.5",
     "classnames": "^2.5.1",

@@ -224,7 +224,7 @@ export const OrderTitle = ({item}:any) => {
             <Element justifyContent='flex-end' flexDirection={'row'} is={Container} canvas
                      id={'shop-item-good-code'}>
                 <Text fontSize={12} text={'下单时间：'}></Text>
-                <Text transformData={'time'} format={'YYYY-MM-DD hh:mm:ss'}  module={'moduleStore'} code={'contractPaydate'}></Text>
+                <Text transformData={'time'} format={'YYYY-MM-DD HH:mm:ss'}  module={'moduleStore'} code={'contractPaydate'}></Text>
             </Element>
         </ModuleProvider>
     )

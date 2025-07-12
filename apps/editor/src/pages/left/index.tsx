@@ -25,7 +25,7 @@ const ModelComponent = ({setIsModalOpen, isModalOpen}) => {
     }, []);
 
     const query = async () => {
-        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
+        const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json');
         setList(list);
     }
     const onChange = (e) => {

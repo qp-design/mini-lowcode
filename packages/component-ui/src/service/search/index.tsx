@@ -29,6 +29,7 @@ const useStyle = createStyles(({token, css}, props:
                 border: solid ${props.borderSize}px ${props.borderColor || token.colorPrimary};
                 border-radius: ${props.borderRadius}px 0 0 ${props.borderRadius}px !important
             }
+            button{ background: ${token.colorPrimary};}
             .ant-input-group-addon {
                 background: ${token.colorPrimary};
                 border: solid 2px ${token.colorPrimary};
@@ -89,7 +90,7 @@ const SearchJsx = ({path, isShopSearch, size, placeholder, ...props }: { isShopS
                     setValue(e.target.value);
                 }}
                 suffix={
-                    isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} type={'primary'} danger>搜本店</Button> : null
+                    isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} danger>搜本店</Button> : null
                 }
                 enterButton={<Element canvas is={Container} id={'enterButton'}>
                     <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>

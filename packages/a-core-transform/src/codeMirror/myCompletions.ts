@@ -99,6 +99,77 @@ export default useDiyHook;
                 `
             },
             {
+                label: "图库生成 | antv",
+                type: "图库生成 | antv",
+                detail: "图库",
+                apply: `
+/* 导入对应的store*/
+import React, { useEffect, useRef } from 'react';
+import { Chart } from '@antv/g2';
+
+const BasicChart = () => {
+  const containerRef = useRef(null);
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    if (!chartRef.current) {
+      // 创建图表实例
+      chartRef.current = new Chart({
+        container: containerRef.current,
+        autoFit: true,
+        height: 400,
+      });
+    }
+
+    // 加载数据
+    const data = [
+      { time: '10:10', call: 4, waiting: 2, people: 2 },
+      { time: '10:15', call: 2, waiting: 6, people: 3 },
+      { time: '10:20', call: 13, waiting: 2, people: 5 },
+      { time: '10:25', call: 9, waiting: 9, people: 1 },
+      { time: '10:30', call: 5, waiting: 2, people: 3 },
+      { time: '10:35', call: 8, waiting: 2, people: 1 },
+      { time: '10:40', call: 13, waiting: 1, people: 2 },
+    ];
+
+    // 配置图表
+    chartRef.current.data(data);
+    chartRef.current
+      .interval()
+      .encode('x', 'time')
+      .encode('y', 'waiting')
+      .encode('color', () => 'waiting')
+      .encode('series', () => 'waiting')
+      .axis('y', { title: 'Waiting' });
+    
+    chartRef.current
+      .interval()
+      .encode('x', 'time')
+      .encode('y', 'people')
+      .encode('color', () => 'people')
+      .encode('series', () => 'people')
+      .scale('y', { independent: true })
+      .axis('y', { position: 'right', grid: null, title: 'People' });
+
+    // 渲染图表
+    chartRef.current.render();
+
+    // 组件卸载时销毁图表
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+        chartRef.current = null;
+      }
+    };
+  }, []);
+
+  return <div ref={containerRef} />;
+};
+
+export default BasicChart;
+                `
+            },
+            {
                 label: "路由跳转 | navigator",
                 type: "路由跳转 | navi",
                 detail: "路由跳转",

@@ -3,7 +3,7 @@ import type { TableColumnsType, TableProps } from 'antd';
 import {useEffect, useMemo, useState} from "react";
 import {CardLRComponent} from "../../../service";
 import {dynamicFormFields} from "@brushes/form";
-import {Container, Element, ModuleProvider, useModuleContext} from "@brushes/component-core";
+import {ModuleProvider, useModuleContext} from "@brushes/component-core";
 
 interface DataType {
     key: React.Key;

@@ -2,6 +2,7 @@ import {useRef, useState} from 'react';
 import { paymentCommit } from 'component-api';
 import {useModuleContext} from "@brushes/component-core";
 import {message} from "antd";
+import { post } from '@brushes/request';
 import { useNavigate } from 'react-router-dom';
 import {useSearchParamHook} from "component-store";
 import { get } from 'lodash';
@@ -115,6 +116,22 @@ export function useOrderResult(storeKey = 'payInfo') {
   //   }
   // };
 
+  const syncFetchOrderStatus = async () => {
+    const url = contractBillcode ? 'web/oc/contract/syncContractPayState.json' : 'web/oc/contract/syncContractBatchPayState.json';
+    const data = await post(url, {
+      contractBillcode: contractBillcode,
+      contractBbillcode: contractBbillcode,
+    })
+    message.success(data.msg);
+    setTimeout(() => {
+      if(contractBillcode) {
+        navigator(`/result?contractBillcode=${contractBillcode}`, {replace:true})
+      } else {
+        navigator(`/result?contractBbillcode=${contractBbillcode}`, {replace:true})
+      }
+    }, 500)
+  }
+
   // h5 微信
   const wechatpc = async (code:string) => {
     try {
@@ -122,6 +139,7 @@ export function useOrderResult(storeKey = 'payInfo') {
       const url = get(res, 'dataObj.requestData.code_url', '');
       setUrl(url);
       setOpen(true);
+      syncFetchOrderStatus();
       setLoading(false);
     } catch (err) {
       setLoading(false);

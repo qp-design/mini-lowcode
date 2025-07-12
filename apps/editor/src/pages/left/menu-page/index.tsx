@@ -55,13 +55,18 @@ const MenuComponent: React.FC = () => {
             oauthTokenToken: token,
             loginName,
           });
-          console.log(57, dataObj);
           sessionStorage.setItem('saas-token', JSON.stringify(dataObj.ticketTokenid));
-          setModuleRootStore({
-            _userInfo: dataObj
-          })
 
           const {list} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
+
+          const {themeColor, subColor} = JSON.parse(get(list, '[0].mmodelConfig'));
+          setModuleRootStore({
+            _userInfo: dataObj,
+            _themeColor: {
+              colorBgTextHover: subColor,
+              colorPrimary:themeColor
+            }
+          })
 
           const { list: listMenu } = await post('/web/pfs/pfsmodel/queryPfsModelPage.json', {
             mmodelCode: get(list || [], '[0].mmodelCode', '')

@@ -52,6 +52,7 @@ export default defineConfig(({command}) => {
         customSplitting: {
           'codemirror': ['@codemirror/state', '@codemirror/view', '@codemirror/language'],
           'codemirror-lang': [/@codemirror\/lang-.*/],
+          '@antv/g2': ['@antv/g2']
         }
       }),
       viteCompression({

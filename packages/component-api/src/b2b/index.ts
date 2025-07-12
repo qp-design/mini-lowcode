@@ -2,6 +2,7 @@ import {get, postFormData} from '@brushes/optimize';
 import {post} from "@brushes/request";
 
 const B2B = {
+  queryRsSkuPage: 'web/rs/resourceBase/queryRsSkuPage.json',
   sendPhone: 'web/ml/muser/sendPhone.json',
   saveUserPhoneForPla: 'web/um/userDealer/saveUserDealerToAllot.json',
   loginIn: 'web/ml/mlogin/loginIn.json',
@@ -15,6 +16,7 @@ const B2B = {
   queryOcContractToCensus: 'web/oc/contract/queryOcContractToCensus.json',
 };
 export const queryOcContractToCensus = (params = {}) => get(B2B.queryOcContractToCensus, params);
+export const queryRsSkuPage = (params = {}) => get(B2B.queryRsSkuPage, params);
 
 export const saveUserPhoneForPla = (params = {}) => post(B2B.saveUserPhoneForPla, params);
 export const sendPhone = (params = {}) => get(B2B.sendPhone, params);

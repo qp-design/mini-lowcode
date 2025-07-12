@@ -3,16 +3,23 @@ import {Container, useModuleContext} from "@brushes/component-core";
 import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {DividerComponent, FormComponent, Text} from "../../basic";
 import { Statistic } from 'antd';
+import {useMemo} from "react";
 
 const { Timer } = Statistic;
 
 export const TimerJsx = ({storeKey, code}: {storeKey: string; code: string}) => {
     const store = useModuleContext(s=>s.moduleStore[storeKey]) || {};
+    const value = useMemo(() => {
+        if(code) {
+            return store[code];
+        }
+    }, [store, code]);
+    console.log(11111, store, code);
     return (
         <Timer
             type="countdown"
             format="D 天 H 时 m 分 s 秒"
-            value={store[code]}
+            value={value}
         />
     )
 }

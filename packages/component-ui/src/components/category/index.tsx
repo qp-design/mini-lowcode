@@ -65,11 +65,11 @@ const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, 
                         }
 
                         &:hover {
-                            background: #DEE9FF;
+                            background: ${token.colorBgTextHover};
                             border-radius: 8px;
 
                             span {
-                                color: #0952E5;
+                                color: ${token.colorPrimary};
                             }
 
                             .children {
@@ -92,7 +92,7 @@ const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, 
                             background: #F8FAFF;
                             display: none;
                             box-sizing: border-box;
-                            border: 1px solid #0952E5;
+                            border: 1px solid ${token.colorPrimary};
                             z-index: 2024;
 
                             .menu-list {
@@ -119,7 +119,7 @@ const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, 
                                     }
 
                                     :hover {
-                                        color: #0952e5;
+                                        color: ${token.colorPrimary};
                                     }
 
                                     .click {
@@ -134,7 +134,7 @@ const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, 
                                         line-height: 1;
 
                                         :hover {
-                                            color: #0952e5;
+                                            color: ${token.colorPrimary};
                                         }
                                     }
 
@@ -144,7 +144,7 @@ const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, 
                                         color: #221f20;
 
                                         :hover {
-                                            color: #0952e5;
+                                            color: ${token.colorPrimary};
                                         }
                                     }
                                 }
@@ -173,12 +173,12 @@ const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, 
                                                 color: #221f20;
 
                                                 :hover {
-                                                    color: #0952e5;
+                                                    color: ${token.colorPrimary};
                                                 }
                                             }
 
                                             :hover {
-                                                color: #0952e5;
+                                                color: ${token.colorPrimary};
                                             }
                                         }
 

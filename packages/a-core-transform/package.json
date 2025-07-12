@@ -10,5 +10,8 @@
     "type": "git",
     "url": "https://github.com/qp-design/web-lowcode.git"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@antv/g2": "^5.3.3"
+  }
 }

@@ -1,7 +1,10 @@
 import {combine} from '@brushes/component-core';
 import Materials from 'component-ui/components';
 import {
-  AddCartComponentSettings, AddressItemComponentSettings, DescriptionComponentSettings,
+  AddCartComponentSettings,
+  AddressItemComponentSettings,
+  DescriptionComponentSettings,
+  InquiryComponentSettings,
   OrderItemComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
@@ -79,6 +82,32 @@ const mine : Array<TypeComponent> = [
       },
       related: {
         settings: OrderItemComponentSettings,
+      },
+    }
+  },
+  {
+    name: '添加询价单',
+    icon: 'icon-caozuojilu',
+    Component: ServiceComponent['AddInquiryComponent'],
+    setting: {
+      props: {
+
+      },
+      related: {
+        settings: InquiryComponentSettings,
+      },
+    }
+  },
+  {
+    name: '添加询价单商品',
+    icon: 'icon-caozuojilu',
+    Component: ServiceComponent['AddInquiryDialogComponent'],
+    setting: {
+      props: {
+
+      },
+      related: {
+        settings: InquiryComponentSettings,
       },
     }
   },

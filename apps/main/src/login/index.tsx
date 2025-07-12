@@ -14,21 +14,21 @@ const LoginWrap: FC<{ children: ReactNode; data: string;}> = ({ children, data }
         setFormConfig(arr);
     }, [index]);
     return (
-        <div className={'loginComponent'}>
-            <loginContext.OpenProvider>
-                <div className={'loginRoot'}>
-                    <Register children={children} dataType={data}/>
-                    <HeaderJsx index={index} setIndex={setIndex} menu={['密码登录', '验证码登录']} />
-                    <LoginJsx
-                        dataType={data}
-                        index={index}
-                        children={children}
-                        isNeedRemeber={index === 0}
-                        formConfig={formConfig}
-                    />
-                </div>
-            </loginContext.OpenProvider>
-        </div>
+            <div className={'loginComponent'}>
+                <loginContext.OpenProvider>
+                    <div className={'loginRoot'}>
+                        <Register children={children} dataType={data}/>
+                        <HeaderJsx index={index} setIndex={setIndex} menu={['密码登录', '验证码登录']} />
+                        <LoginJsx
+                            dataType={data}
+                            index={index}
+                            children={children}
+                            isNeedRemeber={index === 0}
+                            formConfig={formConfig}
+                        />
+                    </div>
+                </loginContext.OpenProvider>
+            </div>
     );
 };
 

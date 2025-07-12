@@ -169,15 +169,21 @@ const OperateJsx = () => {
     const retry = useModuleContext(s => s.moduleStore.retry);
     const [loading , setLoading] = useState(false);
     const updateSelect = debounce(async (e: any) => {
-        setLoading(true);
-        const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
-            shoppingGoodsIdStr: item.shoppingGoodsId,
-            shoppingCode: item.shoppingCode,
-            checkState: e.target.checked ? 0 : 1
-        })
-        message.success(msg);
-        retry();
-        setLoading(false);
+        try {
+            setLoading(true);
+            const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
+                shoppingGoodsIdStr: item.shoppingGoodsId,
+                shoppingCode: item.shoppingCode,
+                checkState: e.target.checked ? 0 : 1
+            })
+            message.success(msg);
+            retry();
+            setLoading(false);
+        } catch (err) {
+            message.success(err);
+            setLoading(false);
+        }
+
     }, 500)
 
     return (

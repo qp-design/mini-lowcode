@@ -7,7 +7,7 @@ import { createStyles } from 'antd-style';
 import {AccountBuyComponent} from "../../operate";
 import {useSearchParamHook} from "component-store";
 
-const useStyle = createStyles(({ prefixCls, css }) => ({
+const useStyle = createStyles(({ token, prefixCls, css }) => ({
     linearGradientButton: css`
     &.${prefixCls}-btn-primary:not([disabled]):not(.${prefixCls}-btn-dangerous) {
       > span {
@@ -16,7 +16,7 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
 
       &::before {
         content: '';
-        background: linear-gradient(135deg, #6253e1, #04befe);
+        background: linear-gradient(135deg, ${token.colorPrimary}, ${token.colorBgTextActive});
         position: absolute;
         inset: -1px;
         opacity: 1;

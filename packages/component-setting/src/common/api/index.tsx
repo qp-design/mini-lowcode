@@ -20,8 +20,20 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '接受报价单'
         },
         {
+            value: '/web/eq/eqAuctionEnroll/updateEqAuctionEnrollState.json?oldDataState=0&newDataState=-1',
+            label: '取消询价单'
+        },
+        {
+            value: '/web/eq/eqAuctionEnroll/updateEqAuctionEnrollState.json?oldDataState=0&newDataState=1',
+            label: '发送询价单'
+        },
+        {
             value: '/web/eq/auction/updateEqAuctionEnroll.json?dataOpbillstate=2',
             label: '拒绝报价单'
+        },
+        {
+            value: 'web/eq/eqAuctionEnroll/queryEqAuctionEnrollPage.json',
+            label: '询价单查询'
         },
         {
             value: 'web/eq/auction/queryEqAuctionList.json',

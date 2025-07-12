@@ -2,13 +2,14 @@ import {
     Routes,
     Route, useNavigate,
 } from "react-router-dom";
-import {get} from '@brushes/request';
+import {get, post} from '@brushes/request';
 import Login from '@/views/login';
 import {useModuleRootContext} from "@brushes/component-core";
 import {Fragment, useEffect, useState} from "react";
 import {Common} from "@brushes/editor-component";
 import { AliveScope, KeepAlive } from "react-activation";
 import { Button, Result } from 'antd';
+import { get as getI } from 'lodash';
 
 const ResultJsx = () => {
     const navigate = useNavigate();
@@ -29,8 +30,17 @@ const Root = () => {
     useEffect(() => {
         (async ()=> {
             const {list} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json');
-            const menu = list.filter(item => item.isColumn === 1); // 一级栏目
 
+            const {list : listConfig} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
+            const {themeColor, subColor} = JSON.parse(getI(listConfig, '[0].mmodelConfig'));
+            setModuleRootStore({
+                _themeColor: {
+                    colorBgTextHover: subColor,
+                    colorPrimary:themeColor
+                }
+            })
+
+            const menu = list.filter(item => item.isColumn === 1); // 一级栏目
             // 非一级栏目
             const children = (list || []).filter(item => [0, 2].includes(item.isColumn)).map(item => ({
                 ...item,

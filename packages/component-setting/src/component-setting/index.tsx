@@ -54,5 +54,5 @@ export * from './diy-action'
 export * from './common-item'
 export * from './query-operate'
 export * from './amount'
-
+export * from './inquiry';
 

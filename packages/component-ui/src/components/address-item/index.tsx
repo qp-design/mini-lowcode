@@ -6,7 +6,7 @@ import {Container, useModuleContext} from "@brushes/component-core";
 import {Text} from "../../basic";
 import {get, post} from "@brushes/request";
 import { dynamicFormFields } from "@brushes/form";
-import {useLocation, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -157,22 +157,24 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
                                         justifyContent={'space-between'}
                                         alignItems={'center'}
                                         flexDirection={'row'}>
-                                        <Text
-                                            onClick={()=>setDefaultAddress(item.addressCode)}
-                                            color={'#f00'}
-                                            fontSize={12}
-                                            num={1}
-                                            text={'设置默认地址'}
-                                        />
-                                        <Text
-                                            onClick={()=>updateAddress(item.addressId)}
-                                            color={'#f00'}
-                                            fontSize={12}
-                                            num={1}
-                                            text={'修改地址'}
-                                        />
+                                        <span
+                                            onClick={() => setDefaultAddress(item.addressCode)}
+                                            style={{
+                                                lineHeight:1,
+                                                color: '#f00',
+                                                fontSize: 12,
+                                            }}
+                                        >设置默认地址</span>
+                                        <span
+                                            onClick={() => updateAddress(item.addressId)}
+                                            style={{
+                                                lineHeight:1,
+                                                color: '#f00',
+                                                fontSize: 12,
+                                            }}
+                                        >修改地址</span>
                                         <Popconfirm
-                                            onConfirm={() =>deleteImpl(item.addressId)}
+                                            onConfirm={() => deleteImpl(item.addressId)}
                                             title="删除"
                                             description="确定要删除地址?"
                                         >
@@ -196,7 +198,7 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
         )
     }, [addressList, freight]);
 
-    if(addressList.length === 0){
+    if (addressList.length === 0) {
         return <Empty description={description}/>
     }
     return (

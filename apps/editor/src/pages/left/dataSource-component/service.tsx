@@ -17,6 +17,18 @@ import * as ServiceComponent from "component-ui/service";
 
 const service : Array<TypeComponent> = [
   {
+    name: '详情页标题前缀',
+    icon: 'icon-text',
+    Component: ServiceComponent['DetailTitleComponent'],
+    setting: {
+      props: {
+      },
+      related: {
+        settings: TopComponentSettings,
+      },
+    }
+  },
+  {
     name: '修改手机号',
     icon: 'icon-text',
     Component: ServiceComponent['GetCodeComponent'],

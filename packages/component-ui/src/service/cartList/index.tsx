@@ -40,15 +40,21 @@ const ShoppGoodItem = ({item, callbackName}: { item: any; callbackName: string }
     const retry = useModuleContext(s => s.moduleStore[callbackName]);
 
     const updateSelect = debounce(async (e: any) => {
-        setLoading(true);
-        const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
-            shoppingGoodsIdStr: item.shoppingGoodsId,
-            shoppingCode: item.shoppingCode,
-            checkState: e.target.checked ? 0 : 1
-        })
-        message.success(msg);
-        retry();
-        setLoading(false);
+        try {
+            setLoading(true);
+            const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
+                shoppingGoodsIdStr: item.shoppingGoodsId,
+                shoppingCode: item.shoppingCode,
+                checkState: e.target.checked ? 0 : 1
+            })
+            message.success(msg);
+            retry();
+            setLoading(false);
+        } catch (err) {
+            message.error(err);
+            setLoading(false);
+        }
+
     }, 500)
 
     const updateNum = debounce(async (e: number) => {
@@ -222,14 +228,20 @@ const CartFooter = ({storeKey, dataPath, callbackName}: {
         }
     }, [list]);
     const updateSelect = debounce(async (e: any) => {
-        setLoading(true);
-        const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
-            shoppingGoodsIdStr: orderIds.current.join(','),
-            checkState: e.target.checked ? 0 : 1
-        })
-        message.success(msg);
-        retry();
-        setLoading(false);
+        try {
+            setLoading(true);
+            const {msg} = await post('web/oc/shopping/updateShoppingGoodsCheckState.json', {
+                shoppingGoodsIdStr: orderIds.current.join(','),
+                checkState: e.target.checked ? 0 : 1
+            })
+            message.success(msg);
+            retry();
+            setLoading(false);
+        } catch (err) {
+            message.error(err);
+            setLoading(false);
+        }
+
     }, 500)
 
     const deleteImpl = debounce(async () => {

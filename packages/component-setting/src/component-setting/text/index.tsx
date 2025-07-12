@@ -167,7 +167,7 @@ const dataField: FieldType[] = [
                 },
                 {
                     label: '年-月-日 时:分:秒',
-                    value: 'YYYY-MM-DD hh:mm:ss'
+                    value: 'YYYY-MM-DD HH:mm:ss'
                 }
             ]
         }

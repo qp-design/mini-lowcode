@@ -5,6 +5,7 @@ import * as antd from 'antd';
 import * as componentTool from '@brushes/component-tool';
 import * as reactRouterDom from 'react-router-dom';
 import * as componentCore from '@brushes/component-core'
+import * as G2 from '@antv/g2'
 import * as componentStore from 'component-store'
 import * as lodash2 from 'lodash'
 import * as request from '@brushes/request'
@@ -39,7 +40,8 @@ export function changeCode(code: string) {
             if (packageName == '@brushes/component-core') return componentCore;
             if (packageName == 'react-router-dom') return reactRouterDom;
             if (packageName == 'react') return React;
-            if(packageName == 'component-store') return componentStore;
+            if (packageName == '@antv/g2') return G2;
+            if (packageName == 'component-store') return componentStore;
             if (packageName == '@brushes/component-tool') return componentTool;
             if (['lodash', 'lodash-es'].includes(packageName)) return lodash2;
             if (packageName == '@brushes/request') return request;
