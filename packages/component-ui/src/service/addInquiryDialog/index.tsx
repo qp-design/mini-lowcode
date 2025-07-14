@@ -13,7 +13,6 @@ const Custom = ({storeKey, openKey}: {openKey: string; storeKey: string}) => {
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
     const dataSource = useModuleContext(s=>s.moduleStore[storeKey]);
 
-    console.log(16, dataSource, storeKey);
     const {
         rowSelection,
         setSelectRow,

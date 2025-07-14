@@ -15,7 +15,6 @@ interface DataType {
     skuNo: string
 }
 
-
 export const TableComponent: React.FC<{
     form: FormInstance;
     storeKey: string;
@@ -23,22 +22,25 @@ export const TableComponent: React.FC<{
     onChange: (e: any) => void
 }> =
     ({form, storeKey, openKey, onChange}) => {
+        const [dataSource, setDataSource] = useState<DataType[]>( form.getFieldValue('eqAuctionGoodsDomainList') || []);
         const [selectedRowKeys, setSelectedRowsKeys] = useState<React.Key[]>([]);
-        const dataSource = useModuleContext(s => s.moduleStore[storeKey]) || form.getFieldValue('eqAuctionGoodsDomainList');
+        const storeDataSource = useModuleContext(s => s.moduleStore[storeKey]);
         const isMounted = useRef(true);
         const setModuleStore = useModuleContext(s => s.setModuleStore);
 
         useEffect(() => {
-            if (!isEmpty(dataSource)) {
-                onChange(dataSource);
+            if (!isEmpty(storeDataSource)) {
+                onChange(storeDataSource);
+                setDataSource(storeDataSource)
             }
-            if(!isMounted.current && isEmpty(dataSource)) {
+            if(!isMounted.current && isEmpty(storeDataSource)) {
                 onChange([]);
+                setDataSource(storeDataSource)
             }
             return () => {
                 isMounted.current = false;
             }
-        }, [dataSource]);
+        }, [storeDataSource]);
 
 
         const columns: TableColumnsType<DataType> = useMemo(() => [

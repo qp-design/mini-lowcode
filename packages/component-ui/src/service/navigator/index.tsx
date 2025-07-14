@@ -16,7 +16,7 @@ const useStyles = createStyles(({ token, css }, {className, padding = {}} : {pad
                 font-size: 12px;
                 display: grid;
                 align-items: center;
-
+        
                 .title {
                     display: flex;
                     align-items: center;
@@ -26,6 +26,7 @@ const useStyles = createStyles(({ token, css }, {className, padding = {}} : {pad
                         padding-right: 4px;
                     }
                 }
+                .actived{ color: ${token.colorPrimary}
             }
         `
         }
@@ -47,7 +48,7 @@ const NavigatorJsx: React.FC<{ menu: Array<any>; className?: string; padding?: o
                             <li key={index}>
                                 <div
                                     style={{cursor: item.path ? "pointer" : ''}}
-                                    className={pathname === item.path ? "actived title" : "title"}
+                                    className={pathname.includes((item.path || '/index').split('/').slice(0,2).join('/')) ? "actived title" : "title"}
                                     onClick={() => navigator(item.path)}
                                 >{item.imgUrl && <img src={fullpath(item.imgUrl)}/>}{item.title}</div>
                             </li>

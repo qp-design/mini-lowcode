@@ -9,7 +9,6 @@ import {isEmpty, get} from "lodash";
 import {useModuleContext} from "@brushes/component-core";
 import { createStyles } from "antd-style";
 import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -78,6 +77,7 @@ const Custom = ({storeKey, openKey, padding = {}, margin = {}}: {padding: object
         try {
             const {msg} = await post('/web/eq/eqAuctionEnroll/updateEqAuctionEnroll.json', { eqAuctionEnrollStr: JSON.stringify({
                     ...value,
+                    auctionEnrollType: 1,
                     ...appendRef.current,
                     auctionEnrollCode
                 })});
