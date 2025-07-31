@@ -37,6 +37,14 @@ const Login = () => {
     useEffect(() => {
         (async () => {
             const data = await get('web/ml/mlogin/getProappinfo.json', cacheParams({}, 10));
+
+            function changeFavicon(newIconUrl: string) {
+                const favicon = document.querySelector('link[rel="icon"]');
+                favicon!.href = newIconUrl;
+            }
+
+            // 使用示例
+            changeFavicon(data.proappEnvIconUrl);
             setConfig({
                 proappEnvIndexc: data.proappEnvIndexc || 'https://brushes.oss-cn-shanghai.aliyuncs.com/static/lowcode-platform/apps_web_src_assets_login.png',
                 proappEnvLogo: data.proappEnvLogo,

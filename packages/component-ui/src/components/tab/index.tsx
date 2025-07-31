@@ -44,6 +44,11 @@ export const Tab =
     }, [columns, _orderCount, badge])
 
       return (
-          <Tabs defaultActiveKey={defaultActiveKey.current} destroyOnHidden={destroyOnHidden} tabPosition={tabPosition} items={newColumns}/>
+          <Tabs
+              defaultActiveKey={defaultActiveKey.current}
+              destroyOnHidden={destroyOnHidden}
+              tabPosition={tabPosition}
+              items={newColumns}
+          />
         )
     }

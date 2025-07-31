@@ -41,6 +41,47 @@ export default useDiyHook;
                 `
             },
             {
+                label: "diyAction",
+                type: "表单提交 | diyActions",
+                detail: "表单提交",
+                apply: `      
+/* 导入对应的模块*/
+import React from "react";
+import {Form, Button} from "antd"
+import {useFormImpl} from "@brushes/form";
+
+let text = '我已确认当前商品';
+
+const SaveOperate = () => {
+    const form = Form.useFormInstance();
+    const {
+        handlerSubmit,
+        inProgressStatus
+    } = useFormImpl(form, () => {}, []);
+
+    const onSubmit = async (cb:() => void, value: any) => {
+        try {
+          console.log(1111, value);             
+        } catch (err) {
+
+        } finally {
+        }
+    }
+
+    return (
+        <Button
+          type='primary'
+          style={{width: 160, height: 46, fontSize: 15}}
+          loading={inProgressStatus[text]} 
+          onClick={() => handlerSubmit(text, true, onSubmit)
+          }>{text}</Button>
+    );
+};
+
+export default SaveOperate;
+                `
+            },
+            {
                 label: "transform",
                 type: "数据转化 | trans",
                 detail: "数据转化",

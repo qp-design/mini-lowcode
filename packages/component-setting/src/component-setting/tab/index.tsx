@@ -51,18 +51,22 @@ const dataFormField: FieldType[] = [
         name: 'columns',
         type: 'formList',
         extraProps: {
+            style: { marginBottom: 20 },
             innerForm: [
                 {
                     label: '参数',
                     name: 'label',
+                    layout: 'vertical'
                 },
                 {
                     label: '值',
                     name: 'key',
+                    layout: 'vertical'
                 },
                 {
                     label: 'code',
                     name: 'code',
+                    layout: 'vertical',
                     extraProps: {
                         placeholder: '显示角标需要'
                     }

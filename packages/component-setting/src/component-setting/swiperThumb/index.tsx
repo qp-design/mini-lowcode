@@ -13,8 +13,18 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    label: '组件store的key',
+    name: 'storeKey',
+    type: 'text',
+  },
+  {
     label: '数据路径',
     name: 'dataPath',
+    type: 'text',
+  },
+  {
+    label: '数据分割符',
+    name: 'splitStr',
     type: 'text',
   },
 ]

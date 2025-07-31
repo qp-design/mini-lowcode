@@ -4,8 +4,8 @@ import {useModuleContext} from "@brushes/component-core";
 import {HOCCodeWrapComponent} from '@brushes/core-transform'
 import {useMemo} from "react";
 
-const ImageJsx = ({ image = {}, borderRadius, width, code = '', ...restProps}: { width?: number; height?: number; borderRadius?: number; code?: string; image?: { imgUrl: string; path?: string }}) => {
-    const _skuInfo = useModuleContext((s) => s.moduleStore._skuInfo);
+const ImageJsx = ({ image = {}, storeKey = '_skuInfo', borderRadius, width, code = '', ...restProps}: { storeKey?: string; width?: number; height?: number; borderRadius?: number; code?: string; image?: { imgUrl: string; path?: string }}) => {
+    const _skuInfo = useModuleContext((s) => s.moduleStore[storeKey]);
     const { navigator } = useNavigateImpl();
     const value = useMemo(() => {
         if (code) {

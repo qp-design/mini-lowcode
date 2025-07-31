@@ -8,8 +8,52 @@ let index = 0;
 export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void; }) => {
     const [items, setItems] = useState([
         {
-            value: 'web/oc/contract/queryContractPageC.json',
-            label: 'b2b订单查询'
+           value: 'web/um/memoauth/updateMemoauth.json',
+           label: '大宗委托平台交易更新'
+        },
+        {
+            value: 'web/at/auction/getAuctionByCode.json',
+            label: '大宗竞价出价明细'
+        },
+        {
+            value: 'web/at/auctionEnroll/queryMyAuctionEnroll.json',
+            label: '大宗我的竞价列表'
+        },
+        {
+            value: 'web/um/userserviceinfo/getUserinfoDearler.json',
+            label: '大宗检测用户状态'
+        },
+        {
+            value: 'web/at/auctiondt/saveAuctiondtBatch.json',
+            label: '大宗报名支付'
+        },
+        {
+           value: 'web/at/auctiondt/getAuctiondtAndAmount.json',
+            label: '大宗获取用户的账号余额'
+        },
+        {
+            value: '/web/at/auctiondt/queryCurrentAuctiondtPage.json',
+            label: '大宗查询当前报名保证金所缴列表'
+        },
+        {
+            value:  'web/um/memoauth/saveMemoauth.json',
+            label: '大宗委托平台交易申请'
+        },
+        {
+            value: 'web/um/userservice/saveUserinfoapplyForModify.json',
+            label: '大宗个人资料编辑'
+        },
+        {
+            value: 'web/at/auction/queryAuctionPC.json',
+            label: '竞价专区查询'
+        },
+        {
+            value: 'web/at/auction/getAuctionNotice.json',
+            label: '竞价专区详情'
+        },
+        {
+            value: '/web/at/auction/getAtAuctionGinfoListByAuctionId.json',
+            label: '竞价专区详情包裹列表'
         },
         {
             value: 'web/oc/shopping/querySkuToContract.json',

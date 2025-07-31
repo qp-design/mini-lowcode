@@ -44,17 +44,7 @@ const items: CollapseProps['items'] = [
 
 const Components = () => {
     return (
-        <>
-            <Collapse size={'small'} ghost expandIconPosition={'end'} items={items} defaultActiveKey={['1']} />
-            {/*<Title title={'布局组件'}/>*/}
-            {/*<Layout componentList={layout}/>*/}
-            {/*<Title title={'基础组件'}/>*/}
-            {/*<Layout componentList={basic}/>*/}
-            {/*<Title title={'业务组件'}/>*/}
-            {/*<Layout componentList={service}/>*/}
-            {/*<Title title={'扩展组件'}/>*/}
-            {/*<Layout componentList={extend}/>*/}
-        </>
+        <Collapse size={'small'} ghost expandIconPosition={'end'} items={items} defaultActiveKey={['1']} />
     )
 }
 

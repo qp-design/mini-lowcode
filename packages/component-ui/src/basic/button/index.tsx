@@ -1,6 +1,7 @@
 import {Button} from 'antd';
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {ReactNode} from "react";
+import {useEditor} from "@craftjs/core";
 
 const Button2 = ({text, disabled = '', icon, size, margin = {}, padding = {}, type, onClick, loading, openKey, ...restProps}: {
     margin?: object;
@@ -14,6 +15,10 @@ const Button2 = ({text, disabled = '', icon, size, margin = {}, padding = {}, ty
     openKey?: string;
     icon?: ReactNode;
 }) => {
+    const {enabled} = useEditor(
+        (state) => ({
+            enabled: state.options.enabled,
+        }));
     return (
         <Button
             {...{
@@ -22,7 +27,8 @@ const Button2 = ({text, disabled = '', icon, size, margin = {}, padding = {}, ty
                 size,
                 onClick,
                 loading,
-                ...(disabled !== '' ? { disabled } : {})
+                disabled: !enabled && disabled,
+                // ...(disabled !== '' ? { disabled } : {})
             }}
             style={{
                 ...margin,

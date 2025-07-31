@@ -6,15 +6,20 @@ import {useApiComponent} from "component-store";
 import {get} from "lodash";
 
 
-const CardBasic: React.FC<any> = ({callbackName, setParentModuleStore, retry, ...props}) => {
+const CardBasic: React.FC<any> = ({callbackName, setParentModuleStore, parentStore, parentStoreKey, ...props}) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
     useEffect(() => {
-        setModuleStore({
+        let obj : {[v:string]: any} = {
             _skuInfo: props,
-            setParentModuleStore,
-            [callbackName]: retry
-        })
-    }, [props]);
+        }
+        if(callbackName) {
+            obj[callbackName] = parentStore[callbackName]
+        }
+        if(parentStoreKey) {
+            obj[parentStoreKey] = parentStore[parentStoreKey]
+        }
+        setModuleStore(obj)
+    }, [props, callbackName, parentStore, parentStoreKey]);
 
     return (
         <Element
@@ -33,7 +38,7 @@ const DetailBasic: React.FC<any> = ({result, storeKey, dataPath}) => {
             obj = get(result, dataPath);
         }
         setModuleStore({
-            [storeKey]: obj
+            [storeKey]: obj,
         })
     }, [result, storeKey]);
 
@@ -55,6 +60,8 @@ type CardListType = {
     callbackName?: string;
     padding: object;
     margin: object;
+    storeKeyTotal?: string;
+    description: string;
     imgKey?:string;
     num: number,
     api: string;
@@ -73,6 +80,7 @@ const ApiList: React.FC<Partial<CardListType> & {
     currentPage: { current: number };
     callbackName?:string;
     pagination: boolean;
+    parentStoreKey?: string;
 }> = (
     {
         rows,
@@ -87,6 +95,7 @@ const ApiList: React.FC<Partial<CardListType> & {
         margin,
         gap,
         num,
+        parentStoreKey,
         ...restProps
     }
 ) => {
@@ -96,7 +105,8 @@ const ApiList: React.FC<Partial<CardListType> & {
         }
         return result
     }, [result, dataPath]);
-    const retry = useModuleContext(s=>s.moduleStore[callbackName || '']);
+
+    const parentStore = useModuleContext(s=>s.moduleStore);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
 
     if(!list.length) {
@@ -116,7 +126,15 @@ const ApiList: React.FC<Partial<CardListType> & {
                 {
                     list.map((item, index) => (
                         <Fragment key={index}>
-                            <ModuleProvider><CardBasic setParentModuleStore={setModuleStore} retry={retry} callbackName={callbackName} {...item}/></ModuleProvider>
+                            <ModuleProvider>
+                                <CardBasic
+                                    parentStoreKey={parentStoreKey}
+                                    parentStore={parentStore}
+                                    setParentModuleStore={setModuleStore}
+                                    callbackName={callbackName}
+                                    {...item}
+                                />
+                            </ModuleProvider>
                         </Fragment>
                     ))
                 }
@@ -139,6 +157,7 @@ const Api: React.FC<CardListType>
            callbackName,
            componentType,
            description,
+           storeKeyTotal,
            params,
            defaultValue,
            rows,
@@ -157,11 +176,11 @@ const Api: React.FC<CardListType>
         params,
         callbackName,
         isSearch,
+        storeKeyTotal,
         cacheParams,
         cacheParamsTime,
         componentType
     });
-
     if(componentType === 'detail') {
         return (
             <Spin spinning={loading}>
@@ -188,6 +207,7 @@ const Api: React.FC<CardListType>
           <Spin spinning={loading}>
               <ApiList
                   description={description}
+                  storeKeyTotal={storeKeyTotal}
                   rows={pageSize}
                   pagination={pagination}
                   callbackName={callbackName}

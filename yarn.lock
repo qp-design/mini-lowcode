@@ -537,10 +537,10 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-"@brushes/form@^1.3.2":
-  version "1.3.3"
-  resolved "https://registry.npmjs.org/@brushes/form/-/form-1.3.3.tgz#07d8ec0f5c350e42f1774761e21a3bfd534d7df4"
-  integrity sha512-zDJNyJqSgLXT9N7rPxgrbJzjQcUX2l8OOr5FC3m9srJDdWmMY9onVrU7RZFe9g5BN2ycAt1ukSVdK7ZJ0j4LNQ==
+"@brushes/form@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.npmjs.org/@brushes/form/-/form-1.3.4.tgz#818b48d19d8ca09417e49ac3604f9e2abe45b762"
+  integrity sha512-NmDxFj0+QgcIQolBvTlzINnQpLphHJw0i3LyMTUJ2pfJ0doe6co+9qBSU5uX1JRZcMyo+gtPhwBGB6GXlCyxaQ==
 
 "@brushes/optimize@^1.0.5", "@brushes/optimize@^1.1.6":
   version "1.1.6"
@@ -560,10 +560,10 @@
   resolved "https://registry.npmjs.org/@brushes/share-resource/-/share-resource-1.1.2.tgz#9cd4c53902072ab28a3207ef72b6818e11ac21d1"
   integrity sha512-cH47eoiXgx9vRAFyddK51pbcctcJlze3Ed78mNuo+YMG0W6Qo3NLQT5EP8Yd9OXqMrmTrWe19SschGFXp5cfDQ==
 
-"@brushes/table@^0.3.8":
-  version "0.3.9"
-  resolved "https://registry.npmjs.org/@brushes/table/-/table-0.3.9.tgz#fbc503f416bb8119956407eed5a659b95e1b9745"
-  integrity sha512-iF9ilhKVr+/LASm0KAo+bnIjUrOWm0kxOYrSEN5HlBJ1MRdjb8/3Cl1JTB8ZG2BMngf/iEofGei2CV8YBM9Q9Q==
+"@brushes/table@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.npmjs.org/@brushes/table/-/table-0.4.1.tgz#a2e384a7be3b21218340b84f20b978e921606740"
+  integrity sha512-nEdjNk0wApG/1qxthM/4WDkN9c6wsQGHKL0hvDWU0WYMV2pSeusVOJcOV8oZ+tVjwGtGhVKTzDRfWSG3N061EQ==
 
 "@brushes/utils-react@^1.0.3":
   version "1.0.3"

@@ -79,7 +79,7 @@ const Left = () => {
     const {styles} = useStyle();
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
-        <>
+        <div style={{ width: '100%', height: '100vh', overflowY: 'auto' }}>
             <Card size="small" className={styles.cardMenu} title="栏目管理"
                   extra={<a onClick={() => setIsModalOpen(true)} href="#">模版管理</a>}>
                 <MenuComponent/>
@@ -88,7 +88,7 @@ const Left = () => {
             <Card size="small" className={styles.cardMenu} title="组件管理" style={{marginTop: 15}}>
                 <Components/>
             </Card>
-        </>
+        </div>
     )
 }
 

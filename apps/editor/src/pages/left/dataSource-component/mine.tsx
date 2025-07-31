@@ -5,7 +5,7 @@ import {
   AddressItemComponentSettings,
   DescriptionComponentSettings,
   InquiryComponentSettings,
-  OrderItemComponentSettings,
+  OrderItemComponentSettings, TableComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
@@ -24,6 +24,24 @@ const mine : Array<TypeComponent> = [
       },
       related: {
         settings: AddressItemComponentSettings,
+      },
+    }
+  },
+  {
+    name: '表格组件',
+    icon: 'icon-caozuojilu',
+    Component: ServiceComponent['TableComponent'],
+    setting: {
+      props: {
+        dataPath: '',
+        ROWKEYY: 'id',
+        columns: [],
+        storeKey: '_skuInfo',
+        height: 400,
+        expandable: false
+      },
+      related: {
+        settings: TableComponentSettings,
       },
     }
   },

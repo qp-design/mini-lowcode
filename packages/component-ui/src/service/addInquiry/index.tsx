@@ -38,8 +38,9 @@ const Custom = ({storeKey, openKey, padding = {}, margin = {}}: {padding: object
                     [storeKey]: get(data, 'dataObj.eqAuctionGoodsDomainList', [])
                 })
                 appendRef.current = {
-                    tenantCode: data.dataObj.tenantCode,
-                    auctionEnrollId: data.dataObj.auctionEnrollId
+                    ...data.dataObj,
+                    auctionEnrollType: 1,
+                    dataState: 0,
                 };
                 setInitialValue(data.dataObj);
                 setLoading(false);
@@ -76,9 +77,8 @@ const Custom = ({storeKey, openKey, padding = {}, margin = {}}: {padding: object
     const update: submitFunType = async (value, suc, error) => {
         try {
             const {msg} = await post('/web/eq/eqAuctionEnroll/updateEqAuctionEnroll.json', { eqAuctionEnrollStr: JSON.stringify({
-                    ...value,
-                    auctionEnrollType: 1,
                     ...appendRef.current,
+                    ...value,
                     auctionEnrollCode
                 })});
             message.success(msg);

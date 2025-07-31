@@ -42,6 +42,11 @@ const containerField: FieldType[] = [
         type: 'text',
     },
     {
+        label: '按钮状态',
+        name: 'disabled',
+        type: 'switch',
+    },
+    {
         label: '重新查询key',
         name: 'retryKey',
         type: 'text',

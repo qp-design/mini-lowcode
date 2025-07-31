@@ -28,6 +28,8 @@ const ThemeComponent = () => {
                     },
                 },
                 token: {
+                    colorBgContainerDisabled: '#fafafa',
+                    colorTextDisabled: '#444',
                     colorBgTextHover: colorBgTextHover,
                     colorPrimary: colorPrimary || '#1677ff', // 修改为主题颜色
                     colorLink: colorPrimary || '#1677ff', // 修改为主题颜色

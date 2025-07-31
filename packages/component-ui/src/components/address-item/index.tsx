@@ -97,7 +97,7 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
     const fetchFreight = async (id:string) => {
         setLoading(true);
         const item = addressList.find((item:any) => item.addressId === id) || {};
-        const { areaCode, addressMember, addressPhone, provinceName , cityName, areaName, addressDetail } = item;
+        const { provinceCode, addressMember, addressPhone, provinceName , cityName, areaName, addressDetail } = item;
         try {
             let appendParam = {}
             if(searchParams.get('shoppingGoodsIdStr')) {
@@ -112,7 +112,7 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
                 ])
             }
             const data = await post(`web/oc/contract/calculateFreightFare.json`, {
-                areaCode: areaCode,
+                areaCode: provinceCode,
                 ...appendParam
             });
 
@@ -122,7 +122,7 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
                     goodsReceiptMem: addressMember,
                     goodsReceiptPhone: addressPhone,
                     goodsReceiptArrdess: provinceName + cityName + areaName + addressDetail,
-                    areaCode: areaCode
+                    areaCode: provinceCode
                 }
             });
             setLoading(false);

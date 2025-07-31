@@ -23,7 +23,7 @@ export const InnerApp = () => {
     const node = document.querySelector('#container-editor');
 
     function eventImpl(e: Event) {
-      if(e.target.closest('div').className.includes('ant-tabs-tab')) {
+      if(e.target.closest('div').className.includes('ant-tabs-tab') || e.target.closest('button').className.includes('ant-table-row-expand-icon')) {
         return;
       }
       const targetNode = e.target!.closest('section');

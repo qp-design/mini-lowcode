@@ -180,6 +180,17 @@ const baseFormField: formConfigType[] = [
                 }
             },
             {
+                label: '数据总量',
+                name: 'storeKeyTotal',
+                type: 'text',
+            },
+            {
+                label: '父组件store的key',
+                name: 'parentStoreKey',
+                type: 'text',
+                calIsVisible: (form) => form.getFieldValue('componentType') !== 'detail'
+            },
+            {
                 label: '子组件Store的key',
                 name: 'storeKey',
                 type: 'text',

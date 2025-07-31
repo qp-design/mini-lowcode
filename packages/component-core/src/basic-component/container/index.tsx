@@ -5,7 +5,7 @@ import { createStyles } from "antd-style";
 import {useEditor, useNode} from "@craftjs/core";
 import {ModuleProvider, useModuleContext} from "../../store";
 import {useSearchParams} from 'react-router-dom';
-import {isEmpty, isUndefined, omit} from "lodash";
+import {isEmpty, isUndefined, get} from "lodash";
 
 const useStyles = createStyles(({token, css}) => {
     return {
@@ -39,9 +39,9 @@ export const IsShowContainer = ({moduleShowValue, children, routerIsShowValue, r
 
     const nValue = useMemo(() => {
         if(typeof store[moduleIsShow] === 'number') {
-            return store[moduleIsShow] + '';
+            return get(store, moduleIsShow) + '';
         }
-        return store[moduleIsShow];
+        return get(store, moduleIsShow);
     }, [store, moduleIsShow]);
 
     /**
@@ -193,9 +193,10 @@ export const ContainerWrap = ({
          children,
          backgroundImage,
          height,
+        $$_style = '',
+        $_style = '',
          ...props
      }: any) => {
-
     const {
         connectors: { connect, drag },
     } = useNode();

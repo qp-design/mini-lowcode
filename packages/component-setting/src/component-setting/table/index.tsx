@@ -1,110 +1,155 @@
+import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {dynamicFormFields, FieldType} from '@brushes/form';
-import {WrapTable} from '../../common';
 
-
-const dataFormField: FieldType[] = [
-  {
-    label: '高度',
-    name: 'height',
-    type: 'number',
-    extraProps: {
-    }
-  },
-  {
-    label: '宽度',
-    name: 'width',
-    type: 'number',
-    extraProps: {
-    }
-  },
-  {
-    label: '选择表头',
-    name: 'activeModule',
-    type: 'select',
-    extraProps: {
-      allowClear: true,
-      options: [
-        {
-          value: 'good',
-          label: '商品'
-        },
-        {
-          value: 'order',
-          label: '订单'
+const containerField: FieldType[] = [
+    {
+        label: '大小',
+        name: 'size',
+        type: 'select',
+        extraProps: {
+            options: [
+                {
+                    value: 'default',
+                    label: '默认'
+                },
+                {
+                    value: 'middle',
+                    label: '中'
+                },
+                {
+                    value: 'small',
+                    label: '小'
+                }
+            ]
         }
-      ]
-    }
-  },
-  {
-    label: '',
-    name: 'columns',
-    type: 'slot',
-    extraProps: {
-      render: ({form, onChange}) => {
-        const initialValue = form.getFieldValue('columns');
-        const activeModule = form.getFieldValue('activeModule');
-        return (
-          <WrapTable<DataType>
-            param={'tableConfig'}
-            initialValue={initialValue}
-            id={'dataIndex'}
-            title={'title'}
-            onChange={onChange}
-            activeModule={activeModule}
-          />
-        )
-      }
-    }
-  },
-  {
-    label: '',
-    name: 'rowKey',
-    type: 'slot',
-    extraProps: {
-      allowClear: true,
-      render({form}) {
-        const optionList = form.getFieldValue('columns');
-        const opt = optionList.map((item:any) => ({
-          value: item.key,
-          label: item.title
-        }));
-        const fields = [
-          {
-            label: '数据主键',
-            name: 'rowKey',
-            type: 'select',
-            extraProps: {
-              allowClear: true,
-              options: opt
-            }
-          }
-        ]
-        return (
-          <div style={{marginTop: 10}}>
-            {dynamicFormFields(fields, form)}
-          </div>
-        )
-      }
-    }
-  },
+    },
+    {
+      label: '子表格',
+      name: 'expandable',
+      type: 'switch'
+    },
+    {
+        label: '是否展示边框',
+        name: 'bordered',
+        type: 'switch',
+    },
 ]
-
-interface DataType {
-  title: string;
-  dataIndex: string;
-  key: string;
-}
 
 const baseFormField: formConfigType[] = [
-  // {
-  //   title: '样式',
-  //   formFields: containerField
-  // },
-  {
-    title: '数据源',
-    formFields: dataFormField
-  }
+    {
+        title: '样式',
+        formFields: containerField
+    },
+    {
+        title: '数据源',
+        formFields: [
+            {
+                label: '组件数据路径',
+                name: 'dataPath',
+                type: 'text',
+            },
+            {
+                label: '表格行选中控件',
+                name: 'type',
+                type: 'select',
+                extraProps: {
+                    options: [
+                        {
+                            value: 'checkbox',
+                            label: '多选框'
+                        },
+                        {
+                            value: 'radio',
+                            label: '单选框'
+                        },
+                        {
+                            value: '',
+                            label: '无'
+                        }
+                    ]
+                }
+            },
+            {
+                label: '表格行存储数据key',
+                name: 'rowSelectKey',
+                type: 'text',
+            },
+            {
+                label: '数据唯一key',
+                name: 'ROWKEYY',
+                type: 'text',
+            },
+            {
+                label: 'Store的key',
+                name: 'storeKey',
+                type: 'text'
+            },
+            {
+                label: '高度',
+                name: 'height',
+                type: 'number'
+            },
+            {
+                label: '',
+                name: 'columns',
+                type: 'formList',
+                extraProps: {
+                    style: { marginBottom: '20px' },
+                    innerForm: [
+                        {
+                            label: '名称',
+                            name: 'title',
+                            layout: 'vertical',
+                        },
+                        {
+                            label: '值',
+                            name: 'value',
+                            layout: 'vertical',
+                        },
+                        {
+                            label: '扩展',
+                            name: 'type',
+                            type: 'switch',
+                            layout: 'vertical',
+                        },
+                        {
+                            label: '对齐',
+                            name: 'align',
+                            type: 'select',
+                            layout: 'vertical',
+                            extraProps: {
+                                options: [
+                                    {
+                                        value: 'left',
+                                        label: '左边'
+                                    },
+                                    {
+                                        value: 'center',
+                                        label: '居中'
+                                    },
+                                    {
+                                        value: 'right',
+                                        label: '右边'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            label: '宽度',
+                            name: 'width',
+                            type: 'number',
+                            layout: 'vertical',
+                            extraProps: {
+                               style: {
+                                   width: 50
+                               }
+                            }
+                        }
+                    ]
+                }
+            },
+        ]
+    },
 ]
-
 export const TableComponentSettings = basicSettings(baseFormField)
+

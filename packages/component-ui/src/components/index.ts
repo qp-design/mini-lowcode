@@ -3,6 +3,7 @@ export * from './logoWithSearch'
 export * from './link'
 export * from './slot'
 export * from './tab'
+export * from './tab2'
 export * from './top'
 export * from './listCommon'
 export * from './drawer'
@@ -21,11 +22,5 @@ export * from './card'
 export * from './addressCard'
 export * from './form'
 export * from './address-item'
-
-
-
-// export * from './table'
-// export * from './table2'
-
 
 

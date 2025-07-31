@@ -2,6 +2,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import * as antd from 'antd';
+import * as brushesForm from '@brushes/form'
 import * as componentTool from '@brushes/component-tool';
 import * as reactRouterDom from 'react-router-dom';
 import * as componentCore from '@brushes/component-core'
@@ -41,6 +42,7 @@ export function changeCode(code: string) {
             if (packageName == 'react-router-dom') return reactRouterDom;
             if (packageName == 'react') return React;
             if (packageName == '@antv/g2') return G2;
+            if (packageName == '@brushes/form') return brushesForm;
             if (packageName == 'component-store') return componentStore;
             if (packageName == '@brushes/component-tool') return componentTool;
             if (['lodash', 'lodash-es'].includes(packageName)) return lodash2;

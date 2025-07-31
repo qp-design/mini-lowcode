@@ -26,7 +26,6 @@ export const formConfig: FieldType[] = [
             ({  getFieldValue }: FormInstance) => ({
                 validator(_, value: any[]) {
                     const prev = getFieldValue('pricesetNpriceQmin');
-                    console.log(111, prev, value);
                     if (prev && value) {
                         if(value <prev) {
                             return Promise.reject(new Error('不能小于开始值'));

@@ -70,6 +70,7 @@ export const TableComponent: React.FC<{
                                         type: 'number',
                                         rules: [{required: true, message: '必填项'}],
                                         name: ['eqAuctionGoodsDomainList', ind, 'goodsNum'],
+                                        style: {marginBottom: 0},
                                         extraProps: {
                                             onChange(value) {
                                                 const result = form.getFieldValue('eqAuctionGoodsDomainList');
@@ -98,10 +99,37 @@ export const TableComponent: React.FC<{
             },
             {
                 title: '商品备注',
-                width: 100,
+                width: 120,
                 align: 'center',
-                dataIndex: 'skuRemark',
-            }
+                dataIndex: 'goodsWebremark',
+                render(_, record: DataType, ind: number) {
+                    return (
+                        <>
+                            {
+                                dynamicFormFields([
+                                    {
+                                        type: 'textarea',
+                                        name: ['eqAuctionGoodsDomainList', ind, 'goodsWebremark'],
+                                        style: {marginBottom: 0},
+                                        extraProps: {
+                                            onChange(value) {
+                                                const result = form.getFieldValue('eqAuctionGoodsDomainList');
+                                                const n = (result || []).map(item => {
+                                                    if (item.skuNo === record.skuNo) {
+                                                        item.goodsWebremark = value.target.value;
+                                                    }
+                                                    return item;
+                                                })
+                                                onChange(n);
+                                            },
+                                        }
+                                    },
+                                ], form)
+                            }
+                        </>
+                    )
+                },
+            },
         ], []);
 
         const rowSelection: TableProps<DataType>['rowSelection'] = {

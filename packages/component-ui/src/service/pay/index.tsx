@@ -7,18 +7,26 @@ import {useMemo} from "react";
 
 const { Timer } = Statistic;
 
-export const TimerJsx = ({storeKey, code}: {storeKey: string; code: string}) => {
+export const TimerJsx = ({storeKey, finishKey, code, format = 'D 天 H 时 m 分 s 秒'}: {storeKey: string; finishKey?: string; code: string; format: string}) => {
     const store = useModuleContext(s=>s.moduleStore[storeKey]) || {};
+    const setModuleStore = useModuleContext(s=>s.setModuleStore);
     const value = useMemo(() => {
         if(code) {
-            return store[code];
+            return +store[code];
         }
     }, [store, code]);
-    console.log(11111, store, code);
+    const onFinish = () => {
+        if(finishKey) {
+            setModuleStore({
+                [finishKey]: true,
+            })
+        }
+    }
     return (
         <Timer
+            onFinish={onFinish}
             type="countdown"
-            format="D 天 H 时 m 分 s 秒"
+            format={format}
             value={value}
         />
     )

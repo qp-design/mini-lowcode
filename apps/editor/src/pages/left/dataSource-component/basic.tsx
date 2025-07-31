@@ -19,7 +19,11 @@ import {
   FormJsxComponentSettings,
   ButtonWrapSettings,
   NavigatorComponentSettings,
-  DynamicComponentSettings, CommonListComponentSettings, CommonItemSettings
+  DynamicComponentSettings,
+  CommonListComponentSettings,
+  CommonItemSettings,
+  AutoTabComponentSettings,
+  NumberComponentSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 
@@ -38,6 +42,19 @@ const basic : Array<TypeComponent> = [
       },
       related: {
         settings: BannerComponentSettings,
+      },
+    }
+  },
+  {
+    name: '数字组件',
+    icon: 'icon-text',
+    Component: ServiceComponent['NumberComponent'],
+    setting: {
+      props: {
+        precision: 2,
+      },
+      related: {
+        settings: NumberComponentSettings,
       },
     }
   },
@@ -203,6 +220,7 @@ const basic : Array<TypeComponent> = [
       props: {
         width: '100%',
         height: '100%',
+        storeKey: '_skuInfo',
         image: {
           imgUrl: "",
           path: ''
@@ -228,6 +246,27 @@ const basic : Array<TypeComponent> = [
       },
       related: {
         settings: TabComponentSettings,
+      },
+    }
+  },
+  {
+    name: '动态标签页',
+    icon: 'icon-caozuojilu',
+    Component: Materials['AutoTabComponent'],
+    setting: {
+      props: {
+        columns: [{
+          label: '默认',
+          key: 'default',
+          code: '',
+        }],
+        storeKey: '',
+        keyName: '',
+        fontSize: 14,
+        tabPosition: 'top',
+      },
+      related: {
+        settings: AutoTabComponentSettings,
       },
     }
   },

@@ -36,8 +36,10 @@ const cart : Array<TypeComponent> = [
     Component: ServiceComponent['TimerComponent'],
     setting: {
       props: {
+        finishKey: '',
         storeKey: 'payInfo',
         code: 'contractPaydate',
+        format: 'D 天 H 时 m 分 s 秒'
       },
       related: {
         settings: TimerComponentSettings,

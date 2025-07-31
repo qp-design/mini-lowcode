@@ -1,6 +1,6 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {actionField, ApiComponent, diyFormTransform, marginField, paddingField} from '../../common';
+import {actionField, diyFormTransform, marginField, paddingField} from '../../common';
 
 const containerField: FieldType[] = [
   {
@@ -61,6 +61,11 @@ const containerField: FieldType[] = [
     label: '打开抽屉code',
     name: 'openKey',
     type: 'text',
+  },
+  {
+    label: '按钮状态',
+    name: 'disabled',
+    type: 'switch',
   },
   {
     label: '宽度',

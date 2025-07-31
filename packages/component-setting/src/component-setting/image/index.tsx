@@ -25,6 +25,11 @@ const containerField: FieldType[] = [
         type: 'text',
     },
     {
+        label: 'store的key',
+        name: 'storeKey',
+        type: 'text',
+    },
+    {
         label: '跳转链接',
         name: ['image', 'path'],
         type: 'text',

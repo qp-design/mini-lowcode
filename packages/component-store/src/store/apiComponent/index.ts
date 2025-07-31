@@ -9,6 +9,7 @@ export const useApiComponent = (api:string, rows: number, restParams: {
     defaultValue: string;
     componentType: string;
     callbackName?: string;
+    storeKeyTotal?: string;
     cacheParams: boolean;
     isSearch?: boolean;
     cacheParamsTime?: number;
@@ -77,6 +78,15 @@ export const useApiComponent = (api:string, rows: number, restParams: {
             };
             const data = await post(api, restParams.cacheParams ? cacheParams(aiParams, restParams.cacheParamsTime || 3) : aiParams);
             currentPage.current = pageCurrent.current.page;
+
+            if(restParams.storeKeyTotal) {
+                setModuleStore({
+                    [restParams.storeKeyTotal]: {
+                        total: data.total,
+                    }
+                })
+            }
+
             finallyImpl(data);
         } catch (err) {
             // 默写场景捕获错误代码

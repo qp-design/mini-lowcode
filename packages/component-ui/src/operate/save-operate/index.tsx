@@ -17,7 +17,6 @@ const SaveOperate = ({ text, api, preKey = '', retryKey = 'retry', params, trans
     text: string;
     transformDataConfig?: Array<TransformType>
 }) => {
-
     const form = Form.useFormInstance();
     const retry = useModuleContext(s => s.moduleStore[retryKey]) || noop;
     const resetProps = useApiParam(params);

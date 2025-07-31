@@ -252,6 +252,7 @@ const service : Array<TypeComponent> = [
     setting: {
       props: {
         height: 500,
+        storeKey: '_skuInfo'
       },
       related: {
         settings: SwiperThumbComponentSettings,
