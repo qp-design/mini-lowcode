@@ -1,8 +1,7 @@
 import { createStyles } from "antd-style";
 import LoginWrap from "@/login";
-import {useEffect, useState} from "react";
-import {get, cacheParams} from "@brushes/optimize";
 import {fullpath} from "@brushes/component-tool";
+import {useModuleRootContext} from "@brushes/component-core";
 
 const useStyle = createStyles(({token, css}) => {
 
@@ -30,27 +29,8 @@ const useStyle = createStyles(({token, css}) => {
 })
 const Login = () => {
     const { styles } = useStyle();
-    const [config, setConfig] = useState({
-        proappEnvIndexc: '',
-        proappEnvLogo: ''
-    });
-    useEffect(() => {
-        (async () => {
-            const data = await get('web/ml/mlogin/getProappinfo.json', cacheParams({}, 10));
+    const config = useModuleRootContext(s=>s.rootStore._webConfig) || {};
 
-            function changeFavicon(newIconUrl: string) {
-                const favicon = document.querySelector('link[rel="icon"]');
-                favicon!.href = newIconUrl;
-            }
-
-            // 使用示例
-            changeFavicon(data.proappEnvIconUrl);
-            setConfig({
-                proappEnvIndexc: data.proappEnvIndexc || 'https://brushes.oss-cn-shanghai.aliyuncs.com/static/lowcode-platform/apps_web_src_assets_login.png',
-                proappEnvLogo: data.proappEnvLogo,
-            })
-        })()
-    }, []);
     return (
         <div className={styles.loginContainer} style={{
             backgroundImage: `url(${fullpath(config.proappEnvIndexc)})`,
@@ -62,7 +42,6 @@ const Login = () => {
                 <LoginWrap children={undefined} data={""}/>
             </div>
         </div>
-
     )
 }
 

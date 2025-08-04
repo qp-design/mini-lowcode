@@ -12,6 +12,10 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
            label: '大宗委托平台交易更新'
         },
         {
+          value: 'web/at/auction/getMyAuctionInfo.json',
+          label: '大宗我的竞价详情'
+        },
+        {
             value: 'web/at/auction/getAuctionByCode.json',
             label: '大宗竞价出价明细'
         },
@@ -94,6 +98,10 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
         {
             value: 'web/um/collect/saveCollect.json',
             label: '收藏'
+        },
+        {
+            value: 'web/sc/shopde/queryShopdePage.json',
+            label: '店铺列表'
         },
         {
             value: '/web/um/userserviceinfo/queryUserinfoDetail.json',

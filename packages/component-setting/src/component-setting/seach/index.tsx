@@ -23,18 +23,18 @@ const containerField: FieldType[] = [
 
 const dataFormField: FieldType[] = [
   {
-    label: '',
-    name: 'transformSubmitDataConfig',
+    label: '前缀',
+    name: 'options',
     type: 'formList',
     extraProps: {
       innerForm: [
         {
-          label: '类型',
-          name: 'type',
+          label: '名称',
+          name: 'label',
         },
         {
-          label: '控件code',
-          name: 'name',
+          label: '路径',
+          name: 'value',
         }
       ]
     }

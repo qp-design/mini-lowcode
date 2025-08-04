@@ -96,6 +96,10 @@ const service : Array<TypeComponent> = [
     Component: ServiceComponent['SearchComponent'],
     setting: {
       props: {
+        options: [{
+          label: '商品',
+          value: '/goodList'
+        }],
         background: '#ffffff',
         padding: 0,
         height: 42,

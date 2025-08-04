@@ -19,8 +19,6 @@ export const Tab =
   ({columns, tabPosition, destroyOnHidden, badge, padding = {}, ...props} : { badge?: boolean; padding: object; destroyOnHidden: boolean; columns: any; tabPosition: TabPosition}) => {
     const [title] = useSearchParamHook(['label']);
     const defaultActiveKey = useRef();
-
-    const _orderCount = useModuleRootContext(s=> s.rootStore._orderCount) || {};
     const newColumns = useMemo(() => {
       return columns.map(({label, key, code}: any, ind: number) => {
           if(title === label) {
@@ -41,7 +39,7 @@ export const Tab =
               )
           }
       })
-    }, [columns, _orderCount, badge])
+    }, [columns, badge])
 
       return (
           <Tabs

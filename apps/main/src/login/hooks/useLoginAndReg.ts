@@ -3,7 +3,7 @@ import { updateUmuserPw } from 'qj-b2c-api';
 import {saveUserPhoneForPla, uploadGoodsFile} from 'component-api'
 import loginContext from '../context';
 import {useLoginHooks} from "./useLoginHooks";
-import {get} from "lodash";
+import {get, isEmpty} from "lodash";
 import { message } from 'antd';
 type ActionKey = 'login' | 'loginWithCode' | 'register' | 'update';
 
@@ -40,12 +40,15 @@ export function useLoginAndRegister(isNeedRemeber: boolean | undefined) {
     async function registerImpl(values: any) {
         try {
             setLoading(true);
-            const { upFileArr, userinfoCorp } = values;
-            const file = get(upFileArr, '[0].originFileObj');
-            const { fileUrl } = await uploadGoodsFile({file});
-            values.userinfoCert2Url = fileUrl;
-            values.userinfoCompname = userinfoCorp;
-            values.upFileArr = fileUrl;
+            const { upFileArr = [], userinfoCorp } = values;
+            if(!isEmpty(upFileArr)) {
+                const file = get(upFileArr, '[0].originFileObj');
+                const { fileUrl } = await uploadGoodsFile({file});
+                values.userinfoCert2Url = fileUrl;
+                values.userinfoCompname = userinfoCorp;
+                values.upFileArr = fileUrl;
+            }
+
             const { msg } = await saveUserPhoneForPla({
                 userinfoJosn: JSON.stringify(values)
             });

@@ -29,7 +29,7 @@ const Root = () => {
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
     useEffect(() => {
         (async ()=> {
-            const {list: listMenu} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json');
+            const {list} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json');
 
             const {list : listConfig} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
             const {themeColor, subColor} = JSON.parse(getI(listConfig, '[0].mmodelConfig'));
@@ -39,7 +39,6 @@ const Root = () => {
                     colorPrimary:themeColor
                 }
             })
-            const list = listMenu.filter(item => item.menuShow === 0);
             const menu = list.filter(item => item.isColumn === 1); // 一级栏目
             // 非一级栏目
             const children = (list || []).filter(item => [0, 2].includes(item.isColumn)).map(item => ({
@@ -56,7 +55,6 @@ const Root = () => {
             setMenu(menu)
         })()
     }, []);
-    console.log(37, menu);
     return (
         <AliveScope>
             <Routes>

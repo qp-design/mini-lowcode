@@ -4,17 +4,41 @@ import {addressBasicConfig} from "@brushes/component-setting";
 
 export const registerConfig: Array<FieldType> = [
     {
-        name: 'userinfoCorp',
-        type: 'text',
-        label: '采购商',
+        name: 'userinfoType',
+        type: 'select',
+        label: '用户类型',
         rules: [
             {
                 required: true,
-                message: '输入采购商名称',
+                message: '输选择用户类型',
             },
         ],
         extraProps: {
+            options: [
+                {
+                    label: '个人',
+                    value: 1,
+                },
+                {
+                    label: '企业',
+                    value: 2,
+                }
+            ],
             placeholder: '输入采购商名称',
+        }
+    },
+    {
+        name: 'userinfoCorp',
+        type: 'text',
+        label: '会员名称',
+        rules: [
+            {
+                required: true,
+                message: '输入会员名称',
+            },
+        ],
+        extraProps: {
+            placeholder: '输入会员名称',
         }
     },
     {
@@ -99,13 +123,15 @@ export const registerConfig: Array<FieldType> = [
         label: '资质文件',
         name: 'upFileArr',
         type: 'upload',
+        // rules: [{required: true, message: '不能为空',}],
         rules: [
-            {
-                required: true,
-                message: '请选择',
-            },
+            ({ getFieldValue } : FormInstance) => ({
+                required: getFieldValue('userinfoType') === 2,
+                message: '不能为空',
+            }),
         ],
         extraProps: {
+            dependencies: ['userinfoType'],
             listType: 'picture-card',
             text: '上传图片',
             max: 1,

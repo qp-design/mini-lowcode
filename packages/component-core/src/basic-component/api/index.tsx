@@ -9,15 +9,17 @@ import {get} from "lodash";
 const CardBasic: React.FC<any> = ({callbackName, setParentModuleStore, parentStore, parentStoreKey, ...props}) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
     useEffect(() => {
-        let obj : {[v:string]: any} = {
-            _skuInfo: props,
-        }
+        let obj : {[v:string]: any} = {}
         if(callbackName) {
             obj[callbackName] = parentStore[callbackName]
+        }
+        if(setParentModuleStore) {
+            obj.setParentModuleStore = setParentModuleStore
         }
         if(parentStoreKey) {
             obj[parentStoreKey] = parentStore[parentStoreKey]
         }
+        obj._skuInfo = props;
         setModuleStore(obj)
     }, [props, callbackName, parentStore, parentStoreKey]);
 

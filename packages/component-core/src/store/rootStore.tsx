@@ -32,6 +32,7 @@ export const createRootModuleStore = (initProps?: Partial<moduleRootStore>) => {
       _themeColor: { colorPrimary: '#1677ff', colorBgTextHover: '#e6r4ff' },
       _orderCount: {},
       _cart: 0,
+      _webStore: {},
       _menuChildren: []
     },
   }

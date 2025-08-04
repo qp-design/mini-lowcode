@@ -5,11 +5,25 @@ import {Table} from 'antd';
 import {useComponentListData} from "component-store";
 import {useEffect, useMemo} from "react";
 
+const Inner = ({code, record} : { code: string; record: any}) => {
+    const setModuleStore = useModuleContext((s) => s.setModuleStore);
+    useEffect(() => {
+        setModuleStore({
+            [code]: record
+        })
+    }, [code]);
+
+    return (
+        <Element canvas is={Container} id={code}/>
+    )
+}
+
 const DiyColumnComponent = ({code, record} : {code: string; record: object}) => {
     const store = useModuleContext(s=>s.moduleStore) || {};
+
     return (
-        <ModuleProvider moduleStore={{ ...store, [code]: record}}>
-            <Element canvas is={Container} id={code}/>
+        <ModuleProvider moduleStore={store}>
+            <Inner code={code} record={record}/>
         </ModuleProvider>
     )
 }

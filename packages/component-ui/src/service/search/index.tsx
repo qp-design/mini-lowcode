@@ -1,4 +1,3 @@
-import {SearchOutlined} from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import {
     Element,
@@ -10,9 +9,9 @@ import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {useNavigateImpl} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
 import {useLocation, useSearchParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {noop} from "lodash";
-import {Button} from "antd";
+import {useEffect, useMemo, useState} from "react";
+import {noop, get} from "lodash";
+import {Button, Select} from "antd";
 
 const useStyle = createStyles(({token, css}, props:
     any
@@ -21,14 +20,25 @@ const useStyle = createStyles(({token, css}, props:
         search: css`
             &:hover{
                 .ant-input-search-button{ background: none}
+                .ant-select-selector{
+                    border: 0 !important;
+                    background: none;
+                    box-shadow: none !important;
+                }
             }
             .ant-input-affix-wrapper{
                 height: ${props.height}px;
                 line-height: ${props.height}px;
                 font-size: ${props.size}px;
+                padding: 4px;
                 border: solid ${props.borderSize}px ${props.borderColor || token.colorPrimary};
                 border-radius: ${props.borderRadius}px 0 0 ${props.borderRadius}px !important
             }
+            .ant-select-selector{
+                border: 0 !important;
+                box-shadow: none !important;
+            }
+            .ant-select-selection-item{ color: ${token.colorPrimary}}
             button{ background: ${token.colorPrimary};}
             .ant-input-group-addon {
                 background: ${token.colorPrimary};
@@ -48,13 +58,28 @@ const useStyle = createStyles(({token, css}, props:
         `
     }
 })
-const SearchJsx = ({path, isShopSearch, size, placeholder, ...props }: { isShopSearch?: boolean; size: any; placeholder: string; path: string}) => {
+// const options = [
+//     {
+//         value: 'good',
+//         label: '商品',
+//     },
+//     {
+//         value: 'shop',
+//         label: '店铺',
+//     },
+// ];
+const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { options: Array<any>; isShopSearch?: boolean; size: any; placeholder: string;}) => {
     const { navigator } = useNavigateImpl();
     const { pathname } = useLocation();
     const [searchParams] = useSearchParams();
     const { styles } = useStyle(props);
     const [value, setValue] = useState('');
     const searchQuery = useModuleRootContext(s=>s.rootStore.searchQuery) || noop;
+    const [path, setPath] = useState('');
+
+    const defaultValue = useMemo(() => {
+        return get(options, '[0].value', '')
+    }, [options]);
 
     useEffect(() => {
         const value = searchParams.get('searchParam') || '';
@@ -62,8 +87,9 @@ const SearchJsx = ({path, isShopSearch, size, placeholder, ...props }: { isShopS
     }, [searchParams.get('searchParam')]);
 
     const onSearch = (value:string) => {
-        navigator(`${path}?searchParam=${value}`);
-        if(pathname === path) {
+
+        navigator(`${path || defaultValue}?searchParam=${value}`);
+        if(pathname === (path || defaultValue)) {
             searchQuery({
                 searchParam: value
             })
@@ -77,28 +103,29 @@ const SearchJsx = ({path, isShopSearch, size, placeholder, ...props }: { isShopS
         })
     }
 
-    return (
-        <>
-            <Search
-                value={value}
-                className={styles.search}
-                prefix={<SearchOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
-                allowClear
-                size={size}
-                placeholder={placeholder}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
-                suffix={
-                    isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} danger>搜本店</Button> : null
-                }
-                enterButton={<Element canvas is={Container} id={'enterButton'}>
-                    <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>
-                </Element>}
-                onSearch={onSearch}
-            />
-        </>
+    const onChange = (e: string) => {
+        setPath(e);
+    }
 
+    return (
+        <Search
+            value={value}
+            className={styles.search}
+            prefix={<Select onChange={onChange} className={'none-wrap'} onClick={(e) => e.stopPropagation()} defaultValue={defaultValue} options={options} /> }
+            allowClear
+            size={size}
+            placeholder={placeholder}
+            onChange={(e) => {
+                setValue(e.target.value);
+            }}
+            suffix={
+                isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} danger>搜本店</Button> : null
+            }
+            enterButton={<Element canvas is={Container} id={'enterButton'}>
+                <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>
+            </Element>}
+            onSearch={onSearch}
+        />
     )
 }
 
