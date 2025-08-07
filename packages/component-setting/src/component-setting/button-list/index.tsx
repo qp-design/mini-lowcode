@@ -31,6 +31,11 @@ const layoutField: FieldType[] = [
         }
     },
     {
+      name: 'storeKey',
+      label: 'store的key',
+      type: 'text'
+    },
+    {
         name: 'direction',
         type: 'select',
         label: '方向',
@@ -78,7 +83,11 @@ const containerField: FieldType[] = [
                     }
                 },
                 {
-                  label: '状态',
+                    label: '状态key',
+                    name: 'idKey',
+                },
+                {
+                  label: '状态value',
                   name: 'dataState',
                 }
             ]

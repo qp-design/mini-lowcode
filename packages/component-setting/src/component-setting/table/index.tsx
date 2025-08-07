@@ -44,7 +44,7 @@ const baseFormField: formConfigType[] = [
         title: '数据源',
         formFields: [
             {
-                label: '组件数据路径',
+                label: 'store数据路径',
                 name: 'dataPath',
                 type: 'text',
             },

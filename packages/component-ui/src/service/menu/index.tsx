@@ -45,7 +45,7 @@ const App: React.FC = () => {
                 key: item.menuOpcode,
                 label: item.modelName,
                 icon: <AppstoreOutlined />,
-                children: listObj[item.menuOpcode].filter(c => c.menuShow === 0).map(i => ({
+                children: listObj[item.menuOpcode].filter(c => c.menuShow !== 1).map(i => ({
                     key: `/userCenter/${i.menuOpcode}`,
                     label: i.modelName,
                 }))

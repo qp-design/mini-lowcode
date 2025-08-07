@@ -55,6 +55,7 @@ const DetailBasic: React.FC<any> = ({result, storeKey, dataPath}) => {
 
 type CardListType = {
     gap: number;
+    paramsStoreKey?: string;
     cacheParamsTime?: number;
     cacheParams?: boolean;
     isSearch?:boolean;
@@ -70,6 +71,7 @@ type CardListType = {
     defaultValue: string;
     dataPath: string;
     rows?:number;
+    paramsStore?: Array<{ key: string; value: string }>;
     params?: Array<{ key: string; value: string }>;
     pagination: boolean;
     componentType: string
@@ -159,6 +161,7 @@ const Api: React.FC<CardListType>
            callbackName,
            componentType,
            description,
+           paramsStoreKey,
            storeKeyTotal,
            params,
            defaultValue,
@@ -168,6 +171,7 @@ const Api: React.FC<CardListType>
            storeKey,
            dataPath,
            margin={},
+           paramsStore,
            cacheParams = false,
            cacheParamsTime = 3,
            padding = {},
@@ -179,8 +183,10 @@ const Api: React.FC<CardListType>
         callbackName,
         isSearch,
         storeKeyTotal,
+        paramsStoreKey,
         cacheParams,
         cacheParamsTime,
+        paramsStore,
         componentType
     });
     if(componentType === 'detail') {

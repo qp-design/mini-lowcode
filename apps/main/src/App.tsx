@@ -12,7 +12,6 @@ import 'dayjs/locale/zh-cn';
 import {ThemeProvider} from 'antd-style';
 import {useEffect} from "react";
 import {cacheParams, get} from "@brushes/optimize";
-
 dayjs.locale('zh-cn');
 
 const domNode = document.getElementById("app")!;

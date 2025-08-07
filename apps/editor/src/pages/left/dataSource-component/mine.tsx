@@ -36,6 +36,7 @@ const mine : Array<TypeComponent> = [
         dataPath: '',
         ROWKEYY: 'id',
         columns: [],
+        type: '',
         storeKey: '_skuInfo',
         height: 400,
         expandable: false

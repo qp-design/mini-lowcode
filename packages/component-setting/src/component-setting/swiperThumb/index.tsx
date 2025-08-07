@@ -26,6 +26,9 @@ const containerField: FieldType[] = [
     label: '数据分割符',
     name: 'splitStr',
     type: 'text',
+    extraProps: {
+      placeholder: '数据源是字符串需要添加'
+    }
   },
 ]
 

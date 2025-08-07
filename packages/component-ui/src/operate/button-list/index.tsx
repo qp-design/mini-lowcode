@@ -52,11 +52,12 @@ export const DiyActionComponent = HOCCodeWrapComponent(DiyAction);
 const TableAction: React.FC<{
     buttonList: ButtonTypePlus[];
     padding?: object;
+    storeKey?: string;
     align: "start" | "end" | "center" | "baseline";
     direction: "vertical" | "horizontal"
     margin?:object
-}> = ({ buttonList, align, direction, padding = {}, margin = {} }) => {
-    const record = useModuleContext(s=>s.moduleStore._skuInfo) || {};
+}> = ({ buttonList, align, storeKey= '_skuInfo', direction, padding = {}, margin = {} }) => {
+    const record = useModuleContext(s=>s.moduleStore[storeKey]) || {};
     return (
         <div style={{...padding, ...margin}}>
             <Space direction={direction} align={align} size={'small'}>

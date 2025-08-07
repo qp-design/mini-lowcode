@@ -227,7 +227,19 @@ const service : Array<TypeComponent> = [
       props: {
         color: '#444',
         fontSize: 14,
-        fontWeight: 400
+        fontWeight: 400,
+        config: [{
+          label: '默认',
+          value: ''
+        },
+          {
+            label: '上新',
+            value: 'skuHdate'
+          },
+          {
+            label: '销量',
+            value: 'pricesetNprice'
+          }]
       },
       related: {
         settings: GoodCategoryComponentSettings,
@@ -256,7 +268,9 @@ const service : Array<TypeComponent> = [
     setting: {
       props: {
         height: 500,
-        storeKey: '_skuInfo'
+        storeKey: '_skuInfo',
+        imgKey: 'goodsFileUrl',
+        dataPath: 'rsGoodsFileDomainList'
       },
       related: {
         settings: SwiperThumbComponentSettings,

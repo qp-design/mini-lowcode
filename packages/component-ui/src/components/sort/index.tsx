@@ -22,11 +22,10 @@ const useStyle = createStyles(({css, token}) => {
     }
 })
 
-const config = [
-    {
-        label: '默认',
-        value: ''
-    },
+export const Sort = ({config = [{
+    label: '默认',
+    value: ''
+},
     {
         label: '上新',
         value: 'skuHdate'
@@ -34,9 +33,7 @@ const config = [
     {
         label: '销量',
         value: 'pricesetNprice'
-    }
-]
-export const Sort = (props = {}) => {
+    }], ...props}: {config: Array<{label: string; value: string}>}) => {
     const sortName = useRef('')
     const {styles} = useStyle();
     const order = useRef('desc');

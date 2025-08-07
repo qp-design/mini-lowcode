@@ -53,7 +53,7 @@ export const IsShowContainer = ({moduleShowValue, children, routerIsShowValue, r
      */
     if((routerIsShow && searchParams.has(routerIsShow) && !routerIsShowValue)
         || (routerIsShow && searchParams.has(routerIsShow) && routerIsShowValue && routerIsShowValue.includes(searchParams.get(routerIsShow) || ''))
-        || (moduleShowValue && moduleIsShow && [moduleShowValue].includes(nValue + '')) ||
+        || (moduleShowValue && moduleIsShow && moduleShowValue.split(',').includes(nValue + '')) ||
         (store && !moduleShowValue && !moduleIsShow && !isUndefined(store) && !isEmpty(store)) ||
         (moduleIsShow && !moduleShowValue && !isUndefined(nValue) && !isEmpty(nValue)) || enabled) {
         return (

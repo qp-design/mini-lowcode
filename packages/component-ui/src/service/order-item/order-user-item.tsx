@@ -127,6 +127,7 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
                 refundImpl(record.contractBillcode, record.dataState);
                 break;
             case 'see':
+            case 'evaluate':
                 navigator(`/userCenter/orderDetail?contractBillcode=${record.contractBillcode}`)
                 break;
             case 'express':
@@ -140,7 +141,6 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
                 break;
         }
     }
-
     return (
         <>
             <div className={'right-content'}>
@@ -169,6 +169,11 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
                                 name: '立即支付',
                                 code: 'pay',
                                 dataState: '1',
+                            },
+                            {
+                                dataState: '5',
+                                code: 'evaluate',
+                                name: record.contractAppraise === 1 ? '已评价' : '去评价',
                             },
                             {
                                 dataState: '3',

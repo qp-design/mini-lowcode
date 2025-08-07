@@ -32,19 +32,6 @@ const basic : Array<TypeComponent> = [
     }
   },
   {
-    name: '订单操作按钮',
-    icon: 'icon-caozuojilu',
-    Component: Operate['ButtonList'],
-    setting: {
-      props: {
-        buttonList: [{name: '查看', code: 'see'}]
-      },
-      related: {
-        settings: ButtonListSettings,
-      },
-    }
-  },
-  {
     name: '查询',
     icon: 'icon-caozuojilu',
     Component: Operate['QueryOperateComponent'],
@@ -84,8 +71,9 @@ const basic : Array<TypeComponent> = [
     Component: Operate['ButtonList'],
     setting: {
       props: {
-        buttonList: [{type: 'link', name: '查看'}],
+        buttonList: [{type: 'link', name: '查看', idKey: 'dataState'}],
         align: 'baseline',
+        storeKey: '_skuInfo',
         padding: {
           paddingLeft: 0,
           paddingRight: 0,

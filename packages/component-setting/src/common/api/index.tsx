@@ -12,6 +12,10 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
            label: '大宗委托平台交易更新'
         },
         {
+          value: 'web/res/evaluate/saveEvaluateGoods.json',
+          label: '商品评价'
+        },
+        {
           value: 'web/at/auction/getMyAuctionInfo.json',
           label: '大宗我的竞价详情'
         },

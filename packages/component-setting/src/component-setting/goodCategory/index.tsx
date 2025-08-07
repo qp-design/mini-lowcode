@@ -13,9 +13,21 @@ const containerField: FieldType[] = [
     type: 'number',
   },
   {
-    label: '面包屑标题',
-    name: 'label',
-    type: 'text',
+    label: '参数',
+    name: 'config',
+    type: 'formList',
+    extraProps: {
+      innerForm: [
+        {
+          label: '参数',
+          name: 'label',
+        },
+        {
+          label: '值',
+          name: 'value',
+        }
+      ]
+    }
   },
   {
     label: '文本大小',

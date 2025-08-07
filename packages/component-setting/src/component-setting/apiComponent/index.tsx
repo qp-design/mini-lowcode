@@ -102,7 +102,7 @@ const baseFormField: formConfigType[] = [
                 }
             },
             {
-                label: '',
+                label: '参数路由获取',
                 name: 'params',
                 type: 'formList',
                 extraProps: {
@@ -113,6 +113,28 @@ const baseFormField: formConfigType[] = [
                         },
                         {
                             label: '值',
+                            name: 'value',
+                        }
+                    ]
+                }
+            },
+            {
+                label: '参数store的key',
+                name: 'paramsStoreKey',
+                type: 'text',
+            },
+            {
+                label: '参数store获取',
+                name: 'paramsStore',
+                type: 'formList',
+                extraProps: {
+                    innerForm: [
+                        {
+                            label: '参数',
+                            name: 'key',
+                        },
+                        {
+                            label: '路径',
                             name: 'value',
                         }
                     ]

@@ -147,8 +147,10 @@ export const UserInfo = ({text, imgUrl, config, ...restProps}: { config: Array<{
                                 <Element padding={{paddingTop: 8}} height={20} alignItems={'center'} flexDirection={'row'} is={Container} id={'info-bottom'}>
                                     <Text module={'rootStore'} storeKey={'_userInfo'} text='昵称' code={'userNickname'}></Text>
                                     <DividerComponent type="vertical" margin={{marginLeft: 5, marginRight: 5}}/>
-                                    <LogoutComponent text={'退出'} fontSize={12} type={'link'}
-                                                     padding={{paddingLeft: 0, paddingRight: 0}}/>
+                                    <Element is={Container} canvas>
+                                        <LogoutComponent text={'退出'} fontSize={12} type={'link'}
+                                                         padding={{paddingLeft: 0, paddingRight: 0}}/>
+                                    </Element>
                                 </Element>
                             </div>
                         </div>

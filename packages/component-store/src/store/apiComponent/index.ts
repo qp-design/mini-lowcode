@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {cacheParams, post} from "@brushes/optimize";
 import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
-import {useApiParam} from "@brushes/component-tool";
+import {useApiParam, useStoreApiParam} from "@brushes/component-tool";
 import {isEmpty} from "lodash";
 
 
@@ -11,7 +11,9 @@ export const useApiComponent = (api:string, rows: number, restParams: {
     callbackName?: string;
     storeKeyTotal?: string;
     cacheParams: boolean;
+    paramsStoreKey: string;
     isSearch?: boolean;
+    paramsStore: Array<{ key: string; value: string }> | undefined
     cacheParamsTime?: number;
     params: Array<{ key: string; value: string }> | undefined
 }) => {
@@ -29,6 +31,8 @@ export const useApiComponent = (api:string, rows: number, restParams: {
         total: 0,
         list: [{}]
     });
+
+    const storeParams = useStoreApiParam(restParams.paramsStore, restParams.paramsStoreKey);
     const apiParams = useApiParam(restParams.params);
 
     useEffect(() => {
@@ -52,7 +56,7 @@ export const useApiComponent = (api:string, rows: number, restParams: {
                 query();
             }
         })()
-    }, [params, api, rows, apiParams, restParams.callbackName, restParams.componentType]);
+    }, [params, api, rows, apiParams, storeParams, restParams.callbackName, restParams.componentType]);
 
     const finallyImpl = (data: any) => {
         try {
@@ -73,6 +77,7 @@ export const useApiComponent = (api:string, rows: number, restParams: {
                 rows: pageCurrent.current.rows || rows,
                 ...pageCurrent.current,
                 ...apiParams,
+                ...storeParams,
                 ...params,
                 ...searchValue.current,
             };

@@ -11,8 +11,7 @@ const Inner = ({code, record} : { code: string; record: any}) => {
         setModuleStore({
             [code]: record
         })
-    }, [code]);
-
+    }, [code, record]);
     return (
         <Element canvas is={Container} id={code}/>
     )
@@ -20,9 +19,9 @@ const Inner = ({code, record} : { code: string; record: any}) => {
 
 const DiyColumnComponent = ({code, record} : {code: string; record: object}) => {
     const store = useModuleContext(s=>s.moduleStore) || {};
-
+    const setModuleStore = useModuleContext(s=>s.setModuleStore);
     return (
-        <ModuleProvider moduleStore={store}>
+        <ModuleProvider moduleStore={{...store, setParentModuleStore: setModuleStore}}>
             <Inner code={code} record={record}/>
         </ModuleProvider>
     )

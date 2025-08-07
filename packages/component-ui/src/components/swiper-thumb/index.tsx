@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { createStyles } from "antd-style";
@@ -13,6 +13,7 @@ import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import {useModuleContext} from "@brushes/component-core";
 import {get, isEmpty} from "lodash";
 import {fullpath} from "@brushes/component-tool";
+import {Video} from "../../common";
 
 const useStyles = createStyles(({css, token}) => {
     return {
@@ -82,7 +83,11 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
     }, [defaultValue, _skuInfo])
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+    const [ind, setIndex] = useState(0);
+    const handleSlideChange = (swiper: object) => {
+        console.log('111', swiper.activeIndex);
+        setIndex(swiper.activeIndex);
+    }
     const { styles } = useStyles();
 
     return (
@@ -91,6 +96,7 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
                 loop={true}
                 spaceBetween={10}
                 navigation={true}
+                onSlideChange={handleSlideChange}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className={'mySwiper2'}
@@ -99,7 +105,8 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
                 {
                     banner.map((item, index) => (
                         <SwiperSlide key={index}>
-                            <img src={fullpath(imgKey ? item[imgKey] : item)} />
+                            {( item[imgKey].includes('.mp4') || item[imgKey].includes('.webm') || item[imgKey].includes('.avi')) ? <Video actived={index === ind} style={{ height: height - 70, overflow: 'hidden'}} src={item[imgKey]}/> :
+                            <img src={fullpath(imgKey ? item[imgKey] : item)} /> }
                         </SwiperSlide>
                     ))
                 }
