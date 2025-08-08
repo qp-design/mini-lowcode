@@ -1,5 +1,5 @@
 import {useComponentListData, useOrderNum} from "component-store";
-import {Fragment, useRef} from "react";
+import {Fragment, useEffect, useRef} from "react";
 import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {Container, Element, ModuleProvider, useModuleContext} from "@brushes/component-core";
 import {Text} from "../../basic";
@@ -84,6 +84,11 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
     const retry = useModuleContext(s => s.moduleStore[callbackName]);
     const { getOrderBadge } = useOrderNum();
     const setModuleStore = useModuleContext(s => s.setModuleStore);
+    useEffect(() => {
+        setModuleStore({
+            _skuInfo: record
+        })
+    }, [record]);
     const cancelImpl = async (contractId: string) => {
         const {msg} = await cancelContractC({contractId});
         message.success(msg);
@@ -144,14 +149,85 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
     return (
         <>
             <div className={'right-content'}>
-                <div>{fixPrice(record.dataBmoney)}</div>
-                <div>
-                    <div className={'padding-5'}>订单类型：{contractTypeFn(record.contractType)}</div>
-                    <div>付款类型：{contractPmodeFn(record.contractPmode)}</div>
-                </div>
-                <div>
-                    {dataStateFn(record.dataState)}
-                </div>
+                <Element
+                    justifyContent='center'
+                    flexDirection={'rows'}
+                    id={'dataBmoney'}
+                    canvas
+                    is={Container}
+                >
+                    <Text fontSize={14} storeKey={'_skuInfo'} code={'dataBmoney'}></Text>
+                </Element>
+                <Element
+                    justifyContent='center'
+                    flexDirection={'column'}
+                    id={'contractType_1'}
+                    canvas
+                    is={Container}
+                >
+                    <Element
+                        justifyContent='center'
+                        flexDirection={'rows'}
+                        id={'contractType'}
+                        canvas
+                        is={Container}
+                    >
+                        <Text className={'padding-5'} text={'订单类型：'}></Text>
+                        <Text
+                            storeKey={'_skuInfo'}
+                            text={'--'}
+                            transformData={'dataType'}
+                            localScheme={[
+                                {label: '普通订单', value: '00'},
+                                {label: '积分订单', value: '06'},
+                                {label: '秒杀订单', value: '26'},
+                                {label: '询报价订单', value: '36'},
+                            ]}
+                            code={'contractType'}
+                        ></Text>
+                    </Element>
+                    <Element
+                        justifyContent='center'
+                        flexDirection={'rows'}
+                        id={'contractPmode'}
+                        canvas
+                        is={Container}
+                    >
+                        <Text text={'付款类型：'}></Text>
+                        <Text
+                            storeKey={'_skuInfo'}
+                            text={'--'}
+                            transformData={'dataType'}
+                            localScheme={[
+                                {label: '在线支付', value: '0'},
+                                {label: '货到付款', value: '3'},
+                                {label: '线下支付', value: '1'},
+                            ]}
+                            code={'contractPmode'}>
+                        </Text>
+                    </Element>
+                </Element>
+                    <Element
+                        justifyContent='center'
+                        flexDirection={'row'}
+                        id={'dataState_123'}
+                        canvas
+                        is={Container}
+                    >
+                        <Text
+                            storeKey={'_skuInfo'}
+                            text={'--'}
+                            transformData={'dataType'}
+                            localScheme={[
+                                {label: '待付款', value: '1,19'},
+                                {label: '待发货', value: '2'},
+                                {label: '待收货', value: '3'},
+                                {label: '已完成', value: '4'},
+                                {label: '已取消', value: '-1'},
+                            ]}
+                            code={'dataState'}>
+                        </Text>
+                    </Element>
                 <div>
                     <TableAction onClick={onClick} direction={'vertical'} record={record} buttonList={
                         [
@@ -248,6 +324,8 @@ const ShoppItemGood = ({
                        }: any) => {
     const list = useComponentListData(dataPath, storeKey);
     const {styles} = useStyles();
+    const retry = useModuleContext(s => s.moduleStore[callbackName]);
+
     if (!list.length) {
         return <div style={{
             display: "flex",
@@ -285,7 +363,9 @@ const ShoppItemGood = ({
                                 <div style={{width: 400}}>
                                     <ShopItemGoodInnerJsx dataPath={'goodsList'} item={item}/>
                                 </div>
-                                <OldItemInfo refundKey={refundKey} expressKey={expressKey} record={item} callbackName={callbackName}/>
+                                <ModuleProvider moduleStore={{[callbackName]: retry}}>
+                                    <OldItemInfo refundKey={refundKey} expressKey={expressKey} record={item} callbackName={callbackName}/>
+                                </ModuleProvider>
                             </div>
                         </Fragment>
                     )

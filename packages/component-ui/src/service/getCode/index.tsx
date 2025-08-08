@@ -3,7 +3,7 @@ import { GetVercode, CodeJsx } from "./common";
 import {Form, FormInstance} from "antd";
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 
-const imgCode : Array<FieldType> = [
+export const imgCode : Array<FieldType> = [
     {
         name: 'verCode',
         type: 'slot',

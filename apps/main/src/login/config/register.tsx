@@ -1,6 +1,10 @@
-import { FieldType } from '@brushes/form';
+import {dynamicFormFields, FieldType} from '@brushes/form';
 import {FormInstance} from "antd";
 import {addressBasicConfig} from "@brushes/component-setting";
+import {code} from "@/login/config/resetForm.tsx";
+import {QjIcon} from "@brushes/share-resource";
+import CodeJsx from "@/login/components/code.tsx";
+import ImageJsx from "@/login/components/image.tsx";
 
 export const registerConfig: Array<FieldType> = [
     {
@@ -76,6 +80,52 @@ export const registerConfig: Array<FieldType> = [
         ],
         extraProps: {
             placeholder: '手机号',
+        }
+    },
+    {
+        name: 'isDisabled',
+        type: 'text',
+        label: '',
+        style: {display: 'none'}
+    },
+    {
+        name: 'verCode',
+        type: 'slot',
+        label: '图形验证码',
+        extraProps: {
+            shouldUpdate: (prevValue, curValue) => prevValue.isDisabled !== curValue.isDisabled,
+            render: () => <ImageJsx height={32}/>
+        }
+    },
+    {
+        name: 'code',
+        type: 'slot',
+        label: '短信验证码',
+        extraProps: {
+            shouldUpdate: (prevValue, curValue) => prevValue.verCode !== curValue.verCode,
+            render: ({form}) => {
+                return (
+                    <>
+                        {
+                            dynamicFormFields([{
+                                name: 'code',
+                                type: 'text',
+                                label: '',
+                                rules: [{ required: true, message: '请输入验证码' }],
+                                extraProps: {
+                                    autoComplete: 'off',
+                                    shouldUpdate: (prevValue, curValue) => prevValue.verCode !== curValue.verCode,
+                                    placeholder: '请输入验证码',
+                                    addonAfter: <CodeJsx height={30}/>,
+                                    style: {
+                                        height: 30
+                                    }
+                                }
+                            }], form)
+                        }
+                    </>
+                )
+            }
         }
     },
     {

@@ -1,7 +1,5 @@
 import { FieldType } from '@brushes/form';
 import { QjIcon } from '@brushes/share-resource';
-import CodeJsx from '../components/code';
-import React from 'react';
 import { FormInstance } from 'antd';
 import {code, userPhone} from "./resetForm";
 

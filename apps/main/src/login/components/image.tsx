@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import {Form, Spin} from 'antd';
 import './image.css'
 import {dynamicFormFields} from "@brushes/form";
-const ImageJsx = () => {
+const ImageJsx = ({height = 40} : {height?: number}) => {
     const form = Form.useFormInstance();
     const isDisabled = form.getFieldValue('isDisabled');
     const [loading, setLoading] = useState(false);
@@ -18,8 +18,8 @@ const ImageJsx = () => {
     const fetchCode = () => {
         setLoading(true);
         const { getFieldsValue } = form;
-        const { loginName, userPhone } = getFieldsValue();
-        const value = loginName || userPhone;
+        const { loginName, userPhone, userinfoConPhone } = getFieldsValue();
+        const value = loginName || userPhone || userinfoConPhone;
         fetch(`/web/ml/mlogin/getVerCode.img?userPhone=${value}`)
             .then(code => {
                 return code;
@@ -34,7 +34,7 @@ const ImageJsx = () => {
                 setLoading(false);
             });
     };
-
+    console.log(37, height);
     return (
         <>
             {
@@ -47,10 +47,10 @@ const ImageJsx = () => {
                     extraProps: {
                         autoComplete: 'off',
                         placeholder: '请输入',
-                        addonAfter: <Spin  spinning={loading}>{ verImg ? <img src={verImg} onClick={fetchCode} style={{width: 90, height: 38}} /> :
-                            <div style={{width: 90, height: 38}}></div> }</Spin>,
+                        addonAfter: <Spin spinning={loading}>{ verImg ? <img src={verImg} onClick={fetchCode} style={{width: 90, height: height - 2}} /> :
+                            <div style={{width: 90, height: height - 2}}></div> }</Spin>,
                         style: {
-                            height: 40
+                            height
                         }
                     }
                 }],form)

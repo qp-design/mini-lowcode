@@ -3,7 +3,7 @@ import {Button, Form} from 'antd';
 import { sendPhone } from 'component-api';
 import { useMountedRef } from '@brushes/form';
 
-const CodeJsx = () => {
+const CodeJsx = ({height = 36}: {height?: number}) => {
     const form = Form.useFormInstance();
     const verCode = form.getFieldValue('verCode');
     const [dataTime, setDataTime] = useState(0);
@@ -30,8 +30,8 @@ const CodeJsx = () => {
     const fetchCode = () => {
         setLoading(true);
         const { getFieldsValue } = form;
-        const { loginName, userPhone, verCode } = getFieldsValue();
-        sendPhone({ userPhone: loginName || userPhone, code: verCode })
+        const { loginName, userPhone, userinfoConPhone, verCode } = getFieldsValue();
+        sendPhone({ userPhone: loginName || userPhone || userinfoConPhone, code: verCode })
             .then(() => {
                 setDataTime(1 * 60);
             })
@@ -47,7 +47,7 @@ const CodeJsx = () => {
             size={'small'}
             type={'link'}
             disabled={isfetch}
-            style={{ cursor: 'pointer', height: 36, width: 90 }}
+            style={{ cursor: 'pointer', height, width: 90 }}
             onClick={fetchCode}
         >
             {dataTime === 0 ? '获取验证码' : `倒计时${dataTime}秒`}
