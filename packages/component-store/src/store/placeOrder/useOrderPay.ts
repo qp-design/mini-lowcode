@@ -2,7 +2,7 @@ import {get, set} from 'lodash';
 import {useState} from 'react';
 import {useModuleContext, initialValueOrder} from "@brushes/component-core";
 import {saveContract} from "qj-b2c-api";
-import {message} from 'antd';
+import {Form, message} from 'antd';
 import {useNavigate} from 'react-router-dom';
 import {useSearchParamHook} from "../../utils";
 import {useGetCarNum} from "../../store";
@@ -11,7 +11,8 @@ import {post} from "@brushes/request";
 export function useOrderPay() {
     const navigator = useNavigate();
     const [shoppingGoodsIdStr] = useSearchParamHook(['shoppingGoodsIdStr']);
-    const {getGoodsList} = useGetCarNum()
+    const {getGoodsList} = useGetCarNum();
+    const form = Form.useFormInstance();
     const [loading, setLoading] = useState(false);
     const _orderDomainStr = useModuleContext(s => s.moduleStore._orderDomainStr); //订单信息
     const _ocContractSettlList = useModuleContext(s => s.moduleStore._ocContractSettlList); // 优惠信息
@@ -37,7 +38,7 @@ export function useOrderPay() {
                         contractGoodsList: _contractGoodsList[index],
                         shoppingGoodsIdList: (_contractGoodsList[index] || []).map((item: any) => item.shoppingGoodsId),
                         promotionCode: item.promotionCode,
-                        packageRemark: null
+                        packageRemark: form.getFieldValue('packageRemark'),
                     }
                 ],
                 packageMode: '', //配送方式

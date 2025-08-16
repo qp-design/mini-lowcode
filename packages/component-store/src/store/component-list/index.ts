@@ -7,7 +7,7 @@ export const useComponentListData = (dataPath: string, storeKey: string) => {
     return useMemo(() => {
         let res = [];
         if (dataPath) {
-            res = get(value, dataPath, []);
+            res = get(value || {}, dataPath, []);
         } else {
             res = value
         }

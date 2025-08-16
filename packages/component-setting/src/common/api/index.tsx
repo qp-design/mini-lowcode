@@ -12,6 +12,42 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
            label: '大宗委托平台交易更新'
         },
         {
+            value: 'web/inv/invlist/queryInvlistPageTowap.json',
+            label: '我的发票'
+        },
+        {
+            value: 'web/inv/userinv/checkVATowap.json',
+            label: '增值税发票验证'
+        },
+        {
+            value: 'web/inv/userinv/deleteUserinv.json',
+            label: '删除发票'
+        },
+        {
+            value: 'web/inv/invlist/queryContractPage.json',
+            label: '开具发票列表'
+        },
+        {
+            value: 'web/inv/invlist/saveInvlist.json',
+            label: '开票接口'
+        },
+        {
+            value: 'web/inv/userinv/updateUserinv.json',
+            label: '编辑发票'
+        },
+        {
+            value: 'web/inv/userinv/getUserinv.json',
+            label: '发票明细'
+        },
+        {
+            value: 'web/inv/userinv/saveUserinv.json',
+            label: '新增发票'
+        },
+        {
+          value: 'web/inv/userinv/queryUserinvPageByByMemberCode.json',
+          label: '发票信息列表'
+        },
+        {
           value: 'web/res/evaluate/saveEvaluateGoods.json',
           label: '商品评价'
         },

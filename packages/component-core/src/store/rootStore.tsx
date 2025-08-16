@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 
 export type moduleType = {
   [v: string]: any;
+  _historyList: Array<any>;
   _themeColor: { colorPrimary: string; colorBgTextHover: string };
   _orderCount: {[v: string]: string | number}; // 订单角标
   _userInfo: {[v: string]: any}; // 用户信息
@@ -29,6 +30,7 @@ export const createRootModuleStore = (initProps?: Partial<moduleRootStore>) => {
     rootStore: {
       _userInfo: {
       },
+      _historyList: [],
       _themeColor: { colorPrimary: '#1677ff', colorBgTextHover: '#e6r4ff' },
       _orderCount: {},
       _cart: 0,

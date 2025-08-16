@@ -53,7 +53,7 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
     const addressList = useModuleContext(s => s.moduleStore[storeKey]) || [];
     const { styles } = useStyles();
     useEffect(() => {
-        const { addressId = ''} = addressList.find(item => {
+        const { addressId = ''} = (addressList || []).find(item => {
             return item.addressDefault === '1'
         }) || {};
         if(addressId) {
@@ -141,7 +141,7 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
         return (
             <>
                 {
-                    addressList.map((item) => {
+                    (addressList || []).map((item) => {
                         return (
                             <div className={styles.container} key={item.addressId}>
                                 { freight ? <Radio value={item.addressId}><ItemJsx {...item}/></Radio> : <ItemJsx {...item}/> }

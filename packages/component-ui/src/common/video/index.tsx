@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from "react";
+import {fullpath} from "@brushes/component-tool";
 
 export const Video = ({src, style, actived}: {src: string; style: object; actived: boolean}) => {
     const videoRefs = useRef(null);
@@ -26,7 +27,7 @@ export const Video = ({src, style, actived}: {src: string; style: object; active
             preload="auto"
             controls
             style={style}
-            src={src}
+            src={fullpath(src)}
         ></video>
     )
 }

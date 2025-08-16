@@ -141,6 +141,28 @@ const baseFormField: formConfigType[] = [
                 }
             },
             {
+                label: '参数全局store的key',
+                name: 'paramsRootStoreKey',
+                type: 'text',
+            },
+            {
+                label: '参数全局store获取',
+                name: 'paramsRootStore',
+                type: 'formList',
+                extraProps: {
+                    innerForm: [
+                        {
+                            label: '参数',
+                            name: 'key',
+                        },
+                        {
+                            label: '路径',
+                            name: 'value',
+                        }
+                    ]
+                }
+            },
+            {
               label: '是否缓存',
               name: 'cacheParams',
               type: 'switch',

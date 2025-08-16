@@ -58,7 +58,8 @@ const basic : Array<TypeComponent> = [
         callbackName: '',
         fontSize: '12px',
         paramKey: '',
-        value: ''
+        value: '',
+        storeKey: '_skuInfo'
       },
       related: {
         settings: DiyActionSettings,

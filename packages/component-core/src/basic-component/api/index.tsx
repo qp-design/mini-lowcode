@@ -55,6 +55,8 @@ const DetailBasic: React.FC<any> = ({result, storeKey, dataPath}) => {
 
 type CardListType = {
     gap: number;
+    paramsRootStore?: Array<{ key: string; value: string }>;
+    paramsRootStoreKey?: string;
     paramsStoreKey?: string;
     cacheParamsTime?: number;
     cacheParams?: boolean;
@@ -163,6 +165,8 @@ const Api: React.FC<CardListType>
            description,
            paramsStoreKey,
            storeKeyTotal,
+           paramsRootStore,
+           paramsRootStoreKey,
            params,
            defaultValue,
            rows,
@@ -183,6 +187,8 @@ const Api: React.FC<CardListType>
         callbackName,
         isSearch,
         storeKeyTotal,
+        paramsRootStore,
+        paramsRootStoreKey,
         paramsStoreKey,
         cacheParams,
         cacheParamsTime,

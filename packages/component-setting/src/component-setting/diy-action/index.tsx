@@ -37,8 +37,13 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    name: 'storeKey',
+    label: 'store数据key',
+    type: 'text',
+  },
+  {
     name: 'value',
-    label: '取store数据key',
+    label: '取store数据路径key',
     type: 'text',
   },
 ]

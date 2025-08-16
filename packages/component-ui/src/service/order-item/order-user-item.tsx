@@ -83,6 +83,7 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
     const moduleRef = useRef(null);
     const retry = useModuleContext(s => s.moduleStore[callbackName]);
     const { getOrderBadge } = useOrderNum();
+    const setParentStore = useModuleContext(s => s.moduleStore.setParentStore);
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     useEffect(() => {
         setModuleStore({
@@ -108,14 +109,14 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
     }
 
     const expressImpl = (contractBillcode: string) => {
-        setModuleStore({
+        setParentStore({
             [expressKey]: true,
             contractBillcode
         })
     }
 
     const refundImpl = (contractBillcode: string, dataState: number) => {
-        setModuleStore({
+        setParentStore({
             [refundKey]: true,
             dataState,
             contractBillcode
@@ -222,7 +223,7 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
                                 {label: '待付款', value: '1,19'},
                                 {label: '待发货', value: '2'},
                                 {label: '待收货', value: '3'},
-                                {label: '已完成', value: '4'},
+                                {label: '已完成', value: '5'},
                                 {label: '已取消', value: '-1'},
                             ]}
                             code={'dataState'}>
@@ -325,7 +326,7 @@ const ShoppItemGood = ({
     const list = useComponentListData(dataPath, storeKey);
     const {styles} = useStyles();
     const retry = useModuleContext(s => s.moduleStore[callbackName]);
-
+    const setModuleStore = useModuleContext(s => s.setModuleStore);
     if (!list.length) {
         return <div style={{
             display: "flex",
@@ -363,7 +364,7 @@ const ShoppItemGood = ({
                                 <div style={{width: 400}}>
                                     <ShopItemGoodInnerJsx dataPath={'goodsList'} item={item}/>
                                 </div>
-                                <ModuleProvider moduleStore={{[callbackName]: retry}}>
+                                <ModuleProvider moduleStore={{[callbackName]: retry, setParentStore: setModuleStore}}>
                                     <OldItemInfo refundKey={refundKey} expressKey={expressKey} record={item} callbackName={callbackName}/>
                                 </ModuleProvider>
                             </div>

@@ -5,6 +5,7 @@ import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {post} from "@brushes/request";
 import {ButtonOperate} from "../../service";
 import {Element} from "@craftjs/core";
+import {get} from "lodash";
 
 export type ButtonTypePlus = {
     dataState?: string;
@@ -16,15 +17,15 @@ export type ButtonTypePlus = {
     [key: string]: any;
 };
 
-const DiyAction = ({title, api, callbackName, callbackNameParent, fontSize, paramKey, value, padding = {}}:any) => {
-    const record = useModuleContext(s=>s.moduleStore._skuInfo);
+const DiyAction = ({title, api, storeKey = '_skuInfo', callbackName, callbackNameParent, fontSize, paramKey, value, padding = {}}:any) => {
+    const record = useModuleContext(s=>s.moduleStore[storeKey]);
     const [loading, setLoading] = useState(false);
     const retry = useModuleContext(s=>s.moduleStore[callbackName]);
     const retryParent = useModuleContext(s=>s.moduleStore[callbackNameParent]);
     const onClick = async () => {
         setLoading(true);
         const { msg } = await post(api, {
-           [paramKey]: record[value],
+           [paramKey]: get(record, value, ''),
         })
         message.success(msg);
         retry();
