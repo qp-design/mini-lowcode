@@ -1,6 +1,6 @@
 import { Button, Space } from 'antd';
 import React, { Fragment } from 'react';
-import { noop } from 'lodash';
+import {isEmpty, noop} from 'lodash';
 
 export type ButtonTypePlus = {
     dataState?: Array<number | string> | string;
@@ -20,7 +20,7 @@ export const TableAction: React.FC<{
 }> = ({ buttonList, direction = 'horizontal', record, onClick = noop }) => {
   return (
     <div className={'action'}>
-        {buttonList.map(({ type = 'link', render, code, name, idKey = 'dataState', dataState, ...restProps }, index: number) => {
+        {buttonList.filter(item => !isEmpty(item)).map(({ type = 'link', render, code, name, idKey = 'dataState', dataState, ...restProps }, index: number) => {
           if (dataState && !dataState.includes(record[idKey]+'')) {
             return null;
           }

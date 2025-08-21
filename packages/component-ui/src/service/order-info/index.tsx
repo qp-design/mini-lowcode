@@ -4,6 +4,7 @@ import {Text} from '../../basic'
 import {useOrderGood, useOrderInfo} from "component-store";
 import {fixPrice} from "@brushes/component-tool";
 import {useEffect, useState} from "react";
+import {URComponent} from "../../service";
 
 const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padding: object; margin: object}) => {
     useOrderGood(storeKey);
@@ -18,13 +19,12 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
         comDisMoney,
         goodsCamount,
         rebMoney,
-        freight
+        freight,
+        ur
     } = useOrderInfo();
 
     useEffect(() => {
-        const sum = shoppingCountPrice - creditMoney - couponMoney + freight;
-
-        console.log(1111, shoppingCountPrice, creditMoney, couponMoney, freight);
+        const sum = shoppingCountPrice - creditMoney - couponMoney + freight - ur;
         const result = sum > 0 ? sum : 0;
         setPayMoney(result);
         setModuleStore({
@@ -79,6 +79,23 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
                     <Text color={'#666'} fontSize={14} text={'返利金额：'}></Text>
                     <Text text={fixPrice(rebMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
                 </Container>
+                <Element
+                    is={Container}
+                    id={'UR'}
+                    canvas>
+                    <Container
+                        canvas
+                        alignItems={'center'}
+                        margin={{marginBottom: 10}}
+                        justifyContent={'flex-end'}
+                        flexDirection={'row'}
+                    >
+                        <Text canvas color={'#666'} fontSize={14} text={'会员权益优惠：'}></Text>
+                        <Element width={120} is={Container} canvas id={'ur-money'}>
+                            <URComponent/>
+                        </Element>
+                    </Container>
+                </Element>
                 <Container
                     alignItems={'center'}
                     margin={{marginBottom: 10}}

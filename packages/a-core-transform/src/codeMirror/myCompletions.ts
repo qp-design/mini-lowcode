@@ -48,16 +48,17 @@ export default useDiyHook;
 /* 导入对应的模块*/
 import React from "react";
 import {Form, Button} from "antd"
-import {useFormImpl} from "@brushes/form";
-
+import {useFormImpl, TransformType} from "@brushes/form";
 let text = '我已确认当前商品';
 
-const SaveOperate = () => {
+const SaveOperate = ({transformDataConfig = []} : {
+      transformDataConfig?: Array<TransformType>
+}) => {
     const form = Form.useFormInstance();
     const {
         handlerSubmit,
         inProgressStatus
-    } = useFormImpl(form, () => {}, []);
+    } = useFormImpl(form, () => {}, transformDataConfig);
 
     const onSubmit = async (cb:() => void, value: any) => {
         try {

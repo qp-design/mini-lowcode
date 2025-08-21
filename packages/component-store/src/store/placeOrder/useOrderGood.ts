@@ -26,7 +26,6 @@ export const useOrderGood = (storeKey: string) => {
     let ocContractSettlList = [] as Array<any>; // 优惠信息
     let shoppingList = [] as Array<any>; // 优惠券信息
     res.forEach((v) => {
-
       const payStateConfig = Object.assign({}, initialValueOrder);
       payStateConfig.shoppingType = v.goodsType;
       payStateConfig.rebMoney += v.rebMoney;

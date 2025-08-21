@@ -6,7 +6,7 @@ import {Text} from "../../basic";
 import {CardLRComponent} from "../../service";
 import {TableAction, StatusOperate, ModalJsx} from "./component";
 import {createStyles} from "antd-style";
-import {fixPrice, contractTypeFn, contractPmodeFn, dataStateFn, useNavigateImpl} from "@brushes/component-tool";
+import {useNavigateImpl} from "@brushes/component-tool";
 import {cancelContractC, confirmReceive} from "component-api";
 import {Empty, message} from "antd";
 import {get} from "lodash";
@@ -78,7 +78,7 @@ const useStyles = createStyles(({token, css}) => {
 })
 
 
-export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { refundKey: string; expressKey: string;record: any; callbackName: string }) => {
+export const OldItemInfo = ({record, isEvalate = true, callbackName, expressKey, refundKey}: { isEvalate?: boolean; refundKey: string; expressKey: string;record: any; callbackName: string }) => {
     const {navigator} = useNavigateImpl();
     const moduleRef = useRef(null);
     const retry = useModuleContext(s => s.moduleStore[callbackName]);
@@ -90,6 +90,7 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
             _skuInfo: record
         })
     }, [record]);
+    console.log(1111, isEvalate);
     const cancelImpl = async (contractId: string) => {
         const {msg} = await cancelContractC({contractId});
         message.success(msg);
@@ -247,11 +248,11 @@ export const OldItemInfo = ({record, callbackName, expressKey, refundKey}: { ref
                                 code: 'pay',
                                 dataState: '1',
                             },
-                            {
+                            isEvalate ? {
                                 dataState: '5',
                                 code: 'evaluate',
                                 name: record.contractAppraise === 1 ? '已评价' : '去评价',
-                            },
+                            } : {},
                             {
                                 dataState: '3',
                                 code: 'express',
@@ -316,6 +317,7 @@ const ShoppItemGood = ({
                            callbackName,
                            description,
                            dataPath,
+                           isEvalate,
                            storeKey,
                            expressKey,
                            refundKey,
@@ -365,7 +367,7 @@ const ShoppItemGood = ({
                                     <ShopItemGoodInnerJsx dataPath={'goodsList'} item={item}/>
                                 </div>
                                 <ModuleProvider moduleStore={{[callbackName]: retry, setParentStore: setModuleStore}}>
-                                    <OldItemInfo refundKey={refundKey} expressKey={expressKey} record={item} callbackName={callbackName}/>
+                                    <OldItemInfo isEvalate={isEvalate} refundKey={refundKey} expressKey={expressKey} record={item} callbackName={callbackName}/>
                                 </ModuleProvider>
                             </div>
                         </Fragment>

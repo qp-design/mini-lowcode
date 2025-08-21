@@ -56,9 +56,8 @@ export const useSku = (dataKey: string, promotionKey: string, couponKey: string)
         const skuList = get(defaultValue, "rsSkuDomainList", []);
         // @ts-ignore
         const selectObj = skuList.find((item) => item[dataKey] === defaultValue[dataKey]) || {};
-
         const arr = specList.map(item => {
-            const { specValueValue } = item.skuOption.find(c => selectObj.skuName.includes(c.specValueValue));
+            const { specValueValue } = item.skuOption?.find(c => selectObj.skuName?.includes(c.specValueValue)) || {};
             return specValueValue
         });
         setModuleStore({

@@ -3,7 +3,7 @@ import {DefaultJsx} from '../default';
 import {fullpath} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
 import {useEditor, useNode} from "@craftjs/core";
-import {ModuleProvider, useModuleContext} from "../../store";
+import {ModuleProvider, useModuleContext, useModuleRootContext} from "../../store";
 import {useSearchParams} from 'react-router-dom';
 import {isEmpty, isUndefined, get} from "lodash";
 
@@ -24,8 +24,10 @@ export const Inner = ({children, enabled, root, text}: { text?:string; root?: bo
         <>{children ? children : enabled ? <DefaultJsx text={text} root={root}/> : ''}</>
     )
 }
-export const IsShowContainer = ({moduleShowValue, children, routerIsShowValue, routerIsShow, moduleIsShow = '', padding, storeKey = '', margin}: { routerIsShowValue?: string; moduleShowValue?: string; moduleIsShow?: string; routerIsShow?: string; storeKey: string; padding: object; margin: object; children?: ReactNode}) => {
-    const store = useModuleContext(s=>s.moduleStore[storeKey]) || {};
+export const IsShowContainer = ({moduleShowValue, rootKey = '', children, routerIsShowValue, routerIsShow, moduleIsShow = '', padding, storeKey = '', margin}: { routerIsShowValue?: string; rootKey?: string; moduleShowValue?: string; moduleIsShow?: string; routerIsShow?: string; storeKey: string; padding: object; margin: object; children?: ReactNode}) => {
+    const store = useModuleContext(s=>s.moduleStore[storeKey]);
+    const rootStore = useModuleRootContext(s=>s.rootStore[rootKey]);
+
     const {enabled} = useEditor(
         (state) => ({
             enabled: state.options.enabled,
@@ -38,11 +40,23 @@ export const IsShowContainer = ({moduleShowValue, children, routerIsShowValue, r
     let [searchParams,] = useSearchParams();
 
     const nValue = useMemo(() => {
-        if(typeof store[moduleIsShow] === 'number') {
-            return get(store, moduleIsShow) + '';
+        if(storeKey && store) {
+            if(typeof store[moduleIsShow] === 'number') {
+                return get(store, moduleIsShow) + '';
+            }
+            return get(store, moduleIsShow);
         }
-        return get(store, moduleIsShow);
-    }, [store, moduleIsShow]);
+    }, [store, storeKey, moduleIsShow]);
+
+    const rnValue = useMemo(() => {
+        if(rootKey && rootStore) {
+            if(typeof rootStore[moduleIsShow] === 'number') {
+                return get(rootStore, moduleIsShow) + '';
+            }
+            return get(rootStore, moduleIsShow);
+        }
+
+    }, [rootStore, rootKey, moduleIsShow]);
 
     /**
      *  1: 路由是否包含
@@ -50,12 +64,19 @@ export const IsShowContainer = ({moduleShowValue, children, routerIsShowValue, r
      *  3: store显示条件Key和value都为空， store是否为空
      *  4: store显示条件Key不为空 store显示条件value为空， store里面的key的值是否空
      *  5: store显示条件Key和store显示条件value都不为空， store里面的key的值和 显示条件value是否匹配
+     *  6: 全局Store显示条件Key和value都为空， 全局Store是否为空
+     *  7: 全局Store显示条件Key和显示条件value都不为空， 全局Store里面的key的值和 显示条件value是否匹配
+     *  8: 全局store显示条件Key不为空 store显示条件value为空， 全局store里面的key的值是否空
      */
-    if((routerIsShow && searchParams.has(routerIsShow) && !routerIsShowValue)
-        || (routerIsShow && searchParams.has(routerIsShow) && routerIsShowValue && routerIsShowValue.includes(searchParams.get(routerIsShow) || ''))
-        || (moduleShowValue && moduleIsShow && moduleShowValue.split(',').includes(nValue + '')) ||
-        (store && !moduleShowValue && !moduleIsShow && !isUndefined(store) && !isEmpty(store)) ||
-        (moduleIsShow && !moduleShowValue && !isUndefined(nValue) && !isEmpty(nValue)) || enabled) {
+    if((routerIsShow && searchParams.has(routerIsShow) && !routerIsShowValue) || // 1
+        (routerIsShow && searchParams.has(routerIsShow) && routerIsShowValue && routerIsShowValue.split(',').includes(searchParams.get(routerIsShow) || '')) || // 2
+        (storeKey && !moduleShowValue && !moduleIsShow && !isUndefined(store) && !isEmpty(store)) || // 3
+        (moduleIsShow && storeKey && !moduleShowValue && !isUndefined(nValue) && !isEmpty(nValue)) || // 4
+        (moduleShowValue && storeKey && moduleIsShow && moduleShowValue.split(',').includes(nValue + '')) || // 5
+        (rootKey && !moduleShowValue && !moduleIsShow && !isUndefined(rootStore) && !isEmpty(rootStore)) || // 6
+        (moduleIsShow && rootKey && !moduleShowValue && !isUndefined(rnValue) && !isEmpty(rnValue)) || // 7
+        (moduleShowValue && rootKey && moduleIsShow && moduleShowValue.split(',').includes(rnValue + '')) || // 8
+        enabled) {
         return (
             <div
                 style={{

@@ -16,7 +16,7 @@ const containerField: FieldType[] = [
     name: 'routerIsShowValue',
     type: 'text',
     extraProps: {
-      placeholder: '一般使用场景是增删查，其他场景用不到'
+      placeholder: '一般场景是增删查，其他场景用不到'
     }
   },
   {
@@ -36,9 +36,20 @@ const containerField: FieldType[] = [
     }
   },
   {
-    label: 'store数据Key',
+    label: '全局store数据Key',
+    name: 'rootKey',
+    type: 'text',
+    extraProps: {
+      placeholder: '全局store和页面store只需要填写一个'
+    }
+  },
+  {
+    label: '页面store数据Key',
     name: 'storeKey',
     type: 'text',
+    extraProps: {
+      placeholder: '全局store和页面store只需要填写一个'
+    }
   },
   ...marginField,
   ...paddingField,

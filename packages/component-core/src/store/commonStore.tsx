@@ -34,6 +34,7 @@ export type addressInfo = {
 
 export type moduleType = {
   [v: string]: any;
+  _ocDiscount: Array<any>;
   _orderAddressInfo: addressInfo;
   _couponList: [], // 订单优惠券列表
   _selectCoupon: {}, // 选中的优惠券
@@ -67,6 +68,7 @@ export type ModuleStore = ReturnType<typeof createModuleStore>
 export const createModuleStore = (initProps?: Partial<moduleStore>) => {
   const DEFAULT_PROPS: moduleStore = {
     moduleStore: {
+      _ocDiscount: [],
       _contractGoodsList: [],
       _orderDomainStr: [],
       _ocContractSettlList: [],

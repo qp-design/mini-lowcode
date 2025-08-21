@@ -64,7 +64,6 @@ const basic : Array<TypeComponent> = [
     Component: ServiceComponent['CommonListComponent'],
     setting: {
       props: {
-        callbackName: 'queryRetry',
         dataPath: 'list',
         padding: { paddingTop: 5, paddingBottom: 5, paddingLeft: 0, paddingRight: 0},
         storeKey: 'defaultValue',

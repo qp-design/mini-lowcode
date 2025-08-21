@@ -3,12 +3,22 @@ import {useMemo} from 'react';
 import {useModuleContext} from "@brushes/component-core";
 import {Form} from "antd";
 import {PromotionInType} from "@brushes/component-tool";
+import {get, isEmpty} from "lodash";
 
 export function useOrderInfo() {
   const form = Form.useFormInstance();
   const _ocContractSettlList = useModuleContext(s=>s.moduleStore._ocContractSettlList);
+  const _ocDiscount = useModuleContext(s=>s.moduleStore._ocDiscount);
   const freight = useModuleContext(s=>s.moduleStore._orderAddressInfo.freight);
   const creditType = Form.useWatch('creditType', form);
+
+  const ur = useMemo(() => {
+    if(!isEmpty(_ocDiscount)) {
+      return get(_ocDiscount, '[0].contractSettlPmoney', 0)
+    }
+    return 0
+  }, [_ocDiscount]);
+
   const _selectCoupon = useModuleContext(s=>s.moduleStore._selectCoupon) || {};
   const _orderDomainStr = useModuleContext(s=>s.moduleStore._orderDomainStr);
   const { shoppingCountPrice, creditMoney, comDisMoney, couponMoney, goodsCamount, totalMoney, rebMoney } = useMemo(() => {
@@ -63,6 +73,7 @@ export function useOrderInfo() {
     totalMoney,
     freight,
     creditMoney,
-    creditType
+    creditType,
+    ur
   };
 }

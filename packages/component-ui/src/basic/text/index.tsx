@@ -87,8 +87,8 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
                 return fixPrice(+dataInfo[code])
             }
             if(transformData === 'dataType') {
-               const v = (localScheme || []).find(({value = ''}) => value.includes(dataInfo[code]+'')) || {};
-               return v.label;
+               const v = (localScheme || []).find(({value = ''}) => value.split(',').includes(dataInfo[code]+'')) || {};
+               return v.label || text;
             }
             const value = get(dataInfo, code);
             return (value || value === 0) ? value : text;

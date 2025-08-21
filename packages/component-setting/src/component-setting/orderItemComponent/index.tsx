@@ -11,6 +11,11 @@ const containerField: FieldType[] = [
         type: 'text',
     },
     {
+        name: 'isEvalate',
+        label: '是否显示评价入口',
+        type: 'switch',
+    },
+    {
         name: 'hidden',
         label: '隐藏促销',
         type: 'switch',

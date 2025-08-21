@@ -8,7 +8,6 @@ const ImageJsx = ({ image = {}, storeKey = '_skuInfo', borderRadius, width, code
     const _skuInfo = useModuleContext((s) => s.moduleStore[storeKey]);
     const { navigator } = useNavigateImpl();
     const value = useMemo(() => {
-        console.log('_skuInfo', code, _skuInfo);
         if (code && _skuInfo) {
             // @ts-ignore
             return _skuInfo[code] || image.imgUrl;

@@ -41,9 +41,9 @@ const containerField: FieldType[] = [
         type: 'text',
     },
     {
-        label: '回调查询函数名',
-        name: 'callbackName',
-        type: 'text',
+        label: '展示多少数量',
+        name: 'maxNum',
+        type: 'number',
     },
 ]
 

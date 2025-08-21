@@ -25,9 +25,9 @@ const CommmonJsx = ({padding, background, list, margin = {}}:{ item: any; backgr
 
 export const CommmonItem = HOCCodeWrapComponent(CommmonJsx)
 
-const CommonList = ({dataPath, storeKey, num = 1, description, gap = 0, callbackName, key, padding = {}}:any) => {
+const CommonList = ({dataPath, storeKey, maxNum, num = 1, description, gap = 0, key, padding = {}}:any) => {
     const list = useComponentListData(dataPath, storeKey);
-    const retry = useModuleContext(s => s.moduleStore[callbackName]);
+    const store = useModuleContext(s => s.moduleStore);
     if(list.length === 0){
         return <div style={{padding: '5px 0 5px 0'}}>
             <Element canvas is={Container} id={'empty'}><Empty description={description} /></Element>
@@ -41,8 +41,8 @@ const CommonList = ({dataPath, storeKey, num = 1, description, gap = 0, callback
             gridTemplateColumns: `repeat(${num}, 1fr)`
         }}>
             {
-                list.map((item, index) => (
-                    <ModuleProvider key={item[key] || index} moduleStore={{_skuInfo:item, [callbackName]: retry}}>
+                list.slice(0, maxNum || list.length).map((item, index) => (
+                    <ModuleProvider key={item[key] || index} moduleStore={{...store, _skuInfo:item}}>
                         <Element is={CommmonItem} id={'common-item'} canvas/>
                     </ModuleProvider>
                 ))

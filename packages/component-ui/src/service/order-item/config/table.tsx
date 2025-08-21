@@ -29,6 +29,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
         } else if(refundType === 'B02' && dataState === 3) {
             result = list.filter((c:any)=>c.contractGoodsSendnum>0)
         }
+        console.log(1111, dataState, result)
         setSelectedRowsKeys([]);
         setDataSource(result);
     }, [form.getFieldValue('refundType')]);

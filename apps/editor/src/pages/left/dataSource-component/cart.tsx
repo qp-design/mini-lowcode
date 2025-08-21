@@ -10,11 +10,10 @@ import {
   OrderItemComponentSettings,
   PaymentServiceSettings,
   RefundComponentSettings, PayServiceSettings,
-  CreditComponentSettings, TimerComponentSettings
+  CreditComponentSettings, TimerComponentSettings, NumberComponentSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
-import {TimerComponent} from "component-ui/service";
 const cart : Array<TypeComponent> = [
   {
     name: '支付页面',
@@ -27,6 +26,19 @@ const cart : Array<TypeComponent> = [
       },
       related: {
         settings: PayServiceSettings,
+      },
+    }
+  },
+  {
+    name: '会员权益',
+    icon: 'icon-caozuojilu',
+    Component: ServiceComponent['URComponent'],
+    setting: {
+      props: {
+        precision: 2,
+      },
+      related: {
+        settings: NumberComponentSettings,
       },
     }
   },
@@ -162,6 +174,7 @@ const cart : Array<TypeComponent> = [
           paddingBottom: 5,
           paddingLeft: 5,
         },
+        isEvalate: true,
         description: '订单数据为空',
         storeKey: 'defaultValue',
         refundKey: 'refundKey',

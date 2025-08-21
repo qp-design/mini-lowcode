@@ -16,11 +16,13 @@ export function useOrderPay() {
     const [loading, setLoading] = useState(false);
     const _orderDomainStr = useModuleContext(s => s.moduleStore._orderDomainStr); //订单信息
     const _ocContractSettlList = useModuleContext(s => s.moduleStore._ocContractSettlList); // 优惠信息
+    const _ocDiscount = useModuleContext(s => s.moduleStore._ocDiscount); // 会员权益
     const _orderAddressInfo = useModuleContext(s => s.moduleStore._orderAddressInfo); //地址信息
     const _contractGoodsList = useModuleContext(s => s.moduleStore._contractGoodsList); //订单商品信息
     const _payMoney = useModuleContext(s => s.moduleStore._payMoney);
     // 参数数据处理
     const paramsDataHandle = (appendParams: object) => {
+        console.log(24, appendParams);
         const {goodsReceiptArrdess, goodsReceiptMem, goodsReceiptPhone, areaCode} = _orderAddressInfo;
         return _orderDomainStr.map((item: typeof initialValueOrder, index: number) => {
             return {
@@ -82,12 +84,13 @@ export function useOrderPay() {
         cb();
         const rsSkuListStr = paramsDataHandle(value);
         // 优惠信息
-        const settleList = _ocContractSettlList.map((item: typeof initialValueOrder) => {
+        const settleList = _ocContractSettlList.concat(_ocDiscount).map((item: typeof initialValueOrder) => {
             return {
                 ...item,
                 contractPmode: value.contractPmode,
             }
         });
+
         set(rsSkuListStr, '[0].ocContractSettlList', settleList);
         setLoading(true);
         const params = {orderDomainStr: JSON.stringify(rsSkuListStr)};
