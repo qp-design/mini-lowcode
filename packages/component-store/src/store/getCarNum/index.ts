@@ -3,9 +3,9 @@ import {useModuleRootContext} from "@brushes/component-core";
 
 export const useGetCarNum = () => {
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore)
-    const getGoodsList = async () => {
+    const getGoodsList = async (params: object) => {
         try {
-            const data = await post('web/oc/shopping/queryShoppingGoodsByUser.json');
+            const data = await post('web/oc/shopping/queryShoppingGoodsByUser.json', params);
             setModuleRootStore({
                 _cart: data.list.length ? data.list.length : 0
             });
@@ -20,9 +20,9 @@ export const useGetCarNum = () => {
 
 export const useOrderNum = () => {
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore)
-    const getOrderBadge = async () => {
+    const getOrderBadge = async (params: object) => {
         try {
-            const data = await post('web/oc/contract/queryOcContractToCensus.json');
+            const data = await post('web/oc/contract/queryOcContractToCensus.json', params);
             setModuleRootStore({
                 _orderCount: data
             });

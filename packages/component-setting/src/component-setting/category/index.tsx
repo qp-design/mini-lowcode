@@ -3,6 +3,11 @@ import {FieldType} from '@brushes/form';
 
 const containerField: FieldType[] = [
   {
+    label: '游客模式',
+    name: '_tourist',
+    type: 'switch'
+  },
+  {
     label: '宽度',
     name: 'width',
     type: 'number'

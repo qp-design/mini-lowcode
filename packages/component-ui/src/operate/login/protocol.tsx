@@ -1,9 +1,9 @@
 import { Form } from 'antd';
 import { Checkbox, Space } from 'antd';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import loginContext from './context';
 
-const Protocol: FC<{ children: ReactNode; actionImpl: (e: string) => void }> = ({ actionImpl, children }) => {
+const Protocol: FC<{ children: ReactNode; isNeedRegister: boolean; actionImpl: (e: string) => void }> = ({ actionImpl, children, isNeedRegister }) => {
     const { textInfo, mode, to } = loginContext.useOpenValues();
     return (
         <div className="bottom-protocol">
@@ -17,9 +17,9 @@ const Protocol: FC<{ children: ReactNode; actionImpl: (e: string) => void }> = (
                     </Space>
                 </Form.Item>
             )}
-            <a onClick={() => actionImpl(to)} className="login-form-forgot margin-top">
+            { isNeedRegister && <a onClick={() => actionImpl(to)} className="login-form-forgot margin-top">
                 {textInfo}
-            </a>
+            </a> }
         </div>
     );
 };

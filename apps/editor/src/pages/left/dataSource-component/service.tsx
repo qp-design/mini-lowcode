@@ -121,7 +121,8 @@ const service : Array<TypeComponent> = [
         backgroundColor: '#F8FAFF',
         height: 420,
         width: 232,
-        widthHover: 770
+        widthHover: 770,
+        _tourist: false
       },
       related: {
         settings: CategoryComponentSettings,
@@ -135,6 +136,7 @@ const service : Array<TypeComponent> = [
     setting: {
       props: {
         imgUrl: '',
+        _tourist: false,
         config: [
           {
             label: "待付款",

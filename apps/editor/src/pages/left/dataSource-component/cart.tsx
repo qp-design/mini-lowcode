@@ -103,7 +103,8 @@ const cart : Array<TypeComponent> = [
         height: 44,
         imgHeight: 18,
         imgWidth: 18,
-        car: {}
+        car: {},
+        _tourist: false,
       },
       related: {
         settings: CarBadgeSettings,
@@ -227,6 +228,7 @@ const cart : Array<TypeComponent> = [
     setting: {
       props: {
         storeKey: 'goods',
+        pointKey: 'points'
       },
       related: {
         settings: OrderInfoComponentSettings,

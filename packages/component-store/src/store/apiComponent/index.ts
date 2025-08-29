@@ -98,6 +98,10 @@ export const useApiComponent = (api:string, rows: number, restParams: {
 
             finallyImpl(data);
         } catch (err) {
+            if (err === '游客模式' && restParams.componentType !== 'detail') {
+                setResult({list: [], total: 0})
+                return
+            }
             // 默写场景捕获错误代码
             _error = {
                 success: false,

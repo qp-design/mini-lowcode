@@ -6,8 +6,8 @@ import {fixPrice} from "@brushes/component-tool";
 import {useEffect, useState} from "react";
 import {URComponent} from "../../service";
 
-const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padding: object; margin: object}) => {
-    useOrderGood(storeKey);
+const OrderInfo = ({storeKey, pointKey, padding, margin, ...props}:{pointKey:string; storeKey: string; padding: object; margin: object}) => {
+    useOrderGood(storeKey, pointKey);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
     const [payMoney, setPayMoney] = useState(0)
     const {
@@ -19,18 +19,19 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
         comDisMoney,
         goodsCamount,
         rebMoney,
-        freight,
-        ur
-    } = useOrderInfo();
+        freightValue,
+        ur,
+        points
+    } = useOrderInfo(pointKey);
 
     useEffect(() => {
-        const sum = shoppingCountPrice - creditMoney - couponMoney + freight - ur;
+        const sum = shoppingCountPrice - creditMoney - couponMoney + freightValue - ur - points;
         const result = sum > 0 ? sum : 0;
         setPayMoney(result);
         setModuleStore({
             _payMoney: result
         })
-    }, [shoppingCountPrice, creditMoney, couponMoney, freight]);
+    }, [shoppingCountPrice, creditMoney, couponMoney, freightValue, ur, points]);
 
     return (
         <div style={{...padding, ...margin, ...props}}>
@@ -103,7 +104,7 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
                     flexDirection={'row'}
                 >
                     <Text color={'#666'} fontSize={14} text={'运费：'}></Text>
-                    <Text text={fixPrice(freight)} textAlign={'right'} width={120} color={'#f00'}></Text>
+                    <Text text={fixPrice(freightValue)} textAlign={'right'} width={120} color={'#f00'}></Text>
                 </Container>
                 <Container
                     alignItems={'center'}

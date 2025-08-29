@@ -289,18 +289,27 @@ const ItemMemu = ({item}: any) => {
         </li>
     )
 }
-export const Category = ({width, height, backgroundColor, widthHover}: {
+export const Category = ({width, height, backgroundColor, widthHover, _tourist}: {
     widthHover: number;
     backgroundColor: string;
     width: number;
-    height: number
+    height: number;
+    _tourist: boolean;
 }) => {
     const [apiData, setApiData] = useState([]);
-    const {styles} = useStyles({height, width, backgroundColor, widthHover, hoverHeight: Math.max(apiData.length * 41 + 20, height)  });
+    console.log(1111, apiData);
+    const {styles} = useStyles({height, width, backgroundColor, widthHover, hoverHeight: Math.max((apiData.length) * 41 + 20, height)  });
     useEffect(() => {
         (async () => {
-            const data = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json', cacheParams({}, 10));
-            setApiData(data);
+            try {
+                const params = _tourist ? { _tourist: true } : {};
+                const data = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json', cacheParams(params, 10));
+                console.log(306, data);
+                setApiData(data);
+            } catch (err) {
+                console.error(err);
+            }
+
         })()
     }, []);
 

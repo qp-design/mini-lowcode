@@ -6,11 +6,12 @@ import {ButtonComponent} from "../../basic";
 import {useEffect} from "react";
 import {useGetCarNum} from "component-store";
 
-const CarBadgeJsx = ({car, imgWidth, imgHeight, skuId = '', ...restProps}: { skuId?: string; car: { imgUrl: string }; imgHeight: number; imgWidth: number;text: string }) => {
+const CarBadgeJsx = ({car, _tourist, imgWidth, imgHeight, skuId = '', ...restProps}: { _tourist?: boolean; skuId?: string; car: { imgUrl: string }; imgHeight: number; imgWidth: number;text: string }) => {
     const _cart = useModuleRootContext(s => s.rootStore._cart);
     const { getGoodsList } = useGetCarNum();
     useEffect(() => {
-        getGoodsList()
+        const params = _tourist ? { _tourist: true } : {};
+        getGoodsList(params);
     }, []);
     return (
         <Badge count={_cart}>

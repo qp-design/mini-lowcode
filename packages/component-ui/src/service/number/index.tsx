@@ -26,7 +26,7 @@ const Amount: React.FC<TextProps> =
 
         const value = useMemo(() => {
             if(code) {
-                return get(dataInfo, code) || '--';
+                return get(dataInfo, code) ?? 0;
             }
             return 0
         }, [code, dataInfo]);

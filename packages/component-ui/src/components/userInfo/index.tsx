@@ -1,7 +1,6 @@
 import {createStyles} from "antd-style";
 import {fullpath, useNavigateImpl} from "@brushes/component-tool";
-import {useEffect, useState} from "react";
-import {queryOcContractToCensus} from "component-api";
+import {useEffect} from "react";
 import {LogoutComponent} from "../../operate";
 import {DividerComponent, Text} from "../../basic";
 import {Element} from "@craftjs/core";
@@ -120,13 +119,14 @@ const useStyle = createStyles(({token, css}) => {
         `
     }
 })
-export const UserInfo = ({text, imgUrl, config, ...restProps}: { config: Array<{label: string; code: string}>; text: string; imgUrl: string }) => {
+export const UserInfo = ({text, imgUrl, _tourist, config, ...restProps}: { _tourist: boolean;config: Array<{label: string; code: string}>; text: string; imgUrl: string }) => {
     const {styles} = useStyle();
     const { navigator } = useNavigateImpl();
     const { getOrderBadge } = useOrderNum();
-    const _orderCount = useModuleRootContext(s => s.rootStore._orderCount)
+    const _orderCount = useModuleRootContext(s => s.rootStore._orderCount) || {}
     useEffect(() => {
-        getOrderBadge()
+        const params = _tourist ? { _tourist: true } : {};
+        getOrderBadge(params)
     }, []);
 
 
@@ -161,7 +161,7 @@ export const UserInfo = ({text, imgUrl, config, ...restProps}: { config: Array<{
                                 <div key={index} onClick={() => {
                                     navigator(`/userCenter/orderList?label=${item.label}`)
                                 }} className="box navigator">
-                                    <div className="top_num">{_orderCount[item.code]}</div>
+                                    <div className="top_num">{_orderCount[item.code] || 0}</div>
                                     <div className="bottom_name">{item.label}</div>
                                 </div>
                             ))

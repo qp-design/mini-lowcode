@@ -5,6 +5,43 @@ import CodeJsx from '../components/code';
 import ImageJsx from '../components/image';
 import { checkUserPhoneThere } from 'qj-b2c-api';
 
+import { createStyles } from "antd-style";
+
+const useStyle = createStyles(({token, css}, {height } : { height: number;}) => {
+    return {
+        wrap: css`
+            input[name='code'] {
+                height: ${height}px
+            }
+        `
+    }
+})
+
+const Tu = ({form, height = 40}: {form: FormInstance; height: number}) => {
+    const { styles } = useStyle({height});
+    return (
+        <div className={styles.wrap}>
+            {
+                dynamicFormFields([{
+                    name: 'code',
+                    type: 'text',
+                    label: '',
+                    rules: [{ required: true, message: '请输入验证码' }],
+                    extraProps: {
+                        autoComplete: 'off',
+                        shouldUpdate: (prevValue, curValue) => prevValue.verCode !== curValue.verCode,
+                        // prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-yanzhengma'} />,
+                        placeholder: '请输入验证码',
+                        addonAfter: <CodeJsx/>,
+                        style: {
+                            height: 40
+                        }
+                    }
+                }], form)
+            }
+        </div>
+    )
+}
 export const imgCode : Array<FieldType> = [
     {
         name: 'verCode',
@@ -25,28 +62,7 @@ export const code: Array<FieldType> = [
         extraProps: {
             shouldUpdate: (prevValue, curValue) => prevValue.verCode !== curValue.verCode,
             render: ({form}) => {
-                return (
-                    <>
-                        {
-                            dynamicFormFields([{
-                                name: 'code',
-                                type: 'text',
-                                label: '',
-                                rules: [{ required: true, message: '请输入验证码' }],
-                                extraProps: {
-                                    autoComplete: 'off',
-                                    shouldUpdate: (prevValue, curValue) => prevValue.verCode !== curValue.verCode,
-                                    prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-yanzhengma'} />,
-                                    placeholder: '请输入验证码',
-                                    addonAfter: <CodeJsx/>,
-                                    style: {
-                                        height: 40
-                                    }
-                                }
-                            }], form)
-                        }
-                    </>
-                )
+                return <Tu form={form}/>
             }
         }
     },
@@ -72,7 +88,7 @@ export const forgetAndRegister: Array<FieldType> = [
         ],
         extraProps: {
             autoComplete: 'off',
-            prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-mima'} />,
+            // prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-mima'} />,
             placeholder: '请输入新密码',
             type: 'password',
             style: {
@@ -109,7 +125,7 @@ export const userPhone : Array<FieldType> = [
         ],
         extraProps: {
             autoComplete: 'off',
-            prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-user'} />,
+            // prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-user'} />,
             placeholder: '手机号',
             style: {
                 height: 40

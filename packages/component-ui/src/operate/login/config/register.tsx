@@ -1,10 +1,8 @@
 import {dynamicFormFields, FieldType} from '@brushes/form';
 import {FormInstance} from "antd";
 import {addressBasicConfig} from "@brushes/component-setting";
-import {code} from "@/login/config/resetForm.tsx";
-import {QjIcon} from "@brushes/share-resource";
-import CodeJsx from "@/login/components/code.tsx";
-import ImageJsx from "@/login/components/image.tsx";
+import CodeJsx from "../components/code";
+import ImageJsx from "../components/image";
 
 export const registerConfig: Array<FieldType> = [
     {

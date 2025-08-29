@@ -1,4 +1,6 @@
 export * from './button';
+export * from './payBuy';
+export * from './login';
 export * from './form'
 export * from './text'
 export * from './time'

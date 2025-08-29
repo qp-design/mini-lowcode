@@ -23,7 +23,7 @@ import {
   CommonListComponentSettings,
   CommonItemSettings,
   AutoTabComponentSettings,
-  NumberComponentSettings
+  NumberComponentSettings, LoginComponentSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 
@@ -42,6 +42,19 @@ const basic : Array<TypeComponent> = [
       },
       related: {
         settings: BannerComponentSettings,
+      },
+    }
+  },
+  {
+    name: '登录',
+    icon: 'icon-text',
+    Component: Operate['LogoinComponent'],
+    setting: {
+      props: {
+        isNeedRegister: true,
+      },
+      related: {
+        settings: LoginComponentSettings,
       },
     }
   },

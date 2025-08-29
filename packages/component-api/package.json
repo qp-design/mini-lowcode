@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@brushes/optimize": "^1.1.6",
-    "@brushes/request": "^1.2.0",
+    "@brushes/request": "^2.0.2",
     "@brushes/utils": "^0.2.8"
   }
 }

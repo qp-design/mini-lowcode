@@ -9,7 +9,7 @@ export const loginWithAccount: Array<FieldType> = [
         label: '',
         rules: [{ required: true, message: '请输入密码' }],
         extraProps: {
-            prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-mima'} />,
+            // prefix: <QjIcon style={{ fontSize: '24px' }} name={'icon-mima'} />,
             placeholder: '请输入登陆密码',
             style: {
                 height: 40

@@ -11,10 +11,11 @@ interface LoginType {
     children: ReactNode;
     index?: number;
     name?: string;
-    dataType?: string
+    dataType?: string;
+    isNeedRegister: boolean
 }
 
-export const Login: FC<LoginType> = ({ name, children, dataType, index, formConfig, isNeedRemeber }) => {
+export const Login: FC<LoginType> = ({ name, children, isNeedRegister, dataType, index, formConfig, isNeedRemeber }) => {
     const [form] = Form.useForm();
     const { buttonText, mode, actionImpl, onFinish, loading, LoginToRegisterImpl } = useLoginAndRegister(isNeedRemeber);
     useEffect(() => {
@@ -73,7 +74,7 @@ export const Login: FC<LoginType> = ({ name, children, dataType, index, formConf
                                 </Spin>
                             </Form.Item>
                         </div>
-                        <Protocol children={children} actionImpl={actionImpl} />
+                        <Protocol isNeedRegister={isNeedRegister} children={children} actionImpl={actionImpl} />
                     </Form>
                 </div>
             </div>

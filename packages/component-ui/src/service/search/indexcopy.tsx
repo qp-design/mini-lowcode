@@ -4,15 +4,14 @@ import {
     Container,
     useModuleRootContext
 } from "@brushes/component-core";
-import {AutoComplete, Flex} from 'antd';
+import {AutoComplete, Flex, Button, Select} from 'antd';
 import { Text } from '../../basic';
 import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {useNavigateImpl} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
 import {useLocation, useSearchParams} from "react-router-dom";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState, startTransition} from "react";
 import {noop, get, isEmpty} from "lodash";
-import {Button, Select} from "antd";
 
 const useStyle = createStyles(({token, css}, props:
     any
@@ -21,12 +20,12 @@ const useStyle = createStyles(({token, css}, props:
         wrapSearch: css`
             //display: flex;
             // .none-wrap{
-                //     height: ${props.height}px;
-                //     line-height: ${props.height}px;
-                //     font-size: ${props.size}px;
+            //     height: ${props.height}px;
+            //     line-height: ${props.height}px;
+            //     font-size: ${props.size}px;
             //     padding: 4px;
-                //     border: solid ${props.borderSize}px ${props.borderColor || token.colorPrimary};
-                //     border-radius: ${props.borderRadius}px 0 0 ${props.borderRadius}px !important;
+            //     border: solid ${props.borderSize}px ${props.borderColor || token.colorPrimary};
+            //     border-radius: ${props.borderRadius}px 0 0 ${props.borderRadius}px !important;
             //     //border-right: none;
             //     .ant-select-selector{
             //         border: 0 !important;
@@ -97,7 +96,7 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
     const [open, setOpen] = useState(false);
     const [searchParams] = useSearchParams();
     const { styles } = useStyle(props);
-    const [value, setValue] = useState('');
+    // const [value, setValue] = useState('');
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
     const searchQuery = useModuleRootContext(s=>s.rootStore.searchQuery) || noop;
     const historyList = useModuleRootContext(s=>s.rootStore._historyList);
@@ -142,34 +141,44 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
     useEffect(() => {
         const value = searchParams.get('searchParam') || '';
         if(value) {
-            const isExister = (historyList || []).includes(value)
-            setModuleRootStore({
-                _historyList: !isExister ? (historyList || []).concat(value) : historyList,
+            console.log(1111, value);
+            startTransition(() => {
+                const isExister = (historyList || []).includes(value)
+                setModuleRootStore({
+                    _historyList: !isExister ? (historyList || []).concat(value) : historyList,
+                })
+                // setValue(value);
             })
         }
-        setValue(value);
     }, [searchParams.get('searchParam')]);
 
     const onSearch = (value:string) => {
-        setOpen(false);
+        startTransition(() => {
+            setOpen(false);
+        })
         if(value) {
-            const isExister = (historyList || []).includes(value)
-            setModuleRootStore({
-                _historyList: !isExister ? (historyList || []).concat(value) : historyList,
+            const isExister = (historyList || []).includes(value);
+            startTransition(() => {
+                setModuleRootStore({
+                    _historyList: !isExister ? (historyList || []).concat(value) : historyList,
+                })
             })
         }
         navigator(`${path || defaultValue}?searchParam=${value}`);
         if(pathname === (path || defaultValue)) {
+            startTransition(() => {
+                searchQuery({
+                    searchParam: value
+                })
+            })
+        }
+    }
+    const searchShop = () => {
+        startTransition(() => {
+            setOpen(false);
             searchQuery({
                 searchParam: value
             })
-        }
-
-    }
-    const searchShop = () => {
-        setOpen(false);
-        searchQuery({
-            searchParam: value
         })
     }
     const onChange = (e: string) => {
@@ -178,35 +187,35 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
     }
 
     return (
-        <AutoComplete
-            value={value}
-            open={open}
-            onBlur={()=> setOpen(false)}
-            className={styles.wrapSearch}
-            style={{ width: '100%' }}
-            onChange={setValue}
-            options={ historyItems }
-        >
-            <Search
-                className={styles.search}
-                value={value}
-                onFocus={() => setOpen(true)}
-                prefix={<Select onChange={onChange} className={'none-wrap'} onClick={(e) => e.stopPropagation()} defaultValue={defaultValue} options={options} /> }
-                allowClear
-                size={size}
-                placeholder={placeholder}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
-                suffix={
-                    isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} danger>搜本店</Button> : null
-                }
-                enterButton={<Element canvas is={Container} id={'enterButton'}>
-                    <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>
-                </Element>}
-                onSearch={onSearch}
-            />
-        </AutoComplete>
+            <AutoComplete
+                // value={value}
+                open={open}
+                onBlur={()=> setOpen(false)}
+                className={styles.wrapSearch}
+                style={{ width: '100%' }}
+                // onChange={setValue}
+                options={ historyItems }
+            >
+                <Search
+                    className={styles.search}
+                    // value={value}
+                    onFocus={() => setOpen(true)}
+                    prefix={<Select onChange={onChange} className={'none-wrap'} onClick={(e) => e.stopPropagation()} defaultValue={defaultValue} options={options} /> }
+                    allowClear
+                    size={size}
+                    placeholder={placeholder}
+                    // onChange={(e) => {
+                    //     setValue(e.target.value);
+                    // }}
+                    suffix={
+                        isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} danger>搜本店</Button> : null
+                    }
+                    enterButton={<Element canvas is={Container} id={'enterButton'}>
+                        <Text width={50} fontSize={14} color={'#fff'} text={'搜索'}/>
+                    </Element>}
+                    onSearch={(value) => startTransition(() => onSearch(value))}
+                />
+            </AutoComplete>
 
     )
 }

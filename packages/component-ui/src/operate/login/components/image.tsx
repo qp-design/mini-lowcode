@@ -1,8 +1,19 @@
 import { useEffect, useState } from 'react';
 import {Form, Spin} from 'antd';
-import './image.css'
 import {dynamicFormFields} from "@brushes/form";
+import { createStyles } from "antd-style";
+
+const useStyle = createStyles(({token, css}, {height } : { height: number;}) => {
+    return {
+        wrap: css`
+            input[name='verCode'] {
+                height: ${height}px
+            }
+        `
+    }
+})
 const ImageJsx = ({height = 40} : {height?: number}) => {
+    const { styles } = useStyle({height});
     const form = Form.useFormInstance();
     const isDisabled = form.getFieldValue('isDisabled');
     const [loading, setLoading] = useState(false);
@@ -36,7 +47,7 @@ const ImageJsx = ({height = 40} : {height?: number}) => {
     };
     console.log(37, height);
     return (
-        <>
+        <div className={styles.wrap}>
             {
                 dynamicFormFields([{
                     name: 'verCode',
@@ -55,7 +66,7 @@ const ImageJsx = ({height = 40} : {height?: number}) => {
                     }
                 }],form)
             }
-        </>
+        </div>
     );
 };
 

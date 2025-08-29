@@ -7,7 +7,7 @@ import {useFormImpl} from "@brushes/form";
 import {Form} from "antd";
 
 
-const AccountBuy = ({  saveText, transformSubmitDataConfig = [] }: {saveText: string; transformSubmitDataConfig?: Array<{
+const AccountBuy = ({ selfPickupKey = '',  saveText, transformSubmitDataConfig = [] }: { selfPickupKey?: string; saveText: string; transformSubmitDataConfig?: Array<{
         type: string;
         name: string;
     }>}) => {
@@ -24,7 +24,7 @@ const AccountBuy = ({  saveText, transformSubmitDataConfig = [] }: {saveText: st
         handlerSubmit,
     } = useFormImpl(form, () => {}, transformDataConfig);
 
-    const {onSubmit, loading} = useOrderPay();
+    const {onSubmit, loading} = useOrderPay(selfPickupKey);
 
     return (
         <ButtonComponent

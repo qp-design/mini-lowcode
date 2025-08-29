@@ -537,12 +537,7 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-"@brushes/form@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.npmjs.org/@brushes/form/-/form-1.3.4.tgz#818b48d19d8ca09417e49ac3604f9e2abe45b762"
-  integrity sha512-NmDxFj0+QgcIQolBvTlzINnQpLphHJw0i3LyMTUJ2pfJ0doe6co+9qBSU5uX1JRZcMyo+gtPhwBGB6GXlCyxaQ==
-
-"@brushes/form@^1.3.5":
+"@brushes/form@^1.3.5", "@brushes/form@^1.3.6":
   version "1.3.6"
   resolved "https://registry.npmjs.org/@brushes/form/-/form-1.3.6.tgz#60aa4e7f1ecc992d1a68158b8475ffff22fb8417"
   integrity sha512-MV5ocG8UB5CyhC/HSTFmVtZqXtxUNF0hk01Sf0LvmzzajnhjvAPAgDM3xHUL93zdMUBkB9c97tYU7TyD/6goEQ==
@@ -552,11 +547,12 @@
   resolved "https://registry.npmjs.org/@brushes/optimize/-/optimize-1.1.6.tgz#871e40ef49324693a0afde4e4832765b57229254"
   integrity sha512-KGwLXlKgCsQtUOLkStxbD8Qt+ZP0eAVmSBmtvZA+5FvAT4XTocPpdtte41DDJOnQtdsfwYBQ0G1cnA3KhBx/Xg==
 
-"@brushes/request@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/@brushes/request/-/request-1.2.0.tgz#5cdfb196661778796d71ca7740ffb8c7d0176d94"
-  integrity sha512-87jLg+A96FWnvlk3EVuHPCTjihxADTSXJwuklQhift7x+kckV3ueOMRr2rn9fZ0CqaBaVEDVV7KJOeGaCMVGsA==
+"@brushes/request@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/@brushes/request/-/request-2.0.2.tgz#b261f8cc6a9a943f65fff88f40222a8b7eaa9831"
+  integrity sha512-F3AIdq7CQ8lM6Mi+Cl4SYAwkchiSwgYCbB4PeZvJRv1Mv6RJ12J31+poW6wXJuLZtfF8LgxZnq8ZZ3xz25cPZw==
   dependencies:
+    "@brushes/utils" "^0.3.3"
     flyio "^0.6.14"
     qs "6.5.3"
 
@@ -584,6 +580,11 @@
   version "0.3.1"
   resolved "https://registry.npmjs.org/@brushes/utils/-/utils-0.3.1.tgz#e309611b3760187eea6966abca64e7bfcfb39673"
   integrity sha512-16QFw12VuF5+J1nCTHxCaXSaSnuFrSMq3Jqsh/2YwML7/QHiK/4Ii8XZ/+d1umszkpegJdl651g6z64UP7JADA==
+
+"@brushes/utils@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.npmjs.org/@brushes/utils/-/utils-0.3.3.tgz#7408165567f6f9cad8e83d07c205b344c75d940a"
+  integrity sha512-ii+2R8RYsJluJMuJaZ/a+QVEgtTPf0ADBYEaoTSgRX0gRuz+VFJJl5TeGCTXEahwIhqiYfxHIdmpvvYAY8FNyg==
 
 "@codemirror/autocomplete@^6.0.0", "@codemirror/autocomplete@^6.18.6", "@codemirror/autocomplete@^6.3.2", "@codemirror/autocomplete@^6.7.1":
   version "6.18.6"
@@ -2213,34 +2214,22 @@
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.15.tgz#e6e5a86d602beaca71ce5163fadf5f95d70931c7"
   integrity sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==
 
-"@types/react-dom@^18.2.0":
+"@types/react-dom@^18.2.0", "@types/react-dom@^18.2.17":
   version "18.3.7"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz#b89ddf2cd83b4feafcc4e2ea41afdfb95a0d194f"
   integrity sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==
-
-"@types/react-dom@^19.1.7":
-  version "19.1.7"
-  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-19.1.7.tgz#2863f2aa89e023592b981204ef92c5221b286410"
-  integrity sha512-i5ZzwYpqjmrKenzkoLM2Ibzt6mAsM7pxB6BCIouEVVmgiqaMj1TjaK7hnA36hbW5aZv20kx7Lw6hWzPWg0Rurw==
 
 "@types/react-transition-group@^4.2.0":
   version "4.4.12"
   resolved "https://registry.npmjs.org/@types/react-transition-group/-/react-transition-group-4.4.12.tgz#b5d76568485b02a307238270bfe96cb51ee2a044"
   integrity sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==
 
-"@types/react@^18.2.0":
+"@types/react@^18.2.0", "@types/react@^18.2.43":
   version "18.3.23"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.3.23.tgz#86ae6f6b95a48c418fecdaccc8069e0fbb63696a"
   integrity sha512-/LDXMQh55EzZQ0uVAZmKKhfENivEvWz6E+EYzh+/MCjMhNsotd+ZHhBGIjFDTi6+fz0OhQQQLbTgdQIxxCsC0w==
   dependencies:
     "@types/prop-types" "*"
-    csstype "^3.0.2"
-
-"@types/react@^19.1.10":
-  version "19.1.10"
-  resolved "https://registry.npmjs.org/@types/react/-/react-19.1.10.tgz#a05015952ef328e1b85579c839a71304b07d21d9"
-  integrity sha512-EhBeSYX0Y6ye8pNebpKrwFJq7BoQ8J5SO6NlvNwwHjSj6adXJViPQrKlsyPw7hLBLvckEMO1yxeGdR82YBBlDg==
-  dependencies:
     csstype "^3.0.2"
 
 "@types/semver@^7.3.12", "@types/semver@^7.5.0":
@@ -5789,7 +5778,7 @@ log-symbols@^4.1.0:
     chalk "^4.1.0"
     is-unicode-supported "^0.1.0"
 
-loose-envify@^1.4.0:
+loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -6949,12 +6938,13 @@ react-activation@^0.13.4:
     react-node-key "^0.4.0"
     szfe-tools "^0.0.0-beta.7"
 
-react-dom@^19.1.0:
-  version "19.1.1"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-19.1.1.tgz#2daa9ff7f3ae384aeb30e76d5ee38c046dc89893"
-  integrity sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==
+react-dom@^18.2.0:
+  version "18.3.1"
+  resolved "https://registry.npmmirror.com/react-dom/-/react-dom-18.3.1.tgz#c2265d79511b57d479b3dd3fdfa51536494c5cb4"
+  integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
   dependencies:
-    scheduler "^0.26.0"
+    loose-envify "^1.1.0"
+    scheduler "^0.23.2"
 
 react-error-boundary@^4.0.11:
   version "4.1.2"
@@ -7021,10 +7011,12 @@ react-transition-group@^4.4.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^19.1.0:
-  version "19.1.1"
-  resolved "https://registry.npmjs.org/react/-/react-19.1.1.tgz#06d9149ec5e083a67f9a1e39ce97b06a03b644af"
-  integrity sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==
+react@^18.2.0:
+  version "18.3.1"
+  resolved "https://registry.npmmirror.com/react/-/react-18.3.1.tgz#49ab892009c53933625bd16b2533fc754cab2891"
+  integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
+  dependencies:
+    loose-envify "^1.1.0"
 
 read-pkg-up@^7.0.1:
   version "7.0.1"
@@ -7372,10 +7364,12 @@ sass@^1.85.1:
   optionalDependencies:
     "@parcel/watcher" "^2.4.1"
 
-scheduler@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.26.0.tgz#4ce8a8c2a2095f13ea11bf9a445be50c555d6337"
-  integrity sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==
+scheduler@^0.23.2:
+  version "0.23.2"
+  resolved "https://registry.npmmirror.com/scheduler/-/scheduler-0.23.2.tgz#414ba64a3b282892e944cf2108ecc078d115cdc3"
+  integrity sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==
+  dependencies:
+    loose-envify "^1.1.0"
 
 scroll-into-view-if-needed@^3.1.0:
   version "3.1.0"

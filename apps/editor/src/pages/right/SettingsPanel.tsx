@@ -69,6 +69,7 @@ export const SettingsPanel = () => {
                   type="primary"
                   style={{width: '100%', marginTop: 15}}
                   onClick={() => {
+                      console.log(111, selected.id);
                       deleteAction(selected.id);
                   }}
               >

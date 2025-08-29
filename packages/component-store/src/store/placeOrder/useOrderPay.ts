@@ -1,5 +1,5 @@
-import {get, set} from 'lodash';
-import {useState} from 'react';
+import {get, omit, set} from 'lodash';
+import {useMemo, useState} from 'react';
 import {useModuleContext, initialValueOrder} from "@brushes/component-core";
 import {saveContract} from "qj-b2c-api";
 import {Form, message} from 'antd';
@@ -8,7 +8,7 @@ import {useSearchParamHook} from "../../utils";
 import {useGetCarNum} from "../../store";
 import {post} from "@brushes/request";
 
-export function useOrderPay() {
+export function useOrderPay(selfPickupKey: string) {
     const navigator = useNavigate();
     const [shoppingGoodsIdStr] = useSearchParamHook(['shoppingGoodsIdStr']);
     const {getGoodsList} = useGetCarNum();
@@ -20,10 +20,26 @@ export function useOrderPay() {
     const _orderAddressInfo = useModuleContext(s => s.moduleStore._orderAddressInfo); //地址信息
     const _contractGoodsList = useModuleContext(s => s.moduleStore._contractGoodsList); //订单商品信息
     const _payMoney = useModuleContext(s => s.moduleStore._payMoney);
+    const contractPumode = Form.useWatch('contractPumode', form);
+
+    const orderAddressInfoMix = (paramsInfo:any) => {
+        if(contractPumode === '0') {
+            return _orderAddressInfo
+        } else if(contractPumode === '1') {
+            const value = get(paramsInfo, `${selfPickupKey}[0]`, {});
+            return {
+                goodsReceiptMem: value.userinfoCompname,
+                goodsReceiptPhone: value.userinfoTel,
+                goodsReceiptArrdess: value.provinceName + value.cityName + value.areaName + value.userinfoCompname,
+                areaCode: value.provinceCode
+            }
+        }
+    }
+
     // 参数数据处理
-    const paramsDataHandle = (appendParams: object) => {
-        console.log(24, appendParams);
-        const {goodsReceiptArrdess, goodsReceiptMem, goodsReceiptPhone, areaCode} = _orderAddressInfo;
+    const paramsDataHandle = (paramsInfo: object) => {
+        const appendParams = omit(paramsInfo, [selfPickupKey]);
+        const {goodsReceiptArrdess, goodsReceiptMem, goodsReceiptPhone, areaCode} = orderAddressInfoMix(paramsInfo);
         return _orderDomainStr.map((item: typeof initialValueOrder, index: number) => {
             return {
                 // contractPaytime: new Date().valueOf(),
@@ -32,7 +48,7 @@ export function useOrderPay() {
                 contractProperty: '0', //订单性质
                 contractBlance: 0, //结算方式:全款、订金、融资
                 contractPmode: 0, //付款方式：场内、场外，即线上、线下
-                contractPumode: '0', //提货方式
+                contractPumode: form.getFieldValue('contractPumode') ?? '0', //提货方式
                 goodsSupplierName: '', //配送商
                 goodsSupplierCode: '', //配送商Code
                 packageList: [

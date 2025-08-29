@@ -20,6 +20,11 @@ const containerField: FieldType[] = [
     }
   },
   {
+    label: '游客模式',
+    name: '_tourist',
+    type: 'switch',
+  },
+  {
     label: '配置',
     name: 'config',
     type: 'formList',

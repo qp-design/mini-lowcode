@@ -10,6 +10,7 @@ export const goodListIntialValue = {
 
 export const initialValueOrder = {
   contractSettlOpno: 0,
+  upmMap: {},
   rebMoney: 0,
   goodsCamount: 0,
   shoppingCountPrice: 0,

@@ -5,7 +5,12 @@ import {useStyle} from "../logoWithSearch/style";
 
 const containerField: FieldType[] = [
   {
-    label: '按钮文本',
+    label: '未登录文本',
+    name: 'defaultValue',
+    type: 'text',
+  },
+  {
+    label: '登录文本',
     name: 'text',
     type: 'text',
   },

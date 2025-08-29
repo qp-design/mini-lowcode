@@ -12,6 +12,10 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
            label: '大宗委托平台交易更新'
         },
         {
+            value: 'web/inv/invlist/getInvlistOrd.json',
+            label: '发票订单详情'
+        },
+        {
             value: 'web/inv/invlist/queryInvlistPageTowap.json',
             label: '我的发票'
         },

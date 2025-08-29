@@ -5,12 +5,25 @@ import {Form} from "antd";
 import {PromotionInType} from "@brushes/component-tool";
 import {get, isEmpty} from "lodash";
 
-export function useOrderInfo() {
+export function useOrderInfo(pointKey: string) {
   const form = Form.useFormInstance();
   const _ocContractSettlList = useModuleContext(s=>s.moduleStore._ocContractSettlList);
   const _ocDiscount = useModuleContext(s=>s.moduleStore._ocDiscount);
+  const pointInfo = useModuleContext(s=>s.moduleStore[pointKey]);
   const freight = useModuleContext(s=>s.moduleStore._orderAddressInfo.freight);
   const creditType = Form.useWatch('creditType', form);
+  const contractPumode = Form.useWatch('contractPumode', form);
+
+  const freightValue = useMemo(() => {
+    return contractPumode === '0' ? freight : 0
+  }, [contractPumode, freight]);
+
+  const points = useMemo(() => {
+    if(!isEmpty(pointInfo)) {
+      return get(pointInfo, '[0].contractSettlPmoney', 0)
+    }
+    return 0
+  }, [pointInfo]);
 
   const ur = useMemo(() => {
     if(!isEmpty(_ocDiscount)) {
@@ -59,11 +72,11 @@ export function useOrderInfo() {
     }
 
     if(creditType) {
-      obj.creditMoney = (obj.shoppingCountPrice + freight - obj.couponMoney) * (+creditType) / 100
+      obj.creditMoney = (obj.shoppingCountPrice + freightValue - obj.couponMoney) * (+creditType) / 100
     }
 
     return obj;
-  }, [_orderDomainStr, _selectCoupon, freight]);
+  }, [_orderDomainStr, _selectCoupon, freightValue]);
   return {
     shoppingCountPrice,
     comDisMoney,
@@ -71,9 +84,10 @@ export function useOrderInfo() {
     couponMoney,
     goodsCamount,
     totalMoney,
-    freight,
+    freightValue,
     creditMoney,
     creditType,
-    ur
+    ur,
+    points
   };
 }

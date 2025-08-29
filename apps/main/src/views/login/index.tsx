@@ -1,7 +1,7 @@
 import { createStyles } from "antd-style";
-import LoginWrap from "@/login";
 import {fullpath} from "@brushes/component-tool";
 import {useModuleRootContext} from "@brushes/component-core";
+import {Common} from "@brushes/editor-component";
 
 const useStyle = createStyles(({token, css}) => {
 
@@ -39,7 +39,7 @@ const Login = () => {
         }}>
             <div className="logo">{ config.proappEnvLogo && <img loading="lazy" height="100" src={fullpath(config.proappEnvLogo)} /> }</div>
             <div className="login-right">
-                <LoginWrap children={undefined} data={""}/>
+                <Common menuOpcode={'login'}/>
             </div>
         </div>
     )

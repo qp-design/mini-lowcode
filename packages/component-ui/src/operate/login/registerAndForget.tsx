@@ -1,18 +1,16 @@
 import { Drawer } from 'antd';
-import { FC, memo, ReactNode, useEffect, useState } from 'react';
+import {FC, memo, ReactNode, useMemo} from 'react';
 import { Login as LoginJsx } from './login';
 import loginContext from './context';
 import { forgetConfig, registerConfig } from './config';
 
-const RegisterAndForget: FC<{ children: ReactNode; dataType?: string }> = ({ children, dataType }) => {
+const RegisterAndForget: FC<{ children: ReactNode; isNeedRegister: boolean; dataType?: string }> = ({ children, isNeedRegister, dataType }) => {
     const dispatch = loginContext.useOpenDispatch();
-    const [formConfig, setConfig] = useState(forgetConfig);
     const { visible, title, mode } = loginContext.useOpenValues();
 
-    useEffect(() => {
-        const arr = mode === 'register' ? registerConfig : forgetConfig;
-        setConfig(arr);
-    }, [mode]);
+    const formConfig = useMemo(() => {
+        return mode === 'register' ? registerConfig : forgetConfig;
+    }, [mode])
 
     return (
         <Drawer
@@ -36,7 +34,7 @@ const RegisterAndForget: FC<{ children: ReactNode; dataType?: string }> = ({ chi
             }
             open={visible}
         >
-            <LoginJsx name={'registerForm'} dataType={dataType} children={children} formConfig={formConfig} />
+            <LoginJsx isNeedRegister={isNeedRegister} name={'registerForm'} dataType={dataType} children={children} formConfig={formConfig} />
         </Drawer>
     );
 };

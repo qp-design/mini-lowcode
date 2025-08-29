@@ -45,6 +45,11 @@ const containerField: FieldType[] = [
     type: 'number',
   },
   {
+    label: '游客模式',
+    name: '_tourist',
+    type: 'switch',
+  },
+  {
     label: '购物车图片',
     name: ['car', 'imgUrl'],
     type: 'slot',

@@ -9,7 +9,7 @@ import {
   SaveOperateComponentSettings,
   DiyActionSettings,
   AddCartComponentSettings,
-  QueryOperateComponentSettings, ButtonOperateSettings
+  QueryOperateComponentSettings, ButtonOperateSettings, PayBuyComponentSettings
 } from "@brushes/component-setting";
 import * as ServiceComponent from "component-ui/service";
 
@@ -24,7 +24,8 @@ const basic : Array<TypeComponent> = [
         fontSize: 12,
         padding: { paddingLeft: 0, paddingRight: 0},
         text: '退出',
-        type: "link"
+        type: "link",
+        defaultValue: '登录'
       },
       related: {
         settings: ButtonSettings,
@@ -134,7 +135,7 @@ const basic : Array<TypeComponent> = [
         storeKey: 'payInfo'
       },
       related: {
-        settings: AccountBuyComponentSettings,
+        settings: PayBuyComponentSettings,
       },
     }
   },
@@ -159,6 +160,7 @@ const basic : Array<TypeComponent> = [
     Component: Operate['AccountBuyComponent'],
     setting: {
       props: {
+        selfPickupKey: 'selfPickup',
         api: 'web/oc/contract/saveContract.json',
         saveText: '提交订单',
       },

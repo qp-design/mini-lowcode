@@ -19,8 +19,8 @@ const containerField: FieldType[] = [
     type: 'number'
   },
   {
-    label: '自提点Store的key',
-    name: 'selfPickupKey',
+    label: 'Store的key',
+    name: 'storeKey',
     type: 'text'
   },
 ]
@@ -64,4 +64,4 @@ const baseFormField: formConfigType[] = [
   }
 ]
 
-export const AccountBuyComponentSettings = basicSettings(baseFormField)
+export const PayBuyComponentSettings = basicSettings(baseFormField)
