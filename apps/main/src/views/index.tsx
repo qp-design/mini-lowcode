@@ -29,7 +29,9 @@ const Root = () => {
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
     useEffect(() => {
         (async ()=> {
-            const {list} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json');
+            const {list} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json', {
+                dataState: 2
+            });
 
             const {list : listConfig} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
             const {themeColor, subColor} = JSON.parse(getI(listConfig, '[0].mmodelConfig'));

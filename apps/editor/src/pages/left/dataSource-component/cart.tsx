@@ -10,7 +10,7 @@ import {
   OrderItemComponentSettings,
   PaymentServiceSettings,
   RefundComponentSettings, PayServiceSettings,
-  CreditComponentSettings, TimerComponentSettings, NumberComponentSettings
+  CreditComponentSettings, TimerComponentSettings, NumberComponentSettings, RefundBasicComponentSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
@@ -69,6 +69,20 @@ const cart : Array<TypeComponent> = [
       },
       related: {
         settings: RefundComponentSettings,
+      },
+    }
+  },
+  {
+    name: '售后商品信息',
+    icon: 'icon-caozuojilu',
+    Component: ServiceComponent['RefundTableComponent'],
+    setting: {
+      props: {
+        openKey: 'refundKey',
+        callbackName: 'orderRetry',
+      },
+      related: {
+        settings: RefundBasicComponentSettings,
       },
     }
   },

@@ -8,8 +8,28 @@ let index = 0;
 export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void; }) => {
     const [items, setItems] = useState([
         {
+          value: 'web/um/userDealer/saveUserDealerToAllot.json',
+          label: '注册接口'
+        },
+        {
+           value: '/web/oc/contract/cancelContractC.json',
+           label: '取消订单'
+        },
+        {
+            value: '/web/oc/contract/confirmReceive.json',
+            label: '确认收货'
+        },
+        {
            value: 'web/um/memoauth/updateMemoauth.json',
            label: '大宗委托平台交易更新'
+        },
+        {
+           value: 'web/oc/refund/sendGoods.json',
+           label: '退单快递提交'
+        },
+        {
+          value: 'web/oc/refund/saveRefundForPlat.json',
+          label: '订单售后接口'
         },
         {
             value: 'web/inv/invlist/getInvlistOrd.json',
@@ -92,7 +112,7 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '大宗个人资料编辑'
         },
         {
-            value: 'web/at/auction/queryAuctionPC.json',
+            value: 'web/at/auction/queryAuctionPage.json',
             label: '竞价专区查询'
         },
         {
@@ -326,7 +346,15 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
         {
             value: 'web/oc/contract/getContractByCode.json',
             label: '订单明细'
-        }
+        },
+        {
+            value: 'web/um/sign/querySignPage.json',
+            label: '积分列表'
+        },
+        {
+            value: 'web/at/auctionWin/getAuctionWinByCode.json',
+            label: '我的报告书'
+        },
     ]);
     const [name, setName] = useState('');
 

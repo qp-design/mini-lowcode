@@ -127,6 +127,28 @@ const baseFormField: formConfigType[] = [
             }
           },
             {
+                label: '参数store的key',
+                name: 'paramsStoreKey',
+                type: 'text',
+            },
+            {
+                label: '参数store获取',
+                name: 'paramsStore',
+                type: 'formList',
+                extraProps: {
+                    innerForm: [
+                        {
+                            label: '参数',
+                            name: 'key',
+                        },
+                        {
+                            label: '路径',
+                            name: 'value',
+                        }
+                    ]
+                }
+            },
+            {
                 label: '参数包裹key',
                 name: 'preKey',
                 type: 'text',

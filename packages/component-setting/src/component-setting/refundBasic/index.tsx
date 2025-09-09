@@ -25,5 +25,5 @@ const baseFormField: formConfigType[] = [
     formFields: diyFormConfig
   },
 ]
-export const RefundComponentSettings = basicSettings(baseFormField)
+export const RefundBasicComponentSettings = basicSettings(baseFormField)
 

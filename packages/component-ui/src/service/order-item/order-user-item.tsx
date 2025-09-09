@@ -1,15 +1,14 @@
-import {useComponentListData, useOrderNum} from "component-store";
+import {useComponentListData} from "component-store";
 import {Fragment, useEffect, useRef} from "react";
 import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {Container, Element, ModuleProvider, useModuleContext} from "@brushes/component-core";
 import {Text} from "../../basic";
 import {CardLRComponent} from "../../service";
-import {TableAction, StatusOperate, ModalJsx} from "./component";
+import {ModalJsx} from "./component";
 import {createStyles} from "antd-style";
-import {useNavigateImpl} from "@brushes/component-tool";
-import {cancelContractC, confirmReceive} from "component-api";
-import {Empty, message} from "antd";
+import {Empty} from "antd";
 import {get} from "lodash";
+import {ButtonList} from "../../operate";
 
 const ShoppGoodItem2 = () => {
     return (
@@ -78,76 +77,15 @@ const useStyles = createStyles(({token, css}) => {
 })
 
 
-export const OldItemInfo = ({record, isEvalate = true, callbackName, expressKey, refundKey}: { isEvalate?: boolean; refundKey: string; expressKey: string;record: any; callbackName: string }) => {
-    const {navigator} = useNavigateImpl();
+export const OldItemInfo = ({record}: { record: any; }) => {
     const moduleRef = useRef(null);
-    const retry = useModuleContext(s => s.moduleStore[callbackName]);
-    const { getOrderBadge } = useOrderNum();
-    const setParentStore = useModuleContext(s => s.moduleStore.setParentStore);
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     useEffect(() => {
         setModuleStore({
             _skuInfo: record
         })
     }, [record]);
-    console.log(1111, isEvalate);
-    const cancelImpl = async (contractId: string) => {
-        const {msg} = await cancelContractC({contractId});
-        message.success(msg);
-        setTimeout(() => {
-            retry();
-            getOrderBadge();
-        }, 200)
-    }
 
-    const confirmReceiveImpl = async (contractBillcode: string) => {
-        const {msg} = await confirmReceive({contractBillcode});
-        message.success(msg);
-        setTimeout(() => {
-            retry();
-            getOrderBadge();
-        }, 200)
-    }
-
-    const expressImpl = (contractBillcode: string) => {
-        setParentStore({
-            [expressKey]: true,
-            contractBillcode
-        })
-    }
-
-    const refundImpl = (contractBillcode: string, dataState: number) => {
-        setParentStore({
-            [refundKey]: true,
-            dataState,
-            contractBillcode
-        })
-        // moduleRef.current!.init(contractBillcode, true)
-    }
-    
-    const onClick = (code: string, record: {contractBillcode: string; contractId: string; dataState: number}) => {
-        switch (code) {
-            case 'pay':
-                navigator(`/pay?contractBillcode=${record.contractBillcode}`)
-                break
-            case 'refund':
-                refundImpl(record.contractBillcode, record.dataState);
-                break;
-            case 'see':
-            case 'evaluate':
-                navigator(`/userCenter/orderDetail?contractBillcode=${record.contractBillcode}`)
-                break;
-            case 'express':
-                expressImpl(record.contractBillcode);
-                break;
-            case 'confirmReceive':
-                confirmReceiveImpl(record.contractBillcode);
-                break;
-            case 'cancel':
-                cancelImpl(record.contractId);
-                break;
-        }
-    }
     return (
         <>
             <div className={'right-content'}>
@@ -231,53 +169,98 @@ export const OldItemInfo = ({record, isEvalate = true, callbackName, expressKey,
                         </Text>
                     </Element>
                 <div>
-                    <TableAction onClick={onClick} direction={'vertical'} record={record} buttonList={
-                        [
+                    <Element is={Container} canvas id='operate-ids'>
+                        <ButtonList buttonList={[
                             {
                                 name: '查看',
-                                code: 'see',
-                            },
-                            {
-                                dataState: ['0', '30', '1', '19'],
-                                name: '取消',
-                                code: 'cancel',
-                                render: StatusOperate
+                                type: 'link',
+                                fontSize: 12,
+                                padding: {
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    paddingBottom: 0,
+                                    paddingTop: 0,
+                                }
                             },
                             {
                                 name: '立即支付',
-                                code: 'pay',
+                                type: 'link',
+                                fontSize: 12,
                                 dataState: '1',
+                                padding: {
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    paddingBottom: 0,
+                                    paddingTop: 0,
+                                }
                             },
-                            isEvalate ? {
-                                dataState: '5',
-                                code: 'evaluate',
-                                name: record.contractAppraise === 1 ? '已评价' : '去评价',
-                            } : {},
                             {
-                                dataState: '3',
-                                code: 'express',
+                                name: '取消',
+                                api: '/web/oc/contract/cancelContractC.json',
+                                type: 'render',
+                                paramKey: 'contractId',
+                                storeKey: '_skuInfo',
+                                callbackName: 'orderQueryRetry',
+                                value: 'contractId',
+                                fontSize: 12,
+                                dataState: '0,30,1,19',
+                                padding: {
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    paddingBottom: 0,
+                                    paddingTop: 0,
+                                }
+                            },
+                            {
                                 name: '查看物流',
-                            },
-                            {
+                                type: 'link',
+                                fontSize: 12,
                                 dataState: '3',
-                                code: 'confirmReceive',
-                                name: '确认收货',
-                                render: StatusOperate
+                                padding: {
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    paddingBottom: 0,
+                                    paddingTop: 0,
+                                }
                             },
                             {
-                                dataState: ['2', '3'],
-                                code: 'refund',
-                                // return item.goodsList.some(goods=>(goods.goodsCamount-goods.contractGoodsArefnum) > 0)
-                                name: '申请退单',
+                                name: '确认收货',
+                                api: '/web/oc/contract/confirmReceive.json',
+                                type: 'render',
+                                paramKey: 'contractBillcode',
+                                storeKey: '_skuInfo',
+                                callbackName: 'orderQueryRetry',
+                                value: 'contractBillcode',
+                                fontSize: 12,
+                                dataState: '3',
+                                padding: {
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    paddingBottom: 0,
+                                    paddingTop: 0,
+                                }
                             },
-                        ]
-                    }/>
+                            {
+                                name: '申请退单',
+                                type: 'link',
+                                fontSize: 12,
+                                dataState: '2,3',
+                                padding: {
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    paddingBottom: 0,
+                                    paddingTop: 0,
+                                }
+                            },
+                        ]}/>
+                    </Element>
                 </div>
             </div>
             <ModalJsx ref={moduleRef}/>
         </>
     )
 }
+
 export const ShopItemGoodInnerJsx = ({dataPath, item}: any) => {
     const list = get(item, dataPath, []);
     return (
@@ -317,10 +300,7 @@ const ShoppItemGood = ({
                            callbackName,
                            description,
                            dataPath,
-                           isEvalate,
                            storeKey,
-                           expressKey,
-                           refundKey,
                            padding,
                            margin,
                            borderRadius
@@ -367,7 +347,7 @@ const ShoppItemGood = ({
                                     <ShopItemGoodInnerJsx dataPath={'goodsList'} item={item}/>
                                 </div>
                                 <ModuleProvider moduleStore={{[callbackName]: retry, setParentStore: setModuleStore}}>
-                                    <OldItemInfo isEvalate={isEvalate} refundKey={refundKey} expressKey={expressKey} record={item} callbackName={callbackName}/>
+                                    <OldItemInfo record={item} />
                                 </ModuleProvider>
                             </div>
                         </Fragment>

@@ -6,18 +6,19 @@ import {useApiComponent} from "component-store";
 import {get} from "lodash";
 
 
-const CardBasic: React.FC<any> = ({callbackName, setParentModuleStore, parentStore, parentStoreKey, ...props}) => {
+const CardBasic: React.FC<any> = ({callbackName, callback, setParentModuleStore, parentStore, parentStoreKey, ...props}) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
+
     useEffect(() => {
         let obj : {[v:string]: any} = {}
         if(callbackName) {
-            obj[callbackName] = parentStore[callbackName]
+            obj[callbackName] = callback
         }
         if(setParentModuleStore) {
             obj.setParentModuleStore = setParentModuleStore
         }
         if(parentStoreKey) {
-            obj[parentStoreKey] = parentStore[parentStoreKey]
+            obj[parentStoreKey] = parentStore
         }
         obj._skuInfo = props;
         setModuleStore(obj)
@@ -55,6 +56,7 @@ const DetailBasic: React.FC<any> = ({result, storeKey, dataPath}) => {
 
 type CardListType = {
     gap: number;
+    mockData?: string;
     paramsRootStore?: Array<{ key: string; value: string }>;
     paramsRootStoreKey?: string;
     paramsStoreKey?: string;
@@ -112,7 +114,8 @@ const ApiList: React.FC<Partial<CardListType> & {
         return result
     }, [result, dataPath]);
 
-    const parentStore = useModuleContext(s=>s.moduleStore);
+    const parentStore = useModuleContext(s=>s.moduleStore[parentStoreKey]);
+    const callback = useModuleContext(s=>s.moduleStore[callbackName]);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
 
     if(!list.length) {
@@ -136,8 +139,9 @@ const ApiList: React.FC<Partial<CardListType> & {
                                 <CardBasic
                                     parentStoreKey={parentStoreKey}
                                     parentStore={parentStore}
-                                    setParentModuleStore={setModuleStore}
                                     callbackName={callbackName}
+                                    setParentModuleStore={setModuleStore}
+                                    callback={callback}
                                     {...item}
                                 />
                             </ModuleProvider>
@@ -162,6 +166,7 @@ const Api: React.FC<CardListType>
     = ({
            callbackName,
            componentType,
+           mockData,
            description,
            paramsStoreKey,
            storeKeyTotal,
@@ -191,6 +196,7 @@ const Api: React.FC<CardListType>
         paramsRootStoreKey,
         paramsStoreKey,
         cacheParams,
+        mockData,
         cacheParamsTime,
         paramsStore,
         componentType

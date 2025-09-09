@@ -87,10 +87,6 @@ const baseFormField: formConfigType[] = [
                             label: '名称',
                             name: 'key',
                         },
-                        {
-                            label: '值',
-                            name: 'value',
-                        }
                     ]
                 }
             },

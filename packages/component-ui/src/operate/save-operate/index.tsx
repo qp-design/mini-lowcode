@@ -5,27 +5,31 @@ import { ButtonComponent } from "../../basic";
 import {TransformType, useFormImpl} from "@brushes/form";
 import {Form} from "antd";
 import {noop} from "lodash";
-import {useApiParam} from "@brushes/component-tool";
+import {useApiParam, useStoreApiParam} from "@brushes/component-tool";
 
 
-const SaveOperate = ({ text, api, preKey = '', retryKey = 'retry', params, transformDataConfig = [], openKey, ...restProps } : {
+const SaveOperate = ({ text, _callbackimpl, api, preKey = '', retryKey = 'retry', paramsStore, paramsStoreKey = '', params, transformDataConfig = [], openKey, ...restProps } : {
     params?: Array<{ key: string; value: string;}>;
     preKey?:string;
     retryKey?: string;
+    _callbackimpl?: () => void;
     openKey:string;
     api: string;
     text: string;
+    paramsStore?: Array<{ key: string; value: string;}>;
+    paramsStoreKey?: string;
     transformDataConfig?: Array<TransformType>
 }) => {
     const form = Form.useFormInstance();
     const retry = useModuleContext(s => s.moduleStore[retryKey]) || noop;
     const resetProps = useApiParam(params);
+    const storeParams = useStoreApiParam(paramsStore, paramsStoreKey);
     const {
         handlerSubmit,
         inProgressStatus
     } = useFormImpl(form, () => {}, transformDataConfig);
 
-    const {onSubmit} = useSaveOperate(api, openKey, retry, resetProps, preKey);
+    const {onSubmit} = useSaveOperate(api, openKey, retry, resetProps, preKey, storeParams, _callbackimpl);
 
     return (
         <ButtonComponent

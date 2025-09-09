@@ -4,18 +4,21 @@ import {useMemo} from 'react';
 import {isUndefined, noop, omit} from 'lodash';
 import {changeCode} from '../tool/changeCode';
 
-const ChangeComponent = ({useFunc = noop, useFormConfig = noop, diyUseStyle = noop, Component, ...restProps} : { Component: any; diyUseStyle?:any; useFunc?: any; useFormConfig?:any}) => {
+const ChangeComponent = ({useFunc = noop, eventType = 'onClick', useFormConfig = noop, diyUseStyle = noop, Component, ...restProps} : { Component: any; diyUseStyle?:any; eventType?: string; useFunc?: any; useFormConfig?:any}) => {
   const callback = useFunc();
   const formConfig = useFormConfig();
   const { styles } = diyUseStyle() || { styles: ''};
+  const _callbackimpl = useMemo(() => {
+    return eventType === 'callback' && callback ? callback : undefined;
+  }, [callback, eventType]);
   return (
       <ErrorBoundary fallback={<div>Something went wrong</div>}>
         <div
             className={styles.diyClassName}
             style={{...(callback ? {cursor: "pointer"} : {})}}
-            {...(callback ? {onClick: callback} : {})}
+            {...(callback && eventType !== 'callback' ? {onClick: callback} : {})}
         >
-          <Component {...restProps} {...(formConfig? {formConfig} : {})}/>
+          <Component _callbackimpl={_callbackimpl} {...restProps} {...(formConfig? {formConfig} : {})}/>
         </div>
       </ErrorBoundary>
   )

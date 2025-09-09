@@ -80,18 +80,18 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
 
     const value = useMemo(() => {
         if (code) {
+            const result = get(dataInfo, code);
             if(transformData === 'time') {
-               return dataInfo[code] ? dayjs(dataInfo[code]).format(format || 'YYYY-MM-DD HH:mm:ss') : text;
+               return result ? dayjs(result).format(format || 'YYYY-MM-DD HH:mm:ss') : text;
             }
             if(transformData === 'format') {
-                return fixPrice(+dataInfo[code])
+                return fixPrice(+result)
             }
             if(transformData === 'dataType') {
-               const v = (localScheme || []).find(({value = ''}) => value.split(',').includes(dataInfo[code]+'')) || {};
+               const v = (localScheme || []).find(({value = ''}) => value.split(',').includes(result+'')) || {};
                return v.label || text;
             }
-            const value = get(dataInfo, code);
-            return (value || value === 0) ? value : text;
+            return result ?? text;
             // return dataInfo[code] || dataInfo[code] === 0 ? dataInfo[code] : text
         }
         return text;

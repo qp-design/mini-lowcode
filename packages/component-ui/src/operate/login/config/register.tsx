@@ -1,6 +1,6 @@
 import {dynamicFormFields, FieldType} from '@brushes/form';
 import {FormInstance} from "antd";
-import {addressBasicConfig} from "@brushes/component-setting";
+import {addressBasicConfig} from "@brushes/component-tool"
 import CodeJsx from "../components/code";
 import ImageJsx from "../components/image";
 
@@ -56,6 +56,11 @@ export const registerConfig: Array<FieldType> = [
         extraProps: {
             placeholder: '输入联系人',
         }
+    },
+    {
+        label: '邀请码',
+        name: 'userinfoInvite',
+        type: 'text',
     },
     {
         name: 'userinfoConPhone',
@@ -171,13 +176,14 @@ export const registerConfig: Array<FieldType> = [
         label: '资质文件',
         name: 'upFileArr',
         type: 'upload',
-        // rules: [{required: true, message: '不能为空',}],
-        rules: [
-            ({ getFieldValue } : FormInstance) => ({
-                required: getFieldValue('userinfoType') === 2,
-                message: '不能为空',
-            }),
-        ],
+        calIsVisible: (form) => form.getFieldValue('userinfoType') === 2,
+        rules: [{required: true, message: '不能为空',}],
+        // rules: [
+        //     ({ getFieldValue } : FormInstance) => ({
+        //         required: getFieldValue('userinfoType') === 2,
+        //         message: '不能为空',
+        //     }),
+        // ],
         extraProps: {
             dependencies: ['userinfoType'],
             listType: 'picture-card',

@@ -46,13 +46,14 @@ const MenuComponent: React.FC = () => {
   const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
   const [openKeys, setOpenKeys] = useState(['sub1']);
   const [menu, setMenu] = React.useState<MenuItem[]>([]);
-  const [token, loginName] = useSearchParamHook(['token', 'phone'])
+  const [token, loginName, proappCode] = useSearchParamHook(['token', 'phone', 'proappCode'])
   useEffect(() => {
     (async () => {
       if(token) {
         try {
           const {dataObj} = await post('web/ml/mlogin/loginByToken.json', {
             oauthTokenToken: token,
+            proappCode,
             loginName,
           });
           sessionStorage.setItem('saas-token', JSON.stringify(dataObj.ticketTokenid));

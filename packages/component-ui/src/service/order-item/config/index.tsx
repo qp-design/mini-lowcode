@@ -29,7 +29,6 @@ export const transformSubmitDataConfig: TransformType[] = [
         to: 'ocRefundGoodsBeanList',
         format: async (preValue: any) => {
             return preValue.filter((item:any)=>item.checked).map((item:any) => {
-                console.log(32, item);
                 if(item.goodsCamount - item.contractGoodsArefnum=== item.refundGoodsNum) {
                     item.refundGoodsAmt = item.contractGoodsMoney - item.contractGoodsAremoney || 0;
                 } else {

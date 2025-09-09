@@ -3,11 +3,13 @@ import {cacheParams, post} from "@brushes/optimize";
 import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
 import {useApiParam, useRootStoreApiParam, useStoreApiParam} from "@brushes/component-tool";
 import {isEmpty} from "lodash";
+import {useEditor} from "@craftjs/core";
 
 
 export const useApiComponent = (api:string, rows: number, restParams: {
     defaultValue: string;
     componentType: string;
+    mockData: string;
     callbackName?: string;
     storeKeyTotal?: string;
     cacheParams: boolean;
@@ -19,6 +21,11 @@ export const useApiComponent = (api:string, rows: number, restParams: {
     cacheParamsTime?: number;
     params: Array<{ key: string; value: string }> | undefined
 }) => {
+    const {enabled} = useEditor(
+        (state) => ({
+            enabled: state.options.enabled,
+        }));
+
     const currentPage = useRef(0);
     const pageCurrent = useRef(rows > 0 ? {
         page: 1
@@ -62,6 +69,10 @@ export const useApiComponent = (api:string, rows: number, restParams: {
     }, [params, api, rows, apiParams, rootStoreParams, storeParams, restParams.callbackName, restParams.componentType]);
 
     const finallyImpl = (data: any) => {
+        if(enabled && restParams.mockData) {
+            setResult(JSON.parse(restParams.mockData));
+            return
+        }
         try {
             setResult(data || JSON.parse(restParams.defaultValue));
         } catch (err) {

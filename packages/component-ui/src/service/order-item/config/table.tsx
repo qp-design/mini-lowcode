@@ -1,4 +1,4 @@
-import {FormInstance, Table} from 'antd';
+import {Form, FormInstance, Table} from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
 import {useEffect, useMemo, useState} from "react";
 import {CardLRComponent} from "../../../service";
@@ -18,21 +18,19 @@ interface DataType {
 const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> = ({form, onChange}) => {
     const [dataSource, setDataSource] = useState<DataType[]>([]);
     const [selectedRowKeys, setSelectedRowsKeys] = useState<React.Key[]>([]);
-
     const dataState = useModuleContext(s=>s.moduleStore.dataState);
+    const refundType = Form.useWatch('refundType', form);
+    const list = Form.useWatch('goodsList', form);
     useEffect(() => {
-        const refundType = form.getFieldValue('refundType');
-        const list = form.getFieldValue('goodsList');
         let result = list;
         if(refundType === 'B01' && dataState === 3) {
             result = list.filter((c: any)=>!c.contractGoodsSendnum)
         } else if(refundType === 'B02' && dataState === 3) {
             result = list.filter((c:any)=>c.contractGoodsSendnum>0)
         }
-        console.log(1111, dataState, result)
         setSelectedRowsKeys([]);
         setDataSource(result);
-    }, [form.getFieldValue('refundType')]);
+    }, [list, refundType]);
 
     const columns: TableColumnsType<DataType> = useMemo(() => [
         {

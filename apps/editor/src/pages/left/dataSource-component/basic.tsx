@@ -157,7 +157,7 @@ const basic : Array<TypeComponent> = [
     }
   },
   {
-    name: 'I/O组件',
+    name: 'API组件',
     icon: 'icon-text',
     Component: BasicComponent['ApiComponent'],
     setting: {

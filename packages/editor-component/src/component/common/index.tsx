@@ -16,6 +16,7 @@ const I = ({menuOpcode}:{menuOpcode: string}) => {
         </Frame>
     )
 }
+
 export function Common({menuOpcode} : {menuOpcode: string}) {
     return (
         <WrapContainer>

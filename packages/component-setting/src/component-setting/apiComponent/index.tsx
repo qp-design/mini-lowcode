@@ -240,6 +240,16 @@ const baseFormField: formConfigType[] = [
                 type: 'text',
                 calIsVisible: (form) => form.getFieldValue('componentType') === 'detail'
             },
+            {
+                label: 'mock数据',
+                name: 'mockData',
+                type: 'textarea',
+                extraProps: {
+                    style: {
+                        height: 200
+                    }
+                }
+            }
         ]
     },
 ]

@@ -5,6 +5,7 @@ import loginContext from '../context';
 import {useLoginHooks} from "./useLoginHooks";
 import {get, isEmpty} from "lodash";
 import { message } from 'antd';
+import {eventTracking} from "component-store";
 type ActionKey = 'login' | 'loginWithCode' | 'register' | 'update';
 
 type ActionType = {
@@ -49,9 +50,11 @@ export function useLoginAndRegister(isNeedRemeber: boolean | undefined) {
                 values.upFileArr = fileUrl;
             }
 
-            const { msg } = await saveUserPhoneForPla({
+            const { msg, dataObj } = await saveUserPhoneForPla({
                 userinfoJosn: JSON.stringify(values)
             });
+
+            eventTracking('Register', dataObj);
             message.success(msg);
             toLoginImpl();
             // callback(data.dataObj, '/user/center');

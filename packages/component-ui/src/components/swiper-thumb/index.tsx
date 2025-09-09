@@ -1,5 +1,4 @@
-import React, {useMemo, useState} from 'react';
-// Import Swiper React components
+import {useMemo, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { createStyles } from "antd-style";
 // Import Swiper styles
@@ -72,11 +71,11 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
     const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]);
 
     const banner = useMemo(() => {
-        if(splitStr) {
+        if(splitStr && !isEmpty(_skuInfo)) {
             return get(_skuInfo, dataPath, '').split(splitStr) || [];
         }
         // 优先取sku模块的数据 > 页面模块的数据
-        if(!isEmpty(_skuInfo)) {
+        if(_skuInfo && !isEmpty(_skuInfo)) {
             return get(_skuInfo, dataPath, []);
         }
         return get(defaultValue, dataPath, []);
@@ -85,7 +84,6 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [ind, setIndex] = useState(0);
     const handleSlideChange = (swiper: object) => {
-        console.log('111', swiper.activeIndex);
         setIndex(swiper.activeIndex);
     }
     const { styles } = useStyles();
@@ -105,8 +103,10 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
                 {
                     banner.map((item, index) => (
                         <SwiperSlide key={index}>
-                            {( item[imgKey].includes('.mp4') || item[imgKey].includes('.webm') || item[imgKey].includes('.avi')) ? <Video actived={index === ind} style={{ height: height - 70, overflow: 'hidden'}} src={item[imgKey]}/> :
-                            <img src={fullpath(imgKey ? item[imgKey] : item)} /> }
+                            {
+                                ((imgKey ? item[imgKey] : item).includes('.mp4') || (imgKey ? item[imgKey] : item).includes('.webm') || (imgKey ? item[imgKey] : item).includes('.avi')) ? <Video actived={index === ind} style={{ height: height - 70, overflow: 'hidden'}} src={item[imgKey]}/> :
+                                <img src={fullpath(imgKey ? item[imgKey] : item)} />
+                            }
                         </SwiperSlide>
                     ))
                 }
@@ -122,7 +122,7 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
                     className={"mySwiper"}
                 >
                     {
-                        banner.map((item, index) => (
+                        banner.map((item:any, index:number) => (
                             <SwiperSlide key={index}>
                                 <img src={fullpath(imgKey ? item[imgKey] : item)} />
                             </SwiperSlide>

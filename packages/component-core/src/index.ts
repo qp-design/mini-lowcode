@@ -1,4 +1,5 @@
 export * from './tool';
+export * from './components';
 export * from './basic-component'
 export * from './runTime'
 export * from './context'

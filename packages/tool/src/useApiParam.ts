@@ -12,7 +12,11 @@ export const useStoreApiParam = (params: {key: string; value: string}[] | undefi
         const storeInner = store[key];
         let newParams: {[v:string]:any} = {};
         (params || []).forEach((item: {key: string; value: string}) => {
-            newParams[item.key] = get(storeInner, item.value, '');
+            if(item.value) {
+                newParams[item.key] = get(storeInner, item.value, '');
+            } else {
+                newParams[item.key] = storeInner;
+            }
         })
         return newParams;
 
@@ -28,7 +32,11 @@ export const useRootStoreApiParam = (params: {key: string; value: string}[] | un
         const storeInner = store[key];
         let newParams: {[v:string]:any} = {};
         (params || []).forEach((item: {key: string; value: string}) => {
-            newParams[item.key] = get(storeInner, item.value, '');
+            if(item.value) {
+                newParams[item.key] = get(storeInner, item.value, '');
+            } else {
+                newParams[item.key] = storeInner;
+            }
         })
         return newParams;
 

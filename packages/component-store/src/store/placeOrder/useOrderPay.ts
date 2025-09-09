@@ -20,12 +20,10 @@ export function useOrderPay(selfPickupKey: string) {
     const _orderAddressInfo = useModuleContext(s => s.moduleStore._orderAddressInfo); //地址信息
     const _contractGoodsList = useModuleContext(s => s.moduleStore._contractGoodsList); //订单商品信息
     const _payMoney = useModuleContext(s => s.moduleStore._payMoney);
-    const contractPumode = Form.useWatch('contractPumode', form);
+    const contractPumode = Form.useWatch('contractPumode', form) ?? '0';
 
     const orderAddressInfoMix = (paramsInfo:any) => {
-        if(contractPumode === '0') {
-            return _orderAddressInfo
-        } else if(contractPumode === '1') {
+        if(contractPumode === '1') {
             const value = get(paramsInfo, `${selfPickupKey}[0]`, {});
             return {
                 goodsReceiptMem: value.userinfoCompname,
@@ -33,6 +31,8 @@ export function useOrderPay(selfPickupKey: string) {
                 goodsReceiptArrdess: value.provinceName + value.cityName + value.areaName + value.userinfoCompname,
                 areaCode: value.provinceCode
             }
+        } else if(contractPumode === '0') {
+            return _orderAddressInfo
         }
     }
 
@@ -48,7 +48,7 @@ export function useOrderPay(selfPickupKey: string) {
                 contractProperty: '0', //订单性质
                 contractBlance: 0, //结算方式:全款、订金、融资
                 contractPmode: 0, //付款方式：场内、场外，即线上、线下
-                contractPumode: form.getFieldValue('contractPumode') ?? '0', //提货方式
+                contractPumode: contractPumode, //提货方式
                 goodsSupplierName: '', //配送商
                 goodsSupplierCode: '', //配送商Code
                 packageList: [

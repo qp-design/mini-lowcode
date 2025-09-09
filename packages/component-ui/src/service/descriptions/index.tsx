@@ -14,7 +14,7 @@ const DescriptionJsx = ({listConfig, padding, margin, ...props}: {padding?: obje
                     label: item.key,
                     children: (
                         <Element canvas id={item.key} is={Container}>
-                            <Text code={item.value} />
+                            <Text />
                         </Element>
                     ),
                 }

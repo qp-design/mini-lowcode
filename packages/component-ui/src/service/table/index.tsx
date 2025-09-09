@@ -29,7 +29,7 @@ const DiyColumnComponent = ({code, record} : {code: string; record: object}) => 
 
 const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns, storeKey, rowSelectKey, ...restProps}: {
     storeKey: string;
-    expandable?: boolean
+    expandable?: boolean;
     dataPath?: string;
     type?: "checkbox" | 'radio' | ''
     rowSelectKey?: string;
@@ -45,7 +45,6 @@ const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns,
         rowSelection,
     } = useTableWithSelect(ROWKEYY, (value: Array<any>) => {
         if(type) {
-            console.log(1111, value);
             onChange(value);
             // setModuleStore({
             //     [rowSelectKey]: value
@@ -67,7 +66,7 @@ const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns,
                 dataIndex: restProps.value,
                 width: restProps.width,
             }
-            if (type) {
+            if (type && restProps.value) {
                 return {
                     ...config,
                     render: (_: string, record) => <DiyColumnComponent record={record} code={restProps.value}/>,

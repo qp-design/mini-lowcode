@@ -2,6 +2,7 @@ import { Form } from 'antd';
 import { Checkbox, Space } from 'antd';
 import { FC, ReactNode } from 'react';
 import loginContext from './context';
+import {Container, Element} from "@brushes/component-core";
 
 const Protocol: FC<{ children: ReactNode; isNeedRegister: boolean; actionImpl: (e: string) => void }> = ({ actionImpl, children, isNeedRegister }) => {
     const { textInfo, mode, to } = loginContext.useOpenValues();
@@ -17,9 +18,10 @@ const Protocol: FC<{ children: ReactNode; isNeedRegister: boolean; actionImpl: (
                     </Space>
                 </Form.Item>
             )}
-            { isNeedRegister && <a onClick={() => actionImpl(to)} className="login-form-forgot margin-top">
-                {textInfo}
-            </a> }
+            <Element width={200} id={'register'} canvas is={Container}></Element>
+            {/*{ isNeedRegister && <a onClick={() => actionImpl(to)} className="login-form-forgot margin-top">*/}
+            {/*    {textInfo}*/}
+            {/*</a> }*/}
         </div>
     );
 };

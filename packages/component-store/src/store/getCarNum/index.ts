@@ -20,7 +20,7 @@ export const useGetCarNum = () => {
 
 export const useOrderNum = () => {
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore)
-    const getOrderBadge = async (params: object) => {
+    const getOrderBadge = async (params?: object) => {
         try {
             const data = await post('web/oc/contract/queryOcContractToCensus.json', params);
             setModuleRootStore({

@@ -1,6 +1,6 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {ApiComponent, paddingField} from '../../common';
+import {actionField, ApiComponent, paddingField} from '../../common';
 
 const layoutField: FieldType[] = [
   {
@@ -59,10 +59,10 @@ const baseFormField: formConfigType[] = [
     title: '数据',
     formFields: containerField
   },
-  // {
-  //   title: '逻辑',
-  //   formFields: actionField
-  // },
+  {
+    title: '逻辑',
+    formFields: actionField
+  },
 ]
 export const DiyActionSettings = basicSettings(baseFormField)
 

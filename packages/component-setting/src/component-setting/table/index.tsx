@@ -70,11 +70,6 @@ const baseFormField: formConfigType[] = [
                 }
             },
             {
-                label: '表格行存储数据key',
-                name: 'rowSelectKey',
-                type: 'text',
-            },
-            {
                 label: '数据唯一key',
                 name: 'ROWKEYY',
                 type: 'text',

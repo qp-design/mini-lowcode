@@ -5,6 +5,23 @@ import {isUndefined} from "lodash";
 
 export const actionField: FieldType[] = [
     {
+      label: '事件类型',
+      type: 'select',
+      name: 'eventType',
+      extraProps: {
+        options: [
+            {
+                label: '点击',
+                value: 'onClick'
+            },
+            {
+                label: '回调事件',
+                value: 'callback'
+            }
+        ]
+      }
+    },
+    {
         label: '逻辑',
         name: '$_actions',
         type: 'slot',
