@@ -35,12 +35,14 @@ export const Sort = ({config = [{
         value: 'pricesetNprice'
     }], ...props}: {config: Array<{label: string; value: string}>}) => {
     const sortName = useRef('')
+    const activeIndex = useRef(0)
     const {styles} = useStyle();
     const order = useRef('desc');
     const setModuleStore  = useModuleContext(s=>s.setModuleStore);
     const params = useModuleContext(s=>s.moduleStore.params);
-    const impl = (item) => {
+    const impl = (item, index) => {
         sortName.current = item.value;
+        activeIndex.current = index;
         order.current = order.current === 'desc' ? 'asc' : 'desc';
         setModuleStore({
             params: {
@@ -55,12 +57,12 @@ export const Sort = ({config = [{
         <ul className={styles.container}>
             {
                 config.map((item, index) => (
-                    <li className={item.value === sortName.current ? 'actived' : ''} style={{
+                    <li className={item.value === sortName.current && activeIndex.current === index ? 'actived' : ''} style={{
                         float: 'left',
                         cursor: 'pointer',
                         margin: '0 10px 0 20px',
                         ...props
-                    }} onClick={() => impl(item)} key={index}>{item.label}</li>
+                    }} onClick={() => impl(item, index)} key={index}>{item.label}</li>
                 )
 )
 }

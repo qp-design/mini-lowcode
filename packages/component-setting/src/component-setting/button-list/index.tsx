@@ -105,10 +105,10 @@ const baseFormField: formConfigType[] = [
         title: '数据',
         formFields: containerField
     },
-    {
-        title: '逻辑',
-        formFields: actionField
-    },
+    // {
+    //     title: '逻辑',
+    //     formFields: actionField
+    // },
 ]
 export const ButtonListSettings = basicSettings(baseFormField, 'vertical')
 

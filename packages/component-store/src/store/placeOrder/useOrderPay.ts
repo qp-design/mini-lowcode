@@ -28,7 +28,7 @@ export function useOrderPay(selfPickupKey: string) {
             return {
                 goodsReceiptMem: value.userinfoCompname,
                 goodsReceiptPhone: value.userinfoTel,
-                goodsReceiptArrdess: value.provinceName + value.cityName + value.areaName + value.userinfoCompname,
+                goodsReceiptArrdess: `${value.provinceName}-${value.cityName}-${value.areaName}-${value.userinfoCompname}`,
                 areaCode: value.provinceCode
             }
         } else if(contractPumode === '0') {

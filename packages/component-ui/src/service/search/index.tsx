@@ -19,20 +19,6 @@ const useStyle = createStyles(({token, css}, props:
 ) => {
     return {
         wrapSearch: css`
-            //display: flex;
-            // .none-wrap{
-                //     height: ${props.height}px;
-                //     line-height: ${props.height}px;
-                //     font-size: ${props.size}px;
-            //     padding: 4px;
-                //     border: solid ${props.borderSize}px ${props.borderColor || token.colorPrimary};
-                //     border-radius: ${props.borderRadius}px 0 0 ${props.borderRadius}px !important;
-            //     //border-right: none;
-            //     .ant-select-selector{
-            //         border: 0 !important;
-            //         box-shadow: none !important;
-            //     }
-            // }
             .ant-select-selection-search{
                 position: absolute !important;
             }
@@ -53,15 +39,18 @@ const useStyle = createStyles(({token, css}, props:
                 font-size: ${props.size}px;
                 padding: 4px;
                 border: solid ${props.borderSize}px ${props.borderColor || token.colorPrimary};
-                //border-radius: 0 0 0 0 !important;
-                //border-left: none;
             }
             .ant-select-selector{
                 border: 0 !important;
                 box-shadow: none !important;
             }
             .ant-select-selection-item{ color: ${token.colorPrimary}}
-            button{ background: ${token.colorPrimary};}
+            button{ 
+                background: ${token.colorPrimary};
+                &:active, &:hover {
+                    background: ${token.colorPrimary} !important;
+                }
+            }
             .ant-input-group-addon {
                 background: ${token.colorPrimary};
                 border: solid 2px ${token.colorPrimary};

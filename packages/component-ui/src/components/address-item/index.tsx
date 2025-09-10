@@ -121,7 +121,7 @@ const ItemSelect = ({onChange, form, description, callbackName, storeKey, openKe
                     freight: data.dataObj,
                     goodsReceiptMem: addressMember,
                     goodsReceiptPhone: addressPhone,
-                    goodsReceiptArrdess: provinceName + cityName + areaName + addressDetail,
+                    goodsReceiptArrdess: `${provinceName}-${cityName}-${areaName}-${addressDetail}`,
                     areaCode: provinceCode
                 }
             });
