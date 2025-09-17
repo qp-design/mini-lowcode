@@ -25,14 +25,14 @@ export const Tab =
               defaultActiveKey.current = key
           }
           return {
-              key,
+              key: key || label,
               label: badge ?
                   <BadgeJsx code={code} label={label} padding={padding} props={props}/> :
                   <div style={{...padding, ...props}}>{label}</div>,
               children: (
                   <Element
                       canvas
-                      id={key}
+                      id={key || label}
                       is={Container}
                   >
                   </Element>

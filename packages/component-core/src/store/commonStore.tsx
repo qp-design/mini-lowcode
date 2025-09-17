@@ -35,11 +35,12 @@ export type addressInfo = {
 
 export type moduleType = {
   [v: string]: any;
+  _ocPoints: Array<any>;
   _ocDiscount: Array<any>;
   _orderAddressInfo: addressInfo;
   _couponList: [], // 订单优惠券列表
   _selectCoupon: {}, // 选中的优惠券
-  _shoppingList: [], // 订单商品信息
+  _shoppingList: Array<any>, // 订单商品信息
   _contractGoodsList: Array<typeof goodListIntialValue>; // 确认订单支付模块
   _orderDomainStr: Array<typeof initialValueOrder>; // 确认订单支付模块
   _ocContractSettlList: Array<any>; // 确认订单支付模块
@@ -70,6 +71,10 @@ export const createModuleStore = (initProps?: Partial<moduleStore>) => {
   const DEFAULT_PROPS: moduleStore = {
     moduleStore: {
       _ocDiscount: [],
+      _ocPoints: [],
+      _couponList: [],
+      _selectCoupon: {}, // 选中的优惠券
+      _shoppingList: [], // 订单商品信息
       _contractGoodsList: [],
       _orderDomainStr: [],
       _ocContractSettlList: [],

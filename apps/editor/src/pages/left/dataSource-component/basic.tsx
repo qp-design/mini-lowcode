@@ -316,20 +316,6 @@ const basic : Array<TypeComponent> = [
     }
   },
   {
-    name: '按钮',
-    icon: 'icon-caozuojilu',
-    Component: BasicComponent['ButtonComponent'],
-    setting: {
-      props: {
-        text: '查询',
-        type: 'default'
-      },
-      related: {
-        settings: ButtonSettings,
-      },
-    }
-  },
-  {
     name: '表单外层',
     icon: 'icon-caozuojilu',
     Component: BasicComponent['FormComponent'],

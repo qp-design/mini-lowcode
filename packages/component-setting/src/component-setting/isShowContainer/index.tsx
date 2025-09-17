@@ -51,6 +51,11 @@ const containerField: FieldType[] = [
       placeholder: '全局store和页面store只需要填写一个'
     }
   },
+  {
+    label: '以上条件统一求反',
+    name: 'isRevert',
+    type: 'switch',
+  },
   ...marginField,
   ...paddingField,
 ]

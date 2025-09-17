@@ -8,11 +8,6 @@ const containerField: FieldType[] = [
     name: 'storeKey',
     type: 'text',
   },
-  {
-    label: '积分Store的key',
-    name: 'pointKey',
-    type: 'text',
-  },
     ...paddingField,
     ...marginField,
   {

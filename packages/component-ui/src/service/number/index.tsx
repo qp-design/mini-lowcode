@@ -23,14 +23,16 @@ const Amount: React.FC<TextProps> =
          ...restProps
      }) => {
         const dataInfo = useModuleContext(s => s.moduleStore[storeKey]) || {};
-
         const value = useMemo(() => {
             if(code) {
                 return get(dataInfo, code) ?? 0;
             }
+            if(typeof dataInfo !== 'object' && dataInfo) {
+                return dataInfo;
+            }
             return 0
         }, [code, dataInfo]);
-
+        console.log(36, value);
         return (
             <Statistic
                 suffix={suffix}

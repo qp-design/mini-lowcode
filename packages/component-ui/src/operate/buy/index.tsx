@@ -2,7 +2,7 @@ import {Image} from 'antd';
 import {fullpath} from "@brushes/component-tool";
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {ButtonComponent} from "../../basic";
-import {useBuy} from "component-store/src/store/buy";
+import {useBuy} from "component-store";
 
 const Buy = ({car, imgWidth, imgHeight, skuId = '', ...restProps}: { skuId?: string; car: { imgUrl: string }; imgHeight: number; imgWidth: number;text: string }) => {
     const {add} = useBuy();

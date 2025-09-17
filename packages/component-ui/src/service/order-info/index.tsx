@@ -1,13 +1,14 @@
 import {Container, Element, useModuleContext} from "@brushes/component-core";
 import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {Text} from '../../basic'
-import {useOrderGood, useOrderInfo} from "component-store";
+import {useOrderGood, useOrderInfo, useSearchParamHook} from "component-store";
 import {fixPrice} from "@brushes/component-tool";
 import {useEffect, useState} from "react";
-import {URComponent} from "../../service";
+import {NumberComponent, URComponent} from "../../service";
 
-const OrderInfo = ({storeKey, pointKey, padding, margin, ...props}:{pointKey:string; storeKey: string; padding: object; margin: object}) => {
-    useOrderGood(storeKey, pointKey);
+const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padding: object; margin: object}) => {
+    useOrderGood(storeKey);
+    const [goodsType] = useSearchParamHook(['goodsType']);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
     const [payMoney, setPayMoney] = useState(0)
     const {
@@ -22,15 +23,25 @@ const OrderInfo = ({storeKey, pointKey, padding, margin, ...props}:{pointKey:str
         freightValue,
         ur,
         points
-    } = useOrderInfo(pointKey);
+    } = useOrderInfo();
 
     useEffect(() => {
-        const sum = shoppingCountPrice - creditMoney - couponMoney + freightValue - ur - points;
-        const result = sum > 0 ? sum : 0;
-        setPayMoney(result);
-        setModuleStore({
-            _payMoney: result
-        })
+        if(goodsType === '06') {
+            setPayMoney(freightValue);
+            setModuleStore({
+                _freight: freightValue,
+                _payMoney: freightValue
+            })
+        } else {
+            const sum = shoppingCountPrice - creditMoney - couponMoney + freightValue - ur - points;
+            const result = sum > 0 ? sum : 0;
+            setPayMoney(result);
+            setModuleStore({
+                _freight: freightValue,
+                _payMoney: result
+            })
+        }
+
     }, [shoppingCountPrice, creditMoney, couponMoney, freightValue, ur, points]);
 
     return (
@@ -44,24 +55,26 @@ const OrderInfo = ({storeKey, pointKey, padding, margin, ...props}:{pointKey:str
                     <Text color={'#666'} fontSize={14} text={'商品总件数：'}></Text>
                     <Text text={fixPrice(goodsCamount)} textAlign={'right'} width={120} color={'#f00'} code={'totalNum'}></Text>
                 </Container>
-                <Container
-                    alignItems={'center'}
-                    margin={{marginBottom: 10}}
-                    justifyContent={'flex-end'}
-                    flexDirection={'row'}
-                >
-                    <Text color={'#666'} fontSize={14} text={'商品总金额：'}></Text>
-                    <Text text={fixPrice(totalMoney)} textAlign={'right'} width={120} color={'#f00'} code={'totalNum'}></Text>
-                </Container>
-                <Container
-                    alignItems={'center'}
-                    margin={{marginBottom: 10}}
-                    justifyContent={'flex-end'}
-                    flexDirection={'row'}
-                >
-                    <Text color={'#666'} fontSize={14} text={'优惠金额：'}></Text>
-                    <Text text={fixPrice(comDisMoney + couponMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
-                </Container>
+                { goodsType !== '06' ? <>
+                        <Container
+                            alignItems={'center'}
+                            margin={{marginBottom: 10}}
+                            justifyContent={'flex-end'}
+                            flexDirection={'row'}
+                        >
+                            <Text color={'#666'} fontSize={14} text={'商品总金额：'}></Text>
+                            <Text text={fixPrice(totalMoney)} textAlign={'right'} width={120} color={'#f00'} code={'totalNum'}></Text>
+                        </Container>
+                    <Container
+                        alignItems={'center'}
+                        margin={{marginBottom: 10}}
+                        justifyContent={'flex-end'}
+                        flexDirection={'row'}
+                    >
+                        <Text color={'#666'} fontSize={14} text={'优惠金额：'}></Text>
+                        <Text text={fixPrice(comDisMoney + couponMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
+                    </Container>
+                </> : null }
                 { creditType ? <Container
                     alignItems={'center'}
                     margin={{marginBottom: 10}}
@@ -71,15 +84,15 @@ const OrderInfo = ({storeKey, pointKey, padding, margin, ...props}:{pointKey:str
                     <Text color={'#666'} fontSize={14} text={'授信付款：'}></Text>
                     <Text text={fixPrice(creditMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
                 </Container> : null }
-                <Container
-                    alignItems={'center'}
-                    margin={{marginBottom: 10}}
-                    justifyContent={'flex-end'}
-                    flexDirection={'row'}
-                >
-                    <Text color={'#666'} fontSize={14} text={'返利金额：'}></Text>
-                    <Text text={fixPrice(rebMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
-                </Container>
+                { goodsType !== '06' && <Container
+                        alignItems={'center'}
+                        margin={{marginBottom: 10}}
+                        justifyContent={'flex-end'}
+                        flexDirection={'row'}
+                    >
+                        <Text color={'#666'} fontSize={14} text={'返利金额：'}></Text>
+                        <Text text={fixPrice(rebMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
+                    </Container> }
                 <Element
                     is={Container}
                     id={'UR'}
@@ -97,24 +110,40 @@ const OrderInfo = ({storeKey, pointKey, padding, margin, ...props}:{pointKey:str
                         </Element>
                     </Container>
                 </Element>
-                <Container
+                <Element
+                    canvas
+                    id={'freight'}
+                    is={Container}
                     alignItems={'center'}
                     margin={{marginBottom: 10}}
                     justifyContent={'flex-end'}
-                    flexDirection={'row'}
-                >
-                    <Text color={'#666'} fontSize={14} text={'运费：'}></Text>
-                    <Text text={fixPrice(freightValue)} textAlign={'right'} width={120} color={'#f00'}></Text>
-                </Container>
-                <Container
+                    flexDirection={'row'}>
+                    <Container
+                        alignItems={'center'}
+                        margin={{marginBottom: 10}}
+                        justifyContent={'flex-end'}
+                        flexDirection={'row'}
+                    >
+                        <Text color={'#666'} fontSize={14} text={'运费：'}></Text>
+                        <Element width={120} is={Container} canvas id={'freight-money'}>
+                            <NumberComponent fontSize={14} storeKey={'_freight'} textAlign={'right'} width={120} color={'#f00'}></NumberComponent>
+                        </Element>
+                    </Container>
+                </Element>
+                <Element
+                    canvas
+                    id={'pay'}
+                    is={Container}
                     alignItems={'center'}
                     margin={{marginBottom: 10}}
                     justifyContent={'flex-end'}
                     flexDirection={'row'}
                 >
                     <Text color={'#666'} fontSize={14} text={'应付总额：'}></Text>
-                    <Text text={fixPrice(payMoney)} textAlign={'right'} width={120} color={'#f00'}></Text>
-                </Container>
+                    <Element width={120} is={Container} canvas id={'ur-money'}>
+                        <NumberComponent fontSize={14} storeKey={'_payMoney'} textAlign={'right'} width={120} color={'#f00'}></NumberComponent>
+                    </Element>
+                </Element>
                 <Element
                     is={Container}
                     id={'account-info-tips'}

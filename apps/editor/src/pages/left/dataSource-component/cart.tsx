@@ -242,7 +242,6 @@ const cart : Array<TypeComponent> = [
     setting: {
       props: {
         storeKey: 'goods',
-        pointKey: 'points'
       },
       related: {
         settings: OrderInfoComponentSettings,

@@ -119,13 +119,13 @@ const useStyle = createStyles(({token, css}) => {
         `
     }
 })
-export const UserInfo = ({text, imgUrl, _tourist, config, ...restProps}: { _tourist: boolean;config: Array<{label: string; code: string}>; text: string; imgUrl: string }) => {
+export const UserInfo = ({text, imgUrl, _tourist, config, contractType = '00,26,30,80,35,36', ...restProps}: { contractType?: string; _tourist: boolean;config: Array<{label: string; code: string}>; text: string; imgUrl: string }) => {
     const {styles} = useStyle();
     const { navigator } = useNavigateImpl();
     const { getOrderBadge } = useOrderNum();
     const _orderCount = useModuleRootContext(s => s.rootStore._orderCount) || {}
     useEffect(() => {
-        const params = _tourist ? { _tourist: true } : {};
+        const params = _tourist ? { _tourist: true, contractType } : { contractType };
         getOrderBadge(params)
     }, []);
 

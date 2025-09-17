@@ -10,9 +10,10 @@ import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import {useNavigateImpl} from "@brushes/component-tool";
 import { createStyles } from "antd-style";
 import {useLocation, useSearchParams} from "react-router-dom";
-import {useEffect, useMemo, useState} from "react";
-import {noop, get, isEmpty} from "lodash";
+import {useCallback, useEffect, useMemo, useState} from "react";
+import {noop, get, isEmpty, debounce} from "lodash";
 import {Button, Select} from "antd";
+import {post} from "@brushes/request";
 
 const useStyle = createStyles(({token, css}, props:
     any
@@ -70,12 +71,12 @@ const useStyle = createStyles(({token, css}, props:
     }
 })
 
-const Title: React.FC<Readonly<{ title?: string, deleteImpl: () => void }>> = (props) => {
+const Title: React.FC<Readonly<{ title?: string, deleteImpl: () => void; isDelete: boolean }>> = (props) => {
 
     return (
         <Flex align="center" justify="space-between">
             {props.title}
-            <Button style={{padding: 0, margin: 0}} type={'link'} onClick={() => props.deleteImpl()}>全部删除</Button>
+            { props.isDelete && <Button style={{padding: 0, margin: 0}} type={'link'} onClick={() => props.deleteImpl()}>全部删除</Button> }
         </Flex>
     )
 }
@@ -91,14 +92,14 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
     const searchQuery = useModuleRootContext(s=>s.rootStore.searchQuery) || noop;
     const historyList = useModuleRootContext(s=>s.rootStore._historyList);
     const [path, setPath] = useState('');
-
-    const historyItems = useMemo(() => {
-        const renderItem = (title: string) => ({
+    const [hot, setHot] = useState<Array<any>>([]);
+    const fetchItem = (historyList: Array<any>, title: string, isDelete = true) => {
+        const renderItem = (title: string, isDelete: boolean) => ({
             value: title,
             label: (
                 <Flex align="center" justify="space-between">
                     {title}
-                    <Button style={{padding: 0, margin: 0, fontSize: 12}} type={'link'} onClick={() => deleteImpl(title)}>删除</Button>
+                    { isDelete && <Button style={{padding: 0, margin: 0, fontSize: 12}} type={'link'} onClick={() => deleteImpl(title)}>删除</Button> }
                 </Flex>
             ),
         });
@@ -119,9 +120,13 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
             return []
         }
         return [{
-            label: <Title title="历史记录" deleteImpl={deleteImpl}/>,
-            options: (historyList || []).reverse().slice(0, 10).map((item:string) => renderItem(item)),
+            label: <Title title={title} deleteImpl={deleteImpl} isDelete={isDelete}/>,
+            options: (historyList || []).reverse().slice(0, 10).map((item:string) => renderItem(item, isDelete)),
         }]
+    }
+
+    const historyItems = useMemo(() => {
+        return fetchItem(historyList, '历史记录');
     }, [historyList]);
 
     const defaultValue = useMemo(() => {
@@ -153,8 +158,31 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
                 searchParam: value
             })
         }
-
     }
+    const changeF = async (e: string) => {
+        const {list} = await post('/web/es/searchengine/find.json', {
+            goodsType: '00, 40',
+            bizType: 'sku',
+            goodsOrigin: '0,8',
+            searchParam: e
+        });
+        const result = new Set(list.map((item:any) => item.goodsShowname) || []);
+        setHot(fetchItem([...result], '匹配分词', false));
+    }
+
+    // 实际处理输入的方法
+    const handleDebouncedChange = useCallback(
+        debounce((val) => {
+            changeF(val);
+        }, 500),
+        [] // 确保 debounce 只初始化一次
+    );
+
+    const fetchWord = (e:any) => {
+        const val = e.target.value;
+        handleDebouncedChange(val);
+    };
+
     const searchShop = () => {
         setOpen(false);
         searchQuery({
@@ -165,7 +193,6 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
         setOpen(false);
         setPath(e);
     }
-
     return (
         <AutoComplete
             value={value}
@@ -174,7 +201,7 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
             className={styles.wrapSearch}
             style={{ width: '100%' }}
             onChange={setValue}
-            options={ historyItems }
+            options={ value ? hot : historyItems }
         >
             <Search
                 className={styles.search}
@@ -184,9 +211,7 @@ const SearchJsx = ({isShopSearch, options, size, placeholder, ...props }: { opti
                 allowClear
                 size={size}
                 placeholder={placeholder}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
+                onChange={fetchWord}
                 suffix={
                     isShopSearch ? <Button style={{marginRight: -6}} onClick={searchShop} danger>搜本店</Button> : null
                 }

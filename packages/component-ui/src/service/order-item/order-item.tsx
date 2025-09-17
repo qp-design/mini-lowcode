@@ -10,6 +10,7 @@ import {debounce} from "lodash";
 import {post} from "@brushes/request";
 import {DeleteOutlined} from "@ant-design/icons";
 import {useNode} from "@craftjs/core";
+import {NumberComponent} from '../../service';
 
 const InputJsx = () => {
     const [loading, setLoading] = useState<boolean>(false);

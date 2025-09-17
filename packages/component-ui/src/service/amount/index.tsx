@@ -36,7 +36,6 @@ export const Amount: React.FC<TextProps & { dataInfo: object }> =
         const dataInfo = useModuleContext(s => s.moduleStore[storeKey]) || {};
 
         const value = useMemo(() => {
-            console.log(40, code, baseNumber);
             if(code && baseNumber) {
                 return fixPrice(+dataInfo[code] * (+dataInfo[baseNumber]))
             }

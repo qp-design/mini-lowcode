@@ -36,7 +36,7 @@ const Button2 = ({text, disabled = '', icon, size, margin = {}, padding = {}, ty
                 ...restProps,
                 border: `${restProps.borderSize || 1}px solid ${restProps.borderColor}`,
             }}
-            data-id={openKey || text}>{text}</Button>
+            data-id={text || openKey}>{text}</Button>
     )
 }
 

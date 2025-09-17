@@ -24,7 +24,7 @@ export const Inner = ({children, enabled, root, text}: { text?:string; root?: bo
         <>{children ? children : enabled ? <DefaultJsx text={text} root={root}/> : ''}</>
     )
 }
-export const IsShowContainer = ({moduleShowValue, rootKey = '', children, routerIsShowValue, routerIsShow, moduleIsShow = '', padding, storeKey = '', margin}: { routerIsShowValue?: string; rootKey?: string; moduleShowValue?: string; moduleIsShow?: string; routerIsShow?: string; storeKey: string; padding: object; margin: object; children?: ReactNode}) => {
+export const IsShowContainer = ({moduleShowValue, rootKey = '', isRevert = false, children, routerIsShowValue, routerIsShow, moduleIsShow = '', padding, storeKey = '', margin}: { isRevert?: boolean;routerIsShowValue?: string; rootKey?: string; moduleShowValue?: string; moduleIsShow?: string; routerIsShow?: string; storeKey: string; padding: object; margin: object; children?: ReactNode}) => {
     const store = useModuleContext(s=>s.moduleStore[storeKey]);
     const rootStore = useModuleRootContext(s=>s.rootStore[rootKey]);
 
@@ -68,15 +68,20 @@ export const IsShowContainer = ({moduleShowValue, rootKey = '', children, router
      *  7: 全局Store显示条件Key和显示条件value都不为空， 全局Store里面的key的值和 显示条件value是否匹配
      *  8: 全局store显示条件Key不为空 store显示条件value为空， 全局store里面的key的值是否空
      */
-    if((routerIsShow && searchParams.has(routerIsShow) && !routerIsShowValue) || // 1
-        (routerIsShow && searchParams.has(routerIsShow) && routerIsShowValue && routerIsShowValue.split(',').includes(searchParams.get(routerIsShow) || '')) || // 2
-        (storeKey && !moduleShowValue && !moduleIsShow && !isUndefined(store) && !isEmpty(store)) || // 3
-        (moduleIsShow && storeKey && !moduleShowValue && !isUndefined(nValue) && !isEmpty(nValue)) || // 4
-        (moduleShowValue && storeKey && moduleIsShow && moduleShowValue.split(',').includes(nValue + '')) || // 5
-        (rootKey && !moduleShowValue && !moduleIsShow && !isUndefined(rootStore) && !isEmpty(rootStore)) || // 6
-        (moduleIsShow && rootKey && !moduleShowValue && !isUndefined(rnValue) && !isEmpty(rnValue)) || // 7
-        (moduleShowValue && rootKey && moduleIsShow && moduleShowValue.split(',').includes(rnValue + '')) || // 8
-        enabled) {
+    const conditionType = useMemo(() => {
+        const condition = (routerIsShow && searchParams.has(routerIsShow) && !routerIsShowValue) || // 1
+            (routerIsShow && searchParams.has(routerIsShow) && routerIsShowValue && routerIsShowValue.split(',').includes(searchParams.get(routerIsShow) || '')) || // 2
+            (storeKey && !moduleShowValue && !moduleIsShow && !isUndefined(store) && !isEmpty(store)) || // 3
+            (moduleIsShow && storeKey && !moduleShowValue && !isUndefined(nValue) && !isEmpty(nValue)) || // 4
+            (moduleShowValue && storeKey && moduleIsShow && moduleShowValue.split(',').includes(nValue + '')) || // 5
+            (rootKey && !moduleShowValue && !moduleIsShow && !isUndefined(rootStore) && !isEmpty(rootStore)) || // 6
+            (moduleIsShow && rootKey && !moduleShowValue && !isUndefined(rnValue) && !isEmpty(rnValue)) || // 7
+            (moduleShowValue && rootKey && moduleIsShow && moduleShowValue.split(',').includes(rnValue + '')); // 8
+
+        return isRevert ? !condition : condition;
+    }, [searchParams, routerIsShow, routerIsShowValue, store, storeKey, moduleShowValue, moduleIsShow, nValue, rootKey, rootStore, rnValue]);
+
+    if(conditionType || enabled) {
         return (
             <div
                 style={{

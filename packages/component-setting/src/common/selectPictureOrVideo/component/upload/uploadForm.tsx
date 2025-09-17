@@ -12,17 +12,18 @@ const UploadForm = ({ onSubmit }: { onSubmit: () => void }) => {
         label: '上传图片',
         name: 'basicImg',
         type: 'upload',
-        rules: [{ required: true, message: '请选择图片' }],
+        rules: [{ required: true, message: '请选择图片一次上传最多20个' }],
         extraProps: {
+          maxCount: 20,
           suffixicon: (
             <span style={{ fontSize: 12, color: '#999' }}>
               {fileType === 'picture'
-                ? '建议上传1Mb以内的图片'
+                ? '建议上传1Mb以内的图片，一次上传最多20个'
                 : '建议上传20Mb以内的视频'}
             </span>
           ),
+          multiple: true,
           accept: fileType === 'picture' ? 'image/*' : '*.mp4*, *.ogg',
-          maxCount: 1,
           listType: 'picture-card',
           text: fileType === 'picture' ? '上传图片' : '上传视频'
         }

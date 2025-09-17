@@ -8,8 +8,16 @@ let index = 0;
 export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void; }) => {
     const [items, setItems] = useState([
         {
-          value: 'web/um/userDealer/saveUserDealerToAllot.json',
+          value: '/web/um/userDealer/saveUserDealerToAllot.json',
           label: '注册接口'
+        },
+        {
+            value: '/web/upm/upmupoints/queryUpmupointsListPageByUser.json',
+            label: '积分列表'
+        },
+        {
+          value: '/web/upm/upmupoints/queryUpmupointsPageByPC.json',
+          label: '用户积分余额'
         },
         {
            value: '/web/oc/contract/cancelContractC.json',

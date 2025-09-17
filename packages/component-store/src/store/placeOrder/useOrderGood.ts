@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import {get, isEmpty} from 'lodash';
+import {isEmpty} from 'lodash';
 import {useModuleContext, goodListIntialValue, initialValueOrder} from "@brushes/component-core";
 import {Form} from "antd";
 import { PromotionInType } from "@brushes/component-tool";
 
-export const useOrderGood = (storeKey: string, pointKey: string) => {
+export const useOrderGood = (storeKey: string) => {
   const contactData = useModuleContext(s=>s.moduleStore[storeKey]);
   const setModuleStore = useModuleContext(s=>s.setModuleStore);
   const form = Form.useFormInstance();
@@ -14,24 +14,6 @@ export const useOrderGood = (storeKey: string, pointKey: string) => {
   useEffect(() => {
     computedValue(contactData, _selectCoupon);
   }, [contactData, creditType, creditAccount, _selectCoupon]);
-
-  const computedInt = (orderDomainStr: Array<any>) => {
-    let _ocInt = [];
-    let v = 0;
-    let n = 0;
-    orderDomainStr.forEach(item => {
-      v += get(item, 'upmMap.disamount', 0);
-      n += get(item, 'upmMap.integral', 0)
-    })
-    if (v > 0) {
-        _ocInt.push({
-          contractSettlBlance: 'INT',
-          contractSettlPmoney: v,
-          contractSettlGmoney: n
-        })
-    }
-    return _ocInt;
-  }
 
   const computedValue = (res: Array<any>, _selectCoupon = {}) => {
     if (isEmpty(res)) {
@@ -44,7 +26,7 @@ export const useOrderGood = (storeKey: string, pointKey: string) => {
     let shoppingList = [] as Array<any>; // 优惠券信息
     res.forEach((v) => {
       const payStateConfig = Object.assign({}, initialValueOrder);
-      payStateConfig.shoppingType = v.goodsType;
+      payStateConfig.shoppingType = v.shoppingType;
       payStateConfig.upmMap = v.upmMap;
       payStateConfig.rebMoney += v.rebMoney;
       let itemList = [] as Array<typeof initialValueOrder>;
@@ -135,15 +117,15 @@ export const useOrderGood = (storeKey: string, pointKey: string) => {
       orderDomainStr.push(payStateConfig);
     });
 
-
-    const _ocInt = computedInt(orderDomainStr);
+    // const _ocInt = computedInt(orderDomainStr);
     // setPayState(payState);
     setModuleStore({
-      [pointKey]: _ocInt,
       _contractGoodsList: contractGoodsList,
       _orderDomainStr: orderDomainStr,
       _shoppingList: shoppingList,
-      _ocContractSettlList: ocContractSettlList.concat(_ocInt)
+      _ocContractSettlList: ocContractSettlList
+      // [pointKey]: _ocInt,
+      // _ocContractSettlList: ocContractSettlList.concat(_ocInt)
     })
   };
 };

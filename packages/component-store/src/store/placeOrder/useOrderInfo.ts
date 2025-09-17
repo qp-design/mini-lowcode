@@ -5,11 +5,11 @@ import {Form} from "antd";
 import {PromotionInType} from "@brushes/component-tool";
 import {get, isEmpty} from "lodash";
 
-export function useOrderInfo(pointKey: string) {
+export function useOrderInfo() {
   const form = Form.useFormInstance();
   const _ocContractSettlList = useModuleContext(s=>s.moduleStore._ocContractSettlList);
   const _ocDiscount = useModuleContext(s=>s.moduleStore._ocDiscount);
-  const pointInfo = useModuleContext(s=>s.moduleStore[pointKey]);
+  const pointInfo = useModuleContext(s=>s.moduleStore._ocPoints);
   const freight = useModuleContext(s=>s.moduleStore._orderAddressInfo.freight);
   const creditType = Form.useWatch('creditType', form);
   const contractPumode = Form.useWatch('contractPumode', form);

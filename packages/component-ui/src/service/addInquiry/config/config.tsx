@@ -23,6 +23,10 @@ export const formConfig: (e: string, openKey: string) => FieldType[] = (storeKey
         rules: [{ required: true}],
         type: 'date',
         extraProps: {
+            showTime: true,
+            disabledDate: (current: any) => {
+                return current && current < dayjs().endOf('hour');
+            },
             style: { width: '100%' },
             format: 'YYYY-MM-DD HH:mm:ss'
         }

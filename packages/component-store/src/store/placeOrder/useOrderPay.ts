@@ -1,5 +1,5 @@
 import {get, omit, set} from 'lodash';
-import {useMemo, useState} from 'react';
+import {useState} from 'react';
 import {useModuleContext, initialValueOrder} from "@brushes/component-core";
 import {saveContract} from "qj-b2c-api";
 import {Form, message} from 'antd';
@@ -17,6 +17,7 @@ export function useOrderPay(selfPickupKey: string) {
     const _orderDomainStr = useModuleContext(s => s.moduleStore._orderDomainStr); //订单信息
     const _ocContractSettlList = useModuleContext(s => s.moduleStore._ocContractSettlList); // 优惠信息
     const _ocDiscount = useModuleContext(s => s.moduleStore._ocDiscount); // 会员权益
+    const _ocPoints = useModuleContext(s => s.moduleStore._ocPoints); // 会员积分
     const _orderAddressInfo = useModuleContext(s => s.moduleStore._orderAddressInfo); //地址信息
     const _contractGoodsList = useModuleContext(s => s.moduleStore._contractGoodsList); //订单商品信息
     const _payMoney = useModuleContext(s => s.moduleStore._payMoney);
@@ -83,30 +84,18 @@ export function useOrderPay(selfPickupKey: string) {
         });
     };
 
-    // 最终销售含税金额 (优惠后)
-    const finalSales = (item: typeof initialValueOrder) => {
-        const {shoppingCountPrice, copyComDisMoney, discount} = item;
-        return (shoppingCountPrice - copyComDisMoney - discount).toFixed(2);
-    };
-
-    //  销售含税金额 (优惠前)
-    const salesTax = (item: typeof initialValueOrder) => {
-        const {shoppingCountPrice, copyComDisMoney} = item;
-        return (shoppingCountPrice - copyComDisMoney).toFixed(2);
-    };
-
     // 确认预订单 立即支付
     const onSubmit = async (cb: () => void, value: any) => {
         cb();
         const rsSkuListStr = paramsDataHandle(value);
         // 优惠信息
-        const settleList = _ocContractSettlList.concat(_ocDiscount).map((item: typeof initialValueOrder) => {
+        const settleList = _ocContractSettlList.concat(_ocDiscount).concat(_ocPoints).map((item: typeof initialValueOrder) => {
             return {
                 ...item,
                 contractPmode: value.contractPmode,
             }
         });
-
+        console.log(98, _ocPoints, settleList);
         set(rsSkuListStr, '[0].ocContractSettlList', settleList);
         setLoading(true);
         const params = {orderDomainStr: JSON.stringify(rsSkuListStr)};

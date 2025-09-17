@@ -20,6 +20,11 @@ const containerField: FieldType[] = [
     }
   },
   {
+    label: '订单类型',
+    name: 'contractType',
+    type: 'text',
+  },
+  {
     label: '游客模式',
     name: '_tourist',
     type: 'switch',

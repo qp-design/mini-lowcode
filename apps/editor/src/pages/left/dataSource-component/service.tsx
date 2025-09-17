@@ -9,6 +9,7 @@ import {
   AddCartComponentSettings,
   GoodCategoryComponentSettings,
   SwiperThumbComponentSettings,
+  MultiplyPriceSettings,
   SkuListComponentSettings,
   SearchComponentSettings, CategoryComponentSettings, AmountComponentSettings,
 } from '@brushes/component-setting';
@@ -135,6 +136,7 @@ const service : Array<TypeComponent> = [
     Component: Materials['UserInfoComponent'],
     setting: {
       props: {
+        contractType: '00,26,30,80,35,36',
         imgUrl: '',
         _tourist: false,
         config: [

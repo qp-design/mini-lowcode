@@ -65,6 +65,7 @@ const layout: Array<TypeComponent> = [
     setting: {
       props: {
         margin: {},
+        isRevert: false,
         padding: { paddingTop: 5, paddingBottom: 5 },
       },
       related: {
