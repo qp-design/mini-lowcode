@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Dispatch } from 'react';
+import { Dispatch } from 'react';
 
 const HeaderJsx = ({ menu, setIndex, index }: { menu: Array<string>; setIndex: Dispatch<number>; index: number }) => {
     return (

@@ -303,7 +303,7 @@ export const Category = ({width, height, backgroundColor, widthHover, _tourist}:
         (async () => {
             try {
                 const params = _tourist ? { _tourist: true } : {};
-                const data = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json', cacheParams(params, 10));
+                const data = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json', params);
                 console.log(306, data);
                 setApiData(data);
             } catch (err) {

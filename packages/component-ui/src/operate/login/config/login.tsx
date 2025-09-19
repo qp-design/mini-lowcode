@@ -1,5 +1,4 @@
 import { FieldType } from '@brushes/form';
-import { QjIcon } from '@brushes/share-resource';
 import {imgCode, userPhone} from "./resetForm";
 export const loginWithAccount: Array<FieldType> = [
     ...userPhone,

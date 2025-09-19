@@ -1,8 +1,8 @@
 import {dynamicFormFields, FieldType} from '@brushes/form';
 import { QjIcon } from '@brushes/share-resource';
 import { FormInstance } from 'antd';
-import CodeJsx from '../components/code';
-import ImageJsx from '../components/image';
+import { CodeComponent as CodeJsx, ImageCodeComponent as ImageJsx} from "@brushes/component-core";
+
 import { checkUserPhoneThere } from 'qj-b2c-api';
 
 import { createStyles } from "antd-style";

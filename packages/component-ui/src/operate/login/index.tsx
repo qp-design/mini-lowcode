@@ -44,24 +44,26 @@ const useStyles = createStyles(({css}) => {
                     height: 70px;
                     display: table-cell;
                     vertical-align: bottom;
+                    padding-left: 50px;
 
                     span {
-                        margin-left: 50px;
+                        //margin-left: 50px;
                         display: inline-block;
                         cursor: pointer;
                         list-style: none;
                         flex: 1;
-                        font-size: 18px;
+                        margin-right: 24px;
+                        font-size: 15px;
                         font-weight: 500;
                         color: #888;
 
                         &.actived {
                             color: #444;
-                            font-size: 26px;
+                            font-size: 22px;
                         }
 
-                        &:nth-of-type(1) {
-                            margin-right: 40px;
+                        &:nth-of-type(3) {
+                            margin-right: 0;
                         }
                     }
                 }
@@ -127,7 +129,7 @@ const LoginWrap: FC<{ children: ReactNode; data: string; isNeedRegister: boolean
     const [index, setIndex] = useState<number>(0);
     const {styles} = useStyles();
     const formConfig = useMemo(() => {
-        return index === 0 ? loginWithAccount : loginWithCode;
+        return [0, 1].includes(index) ? loginWithAccount : loginWithCode;
     }, [index]);
 
     return (
@@ -135,13 +137,13 @@ const LoginWrap: FC<{ children: ReactNode; data: string; isNeedRegister: boolean
             <loginContext.OpenProvider>
                 <div className={'loginRoot'}>
                     <Register isNeedRegister={isNeedRegister} children={children} dataType={data}/>
-                    <HeaderJsx index={index} setIndex={setIndex} menu={['密码登录', '验证码登录']}/>
+                    <HeaderJsx index={index} setIndex={setIndex} menu={['密码登录', '个体工商/公司', '验证码登录']}/>
                     <LoginJsx
                         isNeedRegister={isNeedRegister}
                         dataType={data}
                         index={index}
                         children={children}
-                        isNeedRemeber={index === 0}
+                        isNeedRemeber={[0, 1].includes(index)}
                         formConfig={formConfig}
                     />
                 </div>
