@@ -304,8 +304,7 @@ export const Category = ({width, height, backgroundColor, widthHover, _tourist}:
             try {
                 const params = _tourist ? { _tourist: true } : {};
                 const data = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json', params);
-                console.log(306, data);
-                setApiData(data);
+                setApiData(data || []);
             } catch (err) {
                 console.error(err);
             }
