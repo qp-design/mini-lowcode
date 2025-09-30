@@ -8,36 +8,40 @@ let index = 0;
 export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void; }) => {
     const [items, setItems] = useState([
         {
-          value: '/web/um/userDealer/saveUserDealerToAllot.json',
-          label: '注册接口'
+            value: '/web/um/userDealer/saveUserDealerToAllot.json',
+            label: '注册接口'
+        },
+        {
+            value: '/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json',
+            label: 'B2B商品分类'
         },
         {
             value: '/web/upm/upmupoints/queryUpmupointsListPageByUser.json',
             label: '积分列表'
         },
         {
-          value: '/web/upm/upmupoints/queryUpmupointsPageByPC.json',
-          label: '用户积分余额'
+            value: '/web/upm/upmupoints/queryUpmupointsPageByPC.json',
+            label: '用户积分余额'
         },
         {
-           value: '/web/oc/contract/cancelContractC.json',
-           label: '取消订单'
+            value: '/web/oc/contract/cancelContractC.json',
+            label: '取消订单'
         },
         {
             value: '/web/oc/contract/confirmReceive.json',
             label: '确认收货'
         },
         {
-           value: 'web/um/memoauth/updateMemoauth.json',
-           label: '大宗委托平台交易更新'
+            value: 'web/um/memoauth/updateMemoauth.json',
+            label: '大宗委托平台交易更新'
         },
         {
-           value: 'web/oc/refund/sendGoods.json',
-           label: '退单快递提交'
+            value: 'web/oc/refund/sendGoods.json',
+            label: '退单快递提交'
         },
         {
-          value: 'web/oc/refund/saveRefundForPlat.json',
-          label: '订单售后接口'
+            value: 'web/oc/refund/saveRefundForPlat.json',
+            label: '订单售后接口'
         },
         {
             value: 'web/inv/invlist/getInvlistOrd.json',
@@ -76,16 +80,16 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '新增发票'
         },
         {
-          value: 'web/inv/userinv/queryUserinvPageByByMemberCode.json',
-          label: '发票信息列表'
+            value: 'web/inv/userinv/queryUserinvPageByByMemberCode.json',
+            label: '发票信息列表'
         },
         {
-          value: 'web/res/evaluate/saveEvaluateGoods.json',
-          label: '商品评价'
+            value: 'web/res/evaluate/saveEvaluateGoods.json',
+            label: '商品评价'
         },
         {
-          value: 'web/at/auction/getMyAuctionInfo.json',
-          label: '大宗我的竞价详情'
+            value: 'web/at/auction/getMyAuctionInfo.json',
+            label: '大宗我的竞价详情'
         },
         {
             value: 'web/at/auction/getAuctionByCode.json',
@@ -104,7 +108,7 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '大宗报名支付'
         },
         {
-           value: 'web/at/auctiondt/getAuctiondtAndAmount.json',
+            value: 'web/at/auctiondt/getAuctiondtAndAmount.json',
             label: '大宗获取用户的账号余额'
         },
         {
@@ -112,7 +116,7 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '大宗查询当前报名保证金所缴列表'
         },
         {
-            value:  'web/um/memoauth/saveMemoauth.json',
+            value: 'web/um/memoauth/saveMemoauth.json',
             label: '大宗委托平台交易申请'
         },
         {
@@ -164,8 +168,8 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '报价单详情'
         },
         {
-          value: 'web/um/collect/checkCollectExit.json',
-          label: '检查是否收藏'
+            value: 'web/um/collect/checkCollectExit.json',
+            label: '检查是否收藏'
         },
         {
             value: 'web/um/collect/saveCollect.json',
@@ -184,28 +188,28 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '店铺查询'
         },
         {
-          value: 'web/cms/doclist/queryDoclistForMenuPageAt.json',
-          label: '新闻资讯'
+            value: 'web/cms/doclist/queryDoclistForMenuPageAt.json',
+            label: '新闻资讯'
         },
         {
-          value: 'web/cms/doclist/getDoclistForAt.json',
-          label: '新闻资讯明细'
+            value: 'web/cms/doclist/getDoclistForAt.json',
+            label: '新闻资讯明细'
         },
         {
-          value: 'web/pm/usercoupon/queryUsercouponPageForC.json',
-          label: '我的优惠券'
+            value: 'web/pm/usercoupon/queryUsercouponPageForC.json',
+            label: '我的优惠券'
         },
         {
             value: 'web/gd/rsinfo/queryRsinfoPageByForPcAt.json',
             label: '供求大厅查询'
         },
         {
-          value: 'web/cs/Consult/queryConsultPageByOpCode.json',
-          label: '咨询列表'
+            value: 'web/cs/Consult/queryConsultPageByOpCode.json',
+            label: '咨询列表'
         },
         {
-          value: 'web/pm/promotion/queryCouponListBySkuCode.json',
-          label: '商品详情优惠券'
+            value: 'web/pm/promotion/queryCouponListBySkuCode.json',
+            label: '商品详情优惠券'
         },
         {
             value: 'web/cs/Consult/saveConsult.json',

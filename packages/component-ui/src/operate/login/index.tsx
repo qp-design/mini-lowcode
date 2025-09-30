@@ -123,13 +123,12 @@ const useStyles = createStyles(({css}) => {
     }
 })
 
-const LoginWrap: FC<{ children: ReactNode; data: string; isNeedRegister: boolean }> = ({isNeedRegister, children, data}) => {
+const LoginWrap: FC<{ children: ReactNode; data: string; _callbackimpl?: (e: any) => void | undefined; isNeedRegister: boolean }> = ({_callbackimpl, isNeedRegister, children, data}) => {
     const [index, setIndex] = useState<number>(0);
     const {styles} = useStyles();
     const formConfig = useMemo(() => {
         return index === 0 ? loginWithAccount : loginWithCode;
     }, [index]);
-
     return (
         <div className={styles.loginComponent}>
             <loginContext.OpenProvider>
@@ -137,6 +136,7 @@ const LoginWrap: FC<{ children: ReactNode; data: string; isNeedRegister: boolean
                     <Register isNeedRegister={isNeedRegister} children={children} dataType={data}/>
                     <HeaderJsx index={index} setIndex={setIndex} menu={['密码登录', '验证码登录']}/>
                     <LoginJsx
+                        _callbackimpl={_callbackimpl}
                         isNeedRegister={isNeedRegister}
                         dataType={data}
                         index={index}

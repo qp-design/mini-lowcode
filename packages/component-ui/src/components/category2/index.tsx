@@ -1,8 +1,9 @@
 import {RightOutlined} from "@ant-design/icons";
 import {createStyles} from "antd-style";
-import {Fragment, useEffect, useState} from "react";
-import {post, cacheParams} from "@brushes/optimize";
+import {Fragment} from "react";
 import {useNavigate} from 'react-router-dom'
+import {useComponentListData} from "component-store";
+import api from "@brushes/component-setting/src/component-setting/container/api";
 
 const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, width, backgroundColor}: {
     widthHover: number;
@@ -289,28 +290,16 @@ const ItemMemu = ({item}: any) => {
         </li>
     )
 }
-export const Category = ({width, height, backgroundColor, widthHover, _tourist}: {
+export const CategorySimple = ({width, dataPath = '',  storeKey, height, backgroundColor, widthHover}: {
     widthHover: number;
+    dataPath: string;
+    storeKey: string;
     backgroundColor: string;
     width: number;
     height: number;
-    _tourist: boolean;
 }) => {
-    const [apiData, setApiData] = useState([]);
+    const apiData = useComponentListData(dataPath, storeKey);
     const {styles} = useStyles({height, width, backgroundColor, widthHover, hoverHeight: Math.max((apiData.length) * 41 + 20, height)  });
-    useEffect(() => {
-        (async () => {
-            try {
-                const params = _tourist ? { _tourist: true } : {};
-                const data = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json', params);
-                setApiData(data || []);
-            } catch (err) {
-                console.error(err);
-            }
-
-        })()
-    }, []);
-
     return (
         <div className={styles.category}>
             <div className={'wrap-container'}>

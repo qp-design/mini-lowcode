@@ -18,7 +18,7 @@ interface DataType {
   };
 }
 
-export function useLoginHooks() {
+export function useLoginHooks(_callbackimpl:any) {
   const navigator = useNavigate();
   const setModuleRootStore = useModuleRootContext(s =>s.setModuleRootStore)
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,7 +49,11 @@ export function useLoginHooks() {
     setModuleRootStore({
       _userInfo
     })
-    navigator('/index')
+    if(_callbackimpl) {
+      _callbackimpl(data);
+    } else {
+      navigator('/index')
+    }
   }
   async function loginWithCodeImpl(values: any) {
     setLoading(true);

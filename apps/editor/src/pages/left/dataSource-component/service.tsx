@@ -9,9 +9,8 @@ import {
   AddCartComponentSettings,
   GoodCategoryComponentSettings,
   SwiperThumbComponentSettings,
-  MultiplyPriceSettings,
   SkuListComponentSettings,
-  SearchComponentSettings, CategoryComponentSettings, AmountComponentSettings,
+  SearchComponentSettings, CategoryComponentSettings, AmountComponentSettings, CategorySimpleComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
@@ -127,6 +126,22 @@ const service : Array<TypeComponent> = [
       },
       related: {
         settings: CategoryComponentSettings,
+      },
+    }
+  },
+  {
+    name: '分类2',
+    icon: 'icon-text',
+    Component: Materials['CategorySimpleComponent'],
+    setting: {
+      props: {
+        backgroundColor: '#F8FAFF',
+        height: 420,
+        width: 232,
+        widthHover: 770,
+      },
+      related: {
+        settings: CategorySimpleComponentSettings,
       },
     }
   },

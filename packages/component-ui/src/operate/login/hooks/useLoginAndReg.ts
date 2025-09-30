@@ -12,9 +12,9 @@ type ActionType = {
     [v in ActionKey]: (e: object) => void;
 };
 
-export function useLoginAndRegister(isNeedRemeber: boolean | undefined) {
+export function useLoginAndRegister(isNeedRemeber: boolean | undefined, _callbackimpl: (e: any) => void | undefined) {
     const dispatch = loginContext.useOpenDispatch();
-    const { loginImpl, loginWithCodeImpl, setLoading, loading } = useLoginHooks();
+    const { loginImpl, loginWithCodeImpl, setLoading, loading } = useLoginHooks(_callbackimpl);
     const { buttonText, mode } = loginContext.useOpenValues();
 
     const submitImpl: ActionType = useMemo(
