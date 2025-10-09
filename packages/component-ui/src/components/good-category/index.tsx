@@ -17,24 +17,22 @@ const useStyle = createStyles(({css, token}) => {
     }
 })
 
-export const GoodCategory = ({label, api, ...restProps}:any) => {
+export const GoodCategory = ({label, api, goodsClassName, goodsClassCode, ...restProps}:any) => {
     const {styles} = useStyle();
-    const {cateList, implCate} = useGoodCategory(label, api);
+    const {cateList, implCate} = useGoodCategory(label, api, goodsClassName, goodsClassCode);
     return (
-        <>
-            <ul className={styles.container}>
-                {
-                    cateList.map((item, index) => (
-                        <li style={{
-                            float: 'left',
-                            cursor: 'pointer',
-                            margin: '0 10px 0 20px',
-                            ...restProps
-                        }} onClick={() => implCate(item)} key={index}>{item.goodsClassName}</li>
-                    ))
-                }
-            </ul>
-        </>
+        <ul className={styles.container}>
+            {
+                cateList.map((item, index) => (
+                    <li style={{
+                        float: 'left',
+                        cursor: 'pointer',
+                        margin: '0 10px 0 20px',
+                        ...restProps
+                    }} onClick={() => implCate(item)} key={index}>{item[goodsClassName]}</li>
+                ))
+            }
+        </ul>
     )
 }
 

@@ -1,17 +1,11 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {ApiComponent} from "../../common";
 
 const containerField: FieldType[] = [
   {
     label: '文本颜色',
     name: 'color',
     type: 'color',
-  },
-  {
-    label: '面包屑标题',
-    name: 'label',
-    type: 'text',
   },
   {
     label: '高度',
@@ -47,29 +41,6 @@ const baseFormField: formConfigType[] = [
     title: '样式',
     formFields: containerField
   },
-  {
-    title: '数据源',
-    formFields: [
-      {
-        label: 'api',
-        name: 'api',
-        type: 'slot',
-        extraProps: {
-          render: ApiComponent
-        }
-      },
-      {
-        label: '数据label',
-        name: 'goodsClassName',
-        type: 'text',
-      },
-      {
-        label: '数据Key',
-        name: 'goodsClassCode',
-        type: 'text',
-      },
-    ]
-  }
 ]
-export const GoodCategoryComponentSettings = basicSettings(baseFormField)
+export const BreadCategoryComponentSettings = basicSettings(baseFormField)
 

@@ -14,7 +14,7 @@ import {
   CategoryComponentSettings,
   AmountComponentSettings,
   CategorySimpleComponentSettings,
-  GoodSortComponentSettings,
+  GoodSortComponentSettings, BreadCategoryComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
@@ -232,12 +232,13 @@ const service : Array<TypeComponent> = [
     Component: Materials['GoodCategoryComponent'],
     setting: {
       props: {
-        storeKey: 'category',
         label: '全部商品',
         color: '#444',
         fontSize: 14,
         fontWeight: 400,
-        api: '/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json'
+        goodsClassName: 'goodsClassName',
+        goodsClassCode: 'goodsClassCode',
+        api: '/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json',
       },
       related: {
         settings: GoodCategoryComponentSettings,
@@ -282,7 +283,7 @@ const service : Array<TypeComponent> = [
         fontWeight: 400
       },
       related: {
-        settings: GoodCategoryComponentSettings,
+        settings: BreadCategoryComponentSettings,
       },
     }
   },

@@ -2,27 +2,27 @@ import {useEffect} from "react";
 import { post } from '@brushes/request'
 import {useModuleContext} from "@brushes/component-core";
 
-export const useGoodCategory = (label: string, api) => {
+export const useGoodCategory = (label: string, api:string, goodsClassName: string, goodsClassCode: string) => {
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     const cateList = useModuleContext(s => s.moduleStore.cateList) || [];
     const breadList = useModuleContext(s => s.moduleStore.breadList) || [];
-
+    console.log(9, goodsClassName, goodsClassCode);
     useEffect(() => {
         classTreeCodeImpl();
-    }, [api]);
+    }, [api, label, goodsClassName, goodsClassCode]);
 
     const implCate = (item:any) => {
         if (item.childList && item.childList.length > 0) {
                 // 处理面包屑;
                 setModuleStore({
                     breadList: breadList.concat({
-                        label: item.goodsClassName,
+                        label: item[goodsClassName],
                         params: {
-                            goodsClassParentcode: item.goodsClassCode || -1
+                            goodsClassParentcode: item[goodsClassCode] || -1
                         },
                         cateList: item.childList
                     }),
-                    params: { goodsClassParentcode: item.goodsClassCode },
+                    params: { goodsClassParentcode: item[goodsClassCode] },
                     cateList: item.childList
                 })
             } else {
@@ -32,7 +32,7 @@ export const useGoodCategory = (label: string, api) => {
                 }
                 setModuleStore({
                     breadList: breadList.concat({
-                        label: item.goodsClassName,
+                        label: item[goodsClassName],
                         params: {
                             classtreeCode: item.classtreeCode
                         },
