@@ -17,23 +17,9 @@ const useStyle = createStyles(({css, token}) => {
     }
 })
 
-// const config = [
-//     {
-//         label: '默认',
-//         value: ''
-//     },
-//     {
-//         label: '上新',
-//         value: 'skuHdate'
-//     },
-//     {
-//         label: '销量',
-//         value: 'pricesetNprice'
-//     }
-// ]
-export const GoodCategory = ({label, ...restProps}:any) => {
+export const GoodCategory = ({label, api, ...restProps}:any) => {
     const {styles} = useStyle();
-    const {cateList, implCate} = useGoodCategory(label);
+    const {cateList, implCate} = useGoodCategory(label, api);
     return (
         <>
             <ul className={styles.container}>
@@ -48,20 +34,6 @@ export const GoodCategory = ({label, ...restProps}:any) => {
                     ))
                 }
             </ul>
-            {/*<div className={styles.container}>*/}
-            {/*    <div className="title">排序</div>*/}
-            {/*    <ul>*/}
-            {/*        {*/}
-            {/*            config.map((item, index) => (*/}
-            {/*                <li*/}
-            {/*                    className="[{'actived': sortField === item.value}]"*/}
-            {/*                    onClick={() => impl(item)}*/}
-            {/*                    key={index}*/}
-            {/*                >{item.label}</li>*/}
-            {/*            ))*/}
-            {/*        }*/}
-            {/*    </ul>*/}
-            {/*</div>*/}
         </>
     )
 }

@@ -2,14 +2,14 @@ import {useEffect} from "react";
 import { post } from '@brushes/request'
 import {useModuleContext} from "@brushes/component-core";
 
-export const useGoodCategory = (label: string) => {
+export const useGoodCategory = (label: string, api) => {
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     const cateList = useModuleContext(s => s.moduleStore.cateList) || [];
     const breadList = useModuleContext(s => s.moduleStore.breadList) || [];
 
     useEffect(() => {
         classTreeCodeImpl();
-    }, [label]);
+    }, [api]);
 
     const implCate = (item:any) => {
         if (item.childList && item.childList.length > 0) {
@@ -46,7 +46,7 @@ export const useGoodCategory = (label: string) => {
 
     const classTreeCodeImpl = async () => {
         try {
-            const initArr = await post('/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json');
+            const initArr = await post(api);
             setModuleStore({
                 breadList: [{
                     label,

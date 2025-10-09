@@ -12,8 +12,12 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '注册接口'
         },
         {
+            value: '/web/rs/classtree/queryClasstreePageForAt.json?classtreeType=1',
+            label: '积分商品分类'
+        },
+        {
             value: '/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json',
-            label: 'B2B商品分类'
+            label: '商品分类'
         },
         {
             value: '/web/upm/upmupoints/queryUpmupointsListPageByUser.json',

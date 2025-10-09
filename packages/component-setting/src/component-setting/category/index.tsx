@@ -33,7 +33,7 @@ const baseFormField: formConfigType[] = [
   {
     title: '样式',
     formFields: containerField
-  },
+  }
 ]
 
 export const CategoryComponentSettings = basicSettings(baseFormField)

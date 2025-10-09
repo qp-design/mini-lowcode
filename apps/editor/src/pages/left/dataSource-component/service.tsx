@@ -10,7 +10,11 @@ import {
   GoodCategoryComponentSettings,
   SwiperThumbComponentSettings,
   SkuListComponentSettings,
-  SearchComponentSettings, CategoryComponentSettings, AmountComponentSettings, CategorySimpleComponentSettings,
+  SearchComponentSettings,
+  CategoryComponentSettings,
+  AmountComponentSettings,
+  CategorySimpleComponentSettings,
+  GoodSortComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "component-ui/service";
@@ -228,10 +232,12 @@ const service : Array<TypeComponent> = [
     Component: Materials['GoodCategoryComponent'],
     setting: {
       props: {
+        storeKey: 'category',
         label: '全部商品',
         color: '#444',
         fontSize: 14,
-        fontWeight: 400
+        fontWeight: 400,
+        api: '/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json'
       },
       related: {
         settings: GoodCategoryComponentSettings,
@@ -261,7 +267,7 @@ const service : Array<TypeComponent> = [
           }]
       },
       related: {
-        settings: GoodCategoryComponentSettings,
+        settings: GoodSortComponentSettings,
       },
     }
   },

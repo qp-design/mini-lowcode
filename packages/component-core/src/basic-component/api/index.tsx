@@ -56,6 +56,7 @@ const DetailBasic: React.FC<any> = ({result, storeKey, dataPath}) => {
 
 type CardListType = {
     gap: number;
+    children?: React.ReactNode;
     mockData?: string;
     paramsRootStore?: Array<{ key: string; value: string }>;
     paramsRootStoreKey?: string;
@@ -185,6 +186,7 @@ const Api: React.FC<CardListType>
            cacheParamsTime = 3,
            padding = {},
            pagination,
+           children,
            ...restProps}) => {
     const {result, onChange, pageSize, currentPage, loading} = useApiComponent(api, rows, {
         defaultValue,
@@ -209,6 +211,7 @@ const Api: React.FC<CardListType>
                     ...padding,
                     ...restProps
                 }}>
+                    {children}
                     <DetailBasic dataPath={dataPath} storeKey={storeKey} result={result}/>
                     { (pagination && result.total) ? <div style={{marginTop: 20}}><Pagination
                         align="end"
