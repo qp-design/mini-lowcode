@@ -25,6 +25,12 @@ const containerField: FieldType[] = [
         {
           label: '值',
           name: 'value',
+        },
+        {
+          label: '箭头',
+          type: 'switch',
+          name: 'arrow',
+          layout: 'vertical'
         }
       ]
     }

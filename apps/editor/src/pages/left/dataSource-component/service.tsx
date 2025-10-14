@@ -264,7 +264,8 @@ const service : Array<TypeComponent> = [
           },
           {
             label: '销量',
-            value: 'pricesetNprice'
+            value: 'pricesetNprice',
+            arrow: true
           }]
       },
       related: {

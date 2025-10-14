@@ -18,6 +18,12 @@ const useStyle = createStyles(({css, token}) => {
             .actived{
                 color: ${token.colorPrimary} !important;
             }
+            .activedPath{
+                fill: ${token.colorPrimary} !important;
+            }
+            .defaultPath{
+                fill: #000;
+            }
         `
     }
 })
@@ -33,7 +39,7 @@ export const Sort = ({config = [{
     {
         label: '销量',
         value: 'pricesetNprice'
-    }], ...props}: {config: Array<{label: string; value: string}>}) => {
+    }], ...props}: {config: Array<{label: string; value: string; arrow?: boolean}>}) => {
     const sortName = useRef('')
     const activeIndex = useRef(0)
     const {styles} = useStyle();
@@ -57,16 +63,34 @@ export const Sort = ({config = [{
         <ul className={styles.container}>
             {
                 config.map((item, index) => (
-                    <li className={item.value === sortName.current && activeIndex.current === index ? 'actived' : ''} style={{
-                        float: 'left',
-                        cursor: 'pointer',
-                        margin: '0 10px 0 20px',
-                        ...props
-                    }} onClick={() => impl(item, index)} key={index}>{item.label}</li>
+                        <li className={item.value === sortName.current && activeIndex.current === index ? 'actived' : ''}
+                            style={{
+                                float: 'left',
+                                cursor: 'pointer',
+                                margin: '0 10px 0 20px',
+                                ...props
+                            }} onClick={() => impl(item, index)} key={index}>{item.label}
+                            { item.arrow && <li style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <svg t="1760433865251" className="icon" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg" p-id="6533" width="6" height="6">
+                                    <path
+                                        className={activeIndex.current === index && order.current === 'asc' ? 'activedPath' : 'defaultPath'}
+                                        d="M573.056 272l308.8 404.608A76.8 76.8 0 0 1 820.736 800H203.232a76.8 76.8 0 0 1-61.056-123.392L450.976 272a76.8 76.8 0 0 1 122.08 0z"
+                                        p-id="6534"></path>
+                                </svg>
+                                <svg t="1760433901145" className="icon" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg" p-id="7512" width="6" height="6">
+                                    <path
+                                        className={activeIndex.current === index && order.current === 'desc' ? 'activedPath' : 'defaultPath'}
+                                        d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
+                                        p-id="7513"></path>
+                                </svg>
+                            </li> }
+                        </li>
+                    )
                 )
-)
-}
-</ul>
-)
+            }
+        </ul>
+    )
 }
 
