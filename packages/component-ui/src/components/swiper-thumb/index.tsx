@@ -72,7 +72,7 @@ function changeData(data: any[]) {
     let res = []
     for(let i = 0, len = data.length; i < len; i++) {
         const item = data[i];
-        if(item === "videocover") {
+        if(item.goodsFileSort === "videocover") {
             img = item.goodsFileUrl
         } else {
             item.smallUrl = item.goodsFileUrl
@@ -80,7 +80,7 @@ function changeData(data: any[]) {
         }
     }
     return res.map(item=> {
-        if(item.goodsFileSort === "video") {
+        if(item.goodsFileSort === "goodsvideo") {
             item.smallUrl = img;
         }
         return item;
