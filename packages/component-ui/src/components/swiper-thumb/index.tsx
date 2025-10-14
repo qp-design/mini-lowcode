@@ -66,19 +66,40 @@ const useStyles = createStyles(({css, token}) => {
         `
     }
 })
+
+function changeData(data: any[]) {
+    let img = '';
+    let res = []
+    for(let i = 0, len = data.length; i < len; i++) {
+        const item = data[i];
+        if(item === "videocover") {
+            img = item.goodsFileUrl
+        } else {
+            item.smallUrl = item.goodsFileUrl
+            res.push(item)
+        }
+    }
+    return res.map(item=> {
+        if(item.goodsFileSort === "video") {
+            item.smallUrl = img;
+        }
+        return item;
+    })
+}
+
 export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dataPath = 'rsGoodsFileDomainList', storeKey = '_skuInfo'}: {splitStr?: string; imgKey?: string; dataPath?: string; storeKey: string; height: number}) {
     const defaultValue = useModuleContext(s => s.moduleStore.defaultValue);
     const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]);
 
     const banner = useMemo(() => {
         if(splitStr && !isEmpty(_skuInfo)) {
-            return get(_skuInfo, dataPath, '').split(splitStr) || [];
+            return changeData(get(_skuInfo, dataPath, '').split(splitStr)) || [];
         }
         // 优先取sku模块的数据 > 页面模块的数据
         if(_skuInfo && !isEmpty(_skuInfo)) {
-            return get(_skuInfo, dataPath, []);
+            return changeData(get(_skuInfo, dataPath, []));
         }
-        return get(defaultValue, dataPath, []);
+        return changeData(get(defaultValue, dataPath, []));
     }, [defaultValue, _skuInfo])
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -124,7 +145,7 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
                     {
                         banner.map((item:any, index:number) => (
                             <SwiperSlide key={index}>
-                                <img src={fullpath(imgKey ? item[imgKey] : item)} />
+                                <img src={fullpath(imgKey ? item.smallUrl : item)} />
                             </SwiperSlide>
                         ))
                     }

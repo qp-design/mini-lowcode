@@ -10,7 +10,6 @@ import {debounce} from "lodash";
 import {post} from "@brushes/request";
 import {DeleteOutlined} from "@ant-design/icons";
 import {useNode} from "@craftjs/core";
-import {NumberComponent} from '../../service';
 
 const InputJsx = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -30,7 +29,7 @@ const InputJsx = () => {
 
     return (
         <Spin spinning={loading}>
-            <InputNumber onChange={updateNum} value={goodsCamount}/>
+            <InputNumber min={1} onChange={updateNum} value={goodsCamount}/>
         </Spin>
     )
 }

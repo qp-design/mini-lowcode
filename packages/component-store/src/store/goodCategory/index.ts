@@ -2,13 +2,14 @@ import {useEffect} from "react";
 import { post } from '@brushes/request'
 import {useModuleContext} from "@brushes/component-core";
 
-export const useGoodCategory = (label: string, api:string, goodsClassName: string, goodsClassCode: string) => {
+export const useGoodCategory = (label: string, api:string = '/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json', goodsClassName: string, goodsClassCode: string) => {
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     const cateList = useModuleContext(s => s.moduleStore.cateList) || [];
     const breadList = useModuleContext(s => s.moduleStore.breadList) || [];
-    console.log(9, goodsClassName, goodsClassCode);
     useEffect(() => {
-        classTreeCodeImpl();
+        if(api) {
+            classTreeCodeImpl();
+        }
     }, [api, label, goodsClassName, goodsClassCode]);
 
     const implCate = (item:any) => {
