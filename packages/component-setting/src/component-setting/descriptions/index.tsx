@@ -85,6 +85,10 @@ const baseFormField: formConfigType[] = [
                     innerForm: [
                         {
                             label: '名称',
+                            name: 'label',
+                        },
+                        {
+                            label: 'code',
                             name: 'key',
                         },
                     ]

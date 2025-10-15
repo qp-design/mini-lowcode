@@ -11,9 +11,9 @@ const DescriptionJsx = ({listConfig, padding, margin, ...props}: {padding?: obje
             listConfig.map((item:any, index: number) => {
                 return {
                     key: index,
-                    label: item.key,
+                    label: item.label || item.key,
                     children: (
-                        <Element canvas id={item.key} is={Container}>
+                        <Element canvas id={item.key || item.label} is={Container}>
                             <Text />
                         </Element>
                     ),
