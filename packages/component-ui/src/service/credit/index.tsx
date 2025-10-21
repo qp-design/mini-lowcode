@@ -1,4 +1,4 @@
-import { useModuleRootContext} from "@brushes/component-core";
+import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {dynamicFormFields} from "@brushes/form";
 import {Form} from "antd";
@@ -26,6 +26,7 @@ const Credit = ({padding, margin, dataPath = '', ...restProps}:
 
     const [creditInfo, setCreditInfo] = useState({});
     const userInfo = useModuleRootContext(s => s.rootStore._userInfo);
+    const setModuleStore = useModuleContext(s => s.setModuleStore);
     const [options, setOptions] = useState([]);
     useEffect(() => {
         (async () => {
@@ -36,6 +37,9 @@ const Credit = ({padding, margin, dataPath = '', ...restProps}:
             const res = await post('web/dd/falgSetting/queryFalgSettingPage.json', {flagSettingType: "creditSetting"});
             const list = get(res, 'list', []);
             setOptions(list);
+            setModuleStore({
+                _rechargeSmoney: credit.rechargeSmoney
+            })
             setCreditInfo(credit);
         })()
     }, []);

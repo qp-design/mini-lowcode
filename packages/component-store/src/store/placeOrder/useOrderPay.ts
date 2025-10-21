@@ -95,7 +95,6 @@ export function useOrderPay(selfPickupKey: string) {
                 contractPmode: value.contractPmode,
             }
         });
-        console.log(98, _ocPoints, settleList);
         set(rsSkuListStr, '[0].ocContractSettlList', settleList);
         setLoading(true);
         const params = {orderDomainStr: JSON.stringify(rsSkuListStr)};
@@ -117,7 +116,7 @@ export function useOrderPay(selfPickupKey: string) {
                 navigator(`/pay?contractBbillcode=${dataObj}`)
             }
         } catch (err: any) {
-            message.error(err.msg || '获取订单失败');
+            // message.error(err.msg || '获取订单失败');
         } finally {
             setLoading(false);
         }
