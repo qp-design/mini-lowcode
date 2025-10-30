@@ -72,11 +72,11 @@ export function useOrderInfo() {
     }
 
     if(creditType) {
-      obj.creditMoney = (obj.shoppingCountPrice + freightValue - obj.couponMoney) * (+creditType) / 100
+      obj.creditMoney = (obj.shoppingCountPrice + freightValue - obj.couponMoney - points) * (+creditType) / 100
     }
 
     return obj;
-  }, [_orderDomainStr, _selectCoupon, freightValue]);
+  }, [_orderDomainStr, _selectCoupon, freightValue, points]);
   return {
     shoppingCountPrice,
     comDisMoney,

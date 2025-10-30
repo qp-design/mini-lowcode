@@ -72,6 +72,10 @@ function changeData(data: any[]) {
     let res = []
     for(let i = 0, len = data.length; i < len; i++) {
         const item = data[i];
+        if(typeof item === 'string') {
+            res.push(item);
+            continue;
+        }
         if(item.goodsFileSort === "videocover") {
             img = item.goodsFileUrl
         } else {

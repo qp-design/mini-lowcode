@@ -23,7 +23,7 @@ export const useGoodCategory = (label: string, api:string = '/web/rs/rsGoodsClas
                         },
                         cateList: item.childList
                     }),
-                    params: { goodsClassParentcode: item[goodsClassCode] },
+                    params: { goodsClassParentcode: item[goodsClassCode], classtreeCode: '' },
                     cateList: item.childList
                 })
             } else {

@@ -12,6 +12,8 @@
   },
   "private": true,
   "dependencies": {
-    "@antv/g2": "^5.3.3"
+    "@antv/g2": "^5.3.3",
+    "@antv/l7": "^2.23.0",
+    "@antv/l7plot": "^0.5.11"
   }
 }
