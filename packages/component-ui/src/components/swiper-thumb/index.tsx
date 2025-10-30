@@ -67,7 +67,7 @@ const useStyles = createStyles(({css, token}) => {
     }
 })
 
-function changeData(data: any[]) {
+function changeData(data: any[], imgKey: string) {
     let img = '';
     let res = []
     for(let i = 0, len = data.length; i < len; i++) {
@@ -79,7 +79,7 @@ function changeData(data: any[]) {
         if(item.goodsFileSort === "videocover") {
             img = item.goodsFileUrl
         } else {
-            item.smallUrl = item.goodsFileUrl
+            item.smallUrl = item[imgKey]
             res.push(item)
         }
     }
@@ -97,13 +97,13 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
 
     const banner = useMemo(() => {
         if(splitStr && !isEmpty(_skuInfo)) {
-            return changeData(get(_skuInfo, dataPath, '').split(splitStr)) || [];
+            return changeData(get(_skuInfo, dataPath, '').split(splitStr), imgKey) || [];
         }
         // 优先取sku模块的数据 > 页面模块的数据
         if(_skuInfo && !isEmpty(_skuInfo)) {
-            return changeData(get(_skuInfo, dataPath, []));
+            return changeData(get(_skuInfo, dataPath, []), imgKey);
         }
-        return changeData(get(defaultValue, dataPath, []));
+        return changeData(get(defaultValue, dataPath, []), imgKey);
     }, [defaultValue, _skuInfo])
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
