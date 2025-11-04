@@ -5,7 +5,7 @@ import {Container} from "@brushes/component-core";
 import { HOCCodeWrapComponent } from '@brushes/core-transform';
 import { createStyles } from 'antd-style';
 import {AccountBuyComponent} from "../../operate";
-import {useSearchParamHook} from "component-store";
+import {useSearchParamHook} from "@brushes/component-store-web";
 
 const useStyle = createStyles(({ token, prefixCls, css }) => ({
     linearGradientButton: css`

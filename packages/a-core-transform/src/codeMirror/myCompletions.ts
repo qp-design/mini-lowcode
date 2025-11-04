@@ -1,19 +1,18 @@
-import {CompletionContext} from "@codemirror/autocomplete";
+import { CompletionContext } from '@codemirror/autocomplete';
 
 export function myCompletions(context: CompletionContext) {
-    let word = context.matchBefore(/\w*/) as any
-    if (word.from == word.to && !context.explicit)
-        return null
-    return {
-        from: word.from,
-        to: context.pos,
-        validFor: /^\w*$/,
-        options: [
-            {
-                label: "deleteCart",
-                type: "cart | delete",
-                detail: "购物车商品删除",
-                apply: `
+  let word = context.matchBefore(/\w*/) as any;
+  if (word.from == word.to && !context.explicit) return null;
+  return {
+    from: word.from,
+    to: context.pos,
+    validFor: /^\w*$/,
+    options: [
+      {
+        label: 'deleteCart',
+        type: 'cart | delete',
+        detail: '购物车商品删除',
+        apply: `
 /* 导入对应的模块*/
 import { useModuleContext } from "@brushes/component-core";
 import { useState } from "react";
@@ -39,12 +38,12 @@ function useDiyHook() {
 }
 export default useDiyHook;
                 `
-            },
-            {
-                label: "diyAction",
-                type: "表单提交 | diyActions",
-                detail: "表单提交",
-                apply: `      
+      },
+      {
+        label: 'diyAction',
+        type: '表单提交 | diyActions',
+        detail: '表单提交',
+        apply: `      
 /* 导入对应的模块*/
 import React from "react";
 import {Form, Button} from "antd"
@@ -81,12 +80,12 @@ const SaveOperate = ({transformDataConfig = []} : {
 
 export default SaveOperate;
                 `
-            },
-            {
-                label: "transform",
-                type: "数据转化 | trans",
-                detail: "数据转化",
-                apply: `      
+      },
+      {
+        label: 'transform',
+        type: '数据转化 | trans',
+        detail: '数据转化',
+        apply: `      
 /* 导入对应的模块*/
 import {TransformType} from '@brushes/form';
 import { post } from '@brushes/request';
@@ -116,12 +115,12 @@ const transformSubmitDataConfig: TransformType[] = [
 ]
 export default transformSubmitDataConfig;
                 `
-            },
-            {
-                label: "searchParams",
-                type: "打开 | searchParams | query",
-                detail: "添加query",
-                apply: `      
+      },
+      {
+        label: 'searchParams',
+        type: '打开 | searchParams | query',
+        detail: '添加query',
+        apply: `      
 /* 导入对应的store*/
 import { useModuleContext } from "@brushes/component-core";
 import {useSearchParams} from "react-router-dom";
@@ -139,12 +138,12 @@ function useDiyHook() {
 }
 export default useDiyHook;
                 `
-            },
-            {
-                label: "图库生成 | antv",
-                type: "图库生成 | antv",
-                detail: "图库",
-                apply: `
+      },
+      {
+        label: '图库生成 | antv',
+        type: '图库生成 | antv',
+        detail: '图库',
+        apply: `
 /* 导入对应的store*/
 import React, { useEffect, useRef } from 'react';
 import { Chart } from '@antv/g2';
@@ -210,12 +209,12 @@ const BasicChart = () => {
 
 export default BasicChart;
                 `
-            },
-            {
-                label: "路由跳转 | navigator",
-                type: "路由跳转 | navi",
-                detail: "路由跳转",
-                apply: `
+      },
+      {
+        label: '路由跳转 | navigator',
+        type: '路由跳转 | navi',
+        detail: '路由跳转',
+        apply: `
 /* 导入对应的store*/
 import { useModuleContext } from "@brushes/component-core";
 import { useNavigateImpl } from "@brushes/component-tool";
@@ -231,12 +230,12 @@ function useDiyHook() {
 }
 export default useDiyHook;
                 `
-            },
-            {
-                label: "配置 | formConfig | form配置项",
-                type: "form",
-                detail: "form配置项",
-                apply: `
+      },
+      {
+        label: '配置 | formConfig | form配置项',
+        type: 'form',
+        detail: 'form配置项',
+        apply: `
 import {FieldType, FormInstance} from '@brushes/form';
 import {last} from "lodash"
 import { Form } from "antd"
@@ -287,12 +286,12 @@ function useFormConfig() {
 
 export default useFormConfig
                 `
-            },
-            {
-                label: "moduleStore",
-                type: "store",
-                detail: "当前模块的所有状态",
-                apply: `
+      },
+      {
+        label: 'moduleStore',
+        type: 'store',
+        detail: '当前模块的所有状态',
+        apply: `
 /* 导入对应的模块*/
 import { useModuleContext } from "@brushes/component-core";
 
@@ -306,12 +305,12 @@ function useDiyHook() {
 }
 export default useDiyHook;
                 `
-            },
-            {
-                label: "moduleStore.defaultValue",
-                type: "defaultValue",
-                info: "当前模块的默认值",
-                apply: `
+      },
+      {
+        label: 'moduleStore.defaultValue',
+        type: 'defaultValue',
+        info: '当前模块的默认值',
+        apply: `
 /* 导入对应的模块*/
 import { useModuleContext } from "@brushes/component-core";
 
@@ -325,12 +324,12 @@ function useDiyHook() {
 }
 export default useDiyHook;
                 `
-            },
-            {
-                label: "moduleStore.goodNum",
-                type: "goodNum",
-                info: "当前模块的选择商品数量",
-                apply: `
+      },
+      {
+        label: 'moduleStore.goodNum',
+        type: 'goodNum',
+        info: '当前模块的选择商品数量',
+        apply: `
 /* 导入对应的模块*/
 import { useModuleContext } from "@brushes/component-core";
 
@@ -344,12 +343,12 @@ function useDiyHook() {
 }
 export default useDiyHook;
                 `
-            },
-            {
-                label: "moduleStore._skuInfo",
-                type: "_skuInfo",
-                info: "当前模块的sku商品数据",
-                apply: `
+      },
+      {
+        label: 'moduleStore._skuInfo',
+        type: '_skuInfo',
+        info: '当前模块的sku商品数据',
+        apply: `
 /* 导入对应的模块*/
 import { useModuleContext } from "@brushes/component-core";
 
@@ -363,25 +362,25 @@ function useDiyHook() {
 }
 export default useDiyHook;
                 `
-            },
-            {
-                label: "moduleStore.params",
-                type: "params",
-                info: "每个模块的请求参数",
-                apply: "const params = useModuleContext(s=> s.moduleStore.params)"
-            },
-            {
-                label: "moduleStore.breadList",
-                type: "breadList",
-                info: "每个模块的面包屑",
-                apply: "const breadList = useModuleContext(s=> s.moduleStore.breadList)"
-            },
-            {
-                label: "useModuleContext",
-                type: "context",
-                detail: "获取当前模块的context",
-                apply: "import { useModuleContext } from '@brushes/component-core'"
-            }
-        ]
-    }
+      },
+      {
+        label: 'moduleStore.params',
+        type: 'params',
+        info: '每个模块的请求参数',
+        apply: 'const params = useModuleContext(s=> s.moduleStore.params)'
+      },
+      {
+        label: 'moduleStore.breadList',
+        type: 'breadList',
+        info: '每个模块的面包屑',
+        apply: 'const breadList = useModuleContext(s=> s.moduleStore.breadList)'
+      },
+      {
+        label: 'useModuleContext',
+        type: 'context',
+        detail: '获取当前模块的context',
+        apply: "import { useModuleContext } from '@brushes/component-core'"
+      }
+    ]
+  };
 }

@@ -1,4 +1,4 @@
-import {useGoodCategory} from "component-store";
+import {useGoodCategory} from "@brushes/component-store-web";
 import {createStyles} from "antd-style";
 
 const useStyle = createStyles(({css, token}) => {

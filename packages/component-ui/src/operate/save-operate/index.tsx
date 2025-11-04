@@ -1,6 +1,6 @@
 import {useModuleContext} from "@brushes/component-core";
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
-import {useSaveOperate} from "component-store";
+import {useSaveOperate} from "@brushes/component-store-web";
 import { ButtonComponent } from "../../basic";
 import {TransformType, useFormImpl} from "@brushes/form";
 import {Form} from "antd";

@@ -1,4 +1,4 @@
-import { createStore } from 'zustand'
+import { createStore } from 'zustand';
 
 export const goodListIntialValue = {
   dataPic: '',
@@ -30,24 +30,24 @@ export type addressInfo = {
   goodsReceiptMem: string;
   goodsReceiptPhone: string;
   goodsReceiptArrdess: string;
-  areaCode:string;
-}
+  areaCode: string;
+};
 
 export type moduleType = {
   [v: string]: any;
   _ocPoints: Array<any>;
   _ocDiscount: Array<any>;
   _orderAddressInfo: addressInfo;
-  _couponList: [], // 订单优惠券列表
-  _selectCoupon: {}, // 选中的优惠券
-  _shoppingList: Array<any>, // 订单商品信息
+  _couponList: []; // 订单优惠券列表
+  _selectCoupon: {}; // 选中的优惠券
+  _shoppingList: Array<any>; // 订单商品信息
   _contractGoodsList: Array<typeof goodListIntialValue>; // 确认订单支付模块
   _orderDomainStr: Array<typeof initialValueOrder>; // 确认订单支付模块
   _ocContractSettlList: Array<any>; // 确认订单支付模块
   open?: boolean; //抽屉展示或掩藏
   defaultValue?: object; // 页面模块默认值
-  goodNum?: number // 选择商品数量
-  _skuInfo?: object // sku商品数据
+  goodNum?: number; // 选择商品数量
+  _skuInfo?: object; // sku商品数据
   params?: object; //每个模块的请求参数
   breadList?: []; //面包屑
 };
@@ -65,7 +65,7 @@ export interface ModuleState extends moduleStore {
   setModuleStore: (e: Partial<moduleType>) => void;
 }
 
-export type ModuleStore = ReturnType<typeof createModuleStore>
+export type ModuleStore = ReturnType<typeof createModuleStore>;
 
 export const createModuleStore = (initProps?: Partial<moduleStore>) => {
   const DEFAULT_PROPS: moduleStore = {
@@ -83,21 +83,21 @@ export const createModuleStore = (initProps?: Partial<moduleStore>) => {
         goodsReceiptMem: '',
         goodsReceiptPhone: '',
         goodsReceiptArrdess: '',
-        areaCode:'',
+        areaCode: ''
       },
       defaultValue: void 0,
       _skuInfo: {},
       params: {},
       breadList: [],
       open: false
-    },
-  }
+    }
+  };
   return createStore<ModuleState>()((set) => ({
     ...DEFAULT_PROPS,
     ...initProps,
     setModuleStore: (store) =>
-        set((state) => {
-          return ({ moduleStore: Object.assign(state.moduleStore, store) })
-        }),
-  }))
-}
+      set((state) => {
+        return { moduleStore: Object.assign(state.moduleStore, store) };
+      })
+  }));
+};

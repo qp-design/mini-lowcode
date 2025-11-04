@@ -1,7 +1,7 @@
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {dynamicFormFields} from "@brushes/form";
 import {Form, FormInstance} from "antd";
-import {useComponentListData} from "component-store";
+import {useComponentListData} from "@brushes/component-store-web";
 
 
 const PaymentService = ({padding, margin, formItemCode, dataPath = '', optionsName, optionsKey, storeKey, ...restProps} :

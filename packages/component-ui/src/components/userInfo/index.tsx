@@ -5,7 +5,7 @@ import {LogoutComponent} from "../../operate";
 import {DividerComponent, Text} from "../../basic";
 import {Element} from "@craftjs/core";
 import {Container, useModuleRootContext} from "@brushes/component-core";
-import {useOrderNum} from "component-store";
+import {useOrderNum} from "@brushes/component-store-web";
 const useStyle = createStyles(({token, css}) => {
     return {
     tipInfo: css`

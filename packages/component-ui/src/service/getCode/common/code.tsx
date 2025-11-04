@@ -1,6 +1,6 @@
 import {useEffect, useMemo, useState} from 'react';
 import {Button, Form} from 'antd';
-import { sendPhone } from 'component-api';
+import { sendPhone } from '@brushes/lowcode-component-api';
 import { useMountedRef } from '@brushes/form';
 
 export const CodeJsx = () => {

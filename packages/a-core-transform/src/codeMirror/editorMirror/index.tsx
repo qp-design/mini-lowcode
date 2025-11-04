@@ -1,4 +1,4 @@
-import {CodeEditor} from "../editorCode";
+import { CodeEditor } from '../editorCode';
 
 const defaultCodeInfo = `/**
 * import { useModuleContext } from '@brushes/component-core'; 当前模块上下文
@@ -8,13 +8,6 @@ const defaultCodeInfo = `/**
 * @description: 当前注释的内容仅供提示，不会进行保存。
 */`;
 
-
-export const EditorMirror = ({defaultCode = defaultCodeInfo}: { defaultCode? : string}) => {
-    return (
-        <CodeEditor
-            editable={false}
-            value={defaultCode}
-            height="150px"
-        />
-    )
-}
+export const EditorMirror = ({ defaultCode = defaultCodeInfo }: { defaultCode?: string }) => {
+  return <CodeEditor editable={false} value={defaultCode} height="150px" />;
+};

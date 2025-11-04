@@ -4,7 +4,7 @@ import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
 import { get } from "lodash";
 
 export const useStoreApiParam = (params: {key: string; value: string}[] | undefined, key: string) => {
-    const store = useModuleContext(s => s.moduleStore);
+    const store = useModuleContext((s:any) => s.moduleStore);
     return useMemo(() => {
         if(!key) {
             return {}
@@ -24,7 +24,7 @@ export const useStoreApiParam = (params: {key: string; value: string}[] | undefi
 }
 
 export const useRootStoreApiParam = (params: {key: string; value: string}[] | undefined, key: string) => {
-    const store = useModuleRootContext(s => s.rootStore);
+    const store = useModuleRootContext((s:any) => s.rootStore);
     return useMemo(() => {
         if(!key) {
             return {}

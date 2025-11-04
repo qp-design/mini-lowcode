@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import { updateUmuserPw } from 'qj-b2c-api';
-import {saveUserPhoneForPla, uploadGoodsFile} from 'component-api'
+import {saveUserPhoneForPla, uploadGoodsFile} from '@brushes/lowcode-component-api'
 import loginContext from '../context';
 import {useLoginHooks} from "./useLoginHooks";
 import {get, isEmpty} from "lodash";
 import { message } from 'antd';
-import {eventTracking} from "component-store";
+import {eventTracking} from "@brushes/component-store-web";
 type ActionKey = 'login' | 'loginWithCode' | 'register' | 'update';
 
 type ActionType = {

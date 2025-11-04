@@ -1,2 +1,2 @@
-export * from './hocCodeWrap'
-export * from './changeCode'
+export * from './hocCodeWrap';
+export * from './changeCode';

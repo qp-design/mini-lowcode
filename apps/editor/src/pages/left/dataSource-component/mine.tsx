@@ -1,5 +1,5 @@
 import {combine} from '@brushes/component-core';
-import Materials from 'component-ui/components';
+import Materials from '@brushes/lowcode-component-ui/components';
 import {
   AddCartComponentSettings,
   AddressItemComponentSettings,
@@ -8,7 +8,7 @@ import {
   OrderItemComponentSettings, TableComponentSettings,
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
-import * as ServiceComponent from "component-ui/service";
+import * as ServiceComponent from "@brushes/lowcode-component-ui/service";
 
 const mine : Array<TypeComponent> = [
   {

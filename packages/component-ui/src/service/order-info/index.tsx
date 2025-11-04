@@ -1,16 +1,16 @@
 import {Container, Element, useModuleContext} from "@brushes/component-core";
 import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {Text} from '../../basic'
-import {useOrderGood, useOrderInfo, useSearchParamHook} from "component-store";
+import {useOrderGood, useOrderInfo, useSearchParamHook} from "@brushes/component-store-web";
 import {fixPrice} from "@brushes/component-tool";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {NumberComponent, URComponent} from "../../service";
 
 const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padding: object; margin: object}) => {
     useOrderGood(storeKey);
     const [goodsType] = useSearchParamHook(['goodsType']);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
-    const [payMoney, setPayMoney] = useState(0)
+    // const [payMoney, setPayMoney] = useState(0)
     const {
         couponMoney,
         shoppingCountPrice,
@@ -27,7 +27,7 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
 
     useEffect(() => {
         if(goodsType === '06') {
-            setPayMoney(freightValue);
+            // setPayMoney(freightValue);
             setModuleStore({
                 _freight: freightValue,
                 _payMoney: freightValue
@@ -35,14 +35,14 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
         } else {
             const sum = shoppingCountPrice - creditMoney - couponMoney + freightValue - ur - points;
             const result = sum > 0 ? sum : 0;
-            setPayMoney(result);
+            // setPayMoney(result);
             setModuleStore({
                 _freight: freightValue,
-                _payMoney: result
+                _payMoney: result,
+                _rebMoney: rebMoney,
             })
         }
-
-    }, [shoppingCountPrice, creditMoney, couponMoney, freightValue, ur, points]);
+    }, [shoppingCountPrice, creditMoney, couponMoney, freightValue, ur, points, rebMoney]);
 
     return (
         <div style={{...padding, ...margin, ...props}}>
@@ -84,15 +84,25 @@ const OrderInfo = ({storeKey, padding, margin, ...props}:{storeKey: string; padd
                     <Text color={'#666'} fontSize={14} text={'授信付款：'}></Text>
                     <Text text={fixPrice(creditMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
                 </Container> : null }
-                { goodsType !== '06' && <Container
-                        alignItems={'center'}
-                        margin={{marginBottom: 10}}
-                        justifyContent={'flex-end'}
-                        flexDirection={'row'}
-                    >
-                        <Text color={'#666'} fontSize={14} text={'返利金额：'}></Text>
-                        <Text text={fixPrice(rebMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
-                    </Container> }
+                { goodsType !== '06' &&
+                    <Element
+                        is={Container}
+                        id={'REB'}
+                        canvas>
+                        <Container
+                            canvas
+                            alignItems={'center'}
+                            margin={{marginBottom: 10}}
+                            justifyContent={'flex-end'}
+                            flexDirection={'row'}
+                        >
+                            <Text canvas color={'#666'} fontSize={14} text={'返利金额：'}></Text>
+                            <Element width={120} is={Container} canvas id={'ur-money'}>
+                                <NumberComponent color={'#f00'} fontSize={14} textAlign={'right'} prefix={'-'} storeKey={'_rebMoney'}/>
+                            </Element>
+                        </Container>
+                    </Element>
+                }
                 <Element
                     is={Container}
                     id={'UR'}

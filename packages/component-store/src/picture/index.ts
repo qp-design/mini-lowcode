@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { queryFilePage } from 'qj-b2c-api';
-import { useQuery } from '@tanstack/react-query';
+import { useState } from "react";
+import { queryFilePage } from "qj-b2c-api";
+import { useQuery } from "@tanstack/react-query";
 
-export const usePicture = (queryKey = '', initialState = {}) => {
+export const usePicture = (queryKey = "", initialState = {}) => {
   const [query, setParams] = useState<any>({
     rows: 10,
-    page: 1
+    page: 1,
   });
 
   const { isLoading, data = {} as any } = useQuery(
@@ -15,8 +15,8 @@ export const usePicture = (queryKey = '', initialState = {}) => {
     },
     {
       refetchOnWindowFocus: false,
-      retry: false
-    }
+      retry: false,
+    },
   );
 
   const queryImpl = (value: any, suc: Function) => {
@@ -28,7 +28,7 @@ export const usePicture = (queryKey = '', initialState = {}) => {
     const { current, pageSize } = params;
     setParams({
       rows: pageSize,
-      page: current
+      page: current,
     });
   };
 
@@ -37,6 +37,6 @@ export const usePicture = (queryKey = '', initialState = {}) => {
     isLoading,
     setParams,
     queryImpl,
-    onChange
+    onChange,
   };
 };

@@ -4,7 +4,7 @@ import { orderItemConfig, transformSubmitDataConfig } from './config'
 import {post} from "@brushes/request";
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {message} from "antd";
-import {useOrderNum} from "component-store";
+import {useOrderNum} from "@brushes/component-store-web";
 import {useModuleContext} from "@brushes/component-core";
 
 const RefundJsx = ({openKey, callbackName}: {openKey: string; callbackName: string}) => {

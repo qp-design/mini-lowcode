@@ -1,6 +1,6 @@
 import {Container, Element, ModuleProvider, useModuleContext} from "@brushes/component-core";
 import { HOCCodeWrapComponent } from "@brushes/core-transform";
-import {useComponentListData} from "component-store";
+import {useComponentListData} from "@brushes/component-store-web";
 import {Empty} from "antd";
 
 const CommmonJsx = ({padding, background, list, margin = {}}:{ item: any; background: string; margin: object; padding: object;list: Array<{name: string; width: number}>}) => {

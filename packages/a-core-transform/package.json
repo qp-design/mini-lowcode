@@ -1,19 +1,26 @@
 {
   "name": "@brushes/core-transform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
+    "build": "./scripts/build.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/qp-design/web-lowcode.git"
   },
-  "private": true,
   "dependencies": {
+    "@brushes/component-store-web": "*",
+    "@uiw/react-codemirror": "^4.25.2",
+    "@uiw/codemirror-theme-basic": "^4.23.12",
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@codemirror/autocomplete": "^6.19.1",
     "@antv/g2": "^5.3.3",
     "@antv/l7": "^2.23.0",
-    "@antv/l7plot": "^0.5.11"
+    "@antv/l7plot": "^0.5.11",
+    "@craftjs/core": "^0.2.12",
+    "sucrase": "^3.35.0"
   }
 }

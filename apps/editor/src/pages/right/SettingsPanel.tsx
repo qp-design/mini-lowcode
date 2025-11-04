@@ -1,7 +1,8 @@
 import {useEditor} from '@craftjs/core';
-import {Button, Row, Col, Typography, Tag} from 'antd';
+import {Button, Row, Col, Typography, Tag, message} from 'antd';
 import React from 'react';
-import {getNode, setNode} from "@/module";
+import {getNode, resetNode, setNode} from "@/module";
+import {isEmpty} from "lodash";
 
 export const SettingsPanel = () => {
   const {actions: { add, delete : deleteAction }, selected, isEnabled, query: { createNode, node }} = useEditor((state, query) => {
@@ -32,7 +33,12 @@ export const SettingsPanel = () => {
 
   const pasterImpl = () => {
       const node = getNode();
-      add(node, selected.id)
+      if(!isEmpty(node)) {
+          add(node, selected.id)
+          resetNode()
+      } else {
+          message.info('先复制组件')
+      }
   }
 
   return isEnabled && selected ? (

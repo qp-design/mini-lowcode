@@ -2,7 +2,7 @@ import {useTableWithSelect} from "@brushes/table"
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {Container, ModuleProvider, useModuleContext, Element} from "@brushes/component-core";
 import {Table} from 'antd';
-import {useComponentListData} from "component-store";
+import {useComponentListData} from "@brushes/component-store-web";
 import {useEffect, useMemo} from "react";
 
 const Inner = ({code, record} : { code: string; record: any}) => {

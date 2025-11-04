@@ -3,7 +3,7 @@ import {DynamicForm, submitFunType} from '@brushes/form';
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {post, get as getIo} from "@brushes/request";
 import {message, Spin} from "antd";
-import {useSearchParamHook} from "component-store";
+import {useSearchParamHook} from "@brushes/component-store-web";
 import {useEffect, useMemo, useRef, useState} from "react";
 import {isEmpty, get} from "lodash";
 import {useModuleContext} from "@brushes/component-core";

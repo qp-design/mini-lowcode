@@ -2,7 +2,7 @@ import {Container, useModuleRootContext} from '@brushes/component-core';
 import {Badge, Tabs} from 'antd';
 import {useMemo, useRef} from 'react';
 import {Element} from '@brushes/component-core';
-import {useSearchParamHook} from "component-store";
+import {useSearchParamHook} from "@brushes/component-store-web";
 
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 

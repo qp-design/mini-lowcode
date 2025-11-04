@@ -1,7 +1,7 @@
 import {combine, Container, IsShowContainer, OutContainer} from '@brushes/component-core';
 import {TypeComponent} from '../types';
 import {ContainerSettings, IsShowContainerSettings, OutContainerSettings} from '@brushes/component-setting';
-import {ChildRoute} from "component-ui/basic";
+import {ChildRoute} from "@brushes/lowcode-component-ui/basic";
 
 const layout: Array<TypeComponent> = [
   {

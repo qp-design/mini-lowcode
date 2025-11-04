@@ -9,7 +9,7 @@ import {Button, Checkbox, InputNumber, message, Popconfirm, Spin} from "antd";
 import {Fragment, useMemo, useRef, useState} from "react";
 import {fixPrice, useNavigateImpl} from "@brushes/component-tool";
 import {ButtonComponent, Text} from "../../basic";
-import {useComponentListData, useGetCarNum} from "component-store";
+import {useComponentListData, useGetCarNum} from "@brushes/component-store-web";
 import {CartPromotionComponent} from "../../service";
 
 const config = [

@@ -1,16 +1,21 @@
-import { useEffect } from 'react';
-import {isEmpty} from 'lodash';
-import {useModuleContext, goodListIntialValue, initialValueOrder} from "@brushes/component-core";
-import {Form} from "antd";
+//@ts-nocheck
+import { useEffect } from "react";
+import { isEmpty } from "lodash";
+import {
+  useModuleContext,
+  goodListIntialValue,
+  initialValueOrder,
+} from "@brushes/component-core";
+import { Form } from "antd";
 import { PromotionInType } from "@brushes/component-tool";
 
 export const useOrderGood = (storeKey: string) => {
-  const contactData = useModuleContext(s=>s.moduleStore[storeKey]);
-  const setModuleStore = useModuleContext(s=>s.setModuleStore);
+  const contactData = useModuleContext((s) => s.moduleStore[storeKey]);
+  const setModuleStore = useModuleContext((s) => s.setModuleStore);
   const form = Form.useFormInstance();
-  const creditAccount = Form.useWatch('creditAccount', form);
-  const creditType = Form.useWatch('creditType', form);
-  const _selectCoupon = useModuleContext(s=>s.moduleStore._selectCoupon);
+  const creditAccount = Form.useWatch("creditAccount", form);
+  const creditType = Form.useWatch("creditType", form);
+  const _selectCoupon = useModuleContext((s) => s.moduleStore._selectCoupon);
   useEffect(() => {
     computedValue(contactData, _selectCoupon);
   }, [contactData, creditType, creditAccount, _selectCoupon]);
@@ -21,7 +26,7 @@ export const useOrderGood = (storeKey: string) => {
     }
     let contractGoodsList = [] as Array<typeof goodListIntialValue>; // packageList => contractGoodsList
     let orderDomainStr = [] as Array<typeof initialValueOrder>; //
-    let attrs : Set<any> = new Set([]);
+    let attrs: Set<any> = new Set([]);
     let ocContractSettlList = [] as Array<any>; // 优惠信息
     let shoppingList = [] as Array<any>; // 优惠券信息
     res.forEach((v) => {
@@ -38,19 +43,20 @@ export const useOrderGood = (storeKey: string) => {
         }
 
         let channelInfo = {
-          channelCode: '',
-          channelName: ''
+          channelCode: "",
+          channelName: "",
         };
         vk.shoppingGoodsList.forEach((item: any) => {
           shoppingList.push(item);
           channelInfo.channelCode = item.channelCode;
           channelInfo.channelName = item.channelName;
-          payStateConfig.goodsCamount +=item.goodsCamount;
-          payStateConfig.shoppingCountPrice += item.pricesetNprice * item.goodsCamount;
+          payStateConfig.goodsCamount += item.goodsCamount;
+          payStateConfig.shoppingCountPrice +=
+            item.pricesetNprice * item.goodsCamount;
           item.contractGoodsGtype = 0;
           payStateConfig.promotionCode = vk.promotionCode;
           // 普通商品获取自动取消订单时间
-          if (item.goodsType == '00') {
+          if (item.goodsType == "00") {
             // getFalgSettingForPaydate().then((res) => {
             //   if (res) {
             //     // 暂时放这里不处理
@@ -61,7 +67,7 @@ export const useOrderGood = (storeKey: string) => {
         });
 
         // 优惠信息ocContractSettlList 数据指插入第一个
-        if(idx === 0 && !attrs.has(vk.promotionCode)) {
+        if (idx === 0 && !attrs.has(vk.promotionCode)) {
           // 优惠
           if (vk.disMoney > 0) {
             ocContractSettlList.push({
@@ -85,13 +91,13 @@ export const useOrderGood = (storeKey: string) => {
           // 返利
           if (v.rebMoney > 0) {
             ocContractSettlList.push({
-              contractSettlBlance: 'REB',
+              contractSettlBlance: "REB",
               contractSettlGmoney: Number(v.rebMoney.toFixed(2)),
               contractSettlPmoney: Number(v.rebMoney.toFixed(2)),
               contractSettlOpno: vk.promotionCode,
               contractSettlOpemo: vk.promotionName,
               contractSettlOpno2: channelInfo.channelCode,
-              contractSettlOpno1: channelInfo.channelName
+              contractSettlOpno1: channelInfo.channelName,
             });
           }
           // 授信
@@ -107,7 +113,9 @@ export const useOrderGood = (storeKey: string) => {
         if (vk.giftList) {
           vk.shoppingGoodsList = vk.shoppingGoodsList.map((eItem: any) => {
             // 满赠  0001
-            eItem.ginfoCode = eItem.pmPromotionList.find((gift: any) => gift.pbCode == '0001').promotionCode;
+            eItem.ginfoCode = eItem.pmPromotionList.find(
+              (gift: any) => gift.pbCode == "0001",
+            ).promotionCode;
             return eItem;
           });
         }
@@ -123,9 +131,9 @@ export const useOrderGood = (storeKey: string) => {
       _contractGoodsList: contractGoodsList,
       _orderDomainStr: orderDomainStr,
       _shoppingList: shoppingList,
-      _ocContractSettlList: ocContractSettlList
+      _ocContractSettlList: ocContractSettlList,
       // [pointKey]: _ocInt,
       // _ocContractSettlList: ocContractSettlList.concat(_ocInt)
-    })
+    });
   };
 };

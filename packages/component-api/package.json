@@ -1,5 +1,5 @@
 {
-  "name": "component-api",
+  "name": "@brushes/lowcode-component-api",
   "version": "0.0.0",
   "main": "src/index.ts",
   "license": "MIT",

@@ -1,4 +1,4 @@
-import {usePrevTitle} from "component-store";
+import {usePrevTitle} from "@brushes/component-store-web";
 import {Element} from "@craftjs/core";
 import { Text } from '../../basic'
 import {HOCCodeWrapComponent} from "@brushes/core-transform";

@@ -2,9 +2,9 @@ import {
   addShoppingGoods, // 再次购买--加入购物车
   addShoppingGoodsBySpec, // 检查库存是否足够
   queryToContract, // 商品详情页直接下单
-  getTotalDiscountPrice // 用户权益差价计算
-} from 'qj-b2c-api';
-import { getEnv } from '@brushes/utils';
+  getTotalDiscountPrice, // 用户权益差价计算
+} from "qj-b2c-api";
+import { getEnv } from "@brushes/utils";
 export {
   updateShoppingGoodsNum, // 更新购物车数量
   queryShoppingToContract, // 购物车到订单
@@ -16,14 +16,14 @@ export {
   syncContractPayState, // 查看商品是否支付成功
   calculateFreightFare, // 计算运费
   getFalgSettingForPaydate, //	普通商品查询自动取消订单时间
-  queryAddressBymerberCode // 获取收货地址
-} from 'qj-b2c-api';
+  queryAddressBymerberCode, // 获取收货地址
+} from "qj-b2c-api";
 
 // 规格校验
 export const checkSkuSpec = async (spec: Array<string>, goodsCode: string) => {
   const payload = {
     specStr: JSON.stringify(spec),
-    goodsCode
+    goodsCode,
   };
   return await addShoppingGoodsBySpec(payload);
 };
@@ -31,18 +31,21 @@ export const checkSkuSpec = async (spec: Array<string>, goodsCode: string) => {
 export const addCardSku = async (skuId: string, count: number) => {
   const payloadNext = {
     skuId,
-    goodsNum: count
+    goodsNum: count,
   };
   // 再次购买--加入购物车
   return await addShoppingGoods(payloadNext);
 };
 
-export const queryToContractImpl = async (skuId?: string, goodsNum?: number | string) => {
+export const queryToContractImpl = async (
+  skuId?: string,
+  goodsNum?: number | string,
+) => {
   const isTaro = getEnv();
   const payloadNext = {
     skuId,
     goodsNum,
-    isLocalMock: !isTaro
+    isLocalMock: !isTaro,
   };
   // 直接结算页面
   return await queryToContract(payloadNext);

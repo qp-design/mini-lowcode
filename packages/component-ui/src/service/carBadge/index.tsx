@@ -4,7 +4,7 @@ import {Badge, Image} from "antd";
 import {fullpath} from "@brushes/component-tool";
 import {ButtonComponent} from "../../basic";
 import {useEffect} from "react";
-import {useGetCarNum} from "component-store";
+import {useGetCarNum} from "@brushes/component-store-web";
 
 const CarBadgeJsx = ({car, _tourist, imgWidth, imgHeight, skuId = '', ...restProps}: { _tourist?: boolean; skuId?: string; car: { imgUrl: string }; imgHeight: number; imgWidth: number;text: string }) => {
     const _cart = useModuleRootContext(s => s.rootStore._cart);

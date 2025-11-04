@@ -3,7 +3,7 @@ import {HOCCodeWrapComponent} from '@brushes/core-transform';
 import React, {ForwardedRef, useMemo} from 'react';
 import {useNode} from '@craftjs/core';
 import {FormInstance} from 'antd';
-import {useSelectOption} from 'component-store';
+import {useSelectOption} from '@brushes/component-store-web';
 
 type FormType = {
   background: string;

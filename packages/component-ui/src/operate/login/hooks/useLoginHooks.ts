@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { loginInByCode, loginOut } from 'qj-b2c-api';
-import { loginIn } from 'component-api';
+import { loginIn } from '@brushes/lowcode-component-api';
 import _ from 'lodash';
 import {useNavigate} from "react-router-dom";
 import {useModuleRootContext} from "@brushes/component-core";

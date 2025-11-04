@@ -1,6 +1,6 @@
 import {Image} from 'antd';
 import {fullpath} from "@brushes/component-tool";
-import {useAddCart} from "component-store";
+import {useAddCart} from "@brushes/component-store-web";
 import {ButtonComponent} from "../../basic";
 
 export const AddCart = ({car, imgWidth, imgHeight, ...restProps}: { car: { imgUrl: string }; imgHeight: number; imgWidth: number;text: string }) => {

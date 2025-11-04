@@ -1,19 +1,23 @@
-import {useRef, useState} from 'react';
-import { paymentCommit } from 'component-api';
-import {useModuleContext} from "@brushes/component-core";
-import {message} from "antd";
-import { post } from '@brushes/request';
-import { useNavigate } from 'react-router-dom';
-import {useSearchParamHook} from "component-store";
-import { get } from 'lodash';
+//@ts-nocheck
+import { useRef, useState } from "react";
+import { paymentCommit } from "@brushes/lowcode-component-api";
+import { useModuleContext } from "@brushes/component-core";
+import { message } from "antd";
+import { post } from "@brushes/request";
+import { useNavigate } from "react-router-dom";
+import { useSearchParamHook } from "../../utils";
+import { get } from "lodash";
 
-export function useOrderResult(storeKey = 'payInfo') {
+export function useOrderResult(storeKey = "payInfo") {
   const [loading, setLoading] = useState(false);
-  const title = useRef('');
+  const title = useRef("");
   const [open, setOpen] = useState(false);
-  const _skuInfo = useModuleContext(s=>s.moduleStore[storeKey]) || {};
-  const [contractBillcode, contractBbillcode] = useSearchParamHook(['contractBillcode', 'contractBbillcode']);
-  const [url, setUrl] = useState('');
+  const _skuInfo = useModuleContext((s) => s.moduleStore[storeKey]) || {};
+  const [contractBillcode, contractBbillcode] = useSearchParamHook([
+    "contractBillcode",
+    "contractBbillcode",
+  ]);
+  const [url, setUrl] = useState("");
   const navigator = useNavigate();
 
   const paymentImpl = (code: string, paywd?: string) => {
@@ -21,12 +25,12 @@ export function useOrderResult(storeKey = 'payInfo') {
       // case 'wechatwap':
       //   wechatwap();
       //   break;
-      case 'wechatpc':
-        title.current = '微信支付';
+      case "wechatpc":
+        title.current = "微信支付";
         wechatpc(code);
         break;
-      case 'alipaywap':
-        title.current = '支付宝支付';
+      case "alipaywap":
+        title.current = "支付宝支付";
         alipaywap(code);
         break;
       default:
@@ -38,12 +42,15 @@ export function useOrderResult(storeKey = 'payInfo') {
   const commonPrevPayImpl = (code: string) => {
     setLoading(true);
     const { ptradeSeqno, contractBlance, payChannelList } = _skuInfo;
-    const { fchannelCode, faccountOuterNo = '' } = fetchPayCode(payChannelList, code);
+    const { fchannelCode, faccountOuterNo = "" } = fetchPayCode(
+      payChannelList,
+      code,
+    );
     return {
       ptradeSeqno,
       contractBlance,
       fchannelCode,
-      faccountOuterNo
+      faccountOuterNo,
     };
   };
 
@@ -53,21 +60,22 @@ export function useOrderResult(storeKey = 'payInfo') {
 
   //非基本户支付场景
   const nonBasicAccoutPrepay = async (code: string, paywd?: string) => {
-    const { ptradeSeqno, contractBlance, fchannelCode, faccountOuterNo } = commonPrevPayImpl(code);
+    const { ptradeSeqno, contractBlance, fchannelCode, faccountOuterNo } =
+      commonPrevPayImpl(code);
 
     const pyJsons = [
       {
-        faccountIdType: 'ACCOUNT',
+        faccountIdType: "ACCOUNT",
         fchannelCode,
         orderAmount: _skuInfo.orderMoney,
         faccountId: faccountOuterNo,
-      }
+      },
     ];
     return await paymentCommit({
       ptradeSeqno,
       payCommitStr: JSON.stringify(pyJsons),
       contractBlance,
-      paywd
+      paywd,
     });
   };
 
@@ -77,12 +85,16 @@ export function useOrderResult(storeKey = 'payInfo') {
       const { msg } = await nonBasicAccoutPrepay(code, paywd);
       message.success(msg);
       setTimeout(() => {
-        if(contractBillcode) {
-          navigator(`/result?contractBillcode=${contractBillcode}`, {replace:true})
+        if (contractBillcode) {
+          navigator(`/result?contractBillcode=${contractBillcode}`, {
+            replace: true,
+          });
         } else {
-          navigator(`/result?contractBbillcode=${contractBbillcode}`, {replace:true})
+          navigator(`/result?contractBbillcode=${contractBbillcode}`, {
+            replace: true,
+          });
         }
-      }, 500)
+      }, 500);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -93,8 +105,8 @@ export function useOrderResult(storeKey = 'payInfo') {
   const alipaywap = async (code: string) => {
     try {
       const res = await nonBasicAccoutPrepay(code);
-      let v_html = document.getElementById('v_html');
-      v_html.innerHTML = '<div>' + res.dataObj.htmlStr + '</div>';
+      let v_html = document.getElementById("v_html");
+      v_html.innerHTML = "<div>" + res.dataObj.htmlStr + "</div>";
       document.forms[0].submit();
       setLoading(false);
     } catch (err) {
@@ -117,26 +129,32 @@ export function useOrderResult(storeKey = 'payInfo') {
   // };
 
   const syncFetchOrderStatus = async () => {
-    const url = contractBillcode ? 'web/oc/contract/syncContractPayState.json' : 'web/oc/contract/syncContractBatchPayState.json';
+    const url = contractBillcode
+      ? "web/oc/contract/syncContractPayState.json"
+      : "web/oc/contract/syncContractBatchPayState.json";
     const data = await post(url, {
       contractBillcode: contractBillcode,
       contractBbillcode: contractBbillcode,
-    })
+    });
     message.success(data.msg);
     setTimeout(() => {
-      if(contractBillcode) {
-        navigator(`/result?contractBillcode=${contractBillcode}`, {replace:true})
+      if (contractBillcode) {
+        navigator(`/result?contractBillcode=${contractBillcode}`, {
+          replace: true,
+        });
       } else {
-        navigator(`/result?contractBbillcode=${contractBbillcode}`, {replace:true})
+        navigator(`/result?contractBbillcode=${contractBbillcode}`, {
+          replace: true,
+        });
       }
-    }, 500)
-  }
+    }, 500);
+  };
 
   // h5 微信
-  const wechatpc = async (code:string) => {
+  const wechatpc = async (code: string) => {
     try {
       const res = await nonBasicAccoutPrepay(code);
-      const url = get(res, 'dataObj.requestData.code_url', '');
+      const url = get(res, "dataObj.requestData.code_url", "");
       setUrl(url);
       setOpen(true);
       syncFetchOrderStatus();
@@ -146,11 +164,11 @@ export function useOrderResult(storeKey = 'payInfo') {
     }
   };
 
-  const onSubmit = (cb:() => void, value: any) => {
+  const onSubmit = (cb: () => void, value: any) => {
     cb();
     const { fchannelCode, paywd } = value;
-    paymentImpl(fchannelCode, paywd)
-  }
+    paymentImpl(fchannelCode, paywd);
+  };
 
   return {
     loading,
@@ -158,6 +176,6 @@ export function useOrderResult(storeKey = 'payInfo') {
     title,
     open,
     onSubmit,
-    setOpen
+    setOpen,
   };
 }

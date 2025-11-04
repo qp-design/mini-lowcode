@@ -1,6 +1,6 @@
 // import { atom } from 'jotai'
 // import { atomWithQuery } from 'jotai-tanstack-query'
-// import { b2bGoodQuery } from 'component-api';
+// import { b2bGoodQuery } from '@brushes/lowcode-component-api';
 //
 // export const goodAtom = atom({ame: '1'})
 // export const goodQueryAtom = atomWithQuery((get) => ({

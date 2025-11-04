@@ -1,8 +1,8 @@
 import {ReactNode} from "react";
-import * as service from "component-ui/service";
-import * as basic from "component-ui/basic";
-import Materials from "component-ui/components";
-import * as operate from "component-ui/operate";
+import * as service from "@brushes/lowcode-component-ui/service";
+import * as basic from "@brushes/lowcode-component-ui/basic";
+import Materials from "@brushes/lowcode-component-ui/components";
+import * as operate from "@brushes/lowcode-component-ui/operate";
 
 import {Card, Checkbox, Empty, InputNumber, Popconfirm, Spin, Statistic} from "antd";
 import {DynamicForm} from "@brushes/form";

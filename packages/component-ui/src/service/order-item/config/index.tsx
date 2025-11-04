@@ -3,7 +3,7 @@ import {post} from "@brushes/request";
 import TableComponent from "./table";
 import {FormInstance} from "antd";
 import {get, pick} from "lodash";
-import {uploadGoodsFile} from "component-api";
+import {uploadGoodsFile} from "@brushes/lowcode-component-api";
 
 export const transformSubmitDataConfig: TransformType[] = [
     {

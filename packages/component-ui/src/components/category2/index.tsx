@@ -2,7 +2,7 @@ import {RightOutlined} from "@ant-design/icons";
 import {createStyles} from "antd-style";
 import {Fragment} from "react";
 import {useNavigate} from 'react-router-dom'
-import {useComponentListData} from "component-store";
+import {useComponentListData} from "@brushes/component-store-web";
 import api from "@brushes/component-setting/src/component-setting/container/api";
 
 const useStyles = createStyles(({token, css}, {height, hoverHeight, widthHover, width, backgroundColor}: {

@@ -1,4 +1,4 @@
-import {useComponentListData} from "component-store";
+import {useComponentListData} from "@brushes/component-store-web";
 import {Fragment, useEffect, useRef} from "react";
 import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {Container, Element, ModuleProvider, useModuleContext} from "@brushes/component-core";

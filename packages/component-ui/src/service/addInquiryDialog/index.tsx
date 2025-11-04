@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react';
 import {columnConfig, formConfig, ROWKEYY} from './config';
 import {TableJsx, useTableWithSelect} from "@brushes/table"
 import { DynamicForm, submitType } from '@brushes/form';
-import {queryRsSkuPage} from "component-api";
+import {queryRsSkuPage} from "@brushes/lowcode-component-api";
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
 import {Button} from "antd";
 import {useModuleContext} from "@brushes/component-core";

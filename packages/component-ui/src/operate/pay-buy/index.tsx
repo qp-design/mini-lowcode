@@ -1,5 +1,5 @@
 import {HOCCodeWrapComponent} from "@brushes/core-transform";
-import {formatList, useOrderResult} from "component-store";
+import {formatList, useOrderResult} from "@brushes/component-store-web";
 import { ButtonComponent } from "../../basic";
 import {useMemo} from "react";
 import {get} from "lodash";

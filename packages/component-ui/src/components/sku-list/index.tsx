@@ -1,5 +1,5 @@
 import { createStyles } from "antd-style";
-import {useSku} from "component-store";
+import {useSku} from "@brushes/component-store-web";
 import classNames from "classnames";
 
 const useStyle = createStyles(({ token, css }) => {

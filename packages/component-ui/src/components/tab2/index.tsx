@@ -2,7 +2,7 @@ import {Container, useModuleContext, Element} from '@brushes/component-core';
 import {Tabs} from 'antd';
 import { get } from 'lodash'
 import {useMemo, useRef} from 'react';
-import {useSearchParamHook} from "component-store";
+import {useSearchParamHook} from "@brushes/component-store-web";
 
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 

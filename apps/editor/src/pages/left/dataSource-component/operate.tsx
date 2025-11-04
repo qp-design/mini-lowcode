@@ -1,5 +1,5 @@
 import {combine} from '@brushes/component-core';
-import * as Operate from 'component-ui/operate';
+import * as Operate from '@brushes/lowcode-component-ui/operate';
 
 import {TypeComponent} from '../types';
 import {
@@ -11,8 +11,8 @@ import {
   AddCartComponentSettings,
   QueryOperateComponentSettings, ButtonOperateSettings, PayBuyComponentSettings
 } from "@brushes/component-setting";
-import * as ServiceComponent from "component-ui/service";
-import * as BasicComponent from "component-ui/basic";
+import * as ServiceComponent from "@brushes/lowcode-component-ui/service";
+import * as BasicComponent from "@brushes/lowcode-component-ui/basic";
 
 
 const basic : Array<TypeComponent> = [

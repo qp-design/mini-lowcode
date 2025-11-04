@@ -1,7 +1,7 @@
 import {Fragment, useState} from "react";
 import {fixPrice} from "@brushes/component-tool";
 import {Text} from '../../basic';
-import {useComponentListData, useGetCarNum} from "component-store";
+import {useComponentListData, useGetCarNum} from "@brushes/component-store-web";
 import {Container, ModuleProvider, Element, useModuleContext} from "@brushes/component-core";
 import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {CardLRComponent} from '../cardLR'

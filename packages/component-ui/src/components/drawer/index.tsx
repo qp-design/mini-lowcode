@@ -1,6 +1,6 @@
 import {Container, useModuleContext, Element, useEditor} from "@brushes/component-core";
 import { Drawer as Drawer2 } from 'antd';
-import {usePrevTitle} from "component-store";
+import {usePrevTitle} from "@brushes/component-store-web";
 import {useMemo} from "react";
 
 export const Drawer = ({code, title = '', ...restProps}: {title?:string; code: string}) => {

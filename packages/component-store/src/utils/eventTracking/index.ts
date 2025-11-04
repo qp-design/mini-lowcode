@@ -1,4 +1,4 @@
-import {get} from "@brushes/request";
+import { get } from "@brushes/request";
 
 /**
  * @param type
@@ -12,8 +12,11 @@ import {get} from "@brushes/request";
  * 签到获取积分：      CheckIn
  */
 
-export const eventTracking = (type: string,dataObj: string) => {
-    return get('/web/upm/upmupointsclear/saveBaseUpmupointsclear.json', {
-        paramStr: JSON.stringify({"pointsRuleApi": type, "upointsClearOpcode":dataObj})
-    })
-}
+export const eventTracking = (type: string, dataObj: string) => {
+  return get("/web/upm/upmupointsclear/saveBaseUpmupointsclear.json", {
+    paramStr: JSON.stringify({
+      pointsRuleApi: type,
+      upointsClearOpcode: dataObj,
+    }),
+  });
+};

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {},
   "dependencies": {
-    "component-ui": "*",
+    "@brushes/lowcode-component-ui": "*",
     "@brushes/component-core": "*"
   }
 }

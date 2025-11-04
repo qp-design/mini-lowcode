@@ -1,9 +1,9 @@
-import {useState} from "react";
-import {Button, Modal} from 'antd';
-import {EditorMirror, CodeEditor} from "../codeMirror";
-import { Extension } from '@uiw/react-codemirror'
+import { useState } from 'react';
+import { Button, Modal } from 'antd';
+import { EditorMirror, CodeEditor } from '../codeMirror';
+import { Extension } from '@uiw/react-codemirror';
 
-export function ActionJsx({onChange, title = '逻辑', defaultCodeInfo, extensions, ...props}: { extensions?: Extension[]; title?: string; defaultCodeInfo?: string; onChange: (e: any) => void; }) {
+export function ActionJsx({ onChange, title = '逻辑', defaultCodeInfo, extensions, ...props }: { extensions?: Extension[]; title?: string; defaultCodeInfo?: string; onChange: (e: any) => void }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const editorRef = useRef(null);
   const [code, setCode] = useState<string>();
@@ -12,13 +12,13 @@ export function ActionJsx({onChange, title = '逻辑', defaultCodeInfo, extensio
   };
 
   const handleOk = () => {
-    onChange(code)
+    onChange(code);
     setIsModalOpen(false);
   };
 
   const handleOnChange = (codeStr: string) => {
-      setCode(codeStr);
-  }
+    setCode(codeStr);
+  };
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -26,19 +26,21 @@ export function ActionJsx({onChange, title = '逻辑', defaultCodeInfo, extensio
 
   return (
     <>
-      <Button onClick={showModal} type={'primary'}>{title}</Button>
+      <Button onClick={showModal} type={'primary'}>
+        {title}
+      </Button>
       <Modal width={1000} title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <EditorMirror defaultCode={defaultCodeInfo}  />
-          <CodeEditor
-              lang="typescript"
-              {...props}
-              height="500px"
-              extensions={extensions}
-              minHeight="400px"
-              maxHeight="500px"
-              onChange={handleOnChange}
-              // {...props.codeProps}
-           />
+        <EditorMirror defaultCode={defaultCodeInfo} />
+        <CodeEditor
+          lang="typescript"
+          {...props}
+          height="500px"
+          extensions={extensions}
+          minHeight="400px"
+          maxHeight="500px"
+          onChange={handleOnChange}
+          // {...props.codeProps}
+        />
       </Modal>
     </>
   );

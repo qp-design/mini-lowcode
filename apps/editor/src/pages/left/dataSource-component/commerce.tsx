@@ -1,5 +1,5 @@
 import {combine} from '@brushes/component-core';
-import Materials from 'component-ui';
+import Materials from '@brushes/lowcode-component-ui';
 import {
   SlotSettings,
 } from '@brushes/component-setting';

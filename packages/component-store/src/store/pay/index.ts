@@ -1,1 +1,1 @@
-export * from './useOrderResult'
+export * from "./useOrderResult";

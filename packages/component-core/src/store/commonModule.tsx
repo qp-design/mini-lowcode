@@ -1,30 +1,26 @@
-import { ModuleStore, createModuleStore, ModuleState, moduleStore } from './commonStore'
-import { useRef, useContext, createContext } from 'react'
-import { useStore } from 'zustand'
+import { ModuleStore, createModuleStore, ModuleState, moduleStore } from './commonStore';
+import { useRef, useContext, createContext } from 'react';
+import { useStore } from 'zustand';
 const ModuleContext = createContext<ModuleStore | null>(null);
 
-type ModuleProviderProps = React.PropsWithChildren<Partial<moduleStore>>
+type ModuleProviderProps = React.PropsWithChildren<Partial<moduleStore>>;
 
 export { initialValueOrder } from './commonStore';
 
 // Provider wrapper
 export function ModuleProvider({ children, ...props }: ModuleProviderProps) {
-    const storeRef = useRef<ModuleStore>()
+  const storeRef = useRef<ModuleStore>();
 
-    if (!storeRef.current) {
-        storeRef.current = createModuleStore(props)
-    }
-    return (
-        <ModuleContext.Provider value={storeRef.current}>
-            {children}
-        </ModuleContext.Provider>
-    )
+  if (!storeRef.current) {
+    storeRef.current = createModuleStore(props);
+  }
+  return <ModuleContext.Provider value={storeRef.current}>{children}</ModuleContext.Provider>;
 }
 
 export function useModuleContext<T>(selector: (state: ModuleState) => T): T {
-    const store = useContext(ModuleContext)
-    if (!store) throw new Error('Missing ModuleContext.Provider in the tree')
-    return useStore(store, selector)
+  const store = useContext(ModuleContext);
+  if (!store) throw new Error('Missing ModuleContext.Provider in the tree');
+  return useStore(store, selector);
 }
 
 // example

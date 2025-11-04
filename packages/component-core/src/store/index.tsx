@@ -1,2 +1,2 @@
 export * from './commonModule';
-export * from './rootModule'
+export * from './rootModule';

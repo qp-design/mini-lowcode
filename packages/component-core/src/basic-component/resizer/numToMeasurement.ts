@@ -1,9 +1,7 @@
-export const isPercentage = (val: string) =>
-  typeof val === 'string' && val.indexOf('%') > -1;
+export const isPercentage = (val: string) => typeof val === 'string' && val.indexOf('%') > -1;
 
 export const percentToPx = (value: any, comparativeValue: number) => {
-  if (value.indexOf('px') > -1 || value === 'auto' || !comparativeValue)
-    return value;
+  if (value.indexOf('px') > -1 || value === 'auto' || !comparativeValue) return value;
   const percent = parseInt(value);
   return (percent / 100) * comparativeValue + 'px';
 };
@@ -18,15 +16,11 @@ export const getElementDimensions = (element: HTMLElement) => {
   let height = element.clientHeight,
     width = element.clientWidth; // width with padding
 
-  height -=
-    parseFloat(computedStyle.paddingTop) +
-    parseFloat(computedStyle.paddingBottom);
-  width -=
-    parseFloat(computedStyle.paddingLeft) +
-    parseFloat(computedStyle.paddingRight);
+  height -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+  width -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
 
   return {
     width,
-    height,
+    height
   };
 };
