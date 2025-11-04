@@ -1,9 +1,8 @@
 import type {FieldType} from '@brushes/form';
 import {basicSettings, formConfigType} from '@brushes/core-transform';
 import {useStyle} from "../logoWithSearch/style";
-import {actionField, marginField, paddingField, SelectPicture} from "../../common";
+import {marginField, paddingField, SelectPicture} from "../../common";
 import {positionField} from "../../common/position";
-import {Button} from "antd";
 
 const containerField: FieldType[] = [
   {
