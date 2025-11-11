@@ -12,11 +12,12 @@ interface LoginType {
     index?: number;
     name?: string;
     dataType?: string;
+    protocol?: boolean
     _callbackimpl: (e:any) => void | undefined;
     isNeedRegister: boolean
 }
 
-export const Login: FC<LoginType> = ({ name, _callbackimpl, children, isNeedRegister, dataType, index, formConfig, isNeedRemeber }) => {
+export const Login: FC<LoginType> = ({ name, _callbackimpl, children, isNeedRegister, dataType, index, formConfig, isNeedRemeber, protocol }) => {
     const [form] = Form.useForm();
     const { buttonText, mode, actionImpl, onFinish, loading, LoginToRegisterImpl } = useLoginAndRegister(isNeedRemeber, _callbackimpl);
     useEffect(() => {
@@ -39,7 +40,7 @@ export const Login: FC<LoginType> = ({ name, _callbackimpl, children, isNeedRegi
                         key={isNeedRemeber + mode}
                         name={'normal_login' + mode + name}
                         className="login-form"
-                        initialValues={isNeedRemeber ? { remember: true } : {}}
+                        initialValues={isNeedRemeber ? { remember: true, protocol } : { protocol }}
                         onFinish={onFinish}
                     >
                         {dynamicFormFields(formConfig, form)}

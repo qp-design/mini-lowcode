@@ -3,7 +3,11 @@ import {FieldType} from '@brushes/form';
 import {actionField} from "../../common";
 
 const dataFormField: FieldType[] = [
-
+  {
+    name: 'protocol',
+    label: '协议默认勾选',
+    type: 'switch',
+  }
 ]
 
 const baseFormField: formConfigType[] = [

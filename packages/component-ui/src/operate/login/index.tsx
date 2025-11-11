@@ -123,7 +123,7 @@ const useStyles = createStyles(({css}) => {
     }
 })
 
-const LoginWrap: FC<{ children: ReactNode; data: string; _callbackimpl?: (e: any) => void | undefined; isNeedRegister: boolean }> = ({_callbackimpl, isNeedRegister, children, data}) => {
+const LoginWrap: FC<{ children: ReactNode; data: string; protocol?: boolean; _callbackimpl?: (e: any) => void | undefined; isNeedRegister: boolean }> = ({_callbackimpl, isNeedRegister, children, data, protocol = false}) => {
     const [index, setIndex] = useState<number>(0);
     const {styles} = useStyles();
     const formConfig = useMemo(() => {
@@ -142,6 +142,7 @@ const LoginWrap: FC<{ children: ReactNode; data: string; _callbackimpl?: (e: any
                         index={index}
                         children={children}
                         isNeedRemeber={index === 0}
+                        protocol={protocol}
                         formConfig={formConfig}
                     />
                 </div>

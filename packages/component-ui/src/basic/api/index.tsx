@@ -74,12 +74,13 @@ const ApiList: React.FC<
     onChange: (page: number, pageSize: number) => void;
     result: { [value: string]: any };
     description: string;
+    loading: boolean;
     currentPage: { current: number };
     callbackName?: string;
     pagination: boolean;
     parentStoreKey?: string;
 }
-> = ({ rows, callbackName, currentPage, result, pagination, description, onChange, dataPath, padding, margin, gap, num, parentStoreKey, ...restProps }) => {
+> = ({ rows, loading, callbackName, currentPage, result, pagination, description, onChange, dataPath, padding, margin, gap, num, parentStoreKey, ...restProps }) => {
     const list = useMemo(() => {
         if (dataPath) {
             return get(result, dataPath, []) || [];
@@ -91,7 +92,7 @@ const ApiList: React.FC<
     const callback = useModuleContext((s) => s.moduleStore[callbackName]);
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
 
-    if (!list.length) {
+    if (!list.length || loading) {
         return (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', ...margin, ...padding, ...restProps }}>
                 <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={description} />
@@ -191,6 +192,7 @@ const Api: React.FC<CardListType> = ({
         return (
             <Spin spinning={loading}>
                 <ApiList
+                    loading={loading}
                     description={description}
                     storeKeyTotal={storeKeyTotal}
                     rows={pageSize}

@@ -52,6 +52,7 @@ const basic : Array<TypeComponent> = [
     setting: {
       props: {
         isNeedRegister: true,
+        protocol: false
       },
       related: {
         settings: LoginComponentSettings,
