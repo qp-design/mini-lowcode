@@ -294,6 +294,7 @@ const service : Array<TypeComponent> = [
     Component: Materials['SwiperThumbComponent'],
     setting: {
       props: {
+        borderRadius: 8,
         height: 500,
         minHeight: 60,
         gapHeight: 10,

@@ -14,13 +14,14 @@ import {get, isEmpty} from "lodash";
 import {fullpath} from "@brushes/component-tool";
 import {Video} from "../../common";
 
-const useStyles = createStyles(({css, token}, {bottom} : {bottom: number}) => {
+const useStyles = createStyles(({css, token}, {bottom, borderRadius} : {bottom: number; borderRadius: number}) => {
     return {
         container: css `
             position: relative;
             margin-bottom: 10px;
             .mySwiper2 {
                 width: 100%;
+                img{ border-radius: ${borderRadius}px }
             }
             
             .mySwiper {
@@ -29,7 +30,7 @@ const useStyles = createStyles(({css, token}, {bottom} : {bottom: number}) => {
                 bottom: 0;
                 left: 30px;
                 padding: 0;
-                //width: calc(100% - 60px);
+                width: calc(100% - 60px);
                 box-sizing: border-box;
             }
             
@@ -47,6 +48,7 @@ const useStyles = createStyles(({css, token}, {bottom} : {bottom: number}) => {
                 display: block;
                 width: 100%;
                 height: 100%;
+                border-radius: ${borderRadius}px;
                 object-fit: cover;
             }
 
@@ -91,7 +93,7 @@ function changeData(data: any[], imgKey: string) {
     })
 }
 
-export function SwiperThumb({height, gapHeight, bottom, minHeight, splitStr = '', imgKey = 'goodsFileUrl', dataPath = 'rsGoodsFileDomainList', storeKey = '_skuInfo'}: { bottom: number; gapHeight: number; minHeight: number; splitStr?: string; imgKey?: string; dataPath?: string; storeKey: string; height: number}) {
+export function SwiperThumb({height, borderRadius, gapHeight, bottom, minHeight, splitStr = '', imgKey = 'goodsFileUrl', dataPath = 'rsGoodsFileDomainList', storeKey = '_skuInfo'}: { borderRadius: number, bottom: number; gapHeight: number; minHeight: number; splitStr?: string; imgKey?: string; dataPath?: string; storeKey: string; height: number}) {
     const defaultValue = useModuleContext(s => s.moduleStore.defaultValue);
     const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]);
 
@@ -111,7 +113,7 @@ export function SwiperThumb({height, gapHeight, bottom, minHeight, splitStr = ''
     const handleSlideChange = (swiper: object) => {
         setIndex(swiper.activeIndex);
     }
-    const { styles } = useStyles({bottom});
+    const { styles } = useStyles({bottom, borderRadius});
 
     return (
         <div className={styles.container} style={{height: height + gapHeight + minHeight}}>
@@ -144,7 +146,7 @@ export function SwiperThumb({height, gapHeight, bottom, minHeight, splitStr = ''
                     freeMode={true}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Navigation, Thumbs]}
-                    style={{ width: `calc(100% - ${minHeight}px)`, height: minHeight }}
+                    style={{ height: minHeight }}
                     className={"mySwiper"}
                 >
                     {

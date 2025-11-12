@@ -18,6 +18,11 @@ const containerField: FieldType[] = [
     type: 'number',
   },
   {
+    label: '圆角',
+    name: 'borderRadius',
+    type: 'number',
+  },
+  {
     label: '两个模块间距',
     name: 'gapHeight',
     type: 'number',
