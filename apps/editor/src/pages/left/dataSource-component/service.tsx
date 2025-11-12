@@ -295,6 +295,9 @@ const service : Array<TypeComponent> = [
     setting: {
       props: {
         height: 500,
+        minHeight: 60,
+        gapHeight: 10,
+        bottom: 5,
         storeKey: '_skuInfo',
         imgKey: 'goodsFileUrl',
         dataPath: 'rsGoodsFileDomainList'

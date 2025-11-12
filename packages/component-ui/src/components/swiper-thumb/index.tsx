@@ -14,7 +14,7 @@ import {get, isEmpty} from "lodash";
 import {fullpath} from "@brushes/component-tool";
 import {Video} from "../../common";
 
-const useStyles = createStyles(({css, token}) => {
+const useStyles = createStyles(({css, token}, {bottom} : {bottom: number}) => {
     return {
         container: css `
             position: relative;
@@ -24,12 +24,12 @@ const useStyles = createStyles(({css, token}) => {
             }
             
             .mySwiper {
-                height: 60px;
+                //height: 60px;
                 position: absolute;
                 bottom: 0;
                 left: 30px;
                 padding: 0;
-                width: calc(100% - 60px);
+                //width: calc(100% - 60px);
                 box-sizing: border-box;
             }
             
@@ -51,7 +51,7 @@ const useStyles = createStyles(({css, token}) => {
             }
 
             .swiper-button-prev, .swiper-button-next {
-                bottom: 5px;
+                bottom: ${bottom}px;
                 top: auto;
                 transform: scale(.55);
                 color: ${token.colorPrimary};
@@ -91,7 +91,7 @@ function changeData(data: any[], imgKey: string) {
     })
 }
 
-export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dataPath = 'rsGoodsFileDomainList', storeKey = '_skuInfo'}: {splitStr?: string; imgKey?: string; dataPath?: string; storeKey: string; height: number}) {
+export function SwiperThumb({height, gapHeight, bottom, minHeight, splitStr = '', imgKey = 'goodsFileUrl', dataPath = 'rsGoodsFileDomainList', storeKey = '_skuInfo'}: { bottom: number; gapHeight: number; minHeight: number; splitStr?: string; imgKey?: string; dataPath?: string; storeKey: string; height: number}) {
     const defaultValue = useModuleContext(s => s.moduleStore.defaultValue);
     const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]);
 
@@ -111,10 +111,10 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
     const handleSlideChange = (swiper: object) => {
         setIndex(swiper.activeIndex);
     }
-    const { styles } = useStyles();
+    const { styles } = useStyles({bottom});
 
     return (
-        <div className={styles.container} style={{height}}>
+        <div className={styles.container} style={{height: height + gapHeight + minHeight}}>
             <Swiper
                 loop={true}
                 spaceBetween={10}
@@ -123,13 +123,13 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className={'mySwiper2'}
-                style={{height: height - 70, paddingBottom: 70 }}
+                style={{height, paddingBottom: gapHeight + minHeight }}
             >
                 {
                     banner.map((item, index) => (
                         <SwiperSlide key={index}>
                             {
-                                ((imgKey ? item[imgKey] : item).includes('.mp4') || (imgKey ? item[imgKey] : item).includes('.webm') || (imgKey ? item[imgKey] : item).includes('.avi')) ? <Video actived={index === ind} style={{ height: height - 70, overflow: 'hidden'}} src={item[imgKey]}/> :
+                                ((imgKey ? item[imgKey] : item).includes('.mp4') || (imgKey ? item[imgKey] : item).includes('.webm') || (imgKey ? item[imgKey] : item).includes('.avi')) ? <Video actived={index === ind} style={{ height, overflow: 'hidden'}} src={item[imgKey]}/> :
                                 <img src={fullpath(imgKey ? item[imgKey] : item)} />
                             }
                         </SwiperSlide>
@@ -144,6 +144,7 @@ export function SwiperThumb({height, splitStr = '', imgKey = 'goodsFileUrl', dat
                     freeMode={true}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Navigation, Thumbs]}
+                    style={{ width: `calc(100% - ${minHeight}px)`, height: minHeight }}
                     className={"mySwiper"}
                 >
                     {

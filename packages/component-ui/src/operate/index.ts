@@ -7,4 +7,5 @@ export * from './dynamic-form'
 export * from './buy'
 export * from './query-operate'
 export * from './login'
+export * from './ai'
 

@@ -28,7 +28,7 @@ const ChangeComponent = ({
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <div className={styles.diyClassName} style={{ ...(callback ? { cursor: 'pointer' } : {}) }} {...(callback && eventType !== 'callback' ? { onClick: callback } : {})}>
-        <Component _callbackimpl={_callbackimpl} {...restProps} {...(formConfig ? { formConfig } : {})} />
+        <Component _z={'123123123'} _callbackimpl={_callbackimpl} {...restProps} {...(formConfig ? { formConfig } : {})} />
       </div>
     </ErrorBoundary>
   );

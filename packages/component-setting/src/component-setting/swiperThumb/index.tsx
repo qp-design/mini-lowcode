@@ -3,8 +3,23 @@ import {basicSettings, formConfigType} from '@brushes/core-transform';
 
 const containerField: FieldType[] = [
   {
-    label: '图片高度',
+    label: '大图图片高度',
     name: 'height',
+    type: 'number',
+  },
+  {
+    label: '缩略图片高度',
+    name: 'minHeight',
+    type: 'number',
+  },
+  {
+    label: '箭头底部位置',
+    name: 'bottom',
+    type: 'number',
+  },
+  {
+    label: '两个模块间距',
+    name: 'gapHeight',
     type: 'number',
   },
   {

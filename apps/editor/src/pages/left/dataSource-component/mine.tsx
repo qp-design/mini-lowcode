@@ -9,8 +9,25 @@ import {
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "@brushes/lowcode-component-ui/service";
+import * as OperateComponent from '@brushes/lowcode-component-ui/operate';
 
 const mine : Array<TypeComponent> = [
+  {
+    name: 'AI组件',
+    icon: 'icon-caozuojilu',
+    Component: OperateComponent['AIComponent'],
+    setting: {
+      props: {
+        description: '暂无收货地址',
+        callbackName: 'addressQueryRetry',
+        storeKey: 'addressStore',
+        openKey: 'addressOpen',
+      },
+      related: {
+        settings: AddressItemComponentSettings,
+      },
+    }
+  },
   {
     name: '左侧栏目导航',
     icon: 'icon-caozuojilu',

@@ -40,14 +40,15 @@ export const SettingsPanel = () => {
           message.info('先复制组件')
       }
   }
-
+    console.log(43, selected);
   return isEnabled && selected ? (
     <Row>
       <Col span={12}>
         <Typography.Title level={5}>选中的组件</Typography.Title>
       </Col>
       <Col style={{textAlign: "right"}} span={12}>
-        <Tag color="#1677ff">{selected.name}</Tag>
+          <Tag color="#1677ff">{selected.node.displayName}</Tag>
+          <Tag color="#1677ff">{selected.name}</Tag>
       </Col>
       <Col span={24}>
         <div style={{marginTop: 10}}>
