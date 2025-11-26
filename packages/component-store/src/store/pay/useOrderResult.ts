@@ -1,8 +1,7 @@
-//@ts-nocheck
 import { useRef, useState } from "react";
 import { paymentCommit } from "@brushes/lowcode-component-api";
 import { useModuleContext } from "@brushes/component-core";
-import { message } from "antd";
+import {message, Modal } from "antd";
 import { post } from "@brushes/request";
 import { useNavigate } from "react-router-dom";
 import { useSearchParamHook } from "../../utils";
@@ -20,7 +19,7 @@ export function useOrderResult(storeKey = "payInfo") {
   const [url, setUrl] = useState("");
   const navigator = useNavigate();
 
-  const paymentImpl = (code: string, paywd?: string) => {
+  const paymentImpl = (code: string, paywd: string) => {
     switch (code) {
       // case 'wechatwap':
       //   wechatwap();
@@ -54,7 +53,7 @@ export function useOrderResult(storeKey = "payInfo") {
     };
   };
 
-  const fetchPayCode = (payChannelList, code) => {
+  const fetchPayCode = (payChannelList: any[], code: string) => {
     return payChannelList.find((item) => item.fchannelCode === code) || {};
   };
 
@@ -80,7 +79,7 @@ export function useOrderResult(storeKey = "payInfo") {
   };
 
   // 基本户
-  const basicImpl = async (code: string, paywd) => {
+  const basicImpl = async (code: string, paywd: string) => {
     try {
       const { msg } = await nonBasicAccoutPrepay(code, paywd);
       message.success(msg);
@@ -97,6 +96,18 @@ export function useOrderResult(storeKey = "payInfo") {
       }, 500);
       setLoading(false);
     } catch (err) {
+      if(err === '支付密码未设置') {
+        navigator(`/userCenter/userInfo?needCallback=true`);
+      } else if(err === '密码不匹配！') {
+        Modal.confirm({
+          title: '友情提示',
+          content: '是否需要重置密码?',
+          onOk() {
+            navigator(`/userCenter/userInfo?needCallback=true`);
+          },
+          onCancel() {},
+        });
+      }
       setLoading(false);
     }
   };
@@ -106,27 +117,13 @@ export function useOrderResult(storeKey = "payInfo") {
     try {
       const res = await nonBasicAccoutPrepay(code);
       let v_html = document.getElementById("v_html");
-      v_html.innerHTML = "<div>" + res.dataObj.htmlStr + "</div>";
+      v_html!.innerHTML = "<div>" + res.dataObj.htmlStr + "</div>";
       document.forms[0].submit();
       setLoading(false);
     } catch (err) {
       setLoading(false);
     }
   };
-
-  // h5 微信
-  // const wechatwap = async (code:string) => {
-  //   try {
-  //     const res = await nonBasicAccoutPrepay(code);
-  //     let v_html = document.getElementById('v_html');
-  //     v_html.innerHTML = '<div>' + res.dataObj.htmlStr + '</div>';
-  //     console.log(99, v_html);
-  //     document.getElementById('paaspaysubmit').submit();
-  //     setLoading(false);
-  //   } catch (err) {
-  //     setLoading(false);
-  //   }
-  // };
 
   const syncFetchOrderStatus = async () => {
     const url = contractBillcode

@@ -14,11 +14,13 @@ export const useSaveOperate = (
 ) => {
   const setModuleStore = useModuleContext((s) => s.setModuleStore);
   const onSubmit = async (cb: () => void, value: any) => {
+    console.log(1111, value);
     try {
       const contactParams = { ...resetProps, ...storeParams, ...value };
       const params = preKey
         ? { [preKey]: JSON.stringify(contactParams) }
         : contactParams;
+      console.log(23, params);
       const result = await post(url, params);
       message.success(result.msg);
       retry();

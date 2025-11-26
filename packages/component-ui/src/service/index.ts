@@ -2,6 +2,7 @@ export * from './navigator'
 export * from './ur';
 export * from './navigator2'
 export * from './order-item'
+export * from './map'
 export * from './payment'
 export * from './cardLR'
 export * from './cartList'

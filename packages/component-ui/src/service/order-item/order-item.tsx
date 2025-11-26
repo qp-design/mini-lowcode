@@ -13,9 +13,12 @@ import {useNode} from "@craftjs/core";
 
 const InputJsx = () => {
     const [loading, setLoading] = useState<boolean>(false);
-    const { goodsCamount = 1, shoppingGoodsId } = useModuleContext(s => s.moduleStore._skuInfo) || { goodsCamount: 1};
+    const { goodsCamount = 1, shoppingGoodsId, goodsMinnum = 1 } = useModuleContext(s => s.moduleStore._skuInfo) || { goodsCamount: 1};
     const retry = useModuleContext(s=> s.moduleStore.retry);
     const updateNum = debounce(async (e: number) => {
+        if(e < goodsMinnum) {
+            return;
+        }
         setLoading(true);
         const {msg} = await post('web/oc/shopping/updateShoppingGoodsNum.json', {
             shoppingGoodsId: shoppingGoodsId,
@@ -29,7 +32,7 @@ const InputJsx = () => {
 
     return (
         <Spin spinning={loading}>
-            <InputNumber min={1} onChange={updateNum} value={goodsCamount}/>
+            <InputNumber min={goodsMinnum} onChange={updateNum} value={goodsCamount}/>
         </Spin>
     )
 }
@@ -201,9 +204,9 @@ const ShoppGood = ({shoppingGoodsList, callbackName}: any) => {
     return (
         <>
             {
-                shoppingGoodsList.map((item, index) => {
+                shoppingGoodsList.map((item) => {
                     return (
-                        <Fragment key={index}>
+                        <Fragment key={item.shoppingGoodsId}>
                             <ModuleProvider moduleStore={{_skuInfo: item, retry}}>
                                 <ShoppGoodItem item={item}/>
                             </ModuleProvider>

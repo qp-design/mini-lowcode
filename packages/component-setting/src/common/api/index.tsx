@@ -24,6 +24,14 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
             label: '积分列表'
         },
         {
+            value: '/web/um/userservice/getUserinfoAndVd.json',
+            label: '线下保证金'
+        },
+        {
+            value: '/web/vd/vdfaccountouter/queryAccountOuterDtByPcode.json',
+            label: '保证金使用明细'
+        },
+        {
             value: '/web/upm/upmupoints/queryUpmupointsPageByPC.json',
             label: '用户积分余额'
         },
@@ -350,6 +358,10 @@ export const ApiComponent = ({onChange, ...props}: { onChange: (e: any) => void;
         {
             value: 'web/oc/shopping/queryToContract.json',
             label: '立即购买到确定订单查询'
+        },
+        {
+            value: 'web/at/auctionEnroll/saveAuctionEnrollByStr.json',
+            label: '预告报名'
         },
         {
             value: 'web/oc/contract/saveContract.json',

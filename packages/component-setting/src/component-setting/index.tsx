@@ -5,6 +5,7 @@ export * from './refundBasic';
 export * from './form'
 export * from './text'
 export * from './time'
+export * from './map'
 export * from './innerForm'
 export * from './containerWrap'
 export * from './container'

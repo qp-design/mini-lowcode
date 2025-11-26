@@ -18,9 +18,11 @@
     "@codemirror/lang-javascript": "^6.2.4",
     "@codemirror/autocomplete": "^6.19.1",
     "@antv/g2": "^5.3.3",
+    "@antv/larkmap": "^1.5.1",
     "@antv/l7": "^2.23.0",
     "@antv/l7plot": "^0.5.11",
     "@craftjs/core": "^0.2.12",
+    "gcoord": "*",
     "sucrase": "^3.35.0"
   }
 }

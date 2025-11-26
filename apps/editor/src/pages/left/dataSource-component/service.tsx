@@ -15,11 +15,24 @@ import {
   AmountComponentSettings,
   CategorySimpleComponentSettings,
   GoodSortComponentSettings, BreadCategoryComponentSettings,
+  MapComponentSettings
 } from '@brushes/component-setting';
 import {TypeComponent} from '../types';
 import * as ServiceComponent from "@brushes/lowcode-component-ui/service";
 
 const service : Array<TypeComponent> = [
+  {
+    name: '地图组件',
+    icon: 'icon-text',
+    Component: ServiceComponent['MapComponent'],
+    setting: {
+      props: {
+      },
+      related: {
+        settings: MapComponentSettings,
+      },
+    }
+  },
   {
     name: '详情页标题前缀',
     icon: 'icon-text',

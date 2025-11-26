@@ -11,7 +11,7 @@ interface DataType {
     goodsCamount: number;
     contractGoodsArefnum: number;
     contractGoodsGtype: string;
-    skuNo: string
+    contractGoodsId: string
 }
 
 
@@ -75,7 +75,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
             align: 'center',
             dataIndex: 'refundGoodsNum',
             render(_, record: DataType, ind: number) {
-                const isRequired = selectedRowKeys.includes(record.skuNo);
+                const isRequired = selectedRowKeys.includes(record.contractGoodsId);
                 return (
                     <>
                         {
@@ -89,7 +89,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
                                         onChange(value) {
                                             const result = form.getFieldValue('ocRefundGoodsBeanList');
                                             const n = result.map(item => {
-                                                if(item.skuNo === record.skuNo) {
+                                                if(item.contractGoodsId === record.contractGoodsId) {
                                                     item.refundGoodsNum = value;
                                                 }
                                                 return item;
@@ -115,20 +115,23 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
             const values = form.getFieldValue('ocRefundGoodsBeanList');
             const res = values.map((item:any) => ({
                 ...item,
-                checked: newSelectedRowKeys.includes(item.skuNo),
+                checked: newSelectedRowKeys.includes(item.contractGoodsId),
             }))
             onChange(res);
         },
-        getCheckboxProps: (record: DataType) => ({
-            disabled: record.goodsCamount - record.contractGoodsArefnum === 0 || record.contractGoodsGtype === '1', // Column configuration not to be checked
-            name: record.goodsName,
-        }),
+        getCheckboxProps: (record: DataType) => {
+            console.log(123, record.goodsName, record.goodsCamount - record.contractGoodsArefnum === 0 || record.contractGoodsGtype === '1')
+            return {
+                disabled: record.goodsCamount - record.contractGoodsArefnum === 0 || record.contractGoodsGtype === '1', // Column configuration not to be checked
+                name: record.goodsName,
+            }
+        },
     };
 
     return (
         <Table<DataType>
             pagination={false}
-            rowKey={'skuNo'}
+            rowKey={'contractGoodsId'}
             scroll={{ x: 'max-content' }}
             rowSelection={rowSelection}
             columns={columns}

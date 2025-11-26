@@ -31,7 +31,7 @@ const PromotionAction = () => {
         promotionName,
         promotionCode,
         disNextMsg,
-        pdCode
+        pbCode
     } = useModuleContext(s => s.moduleStore._skuInfo) || {};
 
     const nextBuyImpl = () => {
@@ -53,7 +53,7 @@ const PromotionAction = () => {
         })
     }
 
-    if (pdCode === '0001') {
+    if (pbCode === '0001') {
         return <ButtonComponent fontSize={12} onClick={openImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'} text={'赠品'} />
     }
 
