@@ -24,6 +24,8 @@ const ResultJsx = () => {
     )
 }
 const Root = () => {
+    const params = new URLSearchParams(document.location.search);
+    let appmanageCode = params.get("appmanageCode") || '';
     const [menu, setMenu] = useState([]);
     const [menuNoCommon, setMenuNoCommon] = useState([]);
     const [menuChild, setMenuChild] = useState([]);
@@ -31,7 +33,8 @@ const Root = () => {
     useEffect(() => {
         (async ()=> {
             const {list} = await get('/web/cms/tginfoMenu/queryNewTginfoMenuTree.json', {
-                dataState: 2
+                dataState: 2,
+                appmanageCode
             });
 
             const {list : listConfig} = await post('/web/pfs/pfsmmodel/queryPfsMmodelPage.json')
