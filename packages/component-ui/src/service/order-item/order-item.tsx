@@ -13,16 +13,25 @@ import {useNode} from "@craftjs/core";
 
 const InputJsx = () => {
     const [loading, setLoading] = useState<boolean>(false);
-    const { goodsCamount = 1, shoppingGoodsId, goodsMinnum = 1 } = useModuleContext(s => s.moduleStore._skuInfo) || { goodsCamount: 1};
+    /**
+     * goodsTopnum 倍数 1 启用
+     * goodsMinnum 最小定起订量
+     * goodsCamount 商品购买数量
+     */
+    const { goodsTopnum, goodsCamount, shoppingGoodsId, goodsSupplynum, goodsMinnum = 1 } = useModuleContext(s => s.moduleStore._skuInfo) || { goodsCamount: 1};
     const retry = useModuleContext(s=> s.moduleStore.retry);
     const updateNum = debounce(async (e: number) => {
-        if(e < goodsMinnum) {
+        let n = e;
+        if(n < goodsMinnum) {
             return;
+        }
+        if(goodsTopnum) {
+           n = Math.floor(e / goodsMinnum) * goodsMinnum
         }
         setLoading(true);
         const {msg} = await post('web/oc/shopping/updateShoppingGoodsNum.json', {
             shoppingGoodsId: shoppingGoodsId,
-            amount: e,
+            amount: n,
             goodWeight: 0,
         })
         message.success(msg);
@@ -32,7 +41,8 @@ const InputJsx = () => {
 
     return (
         <Spin spinning={loading}>
-            <InputNumber min={goodsMinnum} onChange={updateNum} value={goodsCamount}/>
+            <InputNumber max={goodsSupplynum} step={ goodsTopnum ? goodsMinnum : 1} min={goodsMinnum} onChange={updateNum} value={goodsCamount}/>
+            <p style={{fontSize: 12, marginTop: 4, color: '#666'}}>{ goodsTopnum ? `${goodsMinnum}倍数购买` : ''}</p>
         </Spin>
     )
 }
@@ -219,7 +229,7 @@ const ShoppGood = ({shoppingGoodsList, callbackName}: any) => {
 }
 
 
-const OrderItem = ({dataPath, storeKey, callbackName, hidden, description}: any) => {
+const OrderItem = ({dataPath, storeKey, callbackName, hidden, description, giftHidden}: any) => {
     const list = useComponentListData(dataPath, storeKey);
     const setModuleStore = useModuleContext(s => s.setModuleStore);
     if(list.length === 0) {
@@ -246,6 +256,9 @@ const OrderItem = ({dataPath, storeKey, callbackName, hidden, description}: any)
                                             { hidden ? null : <Element text={'促销模块内容区域'} canvas is={Container} id={'promotionCode'}></Element> }
                                         </ModuleProvider>
                                         <ShoppGood callbackName={callbackName} shoppingGoodsList={c.shoppingGoodsList}/>
+                                        <ModuleProvider moduleStore={{_skuInfo:c.giftList}}>
+                                            { giftHidden ? null : <Element text={'赠品模块内容区域'} canvas is={Container} id={'nCode'}></Element> }
+                                        </ModuleProvider>
                                     </Fragment>
                                 ))
                             }

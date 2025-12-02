@@ -21,6 +21,11 @@ const containerField: FieldType[] = [
         type: 'switch',
     },
     {
+        name: 'giftHidden',
+        label: '是否隐藏赠品信息',
+        type: 'switch',
+    },
+    {
         name: 'borderRadius',
         label: '圆角',
         type: 'number',

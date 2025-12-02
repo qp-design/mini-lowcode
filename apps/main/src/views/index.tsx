@@ -25,6 +25,7 @@ const ResultJsx = () => {
 }
 const Root = () => {
     const [menu, setMenu] = useState([]);
+    const [menuNoCommon, setMenuNoCommon] = useState([]);
     const [menuChild, setMenuChild] = useState([]);
     const setModuleRootStore = useModuleRootContext(s=>s.setModuleRootStore);
     useEffect(() => {
@@ -41,7 +42,9 @@ const Root = () => {
                     colorPrimary:themeColor
                 }
             })
-            const menu = list.filter(item => item.isColumn === 1); // 一级栏目
+            const result = list.filter(item => item.isInit === 2);
+            setMenuNoCommon(result);
+            const menu = list.filter(item => item.isInit !== 2).filter(item => item.isColumn === 1); // 一级栏目
             // 非一级栏目
             const children = (list || []).filter(item => [0, 2].includes(item.isColumn)).map(item => ({
                 ...item,
@@ -61,6 +64,9 @@ const Root = () => {
         <AliveScope>
             <Routes>
                 <Route path="/login" element={<Login/>} />
+                {
+                    menuNoCommon.map((item) => <Route key={item.menuOpcode} path={item.menuOpcode} element={<Common menuOpcode={item.menuOpcode}/>}/>)
+                }
                 <Route path="/merchantStore" element={<Common menuOpcode={'merchantStore'}/>}/>
                 <Route path="/" element={<Common menuOpcode={'common'}/>}>
                     {/* 默认首页 */}

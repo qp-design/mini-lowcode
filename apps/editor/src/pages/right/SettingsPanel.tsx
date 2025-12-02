@@ -40,7 +40,6 @@ export const SettingsPanel = () => {
           message.info('先复制组件')
       }
   }
-    console.log(43, selected);
   return isEnabled && selected ? (
     <Row>
       <Col span={12}>

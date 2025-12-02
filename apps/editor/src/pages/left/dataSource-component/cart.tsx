@@ -169,6 +169,7 @@ const cart : Array<TypeComponent> = [
         storeKey: 'defaultValue',
         callbackName: 'cartQueryRetry',
         hidden: false,
+        giftHidden: true,
         description: '购物车为空'
       },
       related: {

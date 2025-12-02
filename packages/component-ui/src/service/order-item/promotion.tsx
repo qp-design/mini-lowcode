@@ -53,10 +53,6 @@ const PromotionAction = () => {
         })
     }
 
-    if (pbCode === '0001') {
-        return <ButtonComponent fontSize={12} onClick={openImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'} text={'赠品'} />
-    }
-
     if (disNextMsg) {
         return <div style={{ width: 500, fontSize: 12, justifyContent: 'right', display: "flex", textAlign: "right", alignItems: 'center'}}>
             {promotionName}
@@ -64,6 +60,10 @@ const PromotionAction = () => {
             <ButtonComponent fontSize={12} onClick={nextBuyImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'}
                              text={'去凑单'}/>
         </div>
+    }
+
+    if (pbCode === '0001') {
+        return <ButtonComponent fontSize={12} onClick={openImpl} icon={<RightOutlined/>} iconPosition={'end'} type={'link'} text={'赠品'} />
     }
 }
 

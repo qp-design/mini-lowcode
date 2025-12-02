@@ -233,6 +233,11 @@ const service : Array<TypeComponent> = [
     setting: {
       props: {
         width: 60,
+        storeKey:'_skuInfo',
+        stepKey:'goodsTopnum',
+        min:'goodsMinnum',
+        max:'goodsSupplynum',
+        saveStoreKey: 'goodNum'
       },
       related: {
         settings: GoodNumberComponentSettings,

@@ -3,17 +3,19 @@ import {useModuleContext} from "@brushes/component-core";
 import {useEffect, useMemo} from "react";
 import {get} from "lodash";
 
-export const GoodNumber = ({ text, saveStoreKey='goodNum', storeKey='_skuInfo', stepKey = '', min='goodsMinnum', max='goodsSupplynum', ...restProps} :
+export const GoodNumber = ({ text, saveStoreKey='goodNum', storeKey='_skuInfo', stepKey = 'goodsTopnum', min='goodsMinnum', max='goodsSupplynum', ...restProps} :
                                { min?: string; stepKey?: string; saveStoreKey?:string;  max?: string; storeKey?: string; text: string }) => {
     const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]) || {};
 
     const step = useMemo(() => {
         if(stepKey) {
-            return get(_skuInfo, stepKey, 1);
+            const num = get(_skuInfo, min) || 1;
+            const isDouble = get(_skuInfo, stepKey);
+
+            return isDouble ? num : 1;
         }
         return 1
     }, [_skuInfo, stepKey]);
-
     const goodNum = useModuleContext(s => s.moduleStore[saveStoreKey]) || _skuInfo[min] || 1;
 
     useEffect(() => {
@@ -27,7 +29,7 @@ export const GoodNumber = ({ text, saveStoreKey='goodNum', storeKey='_skuInfo', 
     const onChange = (value: number | null) => {
         if (!value) return;
         // 确保值是 step 的整数倍
-        const roundedValue = Math.round(value / step) * step;
+        const roundedValue = Math.floor(value / step) * step;
         setModuleStore({
             [saveStoreKey]: roundedValue || 1
         })
