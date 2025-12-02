@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import lz from "lzutf8";
 import { useEditor } from "@craftjs/core";
 import { post, cacheParams } from "@brushes/optimize";
-import {useSearchParamHook} from "@/utils";
+import {useSearchParamHook} from "../../utils";
 
 export const useQueryInitData = (menuOpcode: string) => {
   const { actions } = useEditor();
