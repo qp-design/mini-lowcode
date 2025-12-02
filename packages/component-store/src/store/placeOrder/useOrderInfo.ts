@@ -81,26 +81,32 @@ export function useOrderInfo() {
       obj.goodsCamount += goodsCamount;
     });
 
-    // 加入优惠券信息
-    if (_selectCoupon.pbCode) {
-      if (["0005", "B0005"].includes(_selectCoupon.pbCode)) {
-        obj.couponMoney = Number(
-          obj.totalMoney * (1 - _selectCoupon.couponAmount / 100).toFixed(2),
-        );
-      } else if (
-        ["0004", "0003", "B0004", "B0003"].includes(_selectCoupon.pbCode)
-      ) {
-        obj.couponMoney = _selectCoupon.discAmount;
-      }
+    const list = Array.isArray(_selectCoupon) ? _selectCoupon : [_selectCoupon];
 
-      _ocContractSettlList.push({
-        contractSettlBlance: PromotionInType[_selectCoupon.promotionInType],
-        contractSettlGmoney: obj.couponMoney,
-        contractSettlPmoney: obj.couponMoney,
-        contractSettlOpno: _selectCoupon.usercouponCode,
-        contractSettlOpemo: _selectCoupon.promotionCode,
-      });
-    }
+    list.forEach((item: typeof initialValueOrder) => {
+      let couponList = [];
+      // 加入优惠券信息
+      if (item.pbCode) {
+        if (["0005", "B0005"].includes(item.pbCode)) {
+          obj.couponMoney = Number(
+              obj.totalMoney * (1 - item.couponAmount / 100).toFixed(2),
+          );
+        } else if (
+            ["0004", "0003", "B0004", "B0003"].includes(item.pbCode)
+        ) {
+          obj.couponMoney = item.discAmount;
+        }
+        couponList.push({
+          contractSettlBlance: PromotionInType[item.promotionInType],
+          contractSettlGmoney: obj.couponMoney,
+          contractSettlPmoney: obj.couponMoney,
+          contractSettlOpno: item.usercouponCode,
+          contractSettlOpemo: item.promotionCode,
+        });
+
+      }
+    })
+    _ocContractSettlList.push(...couponList)
 
     if (creditType) {
       obj.creditMoney =
