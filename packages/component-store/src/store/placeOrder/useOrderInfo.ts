@@ -85,21 +85,24 @@ export function useOrderInfo() {
     let couponList = [];
 
     list.forEach((item: typeof initialValueOrder) => {
+      let couponMoney = 0;
       // 加入优惠券信息
       if (item.pbCode) {
         if (["0005", "B0005"].includes(item.pbCode)) {
           obj.couponMoney += Number(
               obj.totalMoney * (1 - item.couponAmount / 100).toFixed(2),
           );
+          couponMoney = Number(obj.totalMoney * (1 - item.couponAmount / 100).toFixed(2),)
         } else if (
             ["0004", "0003", "B0004", "B0003"].includes(item.pbCode)
         ) {
           obj.couponMoney += item.discAmount;
+          couponMoney = item.discAmount;
         }
         couponList.push({
           contractSettlBlance: PromotionInType[item.promotionInType],
-          contractSettlGmoney: obj.couponMoney,
-          contractSettlPmoney: obj.couponMoney,
+          contractSettlGmoney: couponMoney,
+          contractSettlPmoney: couponMoney,
           contractSettlOpno: item.usercouponCode,
           contractSettlOpemo: item.promotionCode,
         });
