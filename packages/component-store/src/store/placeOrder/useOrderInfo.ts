@@ -38,7 +38,7 @@ export function useOrderInfo() {
   }, [_ocDiscount]);
 
   const _selectCoupon =
-    useModuleContext((s) => s.moduleStore._selectCoupon) || {};
+    useModuleContext((s) => s.moduleStore._selectCoupon) || [];
   const _orderDomainStr = useModuleContext(
     (s) => s.moduleStore._orderDomainStr,
   );
@@ -82,19 +82,19 @@ export function useOrderInfo() {
     });
 
     const list = Array.isArray(_selectCoupon) ? _selectCoupon : [_selectCoupon];
+    let couponList = [];
 
     list.forEach((item: typeof initialValueOrder) => {
-      let couponList = [];
       // 加入优惠券信息
       if (item.pbCode) {
         if (["0005", "B0005"].includes(item.pbCode)) {
-          obj.couponMoney = Number(
+          obj.couponMoney += Number(
               obj.totalMoney * (1 - item.couponAmount / 100).toFixed(2),
           );
         } else if (
             ["0004", "0003", "B0004", "B0003"].includes(item.pbCode)
         ) {
-          obj.couponMoney = item.discAmount;
+          obj.couponMoney += item.discAmount;
         }
         couponList.push({
           contractSettlBlance: PromotionInType[item.promotionInType],
