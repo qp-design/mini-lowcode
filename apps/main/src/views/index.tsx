@@ -45,7 +45,7 @@ const Root = () => {
                     colorPrimary:themeColor
                 }
             })
-            const result = list.filter(item => item.isInit === 2);
+            const result = list.filter(item => item.isInit === 2).map(item => item.menuOpcode);
             setMenuNoCommon(result);
             const menu = list.filter(item => item.isInit !== 2).filter(item => item.isColumn === 1); // 一级栏目
             // 非一级栏目
@@ -68,10 +68,10 @@ const Root = () => {
             <Routes>
                 <Route path="/login" element={<Login/>} />
                 {
-                    menuNoCommon.map((item) => <Route key={item.menuOpcode} path={item.menuOpcode} element={<Common menuOpcode={item.menuOpcode}/>}/>)
+                    menuNoCommon.map((item:string) => <Route key={item} path={item} element={<Common menuOpcode={item}/>}/>)
                 }
                 <Route path="/merchantStore" element={<Common menuOpcode={'merchantStore'}/>}/>
-                <Route path="/" element={<Common menuOpcode={'common'}/>}>
+                { menu.length ? <Route path="/" element={<Common menuOpcode={'common'}/>}>
                     {/* 默认首页 */}
                         <Route
                             index
@@ -113,7 +113,7 @@ const Root = () => {
                         ))
                     }
                     <Route path="*" element={<ResultJsx/>}/>
-               </Route>
+               </Route> : null }
             </Routes>
         </AliveScope>
     );
