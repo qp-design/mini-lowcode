@@ -5,6 +5,7 @@ export const useNavigateImpl = () => {
     const isTaro = getEnv();
     const navigator = (path:string | number) => {
         if(!path) return;
+        console.log(1111, isTaro);
         if(isTaro) {
             navigatorHandler('goodPoints');
             return;
