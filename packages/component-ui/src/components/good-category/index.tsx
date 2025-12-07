@@ -17,9 +17,9 @@ const useStyle = createStyles(({css, token}) => {
     }
 })
 
-export const GoodCategory = ({label, api, goodsClassName = 'goodsClassName', goodsClassCode = 'goodsClassCode', ...restProps}:any) => {
+export const GoodCategory = ({label, api, path = '', goodsClassName = 'goodsClassName', goodsClassCode = 'goodsClassCode', ...restProps}:any) => {
     const {styles} = useStyle();
-    const {cateList, implCate} = useGoodCategory(label, api, goodsClassName, goodsClassCode);
+    const {cateList, implCate} = useGoodCategory(label, api, goodsClassName, goodsClassCode, path);
     return (
         <ul className={styles.container}>
             {

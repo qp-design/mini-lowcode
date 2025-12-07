@@ -2,12 +2,14 @@
 import { useEffect } from "react";
 import { post } from "@brushes/request";
 import { useModuleContext } from "@brushes/component-core";
+import {get} from "lodash";
 
 export const useGoodCategory = (
   label: string,
   api: string = "/web/rs/rsGoodsClass/queryGoodsClassTreeForBusStr.json",
   goodsClassName: string,
   goodsClassCode: string,
+  path,
 ) => {
   const setModuleStore = useModuleContext((s) => s.setModuleStore);
   const cateList = useModuleContext((s) => s.moduleStore.cateList) || [];
@@ -56,7 +58,12 @@ export const useGoodCategory = (
 
   const classTreeCodeImpl = async () => {
     try {
-      const initArr = await post(api);
+      let initArr = await post(api);
+
+      if(path) {
+        initArr = get(initArr, path);
+      }
+
       setModuleStore({
         breadList: [
           {
