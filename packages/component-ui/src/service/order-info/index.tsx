@@ -3,7 +3,7 @@ import { HOCCodeWrapComponent } from "@brushes/core-transform";
 import {Text} from '../../basic'
 import {useOrderGood, useOrderInfo, useSearchParamHook} from "@brushes/component-store-web";
 import {fixPrice} from "@brushes/component-tool";
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import {NumberComponent, URComponent} from "../../service";
 
 const OrderInfo = ({storeKey, padding, margin, contractType, ...props}:{contractType: string; storeKey: string; padding: object; margin: object}) => {
@@ -11,6 +11,10 @@ const OrderInfo = ({storeKey, padding, margin, contractType, ...props}:{contract
     const [goodsType] = useSearchParamHook(['goodsType']);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
     // const [payMoney, setPayMoney] = useState(0)
+    const isOnlyFreight = useMemo(() => {
+        return contractType.split(',').includes(goodsType || '');
+    }, [goodsType, contractType]);
+
     const {
         couponMoney,
         shoppingCountPrice,
@@ -26,7 +30,7 @@ const OrderInfo = ({storeKey, padding, margin, contractType, ...props}:{contract
     } = useOrderInfo();
 
     useEffect(() => {
-        if(contractType.split(',').includes(goodsType || '')) {
+        if(isOnlyFreight) {
             // setPayMoney(freightValue);
             setModuleStore({
                 _freight: freightValue,
@@ -55,7 +59,7 @@ const OrderInfo = ({storeKey, padding, margin, contractType, ...props}:{contract
                     <Text color={'#666'} fontSize={14} text={'商品总件数：'}></Text>
                     <Text text={fixPrice(goodsCamount)} textAlign={'right'} width={120} color={'#f00'} code={'totalNum'}></Text>
                 </Container>
-                { goodsType !== '06' ? <>
+                { !isOnlyFreight ? <>
                         <Container
                             alignItems={'center'}
                             margin={{marginBottom: 10}}
@@ -84,7 +88,7 @@ const OrderInfo = ({storeKey, padding, margin, contractType, ...props}:{contract
                     <Text color={'#666'} fontSize={14} text={'授信付款：'}></Text>
                     <Text text={fixPrice(creditMoney, '-')} textAlign={'right'} width={120} color={'#f00'}></Text>
                 </Container> : null }
-                { goodsType !== '06' &&
+                { !isOnlyFreight &&
                     <Element
                         is={Container}
                         id={'REB'}
