@@ -243,6 +243,7 @@ const cart : Array<TypeComponent> = [
     setting: {
       props: {
         storeKey: 'goods',
+        contractType: '06'
       },
       related: {
         settings: OrderInfoComponentSettings,

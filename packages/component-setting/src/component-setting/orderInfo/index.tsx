@@ -20,6 +20,14 @@ const containerField: FieldType[] = [
     name: 'borderRadius',
     type: 'number',
   },
+  {
+    label: '订单类型',
+    name: 'contractType',
+    type: 'text',
+    extraProps: {
+      placeholder: '此类型支付只计算运费'
+    }
+  },
 ]
 
 const baseFormField: formConfigType[] = [
