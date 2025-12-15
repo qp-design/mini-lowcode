@@ -82,6 +82,24 @@ export default SaveOperate;
                 `
       },
       {
+        label: 'useSearchParamHook',
+        type: 'paramsHook | useSearch',
+        detail: 'url取参数',
+        apply: `      
+/* 导入对应的模块*/
+import {useSearchParamHook} from "component-store";
+
+function useDiyHook() {
+   const id = useSearchParamHook(['id']);
+    /* uri路由地址  */
+    return () => {
+      console.log('url取参数',id)
+    }
+}
+export default useDiyHook;
+                `
+      },
+      {
         label: 'transform',
         type: '数据转化 | trans',
         detail: '数据转化',

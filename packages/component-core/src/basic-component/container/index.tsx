@@ -98,7 +98,7 @@ export const IsShowContainer = ({
       (moduleShowValue && rootKey && moduleIsShow && moduleShowValue.split(',').includes(rnValue + '')); // 8
 
     return isRevert ? !condition : condition;
-  }, [searchParams, routerIsShow, routerIsShowValue, store, storeKey, moduleShowValue, moduleIsShow, nValue, rootKey, rootStore, rnValue]);
+  }, [searchParams, routerIsShow, routerIsShowValue, isRevert, store, storeKey, moduleShowValue, moduleIsShow, nValue, rootKey, rootStore, rnValue]);
 
   if (conditionType || enabled) {
     return (

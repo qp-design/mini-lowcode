@@ -120,7 +120,6 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
             onChange(res);
         },
         getCheckboxProps: (record: DataType) => {
-            console.log(123, record.goodsName, record.goodsCamount - record.contractGoodsArefnum === 0 || record.contractGoodsGtype === '1')
             return {
                 disabled: record.goodsCamount - record.contractGoodsArefnum === 0 || record.contractGoodsGtype === '1', // Column configuration not to be checked
                 name: record.goodsName,

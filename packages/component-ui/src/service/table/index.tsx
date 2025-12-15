@@ -5,11 +5,12 @@ import {Table} from 'antd';
 import {useComponentListData} from "@brushes/component-store-web";
 import {useEffect, useMemo} from "react";
 
-const Inner = ({code, record} : { code: string; record: any}) => {
+const Inner = ({code, record, index} : { code: string; record: any; index: number}) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
     useEffect(() => {
         setModuleStore({
-            [code]: record
+            [code]: record,
+            index,
         })
     }, [code, record]);
     return (
@@ -17,12 +18,13 @@ const Inner = ({code, record} : { code: string; record: any}) => {
     )
 }
 
-const DiyColumnComponent = ({code, record} : {code: string; record: object}) => {
+const DiyColumnComponent = ({code, record, index} : {code: string; record: object; index: number}) => {
+    console.log('index====>', index);
     const store = useModuleContext(s=>s.moduleStore) || {};
     const setModuleStore = useModuleContext(s=>s.setModuleStore);
     return (
         <ModuleProvider moduleStore={{...store, setParentModuleStore: setModuleStore}}>
-            <Inner code={code} record={record}/>
+            <Inner code={code} record={record} index={index}/>
         </ModuleProvider>
     )
 }
@@ -69,7 +71,7 @@ const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns,
             if (type && restProps.value) {
                 return {
                     ...config,
-                    render: (_: string, record) => <DiyColumnComponent record={record} code={restProps.value}/>,
+                    render: (_: string, record:any, index: number) => <DiyColumnComponent index={index} record={record} code={restProps.value}/>,
                 }
             } else {
                 return config
@@ -85,7 +87,7 @@ const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns,
                 pagination={false}
                 rowKey={ROWKEYY}
                 scroll={ height ? {y: height} : {}}
-                expandable={ expandable ? { expandedRowRender: (record) => <DiyColumnComponent record={record} code={'expandable'}/>, defaultExpandedRowKeys: ['0'] } : undefined}
+                expandable={ expandable ? { expandedRowRender: (record, index) => <DiyColumnComponent index={index} record={record} code={'expandable'}/>, defaultExpandedRowKeys: ['0'] } : undefined}
                 columns={columnsMix}
                 rowSelection={rowSelection}
             />

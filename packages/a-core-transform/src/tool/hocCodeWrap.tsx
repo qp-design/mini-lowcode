@@ -25,6 +25,7 @@ const ChangeComponent = ({
   const _callbackimpl = useMemo(() => {
     return eventType === 'callback' && callback ? callback : undefined;
   }, [callback, eventType]);
+
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <div className={styles.diyClassName} style={{ ...(callback ? { cursor: 'pointer' } : {}) }} {...(callback && eventType !== 'callback' ? { onClick: callback } : {})}>
