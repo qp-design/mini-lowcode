@@ -90,14 +90,14 @@ export function useOrderInfo() {
       if (item.pbCode) {
         if (["0005", "B0005"].includes(item.pbCode)) {
           obj.couponMoney += Number(
-              obj.totalMoney * (1 - item.couponAmount / 100).toFixed(2),
+              obj.totalMoney * (1 - item.discAmount / 100).toFixed(2),
           );
-          couponMoney = Number(obj.totalMoney * (1 - item.couponAmount / 100).toFixed(2),)
+          couponMoney = Number(obj.totalMoney * (1 - item.discAmount / 100).toFixed(2),)
         } else if (
             ["0004", "0003", "B0004", "B0003"].includes(item.pbCode)
         ) {
-          obj.couponMoney += item.discAmount;
-          couponMoney = item.discAmount;
+          obj.couponMoney += item.couponAmount;
+          couponMoney = item.couponAmount;
         }
         couponList.push({
           contractSettlBlance: PromotionInType[item.promotionInType],
