@@ -5,7 +5,7 @@ import {getNode, resetNode, setNode} from "@/module";
 import {isEmpty} from "lodash";
 
 export const SettingsPanel = () => {
-  const {actions: { add, delete : deleteAction }, selected, isEnabled, query: { createNode, node }} = useEditor((state, query) => {
+  const {actions: { delete : deleteAction, addNodeTree }, selected, isEnabled, query: { node }} = useEditor((state, query) => {
     const currentNodeId = query.getEvent('selected').last();
     let selected;
     if (currentNodeId) {
@@ -27,14 +27,14 @@ export const SettingsPanel = () => {
   });
 
   const copyImpl = () => {
-      const { data: { type, props}} = node(selected.id).get();
-      setNode(createNode(React.createElement(type, props)));
+      const nodeTree = node(selected.id).toNodeTree();
+      setNode(nodeTree);
   }
 
   const pasterImpl = () => {
       const node = getNode();
       if(!isEmpty(node)) {
-          add(node, selected.id)
+          addNodeTree(node, selected.id)
           resetNode()
       } else {
           message.info('先复制组件')

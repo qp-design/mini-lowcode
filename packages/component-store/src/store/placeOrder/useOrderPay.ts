@@ -61,7 +61,7 @@ export function useOrderPay(selfPickupKey: string) {
           // contractPaytime: new Date().valueOf(),
           // goodsPbillno: 0, // 成团人数 $storage.get('PeopleNum') || 0
           // goodsPmbillno: item.promotionCodes, // 团购 平团  描述营销单号
-          contractProperty: "0", //订单性质
+          contractProperty: item.contractProperty || "0", //订单性质 4: 销售订单
           contractBlance: 0, //结算方式:全款、订金、融资
           contractPmode: 0, //付款方式：场内、场外，即线上、线下
           contractPumode: contractPumode, //提货方式
@@ -86,7 +86,7 @@ export function useOrderPay(selfPickupKey: string) {
           goodsReceiptPhone, //收货联系方式
           goodsReceiptArrdess, // 地址 省市区 加详细地址
           areaCode, //从地址上面带过来`
-          contractNbillcode: null,
+          contractNbillcode: item.contractNbillcode,  // 关联订单号
           ...appendParams,
           // skuIdList: isGoodDetailToAccount
           //   ? [

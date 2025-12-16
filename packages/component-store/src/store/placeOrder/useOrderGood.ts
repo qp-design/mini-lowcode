@@ -32,6 +32,8 @@ export const useOrderGood = (storeKey: string) => {
     res.forEach((v) => {
       const payStateConfig = Object.assign({}, initialValueOrder);
       payStateConfig.shoppingType = v.shoppingType;
+      payStateConfig.contractProperty = v.contractProperty;
+      payStateConfig.contractNbillcode = v.contractNbillcode;
       payStateConfig.upmMap = v.upmMap;
       payStateConfig.rebMoney += v.rebMoney;
       let itemList = [] as Array<typeof initialValueOrder>;
