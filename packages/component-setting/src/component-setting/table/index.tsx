@@ -85,6 +85,22 @@ const baseFormField: formConfigType[] = [
                 type: 'number'
             },
             {
+                label: '总量数据',
+                name: 'providerNum',
+                type: 'text',
+                extraProps: {
+                    placeholder: '控制选择框是否可以选择,providerNum 总量'
+                }
+            },
+            {
+                label: '已消耗数据',
+                name: 'consumeNum',
+                type: 'text',
+                extraProps: {
+                    placeholder: '控制选择框是否可以选择,消耗量'
+                }
+            },
+            {
                 label: '',
                 name: 'columns',
                 type: 'formList',

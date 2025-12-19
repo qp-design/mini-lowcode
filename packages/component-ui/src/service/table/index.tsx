@@ -29,15 +29,17 @@ const DiyColumnComponent = ({code, record, index} : {code: string; record: objec
     )
 }
 
-const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns, storeKey, rowSelectKey, ...restProps}: {
+const App = ({dataPath = '', providerNum, consumeNum, expandable = false, height, type, ROWKEYY, columns, storeKey, rowSelectKey, ...restProps}: {
     storeKey: string;
+    providerNum?: string;
+    consumeNum?: string;
     expandable?: boolean;
     dataPath?: string;
     type?: "checkbox" | 'radio' | ''
     rowSelectKey?: string;
     height?: number;
     columns: Array<any>;
-    ROWKEYY: string
+    ROWKEYY: string;
 }) => {
     const onChange = useModuleContext(s => s.moduleStore.onChange);
 
@@ -51,7 +53,18 @@ const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns,
             //     [rowSelectKey]: value
             // })
         }
-    }, type);
+    }, type, (record:any) => {
+        if(providerNum && consumeNum) {
+            return {
+                disabled: (record[providerNum] ?? 0) - (record[consumeNum]??0) === 0, // Column configuration not to be checked
+            }
+        } else if(providerNum) {
+            return {
+                disabled: (record[providerNum] ?? 0) === 0, // Column configuration not to be checked
+            }
+        }
+        return void 0;
+    });
 
     useEffect(() => {
         if(!type && onChange) {

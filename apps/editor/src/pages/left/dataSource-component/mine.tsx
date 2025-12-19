@@ -54,6 +54,8 @@ const mine : Array<TypeComponent> = [
         ROWKEYY: 'id',
         columns: [],
         type: '',
+        providerNum: '',
+        consumeNum: '',
         storeKey: '_skuInfo',
         height: 400,
         expandable: false
