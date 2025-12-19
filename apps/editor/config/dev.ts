@@ -1,5 +1,5 @@
 export const config = {
-  API_ROOT: '"https://b2bpc86d2786b360643d480659d6abc41931d.saas.qjclouds.com/"',
+  API_ROOT: '"https://b2bpcs2beac7f9329e43413bba87b0fde500a66c.saas.qjclouds.com/"',
 };
 
 

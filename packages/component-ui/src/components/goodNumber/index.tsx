@@ -4,8 +4,9 @@ import {useEffect, useMemo} from "react";
 import {get} from "lodash";
 
 export const GoodNumber = ({ text, saveStoreKey='goodNum', storeKey='_skuInfo', stepKey = 'goodsTopnum', min='goodsMinnum', max='goodsSupplynum', ...restProps} :
-                               { min?: string; stepKey?: string; saveStoreKey?:string;  max?: string; storeKey?: string; text: string }) => {
+                               { min?: string; stepKey?: string; saveStoreKey?:string;  max?: string; storeKey?: string; text: string; onChange?: (e:any) => void }) => {
     const _skuInfo = useModuleContext(s => s.moduleStore[storeKey]) || {};
+    const onChange = useModuleContext(s => s.moduleStore.onChange);
 
     const step = useMemo(() => {
         if(stepKey) {
@@ -17,8 +18,10 @@ export const GoodNumber = ({ text, saveStoreKey='goodNum', storeKey='_skuInfo', 
         return 1
     }, [_skuInfo, stepKey]);
     const goodNum = useModuleContext(s => s.moduleStore[saveStoreKey]) || _skuInfo[min] || 1;
-
     useEffect(() => {
+        if(onChange) {
+            onChange(_skuInfo[min]);
+        }
         setModuleStore({
             [saveStoreKey]: _skuInfo[min]
         })
@@ -26,10 +29,13 @@ export const GoodNumber = ({ text, saveStoreKey='goodNum', storeKey='_skuInfo', 
 
     const setModuleStore = useModuleContext(s => s.setModuleStore);
 
-    const onChange = (value: number | null) => {
+    const setChange = (value: number | null) => {
         if (!value) return;
         // 确保值是 step 的整数倍
         const roundedValue = Math.floor(value / step) * step;
+        if(onChange) {
+            onChange(roundedValue || 1);
+        }
         setModuleStore({
             [saveStoreKey]: roundedValue || 1
         })
@@ -43,7 +49,7 @@ export const GoodNumber = ({ text, saveStoreKey='goodNum', storeKey='_skuInfo', 
                 min={_skuInfo[min] || 1}
                 max={_skuInfo[max]}
                 value={goodNum}
-                onChange={onChange}
+                onChange={setChange}
                 changeOnWheel
             />
         </div>

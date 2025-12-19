@@ -42,7 +42,6 @@ const App = ({dataPath = '', expandable = false, height, type, ROWKEYY, columns,
     const onChange = useModuleContext(s => s.moduleStore.onChange);
 
     const list = useComponentListData(dataPath, storeKey);
-
     const {
         rowSelection,
     } = useTableWithSelect(ROWKEYY, (value: Array<any>) => {
