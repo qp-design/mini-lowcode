@@ -78,8 +78,31 @@ const cart : Array<TypeComponent> = [
     Component: ServiceComponent['RefundTableComponent'],
     setting: {
       props: {
-        openKey: 'refundKey',
-        callbackName: 'orderRetry',
+        columns: [{
+          title: '下单数量',
+          width: 100,
+          align: 'center',
+          value: 'goodsCamount',
+        },
+          {
+            title: '商品总价',
+            width: 100,
+            align: 'center',
+            value: 'contractGoodsMoney',
+          },
+          {
+            title: '商品单价',
+            width: 100,
+            align: 'center',
+            value: 'pricesetNprice',
+          },
+          {
+            title: '单位',
+            width: 80,
+            align: 'center',
+            value: 'partsnameNumunit',
+          }],
+        giftSelect: false
       },
       related: {
         settings: RefundBasicComponentSettings,

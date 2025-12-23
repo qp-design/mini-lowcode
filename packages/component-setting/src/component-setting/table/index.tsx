@@ -101,7 +101,7 @@ const baseFormField: formConfigType[] = [
                 }
             },
             {
-                label: '',
+                label: '表格列',
                 name: 'columns',
                 type: 'formList',
                 extraProps: {

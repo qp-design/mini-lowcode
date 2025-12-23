@@ -1197,9 +1197,9 @@
     style-mod "^4.1.0"
     w3c-keyname "^2.2.4"
 
-"@craftjs/core@^0.2.12", "@craftjs/core@^0.2.2":
+"@craftjs/core@^0.2.12":
   version "0.2.12"
-  resolved "https://registry.npmjs.org/@craftjs/core/-/core-0.2.12.tgz#b411af3a8c39ba5033e39159911375d9e3299250"
+  resolved "https://registry.npmmirror.com/@craftjs/core/-/core-0.2.12.tgz#b411af3a8c39ba5033e39159911375d9e3299250"
   integrity sha512-M9WZ6SuvGw6Ue2iXouPiqLzzsxOynn1HVugzlm8q98ulMdhn0BDI3XZdD3ErUdUe4kk4y2Ak9E0dtzVjC51JLw==
   dependencies:
     "@craftjs/utils" "^0.2.5"
@@ -1209,7 +1209,7 @@
 
 "@craftjs/utils@^0.2.5":
   version "0.2.5"
-  resolved "https://registry.npmjs.org/@craftjs/utils/-/utils-0.2.5.tgz#2778264bb854b51ab34f3194028269d81b59f642"
+  resolved "https://registry.npmmirror.com/@craftjs/utils/-/utils-0.2.5.tgz#2778264bb854b51ab34f3194028269d81b59f642"
   integrity sha512-ANzAkGmQBe6fi7F2x6dhiN2hN9yBDfW+mQ2XJv8bJMIx+0h5Kbv04U4WXaFfMhjcC7DzfPnGkdg7/9gFkd5qVA==
   dependencies:
     immer "^9.0.6"

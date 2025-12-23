@@ -1,7 +1,7 @@
 import {Form, FormInstance, Table} from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
 import {useEffect, useMemo, useState} from "react";
-import {CardLRComponent} from "../../../service";
+import {CardLRComponent, DiyColumnComponent} from "../../../service";
 import {dynamicFormFields} from "@brushes/form";
 import {ModuleProvider, useModuleContext} from "@brushes/component-core";
 
@@ -15,7 +15,9 @@ interface DataType {
 }
 
 
-const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> = ({form, onChange}) => {
+const TableComponent: React.FC<{form: FormInstance, giftSelect: boolean;
+    columns: Array<any>;
+    onChange: (e:any) => void}> = ({form, columns, giftSelect, onChange}) => {
     const [dataSource, setDataSource] = useState<DataType[]>([]);
     const [selectedRowKeys, setSelectedRowsKeys] = useState<React.Key[]>([]);
     const dataState = useModuleContext(s=>s.moduleStore.dataState);
@@ -32,7 +34,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
         setDataSource(result);
     }, [list, refundType]);
 
-    const columns: TableColumnsType<DataType> = useMemo(() => [
+    const columnsMix: TableColumnsType<DataType> = useMemo(() => [
         {
             title: '商品信息',
             dataIndex: 'name',
@@ -45,30 +47,22 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
                 )
             },
         },
-        {
-            title: '下单数量',
-            width: 100,
-            align: 'center',
-            dataIndex: 'goodsCamount',
-        },
-        {
-            title: '商品总价',
-            width: 100,
-            align: 'center',
-            dataIndex: 'contractGoodsMoney',
-        },
-        {
-            title: '商品单价',
-            width: 100,
-            align: 'center',
-            dataIndex: 'pricesetNprice',
-        },
-        {
-            title: '单位',
-            width: 80,
-            align: 'center',
-            dataIndex: 'partsnameNumunit',
-        },
+        ...columns.map(({type, ...restProps}) => {
+            const config = {
+                title: restProps.title,
+                align: restProps.align || 'left',
+                dataIndex: restProps.value,
+                width: restProps.width,
+            }
+            if (type && restProps.value) {
+                return {
+                    ...config,
+                    render: (_: string, record:any, index: number) => <DiyColumnComponent index={index} record={record} code={restProps.value}/>,
+                }
+            } else {
+                return config
+            }
+        }),
         {
             title: '售后数量',
             width: 120,
@@ -79,7 +73,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
                 return (
                     <>
                         {
-                            record.goodsCamount - record.contractGoodsArefnum === 0 || record.contractGoodsGtype === '1' ?
+                            record.goodsCamount - record.contractGoodsArefnum === 0 || (!giftSelect && record.contractGoodsGtype === '1') ?
                                 record.goodsCamount - record.contractGoodsArefnum : dynamicFormFields([
                                 {
                                     type: 'number',
@@ -106,7 +100,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
                 )
             },
         },
-    ], [selectedRowKeys]);
+    ], [selectedRowKeys, columns]);
 
     const rowSelection: TableProps<DataType>['rowSelection'] = {
         selectedRowKeys,
@@ -121,7 +115,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
         },
         getCheckboxProps: (record: DataType) => {
             return {
-                disabled: record.goodsCamount - record.contractGoodsArefnum === 0 || record.contractGoodsGtype === '1', // Column configuration not to be checked
+                disabled: record.goodsCamount - record.contractGoodsArefnum === 0 || (!giftSelect && record.contractGoodsGtype === '1'), // Column configuration not to be checked
                 name: record.goodsName,
             }
         },
@@ -133,7 +127,7 @@ const TableComponent: React.FC<{form: FormInstance, onChange: (e:any) => void}> 
             rowKey={'contractGoodsId'}
             scroll={{ x: 'max-content' }}
             rowSelection={rowSelection}
-            columns={columns}
+            columns={columnsMix}
             dataSource={dataSource}
         />
     );

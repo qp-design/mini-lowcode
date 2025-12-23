@@ -18,7 +18,7 @@ const Inner = ({code, record, index} : { code: string; record: any; index: numbe
     )
 }
 
-const DiyColumnComponent = ({code, record, index} : {code: string; record: object; index: number}) => {
+export const DiyColumnComponent = ({code, record, index} : {code: string; record: object; index: number}) => {
     console.log('index====>', index);
     const store = useModuleContext(s=>s.moduleStore) || {};
     const setModuleStore = useModuleContext(s=>s.setModuleStore);

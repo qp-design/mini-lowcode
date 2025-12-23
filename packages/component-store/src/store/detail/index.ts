@@ -48,6 +48,8 @@ export const useSku = (
   const setModuleStore = useModuleContext((s) => s.setModuleStore);
   const specList = useMemo(() => {
     const list = get(defaultValue, "rsSpecValueDomainList", []);
+    console.log('rsSpecValueDomainList', list)
+
     const data = groupBy(list, "specName") || [];
     return Object.keys(data).map((item: string) => ({
       specName: item,
@@ -57,9 +59,12 @@ export const useSku = (
 
   useEffect(() => {
     const skuList = get(defaultValue, "rsSkuDomainList", []);
+    console.log('skuList', skuList)
     // @ts-ignore
     const selectObj =
       skuList.find((item) => item[dataKey] === defaultValue[dataKey]) || {};
+    console.log('selectObj', selectObj)
+
     const arr = specList.map((item) => {
       const { specValueValue } =
         item.skuOption?.find((c) =>
