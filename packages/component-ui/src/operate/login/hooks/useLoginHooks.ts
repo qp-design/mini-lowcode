@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { loginInByCode, loginOut } from 'qj-b2c-api';
+import { loginInByCode, loginOut, saveUmuserPhoneVCode } from 'qj-b2c-api';
 import { loginIn } from '@brushes/lowcode-component-api';
 import _ from 'lodash';
 import {useNavigate} from "react-router-dom";
@@ -18,7 +18,7 @@ interface DataType {
   };
 }
 
-export function useLoginHooks(_callbackimpl:any) {
+export function useLoginHooks(_callbackimpl:any, type: string) {
   const navigator = useNavigate();
   const setModuleRootStore = useModuleRootContext(s =>s.setModuleRootStore)
   const [loading, setLoading] = useState<boolean>(false);
@@ -60,6 +60,11 @@ export function useLoginHooks(_callbackimpl:any) {
     try {
       const userPhone = values.userPhone;
       const params = _.omit(values, ['userPhone']);
+      if(type === 'b2c') {
+        const data = (await saveUmuserPhoneVCode(values)) as DataType;
+        callbackImpl(data);
+        return;
+      }
       const data = (await loginInByCode({...params, loginName: userPhone})) as DataType;
       callbackImpl(data);
     } catch (err) {

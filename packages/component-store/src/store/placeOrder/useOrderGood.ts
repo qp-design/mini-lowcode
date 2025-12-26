@@ -35,7 +35,7 @@ export const useOrderGood = (storeKey: string) => {
       payStateConfig.contractProperty = v.contractProperty;
       payStateConfig.contractNbillcode = v.contractNbillcode;
       payStateConfig.upmMap = v.upmMap;
-      payStateConfig.rebMoney += v.rebMoney;
+      payStateConfig.rebMoney += v.rebMoney || 0;
       let itemList = [] as Array<typeof initialValueOrder>;
       // 查看商品是否促销
       v.shoppingpackageList.forEach((vk: any, idx) => {
@@ -124,6 +124,7 @@ export const useOrderGood = (storeKey: string) => {
         itemList.push(...vk.shoppingGoodsList, ...(vk.giftList || []));
       });
       contractGoodsList.push(itemList);
+      console.log(127, payStateConfig);
       orderDomainStr.push(payStateConfig);
     });
 

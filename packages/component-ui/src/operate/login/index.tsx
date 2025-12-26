@@ -123,7 +123,7 @@ const useStyles = createStyles(({css}) => {
     }
 })
 
-const LoginWrap: FC<{ children: ReactNode; data: string; protocol?: boolean; _callbackimpl?: (e: any) => void | undefined; isNeedRegister: boolean }> = ({_callbackimpl, isNeedRegister, children, data, protocol = false}) => {
+const LoginWrap: FC<{ children: ReactNode; type: string; data: string; protocol?: boolean; _callbackimpl?: (e: any) => void | undefined; isNeedRegister: boolean }> = ({_callbackimpl, isNeedRegister, children, type = 'b2b', data, protocol = false}) => {
     const [index, setIndex] = useState<number>(0);
     const {styles} = useStyles();
     const formConfig = useMemo(() => {
@@ -136,6 +136,7 @@ const LoginWrap: FC<{ children: ReactNode; data: string; protocol?: boolean; _ca
                     <Register isNeedRegister={isNeedRegister} children={children} dataType={data}/>
                     <HeaderJsx index={index} setIndex={setIndex} menu={['密码登录', '验证码登录']}/>
                     <LoginJsx
+                        type={type}
                         _callbackimpl={_callbackimpl}
                         isNeedRegister={isNeedRegister}
                         dataType={data}

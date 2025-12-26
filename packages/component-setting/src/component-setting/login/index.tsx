@@ -7,6 +7,23 @@ const dataFormField: FieldType[] = [
     name: 'protocol',
     label: '协议默认勾选',
     type: 'switch',
+  },
+  {
+    name: 'type',
+    label: '用户类型',
+    type: 'select',
+    extraProps: {
+      options: [
+        {
+          label: 'b2b',
+          value: 'b2b'
+        },
+        {
+          label: 'b2c',
+          value: 'b2c'
+        }
+      ]
+    }
   }
 ]
 

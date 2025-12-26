@@ -14,12 +14,13 @@ interface LoginType {
     dataType?: string;
     protocol?: boolean
     _callbackimpl: (e:any) => void | undefined;
-    isNeedRegister: boolean
+    isNeedRegister: boolean;
+    type: string;
 }
 
-export const Login: FC<LoginType> = ({ name, _callbackimpl, children, isNeedRegister, dataType, index, formConfig, isNeedRemeber, protocol }) => {
+export const Login: FC<LoginType> = ({ name, type, _callbackimpl, children, isNeedRegister, dataType, index, formConfig, isNeedRemeber, protocol }) => {
     const [form] = Form.useForm();
-    const { buttonText, mode, actionImpl, onFinish, loading, LoginToRegisterImpl } = useLoginAndRegister(isNeedRemeber, _callbackimpl);
+    const { buttonText, mode, actionImpl, onFinish, loading, LoginToRegisterImpl } = useLoginAndRegister(isNeedRemeber, _callbackimpl, type);
     useEffect(() => {
         if(dataType?.includes('mode=register')) {
             LoginToRegisterImpl();

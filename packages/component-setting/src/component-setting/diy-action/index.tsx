@@ -27,6 +27,14 @@ const containerField: FieldType[] = [
     type: 'text',
   },
   {
+    name: 'description',
+    label: '弹出框内容描述',
+    type: 'textarea',
+    extraProps: {
+      placeholder: '默认标题拼接'
+    }
+  },
+  {
     name: 'callbackName',
     label: '回调函数的名',
     type: 'text',

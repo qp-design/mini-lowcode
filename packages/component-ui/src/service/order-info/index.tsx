@@ -30,6 +30,7 @@ const OrderInfo = ({storeKey, padding, margin, contractType, ...props}:{contract
     } = useOrderInfo();
 
     useEffect(() => {
+        console.log('isOnlyFreight=>', isOnlyFreight);
         if(isOnlyFreight) {
             // setPayMoney(freightValue);
             setModuleStore({

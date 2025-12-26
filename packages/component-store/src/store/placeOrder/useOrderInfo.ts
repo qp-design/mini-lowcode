@@ -67,7 +67,7 @@ export function useOrderInfo() {
         discount,
         totalDiscountPrice,
         goodsCamount,
-        rebMoney,
+        rebMoney = 0,
       } = item;
       obj.shoppingCountPrice +=
         shoppingCountPrice -

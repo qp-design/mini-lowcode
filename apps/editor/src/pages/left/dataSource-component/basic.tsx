@@ -52,7 +52,8 @@ const basic : Array<TypeComponent> = [
     setting: {
       props: {
         isNeedRegister: true,
-        protocol: false
+        protocol: false,
+        type: 'b2b',
       },
       related: {
         settings: LoginComponentSettings,

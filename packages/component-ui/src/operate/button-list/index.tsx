@@ -18,7 +18,7 @@ export type ButtonTypePlus = {
     [key: string]: any;
 };
 
-const DiyAction = ({title, api, storeKey = '_skuInfo', callbackName, callbackNameParent, fontSize, paramKey, value, padding = {}, _callbackimpl = ''}:any) => {
+const DiyAction = ({title, api, description, storeKey = '_skuInfo', callbackName, callbackNameParent, fontSize, paramKey, value, padding = {}, _callbackimpl = ''}:any) => {
     const record = useModuleContext(s=>s.moduleStore[storeKey]);
     const [loading, setLoading] = useState(false);
     const retry = useModuleContext(s=>s.moduleStore[callbackName]);
@@ -47,7 +47,7 @@ const DiyAction = ({title, api, storeKey = '_skuInfo', callbackName, callbackNam
         <Spin spinning={loading}>
             <Popconfirm
                 title={title}
-                description={`你确定要${title}?`}
+                description={description ? description : `你确定要${title}?`}
                 onConfirm={onClick}
             >
                 <a style={{fontSize, ...padding}}>{title}</a>
