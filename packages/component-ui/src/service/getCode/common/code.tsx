@@ -3,7 +3,7 @@ import {Button, Form} from 'antd';
 import { sendPhone } from '@brushes/lowcode-component-api';
 import { useMountedRef } from '@brushes/form';
 
-export const CodeJsx = () => {
+export const CodeJsx = ({codeKey}: {codeKey?: string}) => {
     const form = Form.useFormInstance();
     const verCode = form.getFieldValue('verCode');
     const [dataTime, setDataTime] = useState(0);
@@ -30,8 +30,18 @@ export const CodeJsx = () => {
     const fetchCode = () => {
         setLoading(true);
         const { getFieldsValue } = form;
-        const { loginName, userPhone, verCode } = getFieldsValue();
-        sendPhone({ userPhone: loginName || userPhone, code: verCode })
+        const { loginName, userPhone, verCode, ...rest } = getFieldsValue();
+        let params = {
+            userPhone: loginName || userPhone,
+            code: verCode
+        }
+        if(codeKey) {
+            params = {
+                userPhone: rest[codeKey],
+                code: verCode
+            }
+        }
+        sendPhone(params)
             .then(() => {
                 setDataTime(1 * 60);
             })

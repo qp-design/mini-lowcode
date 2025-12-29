@@ -6,7 +6,7 @@ import {fixPrice} from "@brushes/component-tool";
 import {useEffect, useMemo} from "react";
 import {NumberComponent, URComponent} from "../../service";
 
-const OrderInfo = ({storeKey, padding, margin, contractType, ...props}:{contractType: string; storeKey: string; padding: object; margin: object}) => {
+const OrderInfo = ({storeKey, padding, margin, contractType = '06', ...props}:{contractType: string; storeKey: string; padding: object; margin: object}) => {
     useOrderGood(storeKey);
     const [goodsType] = useSearchParamHook(['goodsType']);
     const setModuleStore = useModuleContext(s=>s.setModuleStore);

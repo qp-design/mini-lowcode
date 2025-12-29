@@ -3,7 +3,7 @@ import { Button, Form } from 'antd';
 import { useMountedRef } from '@brushes/form';
 import { get } from '@brushes/request';
 
-export const CodeComponent = ({ api = '/web/ml/muser/sendPhone.json', height = 36 }: { api?: string; height?: number }) => {
+export const CodeComponent = ({ api = '/web/ml/muser/sendPhone.json', codeKey, height = 36 }: { codeKey?: string; api?: string; height?: number }) => {
   const form = Form.useFormInstance();
   const verCode = form.getFieldValue('verCode');
   const [dataTime, setDataTime] = useState(0);
@@ -30,8 +30,19 @@ export const CodeComponent = ({ api = '/web/ml/muser/sendPhone.json', height = 3
   const fetchCode = () => {
     setLoading(true);
     const { getFieldsValue } = form;
-    const { loginName, userPhone, userinfoConPhone, verCode } = getFieldsValue();
-    get(api, { userPhone: loginName || userPhone || userinfoConPhone, code: verCode })
+    const { loginName, userPhone, userinfoConPhone, verCode, ...rest } = getFieldsValue();
+    let params = {
+      userPhone: loginName || userPhone || userinfoConPhone,
+      code: verCode
+    }
+    if(codeKey) {
+      params = {
+        userPhone: rest[codeKey],
+        code: verCode
+      }
+    }
+
+    get(api, params)
       .then(() => {
         setDataTime(1 * 60);
       })

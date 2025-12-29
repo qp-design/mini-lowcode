@@ -79,7 +79,7 @@ const code: Array<FieldType> = [
                                     autoComplete: 'off',
                                     shouldUpdate: (prevValue, curValue) => prevValue.verCode !== curValue.verCode,
                                     placeholder: '请输入验证码',
-                                    addonAfter: <CodeJsx/>,
+                                    addonAfter: <CodeJsx codeKey={'newUserPhone'}/>,
                                 }
                             }], form)
                         }
