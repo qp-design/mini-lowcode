@@ -28,15 +28,20 @@ const InputJsx = () => {
         if(goodsTopnum) {
            n = Math.floor(e / goodsMinnum) * goodsMinnum
         }
-        setLoading(true);
-        const {msg} = await post('web/oc/shopping/updateShoppingGoodsNum.json', {
-            shoppingGoodsId: shoppingGoodsId,
-            amount: n,
-            goodWeight: 0,
-        })
-        message.success(msg);
-        retry()
-        setLoading(false);
+        try {
+            setLoading(true);
+            const {msg} = await post('web/oc/shopping/updateShoppingGoodsNum.json', {
+                shoppingGoodsId: shoppingGoodsId,
+                amount: n,
+                goodWeight: 0,
+            })
+            message.success(msg);
+            retry()
+            setLoading(false);
+        } catch (err) {
+            setLoading(false);
+        }
+
     }, 500)
 
     return (
