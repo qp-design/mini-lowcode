@@ -12,7 +12,7 @@ const useStyle = createStyles(({ token, css }, { height }: { height: number }) =
     `
   };
 });
-export const ImageCodeComponent = ({ api = '/web/ml/mlogin/getVerCode.img', height = 40 }: { api?: string; height?: number }) => {
+export const ImageCodeComponent = ({ api = '/web/ml/mlogin/getVerCode.img', codeKey, height = 40 }: { api?: string; codeKey?:string; height?: number }) => {
   const { styles } = useStyle({ height });
   const form = Form.useFormInstance();
   const isDisabled = form.getFieldValue('isDisabled');
@@ -28,9 +28,14 @@ export const ImageCodeComponent = ({ api = '/web/ml/mlogin/getVerCode.img', heig
   const fetchCode = () => {
     setLoading(true);
     const { getFieldsValue } = form;
-    const { loginName, userPhone, userinfoConPhone } = getFieldsValue();
-    const value = loginName || userPhone || userinfoConPhone;
-    fetch(`${api}?userPhone=${value}`)
+    const { loginName, userPhone, userinfoConPhone, ...rest } = getFieldsValue();
+
+    let params = loginName || userPhone || userinfoConPhone;
+    if(codeKey) {
+      params =  rest[codeKey]
+    }
+
+    fetch(`${api}?userPhone=${params}`)
       .then((code) => {
         return code;
       })
