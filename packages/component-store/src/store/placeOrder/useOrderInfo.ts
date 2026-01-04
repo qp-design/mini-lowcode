@@ -89,10 +89,8 @@ export function useOrderInfo() {
       // 加入优惠券信息
       if (item.pbCode) {
         if (["0005", "B0005"].includes(item.pbCode)) {
-          obj.couponMoney += Number(
-              obj.totalMoney * (1 - item.discAmount / 100).toFixed(2),
-          );
-          couponMoney = Number(obj.totalMoney * (1 - item.discAmount / 100).toFixed(2),)
+          obj.couponMoney += obj.totalMoney * (1 - item.discAmount / 100);
+          couponMoney = obj.totalMoney * (1 - item.discAmount / 100)
         } else if (
             ["0004", "0003", "B0004", "B0003"].includes(item.pbCode)
         ) {
@@ -101,8 +99,8 @@ export function useOrderInfo() {
         }
         couponList.push({
           contractSettlBlance: PromotionInType[item.promotionInType],
-          contractSettlGmoney: couponMoney,
-          contractSettlPmoney: couponMoney,
+          contractSettlGmoney: couponMoney.toFixed(2),
+          contractSettlPmoney: couponMoney.toFixed(2),
           contractSettlOpno: item.usercouponCode,
           contractSettlOpemo: item.promotionCode,
         });
