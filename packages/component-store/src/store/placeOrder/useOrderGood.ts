@@ -71,15 +71,19 @@ export const useOrderGood = (storeKey: string) => {
         // 优惠信息ocContractSettlList 数据指插入第一个
         if (idx === 0 && !attrs.has(vk.promotionCode)) {
           // 优惠
+          let obj = {};
           if (vk.disMoney > 0) {
-            ocContractSettlList.push({
-              contractSettlBlance: PromotionInType[vk.promotionInType],
+            obj = {
               contractSettlGmoney: Number(vk.disMoney.toFixed(2)),
               contractSettlPmoney: Number(vk.disMoney.toFixed(2)),
-              contractSettlOpno: vk.promotionCode,
-              contractSettlOpemo: vk.promotionName,
-            });
+            }
           }
+          ocContractSettlList.push({
+            contractSettlBlance: PromotionInType[vk.promotionInType],
+            contractSettlOpno: vk.promotionCode,
+            contractSettlOpemo: vk.promotionName,
+            ...obj,
+          });
           // //优惠券
           // if(!isEmpty(_selectCoupon)) {
           //   ocContractSettlList.push({
