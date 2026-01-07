@@ -69,7 +69,7 @@ export const useOrderGood = (storeKey: string) => {
         });
 
         // 优惠信息ocContractSettlList 数据指插入第一个
-        if (idx === 0 && !attrs.has(vk.promotionCode)) {
+        if (idx === 0 && !attrs.has(vk.promotionCode) && vk.promotionCode) {
           // 优惠
           let obj = {};
           if (vk.disMoney > 0) {
