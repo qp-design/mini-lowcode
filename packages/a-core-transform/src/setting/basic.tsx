@@ -4,7 +4,6 @@ import { dynamicFormFields, useImmutableCallback } from '@brushes/form';
 import { useNode } from '@craftjs/core';
 import type { FieldType } from '@brushes/form';
 import { isUndefined, debounce } from 'lodash';
-import { defaultStyle } from '../style';
 import Title from './title';
 
 export type formConfigType = {
@@ -67,18 +66,7 @@ export const basicSettings = (formFields: formConfigType[], layout?: LayoutType)
           size={'small'}
           ghost
           expandIconPosition={'end'}
-          items={formFields
-            .concat(
-              {
-                title: '样式',
-                formFields: defaultStyle
-              }
-              // {
-              //   title: 'store',
-              //   formFields: storeConfig
-              // }
-            )
-            .map((item: any, indx: number) => ({
+          items={formFields.map((item: any, indx: number) => ({
               key: indx,
               label: <Title title={item.title} />,
               children: <Fragment key={indx}>{dynamicFormFields(item.formFields, form)}</Fragment>

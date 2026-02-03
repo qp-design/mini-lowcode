@@ -1,7 +1,7 @@
 import type {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/core-transform';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
 import {useStyle} from "../logoWithSearch/style";
-import {actionField, SelectPicture} from "../../common";
+import {SelectPicture} from "../../common";
 
 const containerField: FieldType[] = [
     {
@@ -55,10 +55,6 @@ const baseFormField: formConfigType[] = [
     {
         title: '样式',
         formFields: containerField
-    },
-    {
-        title: '逻辑',
-        formFields: actionField
     },
 ]
 export const ImageCompnentSettings = basicSettings(baseFormField)

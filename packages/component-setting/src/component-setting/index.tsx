@@ -1,5 +1,6 @@
 export * from './button';
 export * from './payBuy';
+export * from './cell';
 export * from './login';
 export * from './refundBasic';
 export * from './form'
@@ -64,4 +65,5 @@ export * from './common-item'
 export * from './query-operate'
 export * from './amount'
 export * from './inquiry';
+export * from './gap';
 

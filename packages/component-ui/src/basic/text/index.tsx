@@ -1,9 +1,10 @@
 import {useMemo} from "react";
 import { get } from "lodash";
 import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
-import { HOCCodeWrapComponent } from '@brushes/core-transform';
+// import { HOCCodeWrapComponent } from '@brushes/core-transform-mini';
 import dayjs from 'dayjs';
 import {fixPrice} from "@brushes/component-tool";
+import {useComponent} from "@brushes/simulate-component-mini";
 
 type TextProps = {
     text?: string | number;
@@ -27,7 +28,8 @@ type TextProps = {
     module?:string;
     color?: string
 }
-export const TextJsx: React.FC<TextProps> = ({module = 'moduleStore', ...resetProps}) => {
+
+const TextJsx: React.FC<TextProps> = ({module = 'moduleStore', ...resetProps}) => {
     if(module === 'moduleStore') {
         return <WrapText {...resetProps}/>;
     }
@@ -63,7 +65,7 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
          className,
          ...restProps
     }) => {
-
+    const { View } = useComponent();
     const styleParams = useMemo(() => {
         if(num === 1) {
             return {
@@ -88,7 +90,7 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
                 return fixPrice(+result)
             }
             if(transformData === 'dataType') {
-               const v = (localScheme || []).find(({value = ''}) => value.split(',').includes(result+'')) || {};
+               const v = (localScheme || []).find(({value = ''}) => value.split(',').includes(result+'')) || {label: ''};
                return v.label || text;
             }
             return result ?? text;
@@ -98,7 +100,7 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
     }, [text, code, dataInfo, transformData, localScheme, format]);
 
     return (
-        <div
+        <View
             className={className}
             style={{
                 width,
@@ -113,9 +115,9 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
                 ...padding,
                 ...margin,
                 // textShadow: `0px 0px 2px rgba(0,0,0,${(shadow || 0) / 100})`,
-            }}>{value}</div>
+            }}>{value}</View>
     )
 }
 
-
-export const Text = HOCCodeWrapComponent(TextJsx);
+export const Text = TextJsx;
+// export const Text = HOCCodeWrapComponent(TextJsx);

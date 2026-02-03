@@ -1,6 +1,6 @@
 import {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {paddingField, actionField, marginField} from "../../common";
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
+import {paddingField, marginField} from "../../common";
 
 const containerField: FieldType[] = [
     ...paddingField,
@@ -39,10 +39,6 @@ const baseFormField: formConfigType[] = [
   {
     title: '样式',
     formFields: containerField
-  },
-  {
-    title: '逻辑',
-    formFields: actionField
   },
 ]
 

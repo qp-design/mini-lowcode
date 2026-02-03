@@ -1,6 +1,6 @@
 import type {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {actionField, marginField, paddingField, SelectCube} from "../../common";
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
+import {marginField, paddingField} from "../../common";
 import {FormInstance} from "antd";
 
 const containerField: FieldType[] = [
@@ -206,11 +206,7 @@ const baseFormField: formConfigType[] = [
     {
         title: '数据',
         formFields: dataField
-    },
-    {
-        title: '逻辑',
-        formFields: actionField
-    },
+    }
 ]
 export const TextCompnentSettings = basicSettings(baseFormField)
 

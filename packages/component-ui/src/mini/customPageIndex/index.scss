@@ -1,0 +1,77 @@
+.swiper-banner .wx-swiper-dot {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  margin-bottom: 90px;
+}
+
+.swiper-banner .wx-swiper-dot-active {
+  width: 30px;
+  height: 10px;
+  background-color: #C3181F;
+  border-radius: 10px;
+}
+.customHeaderW {
+  //background-color: blue;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  transition: background-color .3s;
+
+  .icon {
+
+  }
+
+  .nav {
+    //background: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .content {
+      //background: green;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.customPage {
+  position: relative;
+  box-sizing: border-box;
+  .swiper-banner{
+    position: sticky;
+    top: 0;
+    height: 700px;
+  }
+
+  .customRealContent {
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 3;
+    height: 700px;
+
+    .pageTopBg {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .pageTopBgEmpty {
+      width: 100%;
+      position: absolute;
+      height: 300px;
+      top: 0;
+      left: 0;
+      background-color: #FFFFFF;
+    }
+
+  }
+
+}

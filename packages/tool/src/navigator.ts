@@ -7,7 +7,7 @@ export const useNavigateImpl = () => {
         if(typeof path !== 'number' && path.startsWith('http')) {
             window.open(path, '_blank');
         } else {
-            toPath(path)
+            toPath(path as string)
         }
     }
 

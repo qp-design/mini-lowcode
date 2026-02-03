@@ -4,7 +4,7 @@ import { Menu } from 'antd';
 import {useSearchParams} from "react-router-dom";
 import { post } from '@brushes/request';
 import { get } from 'lodash';
-import {useSearchParamHook} from "@brushes/component-store-web";
+import {useSearchParamHook} from "@/uilts";
 import {useModuleRootContext} from "@brushes/component-core";
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -30,7 +30,8 @@ const ItemJsx = ({label, id}: {label:string; id: string}) => {
     setSearchParams({
       target: e.target.dataset.id,
       token: params.get('token') as string,
-      phone: params.get('phone') as string
+      phone: params.get('phone') as string,
+      ...params.get('proappCode') ? {proappCode: params.get('proappCode') as string } : {},
     })
   }
 

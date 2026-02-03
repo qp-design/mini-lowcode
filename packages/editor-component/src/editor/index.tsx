@@ -1,11 +1,7 @@
 import {ReactNode} from "react";
-import * as service from "@brushes/lowcode-component-ui/service";
-import * as basic from "@brushes/lowcode-component-ui/basic";
-import Materials from "@brushes/lowcode-component-ui/components";
-import * as operate from "@brushes/lowcode-component-ui/operate";
+import { Components } from '@brushes/core-transform-mini';
 
-import {Card, Checkbox, Empty, InputNumber, Popconfirm, Spin, Statistic} from "antd";
-import {DynamicForm} from "@brushes/form";
+import {DynamicForm} from "@brushes/mobile-form";
 import {
     Container,
     ContainerWrap,
@@ -16,25 +12,15 @@ import {
     Editor
 } from "@brushes/component-core";
 
-const { Timer } = Statistic;
 export const WrapContainer = ({children, ...restProps}: { enabled?: boolean; children: ReactNode }) => {
     return (
         <Editor
             enabled={false}
             {...restProps}
             resolver={{
-                ...service,
-                ...basic,
-                ...operate,
-                ...Materials,
-                Card,
-                Empty,
-                Timer,
-                InputNumber,
-                Checkbox,
-                Popconfirm,
+                ...Components,
+                // ...hocComponent,
                 DynamicForm,
-                Spin,
                 ModuleProvider,
                 OutContainer,
                 SlotEmpty,

@@ -1,6 +1,10 @@
 //@ts-nocheck
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cacheParams, post } from "@brushes/optimize";
+import {getTaro} from "@brushes/component-tool";
+
+const Taro = getTaro();
+
 import {
   useModuleContext,
   useModuleRootContext,
@@ -10,7 +14,7 @@ import {
   useRootStoreApiParam,
   useStoreApiParam,
 } from "@brushes/component-tool";
-import { isEmpty } from "lodash";
+import {get, isEmpty, rest} from "lodash";
 import { useEditor } from "@craftjs/core";
 
 export const useApiComponent = (
@@ -29,14 +33,15 @@ export const useApiComponent = (
     isSearch?: boolean;
     paramsStore: Array<{ key: string; value: string }> | undefined;
     cacheParamsTime?: number;
+    dataPath: string;
     params: Array<{ key: string; value: string }> | undefined;
   },
 ) => {
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
   }));
+  const hasMore = useRef(false)
 
-  const currentPage = useRef(0);
   const pageCurrent = useRef(
     rows > 0
       ? {
@@ -46,17 +51,13 @@ export const useApiComponent = (
   );
   const searchValue = useRef({});
   const setModuleRootStore = useModuleRootContext((s) => s.setModuleRootStore);
-  const [pageSize, setPageSize] = React.useState(rows);
   const [loading, setLoading] = useState(false);
   const params = useModuleContext((s) => s.moduleStore.params);
   const setModuleStore = useModuleContext((s) => s.setModuleStore);
   const [result, setResult] = useState(
     restParams.componentType === "detail"
       ? JSON.parse(restParams.defaultValue)
-      : {
-          total: 0,
-          list: [{}],
-        },
+      : [{}],
   );
 
   const storeParams = useStoreApiParam(
@@ -68,10 +69,6 @@ export const useApiComponent = (
     restParams.paramsRootStoreKey,
   );
   const apiParams = useApiParam(restParams.params);
-
-  useEffect(() => {
-    setPageSize(rows);
-  }, [rows]);
 
   useEffect(() => {
     (async () => {
@@ -101,15 +98,34 @@ export const useApiComponent = (
     restParams.componentType,
   ]);
 
-  const finallyImpl = (data: any) => {
+  Taro.useReachBottom(() => {
+    console.log(107, hasMore.current);
+    if(hasMore.current) {
+      loadMore()
+    }
+  })
+
+  const loadMore = async () => {
+    ++pageCurrent.current.page;
+    query();
+  }
+
+  const finallyImpl = (data: any, page) => {
     if (enabled && restParams.mockData) {
-      setResult(JSON.parse(restParams.mockData));
+      const res = get(JSON.parse(restParams.mockData), restParams.dataPath, []);
+      setResult(res);
       return;
     }
     try {
-      setResult(data || JSON.parse(restParams.defaultValue));
+      const res = get(data, restParams.dataPath, JSON.parse(restParams.defaultValue));
+      setResult(prevData => {
+        if(page === 1) {
+          return res;
+        }
+        return prevData.concat(res)
+      });
     } catch (err) {
-      setResult(data || {});
+      setResult(data || JSON.parse(restParams.defaultValue));
     }
   };
 
@@ -129,13 +145,20 @@ export const useApiComponent = (
         ...params,
         ...searchValue.current,
       };
+
       const data = await post(
         api,
         restParams.cacheParams
           ? cacheParams(aiParams, restParams.cacheParamsTime || 3)
           : aiParams,
       );
-      currentPage.current = pageCurrent.current.page;
+
+      // 是否满足滚动加载
+      if(data.total && rows > 0) {
+        hasMore.current = data.total > rows * pageCurrent.current.page;
+
+        console.log('=====>', data.total, pageCurrent.current);
+      }
 
       if (restParams.storeKeyTotal) {
         setModuleStore({
@@ -145,10 +168,11 @@ export const useApiComponent = (
         });
       }
 
-      finallyImpl(data);
+      finallyImpl(data, pageCurrent.current.page);
+
     } catch (err) {
       if (err === "游客模式" && restParams.componentType !== "detail") {
-        setResult({ list: [], total: 0 });
+        setResult([]);
         return;
       }
       // 默写场景捕获错误代码
@@ -164,21 +188,9 @@ export const useApiComponent = (
     }
   };
 
-  const onChange = (page: number, pageSize: number) => {
-    setPageSize(pageSize);
-    pageCurrent.current = {
-      ...pageCurrent.current,
-      page,
-      rows: pageSize,
-    };
-    query();
-  };
-
   return {
     result,
-    onChange,
-    pageSize,
-    currentPage,
     loading,
+    hasMore
   };
 };

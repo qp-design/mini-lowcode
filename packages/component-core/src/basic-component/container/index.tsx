@@ -1,24 +1,26 @@
+//@ts-nocheck
 import { ReactNode, useMemo } from 'react';
 import { DefaultJsx } from '../default';
-import { fullpath } from '../../tool';
-import { createStyles } from 'antd-style';
-import { useEditor, useNode } from '@craftjs/core';
-import { ModuleProvider, useModuleContext, useModuleRootContext } from '../../store';
-import { useSearchParams } from 'react-router-dom';
+import { fullpath } from '@/tool';
+import { useEditor } from '@craftjs/core';
+import { ModuleProvider, useModuleContext, useModuleRootContext } from '@/store';
+// import { useSearchParams } from 'react-router-dom';
 import { isEmpty, isUndefined, get } from 'lodash';
+import {useComponent} from "@brushes/simulate-component-mini";
 
-const useStyles = createStyles(({ token, css }) => {
-  return {
-    category: css`
-      &:hover {
-        box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
-      }
-    `,
-    width_100: css`
-      width: 100%;
-    `
-  };
-});
+// import '../../css/index.css'
+// const useStyles = createStyles(({ token, css }) => {
+//   return {
+//     category: css`
+//       &:hover {
+//         box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+//       }
+//     `,
+//     width_100: css`
+//       width: 100%;
+//     `
+//   };
+// });
 export const Inner = ({ children, enabled, root, text }: { text?: string; root?: boolean; enabled: boolean; children: ReactNode }) => {
   return <>{children ? children : enabled ? <DefaultJsx text={text} root={root} /> : ''}</>;
 };
@@ -47,16 +49,13 @@ export const IsShowContainer = ({
 }) => {
   const store = useModuleContext((s) => s.moduleStore[storeKey]);
   const rootStore = useModuleRootContext((s) => s.rootStore[rootKey]);
-
+  const { View } = useComponent();
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled
   }));
 
-  const {
-    connectors: { connect, drag }
-  } = useNode();
-
-  let [searchParams] = useSearchParams();
+    // let [searchParams] = useSearchParams();
+    let searchParams = {};
 
   const nValue = useMemo(() => {
     if (storeKey && store) {
@@ -102,22 +101,21 @@ export const IsShowContainer = ({
 
   if (conditionType || enabled) {
     return (
-      <div
+      <View
         style={{
           ...margin,
           ...padding
         }}
-        ref={(ref: HTMLDivElement) => connect(drag(ref))}
       >
         <Inner enabled={enabled}>{children}</Inner>
-      </div>
+      </View>
     );
   }
 };
 
 export const Container = ({ width, text, children, background, margin = {}, positionValue = {}, padding = {}, backgroundImage, position, $$_actions, $_actions, borderColor, ...props }: any) => {
   // @ts-ignore
-  const { styles } = useStyles();
+  const { View } = useComponent();
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled
   }));
@@ -137,14 +135,14 @@ export const Container = ({ width, text, children, background, margin = {}, posi
     }
     return positionValue;
   }, [positionValue, position]);
-  const {
-    connectors: { connect, drag }
-  } = useNode();
+  // const {
+  //   connectors: { connect, drag }
+  // } = useNode();
 
   return (
-    <div
-      className={enabled ? styles.category : ''}
-      ref={(ref: HTMLDivElement) => connect(drag(ref))}
+    <View
+      className={enabled ? 'editor-category' : ''}
+      // ref={(ref: HTMLDivElement) => connect(drag(ref))}
       style={{
         ...margin,
         display: 'flex',
@@ -161,24 +159,20 @@ export const Container = ({ width, text, children, background, margin = {}, posi
       <Inner text={text} enabled={enabled}>
         {children}
       </Inner>
-    </div>
+    </View>
   );
 };
 
 export const OutContainerComponent = ({ width, api, params, children, background, padding = {}, backgroundImage, ...props }: any) => {
+  const { View } = useComponent();
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled
   }));
 
-  const {
-    connectors: { connect, drag }
-  } = useNode();
-
-  const { styles } = useStyles();
+  // const { styles } = useStyles();
   return (
-    <div
-      ref={(ref: HTMLDivElement) => connect(drag(ref))}
-      className={enabled ? styles.category : ''}
+    <View
+      className={enabled ? 'category' : ''}
       style={{
         margin: '0 auto',
         display: 'flex',
@@ -190,7 +184,7 @@ export const OutContainerComponent = ({ width, api, params, children, background
       }}
     >
       <Inner enabled={enabled}>{children}</Inner>
-    </div>
+    </View>
   );
 };
 
@@ -202,17 +196,13 @@ export const OutContainer = (props: any) => {
   );
 };
 export const ContainerWrap = ({ width, background, children, backgroundImage, height, $$_style = '', $_style = '', ...props }: any) => {
-  const {
-    connectors: { connect, drag }
-  } = useNode();
-
+  const { View } = useComponent();
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled
   }));
   return (
-    <div
+    <View
       {...props}
-      ref={(ref: HTMLDivElement) => connect(drag(ref))}
       style={{
         width,
         paddingBottom: 5,
@@ -223,6 +213,6 @@ export const ContainerWrap = ({ width, background, children, backgroundImage, he
       <Inner root={true} enabled={enabled}>
         {children}
       </Inner>
-    </div>
+    </View>
   );
 };

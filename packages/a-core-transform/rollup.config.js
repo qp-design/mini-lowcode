@@ -5,7 +5,7 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      name: '@brushes/core-transform',
+      name: '@brushes/core-transform-mini',
       file: 'dist/index.js'
     }
   ],

@@ -1,6 +1,6 @@
 import type {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {actionField, marginField, paddingField} from '../../common';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
+import { marginField, paddingField} from '../../common';
 
 const layoutField: FieldType[] = [
     ...marginField,
@@ -105,10 +105,6 @@ const baseFormField: formConfigType[] = [
         title: '数据',
         formFields: containerField
     },
-    // {
-    //     title: '逻辑',
-    //     formFields: actionField
-    // },
 ]
 export const ButtonListSettings = basicSettings(baseFormField, 'vertical')
 

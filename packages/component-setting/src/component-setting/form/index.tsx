@@ -1,4 +1,4 @@
-import {basicSettings, formConfigType} from '@brushes/core-transform';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
 import {FieldType} from '@brushes/form';
 import {marginField, paddingField} from "../../common";
 

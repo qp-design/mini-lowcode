@@ -1,4 +1,4 @@
-import {basicSettings, formConfigType} from '@brushes/core-transform';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
 import {dynamicFormFields, FieldType} from '@brushes/form';
 import {WrapTable} from '../../common';
 

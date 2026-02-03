@@ -1,6 +1,6 @@
 import type {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {actionField, ApiComponent, diyFormTransform, marginField, paddingField} from '../../common';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
+import {ApiComponent, marginField, paddingField} from '../../common';
 
 const containerField: FieldType[] = [
     {
@@ -157,15 +157,7 @@ const baseFormField: formConfigType[] = [
                 }
             },
         ]
-    },
-    {
-        title: '表单值转化',
-        formFields: diyFormTransform
-    },
-    {
-        title: '逻辑',
-        formFields: actionField
-    },
+    }
 ]
 export const SaveOperateComponentSettings = basicSettings(baseFormField)
 

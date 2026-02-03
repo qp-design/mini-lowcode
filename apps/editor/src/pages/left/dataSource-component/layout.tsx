@@ -1,7 +1,7 @@
 import {combine, Container, IsShowContainer, OutContainer} from '@brushes/component-core';
 import {TypeComponent} from '../types';
 import {ContainerSettings, IsShowContainerSettings, OutContainerSettings} from '@brushes/component-setting';
-import {ChildRoute} from "@brushes/lowcode-component-ui/basic";
+// import {ChildRoute} from "@brushes/hoc-component";
 
 const layout: Array<TypeComponent> = [
   {
@@ -12,7 +12,7 @@ const layout: Array<TypeComponent> = [
     setting: {
       props: {
         params: [],
-        width: 1200,
+        width: '100%',
         height: 'auto',
         backgroundImage: '',
         background: 'rgba(255,255,255,0)',
@@ -44,19 +44,19 @@ const layout: Array<TypeComponent> = [
       },
     }
   },
-  {
-    name: '子路由模块',
-    icon: 'icon-text',
-    Component: ChildRoute,
-    isCanvas: true,
-    setting: {
-      props: {
-      },
-      related: {
-        settings: {},
-      },
-    }
-  },
+  // {
+  //   name: '子路由模块',
+  //   icon: 'icon-text',
+  //   Component: ChildRoute,
+  //   isCanvas: true,
+  //   setting: {
+  //     props: {
+  //     },
+  //     related: {
+  //       settings: {},
+  //     },
+  //   }
+  // },
   {
     name: '条件容器',
     icon: 'icon-text',

@@ -1,6 +1,5 @@
-import {basicSettings, formConfigType} from '@brushes/core-transform';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
 import {FieldType} from '@brushes/form';
-import {actionField} from "../../common";
 
 const dataFormField: FieldType[] = [
   {
@@ -31,10 +30,6 @@ const baseFormField: formConfigType[] = [
   {
     title: '基础配置',
     formFields: dataFormField
-  },
-  {
-    title: '逻辑',
-    formFields: actionField
   }
 ]
 

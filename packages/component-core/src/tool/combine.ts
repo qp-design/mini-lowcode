@@ -5,7 +5,7 @@ export function combine(array: Array<any>) {
       Component.craft = setting;
       Component.craft.displayName = item.name;
     } catch (e) {
-      console.error(e, item);
+      console.error('error', e, item);
     }
   });
 }

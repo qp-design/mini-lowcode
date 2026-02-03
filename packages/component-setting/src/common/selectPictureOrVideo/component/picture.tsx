@@ -1,5 +1,5 @@
 import { Spin } from 'antd';
-import { usePicture } from '@brushes/component-store-web';
+import { usePicture } from '../picture';
 import { DynamicForm, NamePath } from '@brushes/form';
 import { defaultFormConfig } from '../config';
 

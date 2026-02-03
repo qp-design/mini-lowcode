@@ -1,8 +1,8 @@
 import {useMemo } from "react";
-import { useSearchParams } from 'react-router-dom';
+import { getTaro } from './getTaro';
 import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
 import { get } from "lodash";
-
+const Taro = getTaro();
 export const useStoreApiParam = (params: {key: string; value: string}[] | undefined, key: string) => {
     const store = useModuleContext((s:any) => s.moduleStore);
     return useMemo(() => {
@@ -44,13 +44,13 @@ export const useRootStoreApiParam = (params: {key: string; value: string}[] | un
 }
 
 export const useApiParam = (params: {key: string; value: string}[] | undefined) => {
-    const [searchParams, ] = useSearchParams();
+    const { params : searchParams = {} } = Taro.useRouter();
 
     return useMemo(() => {
         let newParams = {};
         (params || []).forEach((item: {key: string; value: string}) => {
-            let v = searchParams.get(item.key);
-            if (!searchParams.has(item.key)) {
+            let v = searchParams[item.key];
+            if (!searchParams[item.key]) {
                 v = item.value;
             }
             // @ts-ignore

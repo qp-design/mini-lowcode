@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
+//@ts-nocheck
+import { Fragment, useEffect } from 'react';
 import { Container, Element, ModuleProvider, useModuleContext } from '@brushes/component-core';
-import { HOCCodeWrapComponent } from '@brushes/core-transform';
-import { Empty, Pagination, Spin } from 'antd';
+// import { HOCCodeWrapComponent } from '@brushes/core-transform-mini';
 import { useApiComponent } from '@brushes/component-store-web';
 import { get } from 'lodash';
+import {useComponent} from "@brushes/simulate-component-mini";
+
 
 const CardBasic: React.FC<any> = ({ callbackName, callback, setParentModuleStore, parentStore, parentStoreKey, ...props }) => {
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
-
     useEffect(() => {
         let obj: { [v: string]: any } = {};
         if (callbackName) {
@@ -56,7 +57,6 @@ type CardListType = {
     padding: object;
     margin: object;
     storeKeyTotal?: string;
-    description: string;
     imgKey?: string;
     num: number;
     api: string;
@@ -71,37 +71,39 @@ type CardListType = {
 
 const ApiList: React.FC<
     Partial<CardListType> & {
-    onChange: (page: number, pageSize: number) => void;
     result: { [value: string]: any };
     description: string;
     loading: boolean;
-    currentPage: { current: number };
     callbackName?: string;
-    pagination: boolean;
     parentStoreKey?: string;
 }
-> = ({ rows, loading, callbackName, currentPage, result, pagination, description, onChange, dataPath, padding, margin, gap, num, parentStoreKey, ...restProps }) => {
-    const list = useMemo(() => {
-        if (dataPath) {
-            return get(result, dataPath, []) || [];
-        }
-        return result;
-    }, [result, dataPath]);
-
+> = ({ loading, hasMore, callbackName, result, description, dataPath, padding, margin, gap, num, parentStoreKey, ...restProps }) => {
+    const { View, Empty, Image } = useComponent();
     const parentStore = useModuleContext((s) => s.moduleStore[parentStoreKey]);
     const callback = useModuleContext((s) => s.moduleStore[callbackName]);
     const setModuleStore = useModuleContext((s) => s.setModuleStore);
 
-    if (!list.length || loading) {
+    if (!result.length || (loading && !hasMore.current)) {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', ...margin, ...padding, ...restProps }}>
-                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={description} />
-            </div>
+            <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', ...margin, ...padding, ...restProps }}>
+                <Empty
+                    image={
+                        <Image
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                            }}
+                            src={Empty.PRESENTED_IMAGE_SIMPLE}
+                        />
+                    }
+                    description={description}
+                />
+            </View>
         );
     }
     return (
         <Fragment>
-            <div
+            <View
                 style={{
                     display: 'grid',
                     gap,
@@ -111,19 +113,14 @@ const ApiList: React.FC<
                     ...restProps
                 }}
             >
-                {list.map((item, index) => (
+                {result.map((item, index) => (
                     <Fragment key={index}>
                         <ModuleProvider>
                             <CardBasic parentStoreKey={parentStoreKey} parentStore={parentStore} callbackName={callbackName} setParentModuleStore={setModuleStore} callback={callback} {...item} />
                         </ModuleProvider>
                     </Fragment>
                 ))}
-            </div>
-            {pagination && (
-                <div style={{ marginTop: 20 }}>
-                    <Pagination align="end" pageSizeOptions={[5, 10, 12, 20, 24, 36, 50, 100]} showSizeChanger pageSize={rows} onChange={onChange} current={currentPage.current} total={result.total} />
-                </div>
-            )}
+            </View>
         </Fragment>
     );
 };
@@ -149,11 +146,11 @@ const Api: React.FC<CardListType> = ({
                                          cacheParams = false,
                                          cacheParamsTime = 3,
                                          padding = {},
-                                         pagination,
                                          children,
                                          ...restProps
                                      }) => {
-    const { result, onChange, pageSize, currentPage, loading } = useApiComponent(api, rows, {
+    const { View, Overlay, Loading } = useComponent();
+    const { result, loading, hasMore } = useApiComponent(api, rows, {
         defaultValue,
         params,
         callbackName,
@@ -164,14 +161,25 @@ const Api: React.FC<CardListType> = ({
         paramsStoreKey,
         cacheParams,
         mockData,
+        dataPath,
         cacheParamsTime,
         paramsStore,
         componentType
     });
     if (componentType === 'detail') {
         return (
-            <Spin spinning={loading}>
-                <div
+            <>
+                <Overlay visible={loading}>
+                    <View className="wrapper" style={{
+                        display: 'flex',
+                        height: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <Loading direction="vertical">加载中</Loading>
+                    </View>
+                </Overlay>
+                <View
                     style={{
                         ...margin,
                         ...padding,
@@ -180,35 +188,38 @@ const Api: React.FC<CardListType> = ({
                 >
                     {children}
                     <DetailBasic dataPath={dataPath} storeKey={storeKey} result={result} />
-                    {pagination && result.total ? (
-                        <div style={{ marginTop: 20 }}>
-                            <Pagination align="end" pageSize={pageSize} pageSizeOptions={[5, 10, 12, 20, 24, 36, 50, 100]} showSizeChanger onChange={onChange} current={currentPage.current} total={result.total} />
-                        </div>
-                    ) : null}
-                </div>
-            </Spin>
+                </View>
+            </>
         );
     } else {
         return (
-            <Spin spinning={loading}>
+            <>
                 <ApiList
+                    hasMore={hasMore}
                     loading={loading}
                     description={description}
                     storeKeyTotal={storeKeyTotal}
-                    rows={pageSize}
-                    pagination={pagination}
                     callbackName={callbackName}
                     margin={margin}
                     padding={padding}
                     result={result}
                     dataPath={dataPath}
-                    onChange={onChange}
-                    currentPage={currentPage}
                     {...restProps}
                 />
-            </Spin>
+                <Overlay visible={loading}>
+                    <View className="wrapper" style={{
+                        display: 'flex',
+                        height: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <Loading direction="vertical">加载中</Loading>
+                    </View>
+                </Overlay>
+            </>
         );
     }
 };
 
-export const ApiComponent = HOCCodeWrapComponent(Api);
+// export const ApiComponent = HOCCodeWrapComponent(Api);
+export const ApiComponent = Api;

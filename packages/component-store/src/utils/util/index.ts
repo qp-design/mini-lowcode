@@ -1,6 +1,6 @@
-import { useSearchParams } from "react-router-dom";
-
+import { getTaro } from "@brushes/component-tool";
+const Taro = getTaro()
 export const useSearchParamHook = (keys: string[]) => {
-  let [searchParams] = useSearchParams();
-  return keys.map((item: string) => searchParams.get(item));
+  let { params } = Taro.useRouter();
+  return keys.map((item: string) => params[item]);
 };

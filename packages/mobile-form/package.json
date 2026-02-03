@@ -1,0 +1,39 @@
+{
+  "name": "@brushes/mobile-form",
+  "version": "0.1.21",
+  "description": "'组件库'",
+  "main": "dist/index.js",
+  "sideEffects": [
+    "*.scss",
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "css",
+    "iconfont"
+  ],
+  "scripts": {
+    "start": "concurrently npm:start:*",
+    "start:ts": "rollup -c -w",
+    "build": "rm -rf dist/ && prettier --write src/ && rollup -c",
+    "push": "git add . && git commit -m",
+    "postpush": "git push",
+    "prepublishOnly": "echo 我们准备发布npm包",
+    "publishOnly": "npm run build && npm run push",
+    "postpublishOnly": "npm version patch && npm publish && git push"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@types/node": ">18.0.0",
+    "antd-mobile": "^5.41.1",
+    "prettier": "^2.7.1",
+    "react": "^18.0.0",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "typescript": ">4.0.0"
+  }
+}

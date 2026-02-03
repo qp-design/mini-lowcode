@@ -1,5 +1,5 @@
 import type {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/core-transform';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
 import {useStyle} from "../logoWithSearch/style";
 import {marginField, paddingField, SelectPicture} from "../../common";
 import {positionField} from "../../common/position";

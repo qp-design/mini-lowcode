@@ -1,6 +1,5 @@
 import type {FieldType} from '@brushes/form';
-import {basicSettings, formConfigType} from '@brushes/core-transform';
-import {diyFormConfig} from "../../common";
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
 
 const containerField: FieldType[] = [
   // {

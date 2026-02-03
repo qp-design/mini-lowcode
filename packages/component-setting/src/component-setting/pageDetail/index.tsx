@@ -1,4 +1,4 @@
-import {basicSettings, formConfigType} from '@brushes/core-transform';
+import {basicSettings, formConfigType} from '@brushes/core-transform-mini';
 import {ApiComponent} from "../../common";
 
 

@@ -52,8 +52,6 @@ export default defineConfig(({command}) => {
         customSplitting: {
           'codemirror': ['@codemirror/state', '@codemirror/view', '@codemirror/language'],
           'codemirror-lang': [/@codemirror\/lang-.*/],
-          '@antv/g2': ['@antv/g2'],
-          'antv7': [/@antv\/l7*/],
           // 'antv': ['@antv/l7plot', '@antv/l7', '@antv/g2'],
           // '@antv/l7': ['@antv/l7'],
           // '@antv/g2': ['@antv/g2'],
@@ -70,6 +68,13 @@ export default defineConfig(({command}) => {
       'process.env.REACT_APP_SESSION_VALUE_KEY': `"saas-token"`,
       'process.env.REACT_APP_SESSION_KEY': `"saas-token"`,
       'process.env.REACT_IMG_PATH': '"/paas/shop/"',
+      'ENABLE_TEMPLATE_CONTENT': '"true"',
+      'ENABLE_SIZE_APIS': '"true"',
+      'ENABLE_CONTAINS': '"true"',
+      'ENABLE_CLONE_NODE': '"true"',
+      'ENABLE_ADJACENT_HTML': '"true"',
+      'ENABLE_INNER_HTML': '"true"',
+      'global': 'window',
     },
     resolve: {
       alias: {

@@ -41,7 +41,10 @@ export const InnerApp = () => {
 
   return (
       <>
-        <div id={'container-editor'}>
+        <div id={'container-editor'} style={{
+          width: 375,
+          margin: '0 auto'
+        }}>
           <section>
             <Frame>
               <Element

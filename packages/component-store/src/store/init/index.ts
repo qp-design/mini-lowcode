@@ -8,15 +8,12 @@ export const useQueryInitData = (menuOpcode: string) => {
     const {actions} = useEditor();
     const [appmanageCode] = useSearchParamHook(['appmanageCode']);
     useEffect(() => {
-
-    }, []);
-    useEffect(() => {
         // 平滑滚动到顶部
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth' // 可选：平滑滚动
-        });
+        // window.scrollTo({
+        //     top: 0,
+        //     left: 0,
+        //     behavior: 'smooth' // 可选：平滑滚动
+        // });
         (async () => {
             try {
                 const {modelTagvalueJson} = await post(

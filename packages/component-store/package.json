@@ -1,9 +1,10 @@
 {
   "name": "@brushes/component-store-web",
   "version": "0.0.4",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "start": "rollup -c -w"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.12",

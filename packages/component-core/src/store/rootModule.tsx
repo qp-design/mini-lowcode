@@ -19,6 +19,6 @@ export function ModuleRootProvider({ children, ...props }: ModuleProviderProps) 
 
 export function useModuleRootContext<T>(selector: (state: ModuleRootState) => T): T {
   const store = useContext(ModuleContext);
-  if (!store) throw new Error('Missing ModuleContext.Provider in the tree');
+  if (!store) throw new Error('Missing RootModuleContext.Provider in the tree');
   return useStore(store, selector);
 }

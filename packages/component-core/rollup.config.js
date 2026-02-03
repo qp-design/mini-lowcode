@@ -10,6 +10,6 @@ export default {
     }
   ],
   cache: false,
-  external: ['react-router-dom','react/jsx-runtime','react','antd','@brushes/form','@brushes/request','zustand','lodash','zustand/middleware','@craftjs/core','qj-b2c-api','@brushes/share-resource','antd-style'],
+  external: ['react-router-dom','react/jsx-runtime','react','antd','@brushes/form','@brushes/request','zustand','lodash','zustand/middleware','@craftjs/core','qj-b2c-api','@brushes/share-resource'],
   plugins: [ts({}), terser()]
 };

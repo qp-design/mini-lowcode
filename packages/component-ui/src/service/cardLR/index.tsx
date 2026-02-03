@@ -1,29 +1,18 @@
-import {createStyles} from "antd-style";
 import {Container, Element} from "@brushes/component-core";
-import { HOCCodeWrapComponent } from '@brushes/core-transform';
+// import { HOCCodeWrapComponent } from '@brushes/core-transform-mini';
 import {ImageComponent, Text} from "../../basic";
-
-
-const useStyles = createStyles(({token, css}, {borderColor}: {borderColor: string}) => {
-    return {
-        container: css`
-            overflow: hidden;
-            box-sizing: border-box;
-            border: 1px solid ${borderColor};
-            &:hover{
-                border: 1px solid ${token.colorPrimary};
-            }
-        `,
-    }
-})
+import { useComponent } from "@brushes/simulate-component-mini";
 
 
 const CardLR = ({ padding = {}, borderColor = 'rgba(0,0,0,0)', ...props }: {borderColor: string; padding?: object;}) => {
-    const { styles } = useStyles({borderColor});
+    const { View } = useComponent();
     return (
-        <div
-            className={styles.container}
+        <View
+            // className={styles.container}
             style={{
+                overflow: 'hidden',
+                boxSizing: 'border-box',
+                border: `1px solid ${borderColor}`,
                 ...padding,
                 ...props,
             }}
@@ -82,8 +71,9 @@ const CardLR = ({ padding = {}, borderColor = 'rgba(0,0,0,0)', ...props }: {bord
                     </Container>
                 </Element>
             </Element>
-        </div>
+        </View>
     );
 };
 
-export const CardLRComponent = HOCCodeWrapComponent(CardLR)
+// export const CardLRComponent = HOCCodeWrapComponent(CardLR)
+export const CardLRComponent = CardLR
