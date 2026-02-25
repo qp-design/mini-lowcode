@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+<head>
+    <title>父窗口</title>
+</head>
+<body>
+<h1>父窗口</h1>
+<button id="sendBtn">向子窗口发送消息</button>
+<div id="result"></div>
+
+<!-- 子iframe -->
+<iframe id="childFrame" src="child.html" style="width: 400px; height: 200px; border: 1px solid #ccc;"></iframe>
+
+<script>
+    const frame = document.getElementById('childFrame');
+    const sendBtn = document.getElementById('sendBtn');
+    const resultDiv = document.getElementById('result');
+
+    // 等待iframe加载完成
+    frame.onload = function() {
+        // 向子窗口发送消息
+        sendBtn.onclick = function() {
+            const message = {
+                type: 'CALCULATE',
+                data: { a: 5, b: 3 },
+                formula: "function add(a) {\n    console.log(123123123, a)\n}" // 要计算的表达式
+            };
+
+            // 第二个参数指定目标origin，建议精确设置而非"*"
+            frame.contentWindow.postMessage(message, '*');
+        };
+    };
+
+    // 监听子窗口返回的消息
+    window.addEventListener('message', function(event) {
+        // 安全建议：验证消息来源
+        // if (event.origin !== "https://expected-domain.com") return;
+
+        if (event.data.type === 'RESULT') {
+            resultDiv.innerHTML = `计算结果: ${event.data.value}`;
+        }
+    });
+</script>
+</body>
+</html>
