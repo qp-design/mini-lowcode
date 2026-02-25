@@ -20,11 +20,14 @@
     "postpublishOnly": "npm version patch && npm publish && git push"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "@turbo/gen": "^1.10.12",
     "@types/node": "^20.5.2",
     "@types/react": "^18.2.0",
+    "concurrently": "^9.2.1",
     "eslint-config-custom": "*",
     "react": "^18.2.0",
+    "rollup-plugin-typescript2": "^0.36.0",
     "tsconfig": "*",
     "typescript": "^5.2.2"
   },
