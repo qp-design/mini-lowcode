@@ -9,6 +9,6 @@
   },
   "devDependencies": {
     "@brushes/lowcode-component-ui": "*",
-    "@brushes/component-core": "*"
+    "@brushes/component-core-mini": "*"
   }
 }

@@ -8,7 +8,7 @@ const Taro = getTaro();
 import {
   useModuleContext,
   useModuleRootContext,
-} from "@brushes/component-core";
+} from "@brushes/component-core-mini";
 import {
   useApiParam,
   useRootStoreApiParam,

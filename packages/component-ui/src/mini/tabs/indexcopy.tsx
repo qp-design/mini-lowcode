@@ -1,7 +1,7 @@
 import {useComponent} from "@brushes/simulate-component-mini";
 import {useMemo, useState} from "react";
 import {useSearchParamHook} from "@brushes/component-store-web";
-import {Container, Element} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core-mini";
 
 export const TabsComponent =
     ({columns, direction, padding = {}, ...props} : { padding: object; columns: any; direction: 'horizontal' | 'vertical'}) => {

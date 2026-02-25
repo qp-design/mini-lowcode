@@ -1,6 +1,6 @@
 import {Frame, Element, useEditor} from '@craftjs/core';
 import { Topbar } from '../components/Topbar';
-import { ContainerWrap } from '@brushes/component-core';
+import { ContainerWrap } from '@brushes/component-core-mini';
 import {ContainerWrapSettings} from "@brushes/component-setting";
 import {useEffect} from "react";
 

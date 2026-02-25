@@ -1,5 +1,5 @@
 import {useComponent} from "@brushes/simulate-component-mini";
-import {Container, Element} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core-mini";
 import {HOCCodeWrapComponent} from "@/tools";
 
 export const GridJsx = ({columns, gap, total}: {total: number; gap: number, columns: number}) => {

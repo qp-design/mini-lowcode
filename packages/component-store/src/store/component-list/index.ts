@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { useModuleContext } from "@brushes/component-core";
+import { useModuleContext } from "@brushes/component-core-mini";
 import { useMemo } from "react";
 import { get } from "lodash";
 

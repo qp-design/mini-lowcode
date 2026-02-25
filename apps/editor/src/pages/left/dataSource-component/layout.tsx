@@ -1,4 +1,4 @@
-import {combine, Container, IsShowContainer, OutContainer} from '@brushes/component-core';
+import {combine, Container, IsShowContainer, OutContainer} from '@brushes/component-core-mini';
 import {TypeComponent} from '../types';
 import {ContainerSettings, IsShowContainerSettings, OutContainerSettings} from '@brushes/component-setting';
 // import {ChildRoute} from "@brushes/hoc-component";

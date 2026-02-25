@@ -1,4 +1,4 @@
-import { Frame } from "@brushes/component-core";
+import { Frame } from "@brushes/component-core-mini";
 import { WrapContainer } from "../../editor";
 import { useQueryInitData } from "@brushes/component-store-web";
 

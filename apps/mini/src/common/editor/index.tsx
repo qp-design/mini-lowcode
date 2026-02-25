@@ -9,7 +9,7 @@ import {
     ModuleProvider,
     OutContainer,
     SlotEmpty,
-} from "@brushes/component-core";
+} from "@brushes/component-core-mini";
 import { Editor } from "@craftjs/core"
 
 console.log(18, ModuleProvider);

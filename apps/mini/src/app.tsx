@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { useLaunch } from '@tarojs/taro';
-import {ModuleRootProvider} from "@brushes/component-core";
+import {ModuleRootProvider} from "@brushes/component-core-mini";
 import { wxEngine } from "@brushes/request";
 
 // 在 app.js 中使用

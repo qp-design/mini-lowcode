@@ -9,6 +9,6 @@ export default defineConfig({
     minify: process.env.NODE_ENV === 'production',
     splitting: true,               // 代码分割
     treeshake: true,                // 摇树优化
-    external: ['@brushes/component-core'],  // 外部依赖
+    external: ['@brushes/component-core-mini'],  // 外部依赖
     outDir: 'dist',                 // 输出目录
 })

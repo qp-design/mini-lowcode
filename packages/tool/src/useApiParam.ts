@@ -1,6 +1,6 @@
 import {useMemo } from "react";
 import { getTaro } from './getTaro';
-import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
+import {useModuleContext, useModuleRootContext} from "@brushes/component-core-mini";
 import { get } from "lodash";
 const Taro = getTaro();
 export const useStoreApiParam = (params: {key: string; value: string}[] | undefined, key: string) => {

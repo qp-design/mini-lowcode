@@ -1,5 +1,5 @@
 import {fullpath, transformImageMode} from "@brushes/component-tool";
-import {useModuleContext} from "@brushes/component-core";
+import {useModuleContext} from "@brushes/component-core-mini";
 import {useMemo} from "react";
 import {useComponent} from "@brushes/simulate-component-mini";
 import { HOCCodeWrapComponent } from '@/tools'

@@ -4,7 +4,7 @@ import ContainerMonitor from './container';
 import {ThemeProvider} from 'antd-style';
 import {
     ModuleRootProvider, useModuleRootContext,
-} from "@brushes/component-core";
+} from "@brushes/component-core-mini";
 import {FormWithValidate} from '@brushes/form';
 import {
     App

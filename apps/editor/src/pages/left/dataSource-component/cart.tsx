@@ -1,4 +1,4 @@
-import {combine} from '@brushes/component-core';
+import {combine} from '@brushes/component-core-mini';
 import Materials from '@brushes/lowcode-component-ui/components';
 import {
   AddCartComponentSettings,

@@ -1,5 +1,5 @@
 import {useComponent} from "@brushes/simulate-component-mini";
-import {useModuleContext} from "@brushes/component-core";
+import {useModuleContext} from "@brushes/component-core-mini";
 import { HOCCodeWrapComponent } from '@/tools';
 import { get } from 'lodash';
 

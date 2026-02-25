@@ -1,4 +1,4 @@
-import {Container, Element} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core-mini";
 import {ImageComponent, Text} from "../../basic";
 import { useComponent } from "@brushes/simulate-component-mini";
 

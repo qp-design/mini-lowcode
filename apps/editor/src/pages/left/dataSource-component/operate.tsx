@@ -1,4 +1,4 @@
-import {combine} from '@brushes/component-core';
+import {combine} from '@brushes/component-core-mini';
 import * as Operate from '@brushes/lowcode-component-ui/operate';
 
 import {TypeComponent} from '../types';

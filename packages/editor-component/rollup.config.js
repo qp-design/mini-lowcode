@@ -10,7 +10,7 @@ export default {
     }
   ],
   cache: false,
-  external: ['@brushes/lowcode-component-ui', '@brushes/mobile-form', 'lodash', 'react', 'react/jsx-runtime', '@brushes/component-core', '@brushes/component-store-web', '@brushes/simulate-component-mini'],
+  external: ['@brushes/lowcode-component-ui', '@brushes/mobile-form', 'lodash', 'react', 'react/jsx-runtime', '@brushes/component-core-mini', '@brushes/component-store-web', '@brushes/simulate-component-mini'],
   plugins: [ts({}), terser()]
 };
 

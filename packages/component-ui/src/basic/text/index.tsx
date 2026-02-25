@@ -1,6 +1,6 @@
 import {useMemo} from "react";
 import { get } from "lodash";
-import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
+import {useModuleContext, useModuleRootContext} from "@brushes/component-core-mini";
 import { HOCCodeWrapComponent } from '@/tools';
 import dayjs from 'dayjs';
 import {fixPrice} from "@brushes/component-tool";

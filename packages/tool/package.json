@@ -11,6 +11,6 @@
     "url": "https://github.com/qp-design/web-lowcode.git"
   },
   "devDependencies": {
-    "@brushes/component-core": "^0.0.3"
+    "@brushes/component-core-mini": "^0.0.3"
   }
 }

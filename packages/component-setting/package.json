@@ -14,7 +14,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@brushes/component-core": "*",
+    "@brushes/component-core-mini": "*",
     "@brushes/form": "^1.3.6",
     "@brushes/share-resource": "^1.1.2",
     "@codemirror/autocomplete": "^6.18.6",

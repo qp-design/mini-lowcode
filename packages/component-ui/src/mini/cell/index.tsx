@@ -1,6 +1,6 @@
 import {useComponent} from "@brushes/simulate-component-mini";
 import {ArrowRight} from '@nutui/icons-react-taro'
-import {Container, Element} from "@brushes/component-core";
+import {Container, Element} from "@brushes/component-core-mini";
 import {HOCCodeWrapComponent} from "@/tools";
 
 export const CellJsx = ({columns, divider, title, description}: { title: string; description: string; divider: boolean; columns: Array<{label: string; value: string}>}) => {

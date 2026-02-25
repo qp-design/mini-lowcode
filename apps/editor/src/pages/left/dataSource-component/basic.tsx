@@ -1,4 +1,4 @@
-import {combine} from '@brushes/component-core';
+import {combine} from '@brushes/component-core-mini';
 import * as BasicComponent from '@brushes/lowcode-component-ui';
 
 // import * as ServiceComponent from '@brushes/lowcode-component-ui/service';

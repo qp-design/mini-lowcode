@@ -5,7 +5,7 @@ import {useSearchParams} from "react-router-dom";
 import { post } from '@brushes/request';
 import { get } from 'lodash';
 import {useSearchParamHook} from "@/uilts";
-import {useModuleRootContext} from "@brushes/component-core";
+import {useModuleRootContext} from "@brushes/component-core-mini";
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(

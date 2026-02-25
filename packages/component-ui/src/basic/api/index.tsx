@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { Fragment, useEffect } from 'react';
-import { Container, Element, ModuleProvider, useModuleContext } from '@brushes/component-core';
+import { Container, Element, ModuleProvider, useModuleContext } from '@brushes/component-core-mini';
 import { HOCCodeWrapComponent } from '@/tools';
 import { useApiComponent } from '@brushes/component-store-web';
 import { get } from 'lodash';

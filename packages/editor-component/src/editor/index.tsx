@@ -10,7 +10,7 @@ import {
   OutContainer,
   SlotEmpty,
   Editor,
-} from "@brushes/component-core";
+} from "@brushes/component-core-mini";
 
 export const WrapContainer = ({
   children,
