@@ -1,36 +1,41 @@
-import {ReactNode} from "react";
-import * as Components from '@brushes/lowcode-component-ui';
+import { ReactNode } from "react";
+import * as Components from "@brushes/lowcode-component-ui";
 
-import {DynamicForm} from "@brushes/mobile-form";
+import { DynamicForm } from "@brushes/mobile-form";
 import {
-    Container,
-    ContainerWrap,
-    IsShowContainer,
-    ModuleProvider,
-    OutContainer,
-    SlotEmpty,
-    Editor
+  Container,
+  ContainerWrap,
+  IsShowContainer,
+  ModuleProvider,
+  OutContainer,
+  SlotEmpty,
+  Editor,
 } from "@brushes/component-core";
 
-export const WrapContainer = ({children, ...restProps}: { enabled?: boolean; children: ReactNode }) => {
-    return (
-        <Editor
-            enabled={false}
-            {...restProps}
-            resolver={{
-                ...Components,
-                // ...hocComponent,
-                DynamicForm,
-                ModuleProvider,
-                OutContainer,
-                SlotEmpty,
-                ContainerWrap,
-                Container,
-                IsShowContainer
-            }}>
-            <ModuleProvider>
-                {children}
-            </ModuleProvider>
-        </Editor>
-    )
-}
+export const WrapContainer = ({
+  children,
+  ...restProps
+}: {
+  enabled?: boolean;
+  children: ReactNode;
+}) => {
+  return (
+    <Editor
+      enabled={false}
+      {...restProps}
+      resolver={{
+        ...Components,
+        // ...hocComponent,
+        DynamicForm,
+        ModuleProvider,
+        OutContainer,
+        SlotEmpty,
+        ContainerWrap,
+        Container,
+        IsShowContainer,
+      }}
+    >
+      <ModuleProvider>{children}</ModuleProvider>
+    </Editor>
+  );
+};

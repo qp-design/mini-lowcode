@@ -5,12 +5,12 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      name: '@brushes/editor-component',
+      name: '@brushes/editor-component-mini',
       file: 'dist/index.js'
     }
   ],
   cache: false,
-  external: ['@brushes/component-tool', 'lodash', 'react', 'react/jsx-runtime', '@brushes/component-core', '@brushes/component-store-web', '@brushes/simulate-component-mini'],
+  external: ['@brushes/lowcode-component-ui', '@brushes/mobile-form', 'lodash', 'react', 'react/jsx-runtime', '@brushes/component-core', '@brushes/component-store-web', '@brushes/simulate-component-mini'],
   plugins: [ts({}), terser()]
 };
 

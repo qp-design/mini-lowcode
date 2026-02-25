@@ -10,7 +10,7 @@ import {
     App
 } from "antd";
 // 在应用入口文件顶部引入 antd 样式
-import {WrapContainer} from '@brushes/editor-component';
+import {WrapContainer} from '@brushes/editor-component-mini';
 
 
 const EditorMode = () => {

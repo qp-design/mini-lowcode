@@ -1,4 +1,4 @@
-import {Common} from "@brushes/editor-component";
+import {Common} from "@brushes/editor-component-mini";
 import {useComponent} from "@brushes/simulate-component-mini";
 
 import './index.scss'
