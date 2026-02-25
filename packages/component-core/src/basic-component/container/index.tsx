@@ -6,7 +6,7 @@ import { useEditor } from '@craftjs/core';
 import { ModuleProvider, useModuleContext, useModuleRootContext } from '@/store';
 // import { useSearchParams } from 'react-router-dom';
 import { isEmpty, isUndefined, get } from 'lodash';
-import {useComponent} from "@brushes/simulate-component-mini";
+import { useComponent } from '@brushes/simulate-component-mini';
 
 // import '../../css/index.css'
 // const useStyles = createStyles(({ token, css }) => {
@@ -54,8 +54,8 @@ export const IsShowContainer = ({
     enabled: state.options.enabled
   }));
 
-    // let [searchParams] = useSearchParams();
-    let searchParams = {};
+  // let [searchParams] = useSearchParams();
+  let searchParams = {};
 
   const nValue = useMemo(() => {
     if (storeKey && store) {

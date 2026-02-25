@@ -10,6 +10,6 @@ export default {
     }
   ],
   cache: false,
-  external: ['@brushes/form','zustand/middleware','react/jsx-runtime', '@uiw/react-codemirror','@uiw/codemirror-theme-github','@uiw/codemirror-extensions-langs','@codemirror/lang-javascript','antd-style','react','antd','react-router-dom','@brushes/request','@brushes/share-resource','zustand','@craftjs/core','lodash','qj-b2c-api','@tanstack/react-query','lzutf8','@brushes/optimize','react-error-boundary','sucrase','@antv/l7','@antv/l7plot','@antv/g2','dayjs','@brushes/component-store-web'],
+  external: ['antd', 'react/jsx-runtime', 'react', '@brushes/form', '@craftjs/core', 'lodash'],
   plugins: [ts({}), terser()]
 };

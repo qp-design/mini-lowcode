@@ -1,5 +1,4 @@
 import {Container, Element} from "@brushes/component-core";
-// import { HOCCodeWrapComponent } from '@brushes/core-transform-mini';
 import {ImageComponent, Text} from "../../basic";
 import { useComponent } from "@brushes/simulate-component-mini";
 
@@ -75,5 +74,4 @@ const CardLR = ({ padding = {}, borderColor = 'rgba(0,0,0,0)', ...props }: {bord
     );
 };
 
-// export const CardLRComponent = HOCCodeWrapComponent(CardLR)
 export const CardLRComponent = CardLR

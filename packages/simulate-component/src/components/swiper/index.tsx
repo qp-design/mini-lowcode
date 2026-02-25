@@ -22,15 +22,15 @@ export function SmoothSwiper<T>({
   type,
   render,
   imgHeight,
-  autoplay,
+  autoplay
 }: SwiperType<T>) {
   const [current, setCurrent] = useState(0);
   const { Swiper, Skeleton } = useLocal();
 
   const heightSize = useImageHeight(type, imgHeight);
 
-  const handleSwiperChange = (e:any) => {
-    if(e.detail) {
+  const handleSwiperChange = (e: any) => {
+    if (e.detail) {
       const { current } = e.detail;
       setCurrent(current);
     } else {

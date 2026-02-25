@@ -4,6 +4,5 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/apps/editor" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/apps/main" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/apps/mini-vite" vcs="Git" />
   </component>
 </project>

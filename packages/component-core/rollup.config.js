@@ -5,11 +5,11 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      name: '@brushes/component-core',
+      name: '@brushes/component-core-mini',
       file: 'dist/index.js'
     }
   ],
   cache: false,
-  external: ['react-router-dom','react/jsx-runtime','react','antd','@brushes/form','@brushes/request','zustand','lodash','zustand/middleware','@craftjs/core','qj-b2c-api','@brushes/share-resource'],
+  external: ['@brushes/simulate-component-mini', '@brushes/share-resource', 'react/jsx-runtime','react', 'zustand','lodash','zustand/middleware','@craftjs/core'],
   plugins: [ts({}), terser()]
 };

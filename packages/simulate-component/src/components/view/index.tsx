@@ -11,9 +11,8 @@ export const View = ({ children = '', ...props }: Props) => {
     connectors: { connect, drag }
   } = useNode();
   return (
-      <div
-          ref={(ref: HTMLDivElement) => connect(drag(ref))}
-          {...props}
-      >{children}</div>
+    <div ref={(ref: HTMLDivElement) => connect(drag(ref))} {...props}>
+      {children}
+    </div>
   );
 };

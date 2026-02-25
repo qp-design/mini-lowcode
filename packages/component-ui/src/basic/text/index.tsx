@@ -1,7 +1,7 @@
 import {useMemo} from "react";
 import { get } from "lodash";
 import {useModuleContext, useModuleRootContext} from "@brushes/component-core";
-// import { HOCCodeWrapComponent } from '@brushes/core-transform-mini';
+import { HOCCodeWrapComponent } from '@/tools';
 import dayjs from 'dayjs';
 import {fixPrice} from "@brushes/component-tool";
 import {useComponent} from "@brushes/simulate-component-mini";
@@ -119,5 +119,6 @@ const TextInner: React.FC<TextProps & { dataInfo: object }> =
     )
 }
 
-export const Text = TextJsx;
-// export const Text = HOCCodeWrapComponent(TextJsx);
+// export const Text = TextJsx;
+
+export const Text = HOCCodeWrapComponent(TextJsx);

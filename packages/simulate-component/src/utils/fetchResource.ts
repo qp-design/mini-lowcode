@@ -1,4 +1,4 @@
-import {View} from '../components/view';
+import { View } from '../components/view';
 import { Text } from '../components/text';
 import { getEnv } from '@brushes/utils';
 const gModelMap = new Map(); // 存储组件

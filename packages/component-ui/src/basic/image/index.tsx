@@ -2,6 +2,7 @@ import {fullpath, transformImageMode} from "@brushes/component-tool";
 import {useModuleContext} from "@brushes/component-core";
 import {useMemo} from "react";
 import {useComponent} from "@brushes/simulate-component-mini";
+import { HOCCodeWrapComponent } from '@/tools'
 import { getEnv } from '@brushes/utils';
 
 const isTaro = getEnv();
@@ -19,7 +20,7 @@ const ImageJsx = ({ image = {}, storeKey = '_skuInfo', fit = 'aspectFill', borde
   }
   ) => {
     const _skuInfo = useModuleContext((s) => s.moduleStore[storeKey]);
-    const { Image : Image2, View } = useComponent();
+    const { Image : Image2 } = useComponent();
     // const { navigator } = useNavigateImpl();
     const value = useMemo(() => {
         if (code && _skuInfo) {
@@ -43,15 +44,13 @@ const ImageJsx = ({ image = {}, storeKey = '_skuInfo', fit = 'aspectFill', borde
     // ...(image.path ? { onClick: () => navigator(image.path) } : {})
     // }
     return (
-        <View>
-            <Image2
-                width={width}
-                height={height}
-                {...imageMode}
-                radius={borderRadius}
-                src={fullpath(value)}
-            />
-        </View>
+        <Image2
+            width={width}
+            height={height}
+            {...imageMode}
+            radius={borderRadius}
+            src={fullpath(value)}
+        />
     )
 }
-export const ImageComponent = ImageJsx
+export const ImageComponent = HOCCodeWrapComponent(ImageJsx);

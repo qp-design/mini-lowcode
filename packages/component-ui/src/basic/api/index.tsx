@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { Fragment, useEffect } from 'react';
 import { Container, Element, ModuleProvider, useModuleContext } from '@brushes/component-core';
-// import { HOCCodeWrapComponent } from '@brushes/core-transform-mini';
+import { HOCCodeWrapComponent } from '@/tools';
 import { useApiComponent } from '@brushes/component-store-web';
 import { get } from 'lodash';
 import {useComponent} from "@brushes/simulate-component-mini";
@@ -221,5 +221,4 @@ const Api: React.FC<CardListType> = ({
     }
 };
 
-// export const ApiComponent = HOCCodeWrapComponent(Api);
-export const ApiComponent = Api;
+export const ApiComponent = HOCCodeWrapComponent(Api);

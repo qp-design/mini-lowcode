@@ -1,7 +1,8 @@
 import {useComponent} from "@brushes/simulate-component-mini";
 import {Container, Element} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@/tools";
 
-export const GridComponent = ({columns, gap, total}: {total: number; gap: number, columns: number}) => {
+export const GridJsx = ({columns, gap, total}: {total: number; gap: number, columns: number}) => {
     const {Grid, ConfigProvider} = useComponent();
 
     return (
@@ -23,3 +24,5 @@ export const GridComponent = ({columns, gap, total}: {total: number; gap: number
             </ConfigProvider>
     )
 }
+
+export const GridComponent = HOCCodeWrapComponent(GridJsx);

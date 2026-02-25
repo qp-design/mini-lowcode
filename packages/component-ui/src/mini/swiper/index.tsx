@@ -2,10 +2,11 @@ import {useComponent} from "@brushes/simulate-component-mini";
 import {useMemo} from "react";
 import {transformImageMode} from "@brushes/component-tool";
 import { getEnv } from '@brushes/utils';
+import {HOCCodeWrapComponent} from "@/tools";
 
 const isTaro = getEnv();
 
-export const SwiperComponent = ({direction = 'horizontal', fit, width, height = 300} : {fit: string, type: number, direction: string;
+const SwiperJsx = ({direction = 'horizontal', fit, width, height = 300} : {fit: string, type: number, direction: string;
     height: number; width: string | number
 }) => {
     const {Swiper, Image} = useComponent();
@@ -46,3 +47,5 @@ export const SwiperComponent = ({direction = 'horizontal', fit, width, height = 
         </Swiper>
     )
 }
+
+export const SwiperComponent = HOCCodeWrapComponent(SwiperJsx);

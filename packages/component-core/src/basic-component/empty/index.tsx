@@ -1,10 +1,10 @@
-import {useComponent} from "@brushes/simulate-component-mini";
+import { useComponent } from '@brushes/simulate-component-mini';
 
 export const SlotEmpty: React.FC<{
   children?: React.ReactNode;
   borderColor?: string;
 }> = ({ children = '当前为插槽容器，可以自定义组件代码。', borderColor = 'rgba(0, 0, 0, 0.1)' }) => {
-    const { View, Text } = useComponent()
+  const { View, Text } = useComponent();
   return (
     <View
       style={{

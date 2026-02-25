@@ -4,11 +4,11 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      name: 'api-index',
+      name: '@brushes/simulate-component-mini',
       dir: 'dist',
     }
   ],
-  external: ['react/jsx-runtime', 'antd-mobile', 'lodash', 'classnames', '@tarojs/components', '@brushes/utils', 'react', 'lodash-es'],
+  external: ['react/jsx-runtime', '@craftjs/core', '@nutui/nutui-react-taro', '@nutui/nutui-react', 'lodash', '@tarojs/components', '@brushes/utils', 'react'],
   plugins: [
     ts({}),
     terser(),

@@ -66,4 +66,5 @@ export * from './query-operate'
 export * from './amount'
 export * from './inquiry';
 export * from './gap';
+export * from './mini-badgeComponent';
 

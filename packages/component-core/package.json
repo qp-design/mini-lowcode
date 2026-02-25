@@ -1,11 +1,11 @@
 {
-  "name": "@brushes/component-core",
+  "name": "@brushes/component-core-mini",
   "version": "0.0.3",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "start": "rollup -c -w",
-    "build": "./scripts/build.sh"
+    "build": "rm -rf dist/ && prettier --write src/ && rollup -c"
   },
   "devDependencies": {
     "@codemirror/lang-css": "^6.3.1",

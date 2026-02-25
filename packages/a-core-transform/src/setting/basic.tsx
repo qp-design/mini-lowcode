@@ -67,10 +67,10 @@ export const basicSettings = (formFields: formConfigType[], layout?: LayoutType)
           ghost
           expandIconPosition={'end'}
           items={formFields.map((item: any, indx: number) => ({
-              key: indx,
-              label: <Title title={item.title} />,
-              children: <Fragment key={indx}>{dynamicFormFields(item.formFields, form)}</Fragment>
-            }))}
+            key: indx,
+            label: <Title title={item.title} />,
+            children: <Fragment key={indx}>{dynamicFormFields(item.formFields, form)}</Fragment>
+          }))}
           defaultActiveKey={['0', '1', '2', '3']}
         />
       </Form>

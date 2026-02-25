@@ -1,7 +1,7 @@
 import { fetchResource } from '@/utils';
 import { ComponentType } from '@/utils/type';
 import { useState } from 'react';
-import {isEmpty} from "lodash";
+import { isEmpty } from 'lodash';
 const resource = fetchResource();
 let isInit = true;
 let component = {} as any;

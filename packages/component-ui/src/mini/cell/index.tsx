@@ -1,8 +1,9 @@
 import {useComponent} from "@brushes/simulate-component-mini";
 import {ArrowRight} from '@nutui/icons-react-taro'
 import {Container, Element} from "@brushes/component-core";
+import {HOCCodeWrapComponent} from "@/tools";
 
-export const CellComponent = ({columns, divider, title, description}: { title: string; description: string; divider: boolean; columns: Array<{label: string; value: string}>}) => {
+export const CellJsx = ({columns, divider, title, description}: { title: string; description: string; divider: boolean; columns: Array<{label: string; value: string}>}) => {
     const { Cell } = useComponent();
 
     return (
@@ -26,3 +27,5 @@ export const CellComponent = ({columns, divider, title, description}: { title: s
         </Cell.Group>
     )
 }
+
+export const CellComponent = HOCCodeWrapComponent(CellJsx);

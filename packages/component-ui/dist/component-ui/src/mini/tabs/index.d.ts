@@ -1,4 +1,5 @@
-export declare const TabsComponent: ({ columns, direction, padding, ...props }: {
+export declare const TabsComponent: ({ columns, direction, activeType, padding, ...props }: {
+    activeType: string;
     padding: object;
     columns: any;
     direction: "horizontal" | "vertical";

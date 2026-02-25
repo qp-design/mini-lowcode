@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import { Components } from '@brushes/core-transform-mini';
+import * as Components from '@brushes/lowcode-component-ui';
 
 import {DynamicForm} from "@brushes/mobile-form";
 import {
