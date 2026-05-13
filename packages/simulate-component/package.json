@@ -1,23 +1,15 @@
 {
   "name": "@brushes/simulate-component-mini",
-  "version": "1.0.1",
+  "version": "1.0.28",
   "description": "'组件库'",
   "main": "dist/index.js",
-  "sideEffects": [
-    "*.scss",
-    "*.css"
-  ],
   "files": [
-    "dist",
-    "css",
-    "iconfont"
+    "dist"
   ],
   "scripts": {
     "start": "concurrently npm:start:*",
     "start:ts": "rollup -c -w",
-    "start:css": "npx nodemon --config ./nodemon.json",
-    "cp-css": "rm -rf css/ && mkdir -p ./css && cp -R src/scss/* ./css",
-    "build": "npm run cp-css && rm -rf dist/ && prettier --write src/ && rollup -c",
+    "build": "rm -rf dist/ && prettier --write src/ && rollup -c",
     "push": "git add . && git commit -m",
     "postpush": "git push",
     "prepublishOnly": "echo 我们准备发布npm包",
@@ -27,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@nutui/nutui-react": "^3.0.18",
-    "@nutui/nutui-react-taro": "^3.0.18"
+    "@nutui/nutui-react-taro": "^3.0.18",
+    "@nutui/nutui-react": "^3.0.18"
   },
   "devDependencies": {
     "@brushes/utils": "latest",

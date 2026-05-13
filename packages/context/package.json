@@ -1,0 +1,26 @@
+{
+  "name": "@brushes/context",
+  "version": "1.0.1",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qp-design/web-lowcode.git"
+  },
+  "dependencies": {
+    "@brushes/component-store-web": "*",
+    "@uiw/react-codemirror": "^4.25.2",
+    "@uiw/codemirror-theme-basic": "^4.23.12",
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@codemirror/autocomplete": "^6.19.1",
+    "@antv/g2": "^5.3.3",
+    "@antv/larkmap": "^1.5.1",
+    "@antv/l7": "^2.23.0",
+    "@antv/l7plot": "^0.5.11",
+    "@craftjs/core": "^0.2.12",
+    "gcoord": "*",
+    "sucrase": "^3.35.0"
+  }
+}

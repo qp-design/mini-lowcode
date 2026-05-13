@@ -10,7 +10,7 @@ export const BadgeJsx = ({columns, storeKey, max}: {max: string; storeKey: strin
         <Cell style={{ justifyContent: 'space-around' }}>
             {
                 columns.map((column, index) => (
-                    <Badge key={index} value={get(_skuInfo, column.key, column.defaultValue)} max={max} top={7} right={7}>
+                    <Badge key={index} value={get(_skuInfo, column.key, column.defaultValue)} max={max} top={0} right={0}>
                         {column.label}
                     </Badge>
                 ))

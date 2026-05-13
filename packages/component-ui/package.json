@@ -32,6 +32,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@brushes/simulate-component-mini": "*",
     "@brushes/component-core-mini": "*",
     "@brushes/component-store-web": "*",
     "@brushes/component-tool": "*",

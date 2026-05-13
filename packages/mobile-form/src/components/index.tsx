@@ -7,7 +7,7 @@ import {
 } from '@/components/types';
 import { dynamicFormFields } from '@/components/dynamicFormFields';
 import { useFormImpl } from '@/components/hooks';
-import {useComponent} from "@brushes/simulate-component-mini";
+import { useComponent } from '@brushes/simulate-component-mini';
 import { type FormInstance } from '@nutui/nutui-react-taro';
 
 export interface FormAddProps {

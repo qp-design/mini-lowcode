@@ -3,7 +3,7 @@ import { NamePath, submitType, TransformType } from '../types';
 import { type FormInstance } from '@nutui/nutui-react-taro';
 import { useImmutableCallback } from '@/util';
 import { useDataComputed } from './useDataComputed';
-import {useComponent} from "@brushes/simulate-component-mini";
+import { useComponent } from '@brushes/simulate-component-mini';
 
 export function useFormImpl(
   form: FormInstance,

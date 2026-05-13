@@ -14,12 +14,14 @@
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "outDir": "dist",
+    "rootDir": "./src",
     "sourceMap": false,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "declaration": true,
-    "types": ["node"]
+    "types": ["node"],
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "*.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js"],
+  "exclude": ["node_modules",]
 }

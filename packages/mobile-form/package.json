@@ -1,6 +1,6 @@
 {
   "name": "@brushes/mobile-form-mini",
-  "version": "0.1.21",
+  "version": "1.0.0",
   "description": "'组件库'",
   "main": "dist/index.js",
   "sideEffects": [

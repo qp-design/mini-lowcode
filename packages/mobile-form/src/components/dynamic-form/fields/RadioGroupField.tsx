@@ -1,4 +1,4 @@
-import {useComponent} from "@brushes/simulate-component-mini";
+import { useComponent } from '@brushes/simulate-component-mini';
 
 type emums = 'vertical' | 'horizontal';
 export default function RadioGroupField({
@@ -13,12 +13,12 @@ export default function RadioGroupField({
   optionsName?: string | undefined;
   optionsKey?: string | undefined;
 }) {
-  const { Radio } = useComponent()
+  const { Radio } = useComponent();
   return (
     <Radio.Group {...extraProps} direction={direction}>
-        {options.map((restItem, idx) => (
-            <Radio value={restItem[optionsKey]}>{restItem[optionsName]}</Radio>
-        ))}
+      {options.map((restItem, idx) => (
+        <Radio value={restItem[optionsKey]}>{restItem[optionsName]}</Radio>
+      ))}
     </Radio.Group>
   );
 }

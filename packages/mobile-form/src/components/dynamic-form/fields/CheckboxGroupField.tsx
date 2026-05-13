@@ -21,11 +21,11 @@ export default function CheckboxGroupField({
   const { Checkbox } = useComponent();
   return (
     <Checkbox.Group {...extraProps} direction={direction}>
-        {options.map((restItem, idx) => (
-          <Checkbox key={idx} value={restItem[optionsKey]}>
-            {restItem[optionsName]}
-          </Checkbox>
-        ))}
+      {options.map((restItem, idx) => (
+        <Checkbox key={idx} value={restItem[optionsKey]}>
+          {restItem[optionsName]}
+        </Checkbox>
+      ))}
     </Checkbox.Group>
   );
 }

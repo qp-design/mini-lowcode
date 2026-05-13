@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import * as Components from "@brushes/lowcode-component-ui";
 
-import { DynamicForm } from "@brushes/mobile-form";
+import { DynamicForm } from "@brushes/mobile-form-mini";
 import {
   Container,
   ContainerWrap,

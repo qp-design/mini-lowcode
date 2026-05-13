@@ -1,4 +1,4 @@
-import {useComponent} from '@brushes/simulate-component-mini';
+import { useComponent } from '@brushes/simulate-component-mini';
 
 export default function UploadField({ ...extraProps }) {
   const { Uploader } = useComponent();

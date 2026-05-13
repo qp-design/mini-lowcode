@@ -27,6 +27,7 @@ export const useQueryInitData = (menuOpcode: string) => {
                         30,
                     ),
                 );
+                console.log(30, modelTagvalueJson);
                 const json = lz.decompress(
                     lz.decodeBase64(
                         modelTagvalueJson ||

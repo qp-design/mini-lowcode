@@ -1,11 +1,9 @@
-import { View } from '../components/view';
-import { Text } from '../components/text';
+import { View, Text } from '../components';
 import { getEnv } from '@brushes/utils';
-const gModelMap = new Map(); // 存储组件
+import { View as TaroView, Text as TaroText } from '@tarojs/components';
 import * as component from '@nutui/nutui-react-taro';
-// import taroComponent from '@tarojs/components';
 
-// console.log(8, taroComponent);
+const gModelMap = new Map(); // 存储组件
 
 function wrapPromise(promise: Promise<any>) {
   let status = 'pending';
@@ -42,13 +40,11 @@ function dynamicLoadComponent() {
         console.log('401=====> b编辑模式', flag);
         let comp = {} as any;
         if (flag) {
-          const { View, Text } = await import('@tarojs/components');
-          comp = { ...component, View, Text };
+          comp = { ...component, View: TaroView, Text: TaroText };
         } else {
           const antdComp = await import('@nutui/nutui-react');
           comp = { ...antdComp, View, Text };
         }
-        console.log(51, comp);
         gModelMap.set('component', comp);
         resolve(comp);
       })();
