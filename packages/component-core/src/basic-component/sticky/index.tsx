@@ -14,23 +14,23 @@ export const StickyComponent = ({ tabBar, backgroundColor = '#fff', height = 60,
     return tabBar ? safe : 0;
   }, [tabBar]);
   return (
-    <View>
+    <>
       <View
         style={{
           boxSizing: 'border-box',
           backgroundColor,
-          zIndex: 1000,
+          zIndex: 999,
           position: isMini ? 'fixed' : 'relative',
           width: '100%',
           left: 0,
           ...padding,
           bottom: num,
-          paddingBottom: bottomSafeHeight
+          paddingBottom: (padding.paddingBottom || 0) + bottomSafeHeight
         }}
       >
         <Element canvas id={'sticky'} is={Container}></Element>
       </View>
       <View style={{ height }}></View>
-    </View>
+    </>
   );
 };

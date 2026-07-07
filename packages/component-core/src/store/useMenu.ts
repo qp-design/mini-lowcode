@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
-import { taroMessage } from '@brushes/utils';
+import { getBaseUrl, taroMessage } from '@brushes/utils';
 import { isEmpty } from 'lodash';
 import { useModuleRootContext } from '@brushes/context';
-import { cacheParams, post } from '@brushes/optimize';
-import { getTaro } from '@brushes/navigator-tool';
-
-const Taro = getTaro();
+import { request, getEnv, getWindowInfo } from '@tarojs/taro';
 
 const tabBarDefault = [
   {
@@ -31,35 +28,52 @@ const tabBarDefault = [
 ];
 
 const fetchMenuIo = () => {
-  return post(
-    '/web/cms/tginfoMenu/queryNewTginfoMenuTree.json',
-    cacheParams(
-      {
+  let baseUrl = getBaseUrl();
+  return new Promise((resolve, reject) => {
+    request({
+      url: `${baseUrl}web/cms/tginfoMenu/queryNewTginfoMenuTree.json`,
+      header: {
+        'saas-Agent': getEnv() === 'WEAPP' ? 'qj-wemini' : 'qj-wap',
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
         dataState: 2
       },
-      10
-    )
-  );
+      success: function (res) {
+        resolve(res.data);
+      },
+      fail: function (res) {
+        reject(res);
+      }
+    });
+  });
 };
 
 export async function useInit() {
   const setModuleRootStore = useModuleRootContext((s) => s.setModuleRootStore);
-  const taroMenu = useModuleRootContext((s) => s.rootStore.routerMap) || {};
+  const taroMenu = useModuleRootContext((s) => s.rootStore.taroMenu) || {};
   const menuImg = useModuleRootContext((s) => s.rootStore.menuImg) || [];
 
   useEffect(() => {
     (async () => {
       try {
-        const sysInfo = Taro.getSystemInfoSync();
-        const { windowWidth, safeArea, screenHeight } = sysInfo;
-        const bottomSafeHeight = screenHeight - safeArea.bottom;
+        const env = getEnv();
+        let safe = 0;
+        let _bottomSafeHeight = 0;
+
+        if (env !== 'WEB') {
+          const sysInfo = getWindowInfo();
+          const { windowWidth, safeArea, screenHeight } = sysInfo;
+          _bottomSafeHeight = screenHeight - safeArea.bottom;
+          safe = Math.floor((windowWidth / 375) * 46);
+        }
 
         const { list: result } = !isEmpty(taroMenu) ? taroMenu : await fetchMenuIo();
+
         // 重新弄一套组装pagePath
         const tabBarData = fetchTabBarPath(result, menuImg);
         // 初始化routerMap
         const { routerMap } = routerMapInit(result);
-
         // //设置页面刷新信息
         if ([[], undefined, null, ''].includes(tabBarData)) {
           taroMessage('租户菜单配置不正确', 'error');
@@ -69,11 +83,14 @@ export async function useInit() {
         //设置路由信息
         setModuleRootStore({
           routerMap,
+          taroMenu: { list: result },
           tabBarData,
-          safe: Math.floor((windowWidth / 375) * 46),
-          _bottomSafeHeight: bottomSafeHeight
+          safe,
+          _bottomSafeHeight
         });
-      } catch (err) {}
+      } catch (err) {
+        console.log(111, err);
+      }
     })();
   }, []);
 }

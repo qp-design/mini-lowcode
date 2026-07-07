@@ -11,8 +11,10 @@ export const PopupComponent = ({
   height,
   tabBar,
   code,
+  backgroundColor = '#fff',
   ...restProps
 }: {
+  backgroundColor?: string;
   tabBar?: boolean;
   title: string;
   code: string;
@@ -57,18 +59,19 @@ export const PopupComponent = ({
         position={position}
         lockScroll
         style={{
+          backgroundColor,
           height: `${height}px`,
-          position: !isMini ? 'absolute' : 'fixed',
-          bottom: num + bottomSafeHeight
+          position: !isMini ? 'relative' : 'fixed',
+          ...(isMini ? { bottom: num } : {}),
+          paddingBottom: bottomSafeHeight
         }}
         overlay={isMini}
         onClose={onClose}
         {...restProps}
         closeable={isMini}
       >
-        <View style={{ ...(['bottom', 'top'].includes(position) ? { overflowY: 'auto' } : { overflowX: 'auto' }), height: `${height}px` }}>
+        <View style={{ ...(['bottom', 'top'].includes(position) ? { overflowY: 'auto', paddingBottom: bottomSafeHeight } : { overflowX: 'auto' }), height: `${height}px` }}>
           <Element canvas id={'popup'} is={Container}></Element>
-          <View style={{ height: safe }} />
         </View>
       </Popup>
     </View>

@@ -1,6 +1,6 @@
 {
   "name": "@brushes/component-core-mini",
-  "version": "0.1.71",
+  "version": "0.1.89",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {

@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { ReactNode, useMemo } from 'react';
 import { DefaultJsx } from '../default';
-import { fullpath } from '@/tool';
+import { fullpath } from '../../tool';
 import { useEditor } from '@craftjs/core';
 import { ModuleProvider, useModuleContext, useModuleRootContext } from '@brushes/context';
 import { isEmpty, isUndefined, get } from 'lodash';
@@ -74,7 +74,7 @@ export const IsShowContainer = ({
   const conditionType = useMemo(() => {
     const condition =
       (routerIsShow && searchParams.hasOwnProperty(routerIsShow) && !routerIsShowValue) || // 1
-      (routerIsShow && searchParams.hasOwnProperty(routerIsShow) && routerIsShowValue && routerIsShowValue.split(',').includes(searchParams.get(routerIsShow) || '')) || // 2
+      (routerIsShow && searchParams.hasOwnProperty(routerIsShow) && routerIsShowValue && routerIsShowValue.split(',').includes(searchParams[routerIsShow] || '')) || // 2
       (storeKey && !moduleShowValue && !moduleIsShow && !isUndefined(store) && !isEmpty(store)) || // 3
       (moduleIsShow && storeKey && !moduleShowValue && !isUndefined(nValue) && !isEmpty(nValue)) || // 4
       (moduleShowValue && storeKey && moduleIsShow && moduleShowValue.split(',').includes(nValue + '')) || // 5
@@ -190,10 +190,8 @@ export const ContainerWrap = ({ width, background, children, backgroundImage, he
     <View
       {...props}
       style={{
-        width,
-        paddingBottom: 5,
         background: backgroundImage ? `url(${fullpath(backgroundImage)}) repeat-x center 0` : background,
-        minHeight: `calc(${height}vh - 110px)`
+        minHeight: `calc(${height}vh - 34px)`
       }}
     >
       <Inner root={true} enabled={enabled}>
